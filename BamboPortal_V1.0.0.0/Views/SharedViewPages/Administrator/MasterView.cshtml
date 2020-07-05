@@ -1,0 +1,1046 @@
+﻿@using BamboPortal_V1._0._0._0.Models.MasterObjetsModel
+
+@{
+    ProfileProperty Profileprop = null;
+    if (ViewBag.ProfileInfo != null)
+    {
+        Profileprop = (ProfileProperty)ViewBag.ProfileInfo;
+    }
+}
+
+<!DOCTYPE html>
+<html direction="rtl" style="direction: rtl">
+<head>
+    <meta charset="utf-8" />
+    <title>
+         @ViewBag.pageTitle
+    </title>
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js">
+    </script>
+    @Styles.RenderFormat(SiteKeys.StyleVersion, "~/Content/MetronicGlobalThemeBundle.css")
+    @*For AdministratorWorkplace Controller*@
+    @Styles.RenderFormat(SiteKeys.StyleVersion, "~/Content/Dashboard.css")
+
+
+
+</head>
+
+<!-- end::Head -->
+<!-- end::Body -->
+<div class="modal fade" id="logoutmodal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">خروج از حساب کاربری</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    از حساب کاربری خارج شوید ؟
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">خیر</button>
+                <a href="@Url.Action("LogOut","AdminLoginAuth")" class="btn btn-danger">بله</a>
+            </div>
+        </div>
+    </div>
+</div>
+<body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--fixed m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
+
+
+
+    <!-- begin:: Page -->
+    <div class="m-grid m-grid--hor m-grid--root m-page">
+
+
+        <!-- BEGIN: Header -->
+        <header id="m_header" class="m-grid__item m-header " m-minimize-offset="200" m-minimize-mobile-offset="200">
+            <div class="m-container m-container--fluid m-container--full-height">
+                <div class="m-stack m-stack--ver m-stack--desktop">
+                    <!-- BEGIN: Brand -->
+                    <div class="m-stack__item m-brand  m-brand--skin-dark ">
+                        <div class="m-stack m-stack--ver m-stack--general">
+                            <div class="m-stack__item m-stack__item--middle m-brand__logo">
+                                <a href="dashboard.html" class="m-brand__logo-wrapper">
+                                    <img alt="" src="@Url.Content("~/AdminDesignResource/demo/default/media/img/logo/logo.png")" />
+                                </a>
+                            </div>
+                            <div class="m-stack__item m-stack__item--middle m-brand__tools">
+
+                                <!-- BEGIN: Left Aside Minimize Toggle -->
+                                <a href="javascript:;" id="m_aside_left_minimize_toggle" class="m-brand__icon m-brand__toggler m-brand__toggler--left m--visible-desktop-inline-block  ">
+                                    <span>
+                                    </span>
+                                </a>
+                                <!-- END -->
+                                <!-- BEGIN: Responsive Aside Left Menu Toggler -->
+                                <a href="javascript:;" id="m_aside_left_offcanvas_toggle" class="m-brand__icon m-brand__toggler m-brand__toggler--left m--visible-tablet-and-mobile-inline-block">
+                                    <span>
+                                    </span>
+                                </a>
+                                <!-- END -->
+                                <!-- BEGIN: Responsive Header Menu Toggler -->
+                                <a id="m_aside_header_menu_mobile_toggle" href="javascript:;" class="m-brand__icon m-brand__toggler m--visible-tablet-and-mobile-inline-block">
+                                    <span>
+                                    </span>
+                                </a>
+                                <!-- END -->
+                                <!-- BEGIN: Topbar Toggler -->
+                                <a id="m_aside_header_topbar_mobile_toggle" href="javascript:;" class="m-brand__icon m--visible-tablet-and-mobile-inline-block">
+                                    <i class="flaticon-more">
+                                    </i>
+                                </a>
+                                <!-- BEGIN: Topbar Toggler -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END: Brand -->
+                    <div class="m-stack__item m-stack__item--fluid m-header-head" id="m_header_nav">
+                        <!-- BEGIN: Horizontal Menu -->
+                        <button class="m-aside-header-menu-mobile-close  m-aside-header-menu-mobile-close--skin-dark " id="m_aside_header_menu_mobile_close_btn">
+                            <i class="la la-close">
+                            </i>
+                        </button>
+                        <div id="m_header_menu" class="m-header-menu m-aside-header-menu-mobile m-aside-header-menu-mobile--offcanvas  m-header-menu--skin-light m-header-menu--submenu-skin-light m-aside-header-menu-mobile--skin-dark m-aside-header-menu-mobile--submenu-skin-dark ">
+                            <ul class="m-menu__nav  m-menu__nav--submenu-arrow ">
+                                <li class="m-menu__item  m-menu__item--submenu m-menu__item--rel" m-menu-submenu-toggle="click" m-menu-link-redirect="1" aria-haspopup="true">
+                                    <a href="javascript:;" class="m-menu__link m-menu__toggle" title="Non functional dummy link">
+                                        <i class="m-menu__link-icon flaticon-support">
+                                        </i>
+                                        <span class="m-menu__link-text">ارتباط با توسعه سیستم هوشمند پاندا</span>
+                                        <i class="m-menu__hor-arrow la la-angle-down">
+                                        </i>
+                                        <i class="m-menu__ver-arrow la la-angle-right">
+                                        </i>
+                                    </a>
+                                    <div class="m-menu__submenu m-menu__submenu--classic m-menu__submenu--left">
+                                        <span class="m-menu__arrow m-menu__arrow--adjust">
+                                        </span>
+                                        <ul class="m-menu__subnav">
+                                            <li class="m-menu__item " aria-haspopup="true">
+                                                <a href="actions.html" class="m-menu__link ">
+                                                    <i class="m-menu__link-icon flaticon-envelope">
+                                                    </i>
+                                                    <span class="m-menu__link-text">ارسال تیکت</span>
+                                                </a>
+                                            </li>
+                                            <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
+                                                <a href="actions.html" class="m-menu__link ">
+                                                    <i class="m-menu__link-icon flaticon-layers">
+                                                    </i>
+                                                    <span class="m-menu__link-title">
+                                                        <span class="m-menu__link-wrap">
+                                                            <span class="m-menu__link-text">صندوق تیکت ها</span>      <span class="m-menu__link-badge">
+                                                                <span class="m-badge m-badge--success">2</span>
+                                                            </span>
+                                                        </span>
+                                                    </span>
+                                                </a>
+                                            </li>
+                                            <li class="m-menu__item  m-menu__item--submenu" m-menu-submenu-toggle="hover" m-menu-link-redirect="1" aria-haspopup="true">
+                                                <a href="javascript:;" class="m-menu__link m-menu__toggle" title="Non functional dummy link">
+                                                    <i class="m-menu__link-icon flaticon-business">
+                                                    </i>
+                                                    <span class="m-menu__link-text">خدمات ما </span>
+                                                    <i class="m-menu__hor-arrow la la-angle-left">
+                                                    </i>
+                                                    <i class="m-menu__ver-arrow la la-angle-right">
+                                                    </i>
+                                                </a>
+                                                <div class="m-menu__submenu m-menu__submenu--classic m-menu__submenu--right">
+                                                    <span class="m-menu__arrow ">
+                                                    </span>
+                                                    <ul class="m-menu__subnav">
+                                                        <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
+                                                            <a href="actions.html" class="m-menu__link ">
+                                                                <i class="m-menu__link-icon flaticon-safe-shield-protection">
+                                                                </i>
+                                                                <span class="m-menu__link-text">ماژول امنیتی</span>
+                                                            </a>
+                                                        </li>
+                                                        <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
+                                                            <a href="actions.html" class="m-menu__link ">
+                                                                <i class="m-menu__link-icon flaticon-analytics">
+                                                                </i>
+                                                                <span class="m-menu__link-text">خدمات دیجیتال مارکتینگ</span>
+                                                            </a>
+                                                        </li>
+                                                        <li class="m-menu__item " m-menu-link-redirect="1" aria-haspopup="true">
+                                                            <a href="actions.html" class="m-menu__link ">
+                                                                <i class="m-menu__link-icon flaticon-computer">
+                                                                </i>
+                                                                <span class="m-menu__link-text">انجام پروژه برنامه نویسی</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li class="m-menu__item " aria-haspopup="true">
+                                                <a href="actions.html" class="m-menu__link ">
+                                                    <i class="m-menu__link-icon flaticon-info">
+                                                    </i>
+                                                    <span class="m-menu__link-text">آموزش پورتال</span>
+                                                </a>
+                                            </li>
+                                            <li class="m-menu__item " aria-haspopup="true">
+                                                <a href="actions.html" class="m-menu__link ">
+                                                    <i class="m-menu__link-icon flaticon-bell">
+                                                    </i>
+                                                    <span class="m-menu__link-text">گزارش مشکل</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- END: Horizontal Menu -->								<!-- BEGIN: Topbar -->
+                        <div id="m_header_topbar" class="m-topbar  m-stack m-stack--ver m-stack--general m-stack--fluid">
+
+
+                            <div class="m-stack__item m-topbar__nav-wrapper">
+                                <ul class="m-topbar__nav m-nav m-nav--inline">
+                                    <li class="m-nav__item m-dropdown m-dropdown--large m-dropdown--arrow m-dropdown--align-center m-dropdown--mobile-full-width m-dropdown--skin-light	m-list-search m-list-search--skin-light"
+                                        m-dropdown-toggle="click" id="m_quicksearch" m-quicksearch-mode="dropdown" m-dropdown-persistent="1">
+
+                                        <a href="dashboard.html#" class="m-nav__link m-dropdown__toggle">
+                                            <span class="m-nav__link-icon">
+                                                <i class="flaticon-search-1">
+                                                </i>
+                                            </span>
+                                        </a>
+                                        <div class="m-dropdown__wrapper">
+                                            <span class="m-dropdown__arrow m-dropdown__arrow--center">
+                                            </span>
+                                            <div class="m-dropdown__inner ">
+                                                <div class="m-dropdown__header">
+                                                    <form class="m-list-search__form">
+                                                        <div class="m-list-search__form-wrapper">
+                                                            <span class="m-list-search__form-input-wrapper">
+                                                                <input id="m_quicksearch_input" autocomplete="off" type="text" name="q" class="m-list-search__form-input" value="" placeholder="جستحو....">
+                                                            </span>
+                                                            <span class="m-list-search__form-icon-close" id="m_quicksearch_close">
+                                                                <i class="la la-remove">
+                                                                </i>
+                                                            </span>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="m-dropdown__body">
+                                                    <div class="m-dropdown__scrollable m-scrollable" data-scrollable="true" data-height="300" data-mobile-height="200">
+                                                        <div class="m-dropdown__content">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="m-nav__item m-topbar__notifications m-topbar__notifications--img m-dropdown m-dropdown--large m-dropdown--header-bg-fill m-dropdown--arrow m-dropdown--align-center 	m-dropdown--mobile-full-width" m-dropdown-toggle="click" m-dropdown-persistent="1">
+                                        <a href="dashboard.html#" class="m-nav__link m-dropdown__toggle" id="m_topbar_notification_icon">
+                                            <span class="m-nav__link-badge m-badge m-badge--dot m-badge--dot-small m-badge--danger">
+                                            </span>
+                                            <span class="m-nav__link-icon">
+                                                <i class="flaticon-alarm">
+                                                </i>
+                                            </span>
+                                        </a>
+                                        <div class="m-dropdown__wrapper">
+                                            <span class="m-dropdown__arrow m-dropdown__arrow--center">
+                                            </span>
+                                            <div class="m-dropdown__inner">
+                                                <div class="m-dropdown__header m--align-center" style="background: url(@Url.Content("~/AdminDesignResource/app/media/img/misc/notification_bg.jpg")); background-size: cover;">
+                                                    <span class="m-dropdown__header-title">اطلاعیه ها</span>
+                                                    <!--
+                                                    <span class="m-dropdown__header-subtitle">3 مورد جدید</span>
+                                                    -->
+                                                </div>
+                                                <div class="m-dropdown__body">
+                                                    <div class="m-dropdown__content">
+                                                        <ul class="nav nav-tabs m-tabs m-tabs-line m-tabs-line--brand" role="tablist">
+                                                            <li class="nav-item m-tabs__item">
+                                                                <a class="nav-link m-tabs__link active" data-toggle="tab" href="dashboard.html#topbar_notifications_notifications" role="tab">
+                                                                    اطلاعیه های من
+                                                                </a>
+                                                            </li>
+                                                            <li class="nav-item m-tabs__item">
+                                                                <a class="nav-link m-tabs__link" data-toggle="tab" href="dashboard.html#topbar_notifications_events" role="tab">
+                                                                    اطلاعیه های نرم افزار
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="tab-content">
+                                                            <div class="tab-pane active" id="topbar_notifications_notifications" role="tabpanel">
+                                                                <div class="m-scrollable" data-scrollable="true" data-height="250" data-mobile-height="200">
+                                                                    <div class="m-list-timeline m-list-timeline--skin-light">
+                                                                        <div class="m-list-timeline__items">
+                                                                            <div class="m-list-timeline__item">
+                                                                                <span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span>
+                                                                                <span class="m-list-timeline__text">12 کاربر جدید ثبت نام کرده اند</span>
+                                                                                <span class="m-list-timeline__time">هم اکنون</span>
+                                                                            </div>
+                                                                            <div class="m-list-timeline__item">
+                                                                                <span class="m-list-timeline__badge"></span>
+                                                                                <span class="m-list-timeline__text">خاموش شدن سیستم<span class="m-badge m-badge--success m-badge--wide">در انتظار</span></span>
+                                                                                <span class="m-list-timeline__time">14 دقیقه</span>
+                                                                            </div>
+                                                                            <div class="m-list-timeline__item">
+                                                                                <span class="m-list-timeline__badge"></span>
+                                                                                <span class="m-list-timeline__text">فاکتور جدید</span>
+                                                                                <span class="m-list-timeline__time">20 دقیقه</span>
+                                                                            </div>
+                                                                            <div class="m-list-timeline__item">
+                                                                                <span class="m-list-timeline__badge"></span>
+                                                                                <span class="m-list-timeline__text">استفاده بیش از حد از دیتابیس 80% <span class="m-badge m-badge--info m-badge--wide">حل شده</span></span>
+                                                                                <span class="m-list-timeline__time">1 ساعت</span>
+                                                                            </div>
+                                                                            <div class="m-list-timeline__item">
+                                                                                <span class="m-list-timeline__badge"></span>
+                                                                                <span class="m-list-timeline__text">خطای سیست - <a href="dashboard.html#" class="m-link">بررسی</a></span>
+                                                                                <span class="m-list-timeline__time">2 ساعت</span>
+                                                                            </div>
+                                                                            <div class="m-list-timeline__item m-list-timeline__item--read">
+                                                                                <span class="m-list-timeline__badge"></span>
+                                                                                <span href="" class="m-list-timeline__text">سفارش جدید <span class="m-badge m-badge--danger m-badge--wide">فوری</span></span>
+                                                                                <span class="m-list-timeline__time">7 ساعت</span>
+                                                                            </div>
+                                                                            <div class="m-list-timeline__item m-list-timeline__item--read">
+                                                                                <span class="m-list-timeline__badge"></span>
+                                                                                <span class="m-list-timeline__text">فشار به سرور</span>
+                                                                                <span class="m-list-timeline__time">3 ساعت</span>
+                                                                            </div>
+                                                                            <div class="m-list-timeline__item">
+                                                                                <span class="m-list-timeline__badge"></span>
+                                                                                <span class="m-list-timeline__text">زمان بالا بودن سرور</span>
+                                                                                <span class="m-list-timeline__time">5 ساعت</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="tab-pane" id="topbar_notifications_events" role="tabpanel">
+                                                                <div class="m-scrollable" data-scrollable="true" data-height="250" data-mobile-height="200">
+                                                                    <div class="m-list-timeline m-list-timeline--skin-light">
+                                                                        <div class="m-list-timeline__items">
+                                                                            <div class="m-list-timeline__item">
+                                                                                <span class="m-list-timeline__badge m-list-timeline__badge--state1-success"></span>
+                                                                                <a href="dashboard.html" class="m-list-timeline__text">سفارش جدید</a>
+                                                                                <span class="m-list-timeline__time">هم اکنون</span>
+                                                                            </div>
+                                                                            <div class="m-list-timeline__item">
+                                                                                <span class="m-list-timeline__badge m-list-timeline__badge--state1-danger"></span>
+                                                                                <a href="dashboard.html" class="m-list-timeline__text">فاکتور جدید</a>
+                                                                                <span class="m-list-timeline__time">20 دقیقه</span>
+                                                                            </div>
+                                                                            <div class="m-list-timeline__item">
+                                                                                <span class="m-list-timeline__badge m-list-timeline__badge--state1-success"></span>
+                                                                                <a href="dashboard.html" class="m-list-timeline__text">بالا بودن سرور</a>
+                                                                                <span class="m-list-timeline__time">5 ساعت</span>
+                                                                            </div>
+                                                                            <div class="m-list-timeline__item">
+                                                                                <span class="m-list-timeline__badge m-list-timeline__badge--state1-info"></span>
+                                                                                <a href="dashboard.html" class="m-list-timeline__text">سفارش جدید</a>
+                                                                                <span class="m-list-timeline__time">7 ساعت</span>
+                                                                            </div>
+                                                                            <div class="m-list-timeline__item">
+                                                                                <span class="m-list-timeline__badge m-list-timeline__badge--state1-info"></span>
+                                                                                <a href="dashboard.html" class="m-list-timeline__text">خاموش بودن سیستم</a>
+                                                                                <span class="m-list-timeline__time">11 دقیقه</span>
+                                                                            </div>
+                                                                            <div class="m-list-timeline__item">
+                                                                                <span class="m-list-timeline__badge m-list-timeline__badge--state1-info"></span>
+                                                                                <a href="dashboard.html" class="m-list-timeline__text">یر فعال بودن سرور</a>
+                                                                                <span class="m-list-timeline__time">3 ساعت</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="tab-pane" id="topbar_notifications_logs" role="tabpanel">
+                                                                <div class="m-stack m-stack--ver m-stack--general" style="min-height: 180px;">
+                                                                    <div class="m-stack__item m-stack__item--center m-stack__item--middle">
+                                                                        <span class="">بدون لاگ جدید</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="m-nav__item m-topbar__languages m-dropdown m-dropdown--small m-dropdown--header-bg-fill m-dropdown--arrow m-dropdown--align-right m-dropdown--mobile-full-width" m-dropdown-toggle="click">
+                                        <a href="dashboard.html#" class="m-nav__link m-dropdown__toggle">
+                                            <span class="m-nav__link-text">
+                                                <img class="m-topbar__language-selected-img" src="@Url.Content("~/AdminDesignResource/app/media/img/flags/iran.jpg")">
+                                            </span>
+                                        </a>
+                                        <div class="m-dropdown__wrapper">
+                                            <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust">
+                                            </span>
+                                            <div class="m-dropdown__inner">
+                                                <div class="m-dropdown__header m--align-center" style="background: url(@Url.Content("~/AdminDesignResource/app/media/img/misc/quick_actions_bg.jpg")); background-size: cover;">
+                                                    <span class="m-dropdown__header-subtitle">انتخاب زبان</span>
+                                                </div>
+                                                <div class="m-dropdown__body">
+                                                    <div class="m-dropdown__content">
+                                                        <ul class="m-nav m-nav--skin-light">
+                                                            <li class="m-nav__item m-nav__item--active tshlangmenu tshactive">
+                                                                <a href="dashboard.html#" class="m-nav__link m-nav__link--active">
+                                                                    <span class="m-nav__link-icon">
+                                                                        <img class="m-topbar__language-img" src="@Url.Content("~/AdminDesignResource/app/media/img/flags/iran.jpg")">
+                                                                    </span>
+                                                                    <span class="m-nav__link-title m-topbar__language-text m-nav__link-text">فارسی</span>
+                                                                </a>
+                                                            </li>
+                                                            @*<li class="m-nav__item m-nav__item--active tshlangmenu">
+                                                                    <a href="dashboard.html#" class="m-nav__link m-nav__link--active">
+                                                                        <span class="m-nav__link-icon">
+                                                                            <img class="m-topbar__language-img" src="@Url.Content("~/AdminDesignResource/app/media/img/flags/020-flag.svg")">
+                                                                        </span>
+                                                                        <span class="m-nav__link-title m-topbar__language-text m-nav__link-text">انگلیسی</span>
+                                                                    </a>
+                                                                </li>*@
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img  m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" m-dropdown-toggle="click">
+                                        <a href="dashboard.html#" class="m-nav__link m-dropdown__toggle">
+                                            <span class="m-topbar__userpic">
+                                                <img src="@Url.Content("~/AdminDesignResource/app/media/img/users/user4.jpg")" class="m--img-rounded m--marginless" alt="" />
+                                            </span>
+                                            <span class="m-topbar__username m--hide">نام</span>
+                                        </a>
+                                        <div class="m-dropdown__wrapper">
+                                            <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust">
+                                            </span>
+                                            <div class="m-dropdown__inner">
+                                                <div class="m-dropdown__header m--align-center" style="background: url(@Url.Content("~/AdminDesignResource/app/media/img/misc/user_profile_bg.jpg")); background-size: cover;">
+                                                    <div class="m-card-user m-card-user--skin-dark">
+                                                        <div class="m-card-user__pic">
+
+                                                            @if (Profileprop != null)
+                                                            {
+
+                                                                <img src="@Url.Content(Profileprop.avatarImageSrc)" class="m--img-rounded m--marginless" alt="" />
+                                                            }
+                                                            else
+                                                            {
+
+                                                                <img src="@Url.Content("~/AdminDesignResource/app/media/img/users/user4.jpg")" class="m--img-rounded m--marginless" alt="" />
+                                                            }
+                                                            <!--<span class="m-type m-type&#45;&#45;lg m&#45;&#45;bg-danger">
+                                                            <span class="m&#45;&#45;font-light">S</span>
+                                                            </span>-->
+                                                        </div>
+                                                        <div class="m-card-user__details tshcursornormal">
+                                                            @if (Profileprop != null)
+                                                            {
+                                                                <span class="m-card-user__name m--font-weight-500">@Profileprop.name</span>
+                                                                <a class="m-card-user__email m--font-weight-300 m-link tshuseridcolor">@Profileprop.fullname</a>
+                                                                <a class="m-card-user__email m--font-weight-300 m-link tshuseridcolor">آی پی شما : @Profileprop.ipAdmin</a>
+
+                                                            }
+                                                            else
+                                                            {
+                                                                <span class="m-card-user__name m--font-weight-500">بدون نام</span>
+                                                                <a class="m-card-user__email m--font-weight-300 m-link tshuseridcolor">بدون مشخصات</a>
+
+
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="m-dropdown__body">
+                                                    <div class="m-dropdown__content">
+                                                        <ul class="m-nav m-nav--skin-light">
+                                                            <li class="m-nav__item">
+                                                                <a href="profile.html" class="m-nav__link">
+                                                                    <i class="m-nav__link-icon flaticon-share">
+                                                                    </i>
+                                                                    <span class="m-nav__link-text">پروفایل</span>
+                                                                </a>
+                                                            </li>
+                                                            <li class="m-nav__item">
+                                                                <a href="profile.html" class="m-nav__link">
+                                                                    <i class="m-nav__link-icon flaticon-profile-1">
+                                                                    </i>
+                                                                    <span class="m-nav__link-title">
+                                                                        <span class="m-nav__link-wrap">
+                                                                            <span class="m-nav__link-text">پیام ها</span>
+                                                                            <span class="m-nav__link-badge">
+                                                                                <span class="m-badge m-badge--success">2</span>
+                                                                            </span>
+                                                                        </span>
+                                                                    </span>
+                                                                </a>
+                                                            </li>
+                                                            <li class="m-nav__separator m-nav__separator--fit">
+                                                            </li>
+                                                            <li class="m-nav__item tshtextleft">
+                                                                <a href="snippets/pages/user/dashboard.html#" data-toggle="modal" data-target="#logoutmodal" class="btn m-btn--pill btn-danger m-btn m-btn--custom m-btn--label-brand m-btn--bolder">خروچ</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li id="m_quick_sidebar_toggle" class="m-nav__item">
+                                        <a href="@Url.Action("index","AdministratorWorkplace")" class="m-nav__link m-dropdown__toggle">
+                                            <span class="m-nav__link-icon">
+                                                <i class="flaticon-grid-menu">
+                                                </i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- END: Topbar -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- END: Header -->
+        <!-- begin::Body -->
+        <div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-body">
+
+            <!-- BEGIN: Left Aside -->
+            <button class="m-aside-left-close  m-aside-left-close--skin-dark " id="m_aside_left_close_btn">
+                <i class="la la-close">
+                </i>
+            </button>
+
+            <div id="m_aside_left" class="m-grid__item	m-aside-left  m-aside-left--skin-dark ">
+                <!-- BEGIN: Aside Menu -->
+                <div id="m_ver_menu" class="m-aside-menu  m-aside-menu--skin-dark m-aside-menu--submenu-skin-dark " m-menu-vertical="1" m-menu-scrollable="1" m-menu-dropdown-timeout="500" style="position: relative;">
+                    <ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
+                        <li class="m-menu__item m-menu__item--active" aria-haspopup="true">
+                            <a href="@Url.Action("index","AdministratorWorkplace")" class="m-menu__link ">
+                                <i class="m-menu__link-icon flaticon-line-graph">
+                                </i>
+                                <span class="m-menu__link-title">
+                                    <span class="m-menu__link-wrap">
+                                        <span class="m-menu__link-text">پیشخوان</span>      <span class="m-menu__link-badge">
+                                            <!--<span class="m-badge m-badge&#45;&#45;danger">2</span>-->
+                                        </span>
+                                    </span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="m-menu__item" aria-haspopup="true">
+                            <a href="Factor_Customers.html" class="m-menu__link ">
+                                <i class="m-menu__link-icon flaticon-users">
+                                </i>
+                                <span class="m-menu__link-title">
+                                    <span class="m-menu__link-wrap">
+                                        <span class="m-menu__link-text">مشتریان</span>      <span class="m-menu__link-badge">
+                                            <!--<span class="m-badge m-badge&#45;&#45;danger">2</span>-->
+                                        </span>
+                                    </span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                            <a href="javascript:;" class="m-menu__link m-menu__toggle">
+                                <i class="m-menu__link-icon flaticon-user-settings">
+                                </i>
+                                <span class="m-menu__link-text">مدیران</span>
+                                <i class="m-menu__ver-arrow la la-angle-right">
+                                </i>
+                            </a>
+                            <div class="m-menu__submenu ">
+                                <span class="m-menu__arrow">
+                                </span>
+                                <ul class="m-menu__subnav">
+                                    <li class="m-menu__item " aria-haspopup="true">
+                                        <a href="Admin_ShowAdmins.html" class="m-menu__link ">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span>
+                                                </span>
+                                            </i>
+                                            <span class="m-menu__link-text">لیست مدیران</span>
+                                        </a>
+                                    </li>
+                                    <li class="m-menu__item " aria-haspopup="true">
+                                        <a href="Admin_Add_Admin.html" class="m-menu__link ">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span>
+                                                </span>
+                                            </i>
+                                            <span class="m-menu__link-text">افزودن مدیر جدید</span>
+                                        </a>
+                                    </li>
+                                    <li class="m-menu__item " aria-haspopup="true">
+                                        <a href="Admin_AddAdminType.html" class="m-menu__link ">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span>
+                                                </span>
+                                            </i>
+                                            <span class="m-menu__link-text">تعریف نوع</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                            <a href="javascript:;" class="m-menu__link m-menu__toggle">
+                                <i class="m-menu__link-icon flaticon-technology-2">
+                                </i>
+                                <span class="m-menu__link-text">بلاگ</span>
+                                <i class="m-menu__ver-arrow la la-angle-right">
+                                </i>
+                            </a>
+                            <div class="m-menu__submenu ">
+                                <span class="m-menu__arrow">
+                                </span>
+                                <ul class="m-menu__subnav">
+                                    <li class="m-menu__item " aria-haspopup="true">
+                                        <a href="BlogMain_PostTable.html" class="m-menu__link ">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span>
+                                                </span>
+                                            </i>
+                                            <span class="m-menu__link-text">لیست پست ها</span>
+                                        </a>
+                                    </li>
+                                    <li class="m-menu__item " aria-haspopup="true">
+                                        <a href="BlogMain_NewBlogPost.html" class="m-menu__link ">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span>
+                                                </span>
+                                            </i>
+                                            <span class="m-menu__link-text">ارسال پست جدید</span>
+                                        </a>
+                                    </li>
+                                    <li class="m-menu__item " aria-haspopup="true">
+                                        <a href="BlogMain_Add_Blog_Group.html" class="m-menu__link ">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span>
+                                                </span>
+                                            </i>
+                                            <span class="m-menu__link-text">تعریف گروه</span>
+                                        </a>
+                                    </li>
+                                    <li class="m-menu__item " aria-haspopup="true">
+                                        <a href="BlogMain_Add_Blog_Category.html" class="m-menu__link ">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span>
+                                                </span>
+                                            </i>
+                                            <span class="m-menu__link-text">تعریف دسته بندی</span>
+                                        </a>
+                                    </li>
+                                    <li class="m-menu__item " aria-haspopup="true">
+                                        <a href="BlogMain_Add_Blog_Tags.html" class="m-menu__link ">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span>
+                                                </span>
+                                            </i>
+                                            <span class="m-menu__link-text">تعریف برچسب</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                            <a href="javascript:;" class="m-menu__link m-menu__toggle">
+                                <i class="m-menu__link-icon flaticon-cart">
+                                </i>
+                                <span class="m-menu__link-text">سفارشات</span>
+                                <i class="m-menu__ver-arrow la la-angle-right">
+                                </i>
+                            </a>
+                            <div class="m-menu__submenu ">
+                                <span class="m-menu__arrow">
+                                </span>
+                                <ul class="m-menu__subnav">
+                                    <li class="m-menu__item " aria-haspopup="true">
+                                        <a href="Factor_Customers_Buy.html" class="m-menu__link ">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span>
+                                                </span>
+                                            </i>
+                                            <span class="m-menu__link-text">پرداختی ها</span>
+                                        </a>
+                                    </li>
+                                    <li class="m-menu__item " aria-haspopup="true">
+                                        <a href="Factor_ProductSaleList.html" class="m-menu__link ">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span>
+                                                </span>
+                                            </i>
+                                            <span class="m-menu__link-text">میزان فروش هر محصول</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                            <a href="javascript:;" class="m-menu__link m-menu__toggle">
+                                <i class="m-menu__link-icon flaticon-list">
+                                </i>
+                                <span class="m-menu__link-text">فاکتور ها</span>
+                                <i class="m-menu__ver-arrow la la-angle-right">
+                                </i>
+                            </a>
+                            <div class="m-menu__submenu ">
+                                <span class="m-menu__arrow">
+                                </span>
+                                <ul class="m-menu__subnav">
+                                    <li class="m-menu__item " aria-haspopup="true">
+                                        <a href="Factor_FactorTable.html" class="m-menu__link ">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span>
+                                                </span>
+                                            </i>
+                                            <span class="m-menu__link-text">فاکتور ها</span>
+                                        </a>
+                                    </li>
+                                    <li class="m-menu__item " aria-haspopup="true">
+                                        <a href="Factor_FactorTable_act=Done.html" class="m-menu__link ">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span>
+                                                </span>
+                                            </i>
+                                            <span class="m-menu__link-text">فاکتور های در حال پرداخت</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                            <a href="javascript:;" class="m-menu__link m-menu__toggle">
+                                <i class="m-menu__link-icon flaticon-cart">
+                                </i>
+                                <span class="m-menu__link-text">محصولات</span>
+                                <i class="m-menu__ver-arrow la la-angle-right">
+                                </i>
+                            </a>
+                            <div class="m-menu__submenu ">
+                                <span class="m-menu__arrow">
+                                </span>
+                                <ul class="m-menu__subnav">
+                                    <li class="m-menu__item " aria-haspopup="true">
+                                        <a href="Product_Product_List.html" class="m-menu__link ">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span>
+                                                </span>
+                                            </i>
+                                            <span class="m-menu__link-text">لیست محصولات</span>
+                                        </a>
+                                    </li>
+                                    <li class="m-menu__item " aria-haspopup="true">
+                                        <a href="Product_Add_Product.html" class="m-menu__link ">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span>
+                                                </span>
+                                            </i>
+                                            <span class="m-menu__link-text">افزودن محصول جدید</span>
+                                        </a>
+                                    </li>
+                                    <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                                        <a href="javascript:;" class="m-menu__link m-menu__toggle">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span>
+                                                </span>
+                                            </i>
+                                            <span class="m-menu__link-text">دسته بندی محصولات</span>
+                                            <i class="m-menu__ver-arrow la la-angle-right">
+                                            </i>
+                                        </a>
+                                        <div class="m-menu__submenu ">
+                                            <span class="m-menu__arrow">
+                                            </span>
+                                            <ul class="m-menu__subnav">
+                                                <li class="m-menu__item " aria-haspopup="true">
+                                                    <a href="Product_ShowCatTree.html" class="m-menu__link ">
+                                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                            <span>
+                                                            </span>
+                                                        </i>
+                                                        <span class="m-menu__link-text">لیست دسته بندی ها</span>
+                                                    </a>
+                                                </li>
+                                                <li class="m-menu__item " aria-haspopup="true">
+                                                    <a href="ProductGroup_AddType.html" class="m-menu__link ">
+                                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                            <span>
+                                                            </span>
+                                                        </i>
+                                                        <span class="m-menu__link-text">تعریف سردسته محصولات</span>
+                                                    </a>
+                                                </li>
+                                                <li class="m-menu__item " aria-haspopup="true">
+                                                    <a href="ProductGroup_AddMainCat.html" class="m-menu__link ">
+                                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                            <span>
+                                                            </span>
+                                                        </i>
+                                                        <span class="m-menu__link-text">تعریف گروه اصلی محصولات</span>
+                                                    </a>
+                                                </li>
+                                                <li class="m-menu__item " aria-haspopup="true">
+                                                    <a href="ProductGroup_AddSubCat.html" class="m-menu__link ">
+                                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                            <span>
+                                                            </span>
+                                                        </i>
+                                                        <span class="m-menu__link-text">تعریف گروه محصولات</span>
+                                                    </a>
+                                                </li>
+                                                <li class="m-menu__item " aria-haspopup="true">
+                                                    <a href="ProductGroup_AddSubCatKey.html" class="m-menu__link ">
+                                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                            <span>
+                                                            </span>
+                                                        </i>
+                                                        <span class="m-menu__link-text">تعریف ویژگی محصولات</span>
+                                                    </a>
+                                                </li>
+                                                <li class="m-menu__item " aria-haspopup="true">
+                                                    <a href="ProductGroup_AddSubCatValue.html" class="m-menu__link ">
+                                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                            <span>
+                                                            </span>
+                                                        </i>
+                                                        <span class="m-menu__link-text">تعریف جزئیات ویژگی ها</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                                        <a href="javascript:;" class="m-menu__link m-menu__toggle">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span>
+                                                </span>
+                                            </i>
+                                            <span class="m-menu__link-text">برچسب ها</span>
+                                            <i class="m-menu__ver-arrow la la-angle-right">
+                                            </i>
+                                        </a>
+                                        <div class="m-menu__submenu ">
+                                            <span class="m-menu__arrow">
+                                            </span>
+                                            <ul class="m-menu__subnav">
+                                                <li class="m-menu__item " aria-haspopup="true">
+                                                    <a href="ProductGroup_AddMainTag.html" class="m-menu__link ">
+                                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                            <span>
+                                                            </span>
+                                                        </i>
+                                                        <span class="m-menu__link-text">تعریف برچسب اصلی</span>
+                                                    </a>
+                                                </li>
+                                                <li class="m-menu__item " aria-haspopup="true">
+                                                    <a href="ProductGroup_AddProductTag.html" class="m-menu__link ">
+                                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                            <span>
+                                                            </span>
+                                                        </i>
+                                                        <span class="m-menu__link-text">تعریف برچسب محصول</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                            <a href="javascript:;" class="m-menu__link m-menu__toggle">
+                                <i class="m-menu__link-icon flaticon-settings">
+                                </i>
+                                <span class="m-menu__link-text">تنظیمات</span>
+                                <i class="m-menu__ver-arrow la la-angle-right">
+                                </i>
+                            </a>
+                            <div class="m-menu__submenu ">
+                                <span class="m-menu__arrow">
+                                </span>
+                                <ul class="m-menu__subnav">
+                                    <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                                        <a href="javascript:;" class="m-menu__link m-menu__toggle">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span>
+                                                </span>
+                                            </i>
+                                            <span class="m-menu__link-text">صفحه ساز</span>
+                                            <i class="m-menu__ver-arrow la la-angle-right">
+                                            </i>
+                                        </a>
+                                        <div class="m-menu__submenu ">
+                                            <span class="m-menu__arrow">
+                                            </span>
+                                            <ul class="m-menu__subnav">
+                                                <li class="m-menu__item " aria-haspopup="true">
+                                                    <a href="aboutus.html" class="m-menu__link ">
+                                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                            <span>
+                                                            </span>
+                                                        </i>
+                                                        <span class="m-menu__link-text">درباره ما</span>
+                                                    </a>
+                                                </li>
+                                                <li class="m-menu__item " aria-haspopup="true">
+                                                    <a href="contactus.html" class="m-menu__link ">
+                                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                            <span>
+                                                            </span>
+                                                        </i>
+                                                        <span class="m-menu__link-text">ارتباط با ما</span>
+                                                    </a>
+                                                </li>
+                                                <li class="m-menu__item " aria-haspopup="true">
+                                                    <a href="news.html" class="m-menu__link ">
+                                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                            <span>
+                                                            </span>
+                                                        </i>
+                                                        <span class="m-menu__link-text">اخبار</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="m-menu__item " aria-haspopup="true">
+                                        <a href="paymentgateway.html" class="m-menu__link ">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span>
+                                                </span>
+                                            </i>
+                                            <span class="m-menu__link-text">درگاه پرداخت</span>
+                                        </a>
+                                    </li>
+                                    <li class="m-menu__item " aria-haspopup="true">
+                                        <a href="enamad.html" class="m-menu__link ">
+                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                <span>
+                                                </span>
+                                            </i>
+                                            <span class="m-menu__link-text">نماد الکترونیک</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- END: Aside Menu -->
+            </div>
+            <!-- END: Left Aside -->
+            <div class="m-grid__item m-grid__item--fluid m-wrapper">
+
+                <!-- BEGIN: Subheader -->
+
+
+
+                @RenderBody()
+                <!-- END: Subheader -->
+
+            </div>
+
+
+        </div>
+        <!-- end:: Body -->
+        <!-- begin::Footer -->
+        <footer class="m-grid__item	m-footer ">
+            <div class="m-container m-container--fluid m-container--full-height m-page__container">
+                <div class="m-stack m-stack--flex-tablet-and-mobile m-stack--ver m-stack--desktop">
+                    <div class="m-stack__item m-stack__item--left m-stack__item--middle m-stack__item--last">
+                        <span class="m-footer__copyright">
+                            2020 ©
+                            <a href="https://tshpanda.com" class="m-link">توسعه سیستم هوشمند پاندا</a>
+                        </span>
+                    </div>
+                    <div class="m-stack__item m-stack__item--right m-stack__item--middle m-stack__item--first">
+                        <ul class="m-footer__nav m-nav m-nav--inline m--pull-right">
+                            <li class="m-nav__item">
+                                <a href="dashboard.html#" class="m-nav__link">
+                                    <span class="m-nav__link-text">درباره ما</span>
+                                </a>
+                            </li>
+                            <li class="m-nav__item">
+                                <a href="dashboard.html#" class="m-nav__link">
+                                    <span class="m-nav__link-text">ارتباط با ما</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- end::Footer -->
+
+
+    </div>
+    <!-- end:: Page -->
+    <!-- begin::Scroll Top -->
+    <div id="m_scroll_top" class="m-scroll-top">
+        <i class="la la-arrow-up">
+        </i>
+    </div>
+    <!-- end::Scroll Top -->		    <!-- begin::Quick Nav -->
+    <!--<ul class="m-nav-sticky" style="margin-top: 30px;">
+            <li class="m-nav-sticky__item" data-toggle="m-tooltip" title="صفحه ساز" data-placement="left">
+                <a href="crud/page-builder.html">
+    <i class="la la-cog">
+    </i>
+    </a>
+            </li>
+            <li class="m-nav-sticky__item" data-toggle="m-tooltip" title="خرید قالب" data-placement="left">
+                <a href="#" target="_blank">
+    <i class="la la-cart-arrow-down">
+    </i>
+    </a>
+            </li>
+            <li class="m-nav-sticky__item" data-toggle="m-tooltip" title="مستندات" data-placement="left">
+                <a href="#" target="_blank">
+    <i class="la la-code-fork">
+    </i>
+    </a>
+            </li>
+            <li class="m-nav-sticky__item" data-toggle="m-tooltip" title="پشتیبانی" data-placement="left">
+                <a href="#" target="_blank">
+    <i class="la la-life-ring">
+    </i>
+    </a>
+            </li>
+        </ul>-->
+    <!-- begin::Quick Nav -->
+    <!--begin::Global Theme Bundle -->
+    @Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/MetronicGlobalThemeBundle.js")
+    <!--end::Global Theme Bundle -->
+    <!--begin::Page Vendors -->
+    @if (ViewContext.RouteData.GetRequiredString("controller").ToString() == "AdministratorWorkplace")
+    {
+        if (ViewContext.RouteData.GetRequiredString("action").ToString() == "Index")
+        {
+            @Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/Dashboard.js")
+        }
+    }
+    @if (ViewContext.RouteData.GetRequiredString("controller").ToString() == "AdministratorGeneral")
+    {
+        if (ViewContext.RouteData.GetRequiredString("action").ToString() == "Index")
+        {
+            @Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/AdminProfile.js")
+        }
+    }
+
+
+
+
+
+</body>
+<!-- end::Body -->
+</html>
+

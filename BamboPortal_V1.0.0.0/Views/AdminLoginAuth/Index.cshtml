@@ -1,0 +1,191 @@
+﻿
+@using BamboPortal_V1._0._0._0.Models
+@model BamboPortal_V1._0._0._0.Models.Administrator
+@{
+    Layout = null;
+    ErrorReporterModel mvErrorReporterModel = null;
+    if (ViewBag.EXLogin != null)
+    {
+        mvErrorReporterModel = ViewBag.EXLogin;
+    }
+    string GetRequestURl = "";
+    if (!string.IsNullOrEmpty(Request.Params["urlRedirection"]))
+    {
+        GetRequestURl = (Request.Params["urlRedirection"]);
+    }
+}
+<!DOCTYPE html>
+<html lang="en" direction="rtl" style="direction: rtl;">
+<!-- begin::Head -->
+<head>
+    <title>@ViewBag.pageTitle</title>
+    <meta name="robots" content="noindex">
+    <meta name="googlebot" content="noindex">
+    <!--begin::Web font -->
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+    <!--end::Web font -->
+    <!--begin::Global Theme Styles -->
+    @Styles.RenderFormat(SiteKeys.StyleVersion, "~/Content/MetronicGlobalThemeBundle.css")
+    <!--end::Global Theme Styles -->
+    <link rel="shortcut icon" href="assets/demo/default/media/img/logo/favicon.ico" />
+</head>
+<!-- end::Head -->
+<!-- begin::Body -->
+<body class="m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--fixed m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
+
+
+
+    <!-- begin:: Page -->
+    <div class="m-grid m-grid--hor m-grid--root m-page">
+
+
+        <div class="m-grid__item m-grid__item--fluid m-grid m-grid--desktop m-grid--ver-desktop m-grid--hor-tablet-and-mobile m-login m-login--6" id="m_login">
+            <div class="m-grid__item   m-grid__item--order-tablet-and-mobile-2  m-grid m-grid--hor m-login__aside " style="background-image: url(./assets/app/media/img//bg/bg-4.jpg);">
+                <div class="m-grid__item">
+                    <div class="m-login__logo">
+                        <a href="login-6.html#">
+                            <img src="assets/demo/default/media/img/logo/logo.png">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver">
+                    <div class="m-grid__item m-grid__item--middle">
+                        <!--
+                                        <span class="m-login__title" style="text-align: justify;font-size: 15px" >لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. </span>
+                        -->
+                    </div>
+                </div>
+
+                <div class="m-grid__item">
+                    <div class="m-login__info">
+                        <div class="m-login__section" style="color:#BEAFF1;">
+                            2020 ©
+                            <a href="https://tshpanda.com" class="m-link">توسعه سیستم هوشمند پاندا</a>
+                        </div>
+                        <div class="m-login__section">
+                            <a href="#" class="m-link">قوانین</a>
+                            <a href="#" class="m-link">درباره ما</a>
+                            <a href="#" class="m-link">تماس با ما</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="m-grid__item m-grid__item--fluid  m-grid__item--order-tablet-and-mobile-1  m-login__wrapper">
+                <!--begin::Head-->
+                <!--end::Head-->
+                <!--begin::Body-->
+                <div class="m-login__body">
+
+                    <!--begin::Signin-->
+                    <div class="m-login__signin">
+                        <div class="m-login__title">
+                            <h3 style="border-bottom: 4px solid #5867dd;color: #5867dd;width: auto;display: inline-block;padding-bottom: 4px;">ورود</h3>
+                        </div>
+
+                        <!--begin::Form-->
+                        @*<form class="m-login__form m-form" action="@Url.Action("LoginAuth","AdminLoginAuth")" id="pnllogin" autocomplete="off" method="post">
+                                <div class="form-group m-form__group">
+                                    <input class="form-control m-input" type="text" placeholder="نام کاربری" name="adusername" style="border-radius: 5px">
+                                </div>
+                                <div class="form-group m-form__group">
+                                    <input class="form-control m-input m-login__form-input--last" type="password" placeholder="رمز عبور" name="adpassword" style="border-radius: 5px">
+                                </div>
+                                <div class="m-login__action">
+                                    <a href="#" class="m-link">
+                                        <span>رمز عبور را فراموش کرده اید؟</span>
+                                    </a>
+
+                                    <button class="btn btn-primary m-btn m-btn--pill m-btn--custom m-btn--air m-login__btn m-login__btn--primary" type="submit">ورود</button>
+
+                                </div>
+                            </form>*@
+                        @using (@Html.BeginForm("LoginAuth", "AdminLoginAuth", FormMethod.Post, new { @class = "m-login__form m-form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="form-group m-form__group">
+                                @Html.LabelFor(m => m.Username, "نام کاربری :", new { @class = "form-control-feedback", @style = "color:black;" })
+                                @Html.TextBoxFor(m => m.Username, new { @class = "form-control m-input", @style = "border-radius: 5px;margin-top: 0px; ", @placeholder = "نام کاربری" })
+                                @Html.ValidationMessageFor(m => m.Username)
+                            </div>
+                            <div class="form-group m-form__group">
+                                @Html.LabelFor(m => m.Password, "کلمه عبور :", new { @class = "form-control-feedback", @style = "color:black;margin-top: 15px;" })
+                                @Html.TextBoxFor(m => m.Password, new { @class = "form-control m-input m-login__form-input--last", @type = "password", @style = "border-radius: 5px;border-radius: 5px;margin-top: 0px; ", @placeholder = "کلمه عبور" })
+                                @Html.ValidationMessageFor(m => m.Password)
+                            </div>
+                            <input name="urlRedirection" id="urlRedirection" value="@GetRequestURl" style="display: none" />
+                            <div class="m-login__action">
+                                <a href="#" class="m-link">
+                                    <span>رمز عبور را فراموش کرده اید؟</span>
+                                </a>
+
+                                <button class="btn btn-primary m-btn m-btn--pill m-btn--custom m-btn--air m-login__btn m-login__btn--primary" type="submit">ورود</button>
+
+                            </div>
+                        }
+                        @*start error*@
+                        @if (mvErrorReporterModel != null)
+                        {
+                            <span class="field-validation-error" data-valmsg-for="Username" data-valmsg-replace="true">@mvErrorReporterModel.Errormessage</span>
+                        }
+
+                        @*end error*@
+                        <!--end::Form-->
+                        <!--begin::Action-->
+                        <!--end::Action-->
+                        <!--begin::Divider-->
+                        <!--<div class="m-login__form-divider">
+                            <div class="m-divider">
+                                <span></span>
+                                <span>یا</span>
+                                <span></span>
+                            </div>
+                        </div>-->
+                        <!--end::Divider-->
+                        <!--begin::Options-->
+                        <!--<div class="m-login__options">
+                            <a href="#" class="btn btn-primary m-btn m-btn&#45;&#45;pill  m-btn  m-btn m-btn&#45;&#45;icon">
+                                <span>
+                                    <i class="fab fa-facebook-f"></i>
+                                    <span>فیس بوک</span>
+                                </span>
+                            </a>
+
+                            <a href="#" class="btn btn-info m-btn m-btn&#45;&#45;pill  m-btn  m-btn m-btn&#45;&#45;icon">
+                                <span>
+                                    <i class="fab fa-twitter"></i>
+                                    <span>توئتر</span>
+                                </span>
+                            </a>
+
+                            <a href="#" class="btn btn-danger m-btn m-btn&#45;&#45;pill  m-btn  m-btn m-btn&#45;&#45;icon">
+                                <span>
+                                    <i class="fab fa-google"></i>
+                                    <span>گوگل</span>
+                                </span>
+                            </a>
+                        </div>-->
+                        <!--end::Options-->
+                    </div>
+                    <!--end::Signin-->
+                </div>
+                <!--end::Body-->
+            </div>
+        </div>
+
+
+
+
+    </div>
+    <!-- end:: Page -->
+    <!--begin::Global Theme Bundle -->
+    @Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/MetronicGlobalThemeBundle.js")
+    <!--end::Global Theme Bundle -->
+    <!--begin::Page Scripts -->
+    @Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/MetronicPageScripts_LOGIN.js")
+    <!--end::Page Scripts -->
+
+</body>
+<!-- end::Body -->
+</html>

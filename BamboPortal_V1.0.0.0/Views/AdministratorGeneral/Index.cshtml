@@ -1,0 +1,243 @@
+﻿@using BamboPortal_V1._0._0._0.Models
+@using BamboPortal_V1._0._0._0.Models.MasterObjetsModel
+@model BamboPortal_V1._0._0._0.Models.Administrator
+@{
+    Layout = "~/Views/SharedViewPages/Administrator/MasterView.cshtml";
+    ProfileProperty Profileprop = null;
+    if (ViewBag.ProfileInfo != null)
+    {
+        Profileprop = (ProfileProperty)ViewBag.ProfileInfo;
+    }
+    ErrorReporterModel mvErrorReporterModel = null;
+    if (ViewBag.EXLogin != null)
+    {
+        mvErrorReporterModel = ViewBag.EXLogin;
+    }
+}
+
+<!-- BEGIN: Subheader -->
+<div class="m-subheader">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
+                <span class="m-subheader__daterange-label">
+                    <a href="@Url.Action("Index","AdministratorWorkplace")">
+                        <h3 class="m-subheader__title" style="padding-left: 0 !important; margin: 0 0 0 2px !important;">
+                            پیشخوان
+                        </h3>
+                    </a>
+                    <h3 class="m-subheader__title" style="padding-left: 0 !important; margin: 0 0 0 2px !important;">
+                        <i class="fa fa-chevron-left tshfontsize2" style="transform: translateY(3px); color: #aaaeb8; margin-right: 2px;"></i>
+                    </h3>
+                    <h3 class="m-subheader__title" style="padding-left: 0 !important; margin: 0 0 0 2px !important;">
+
+                        <span class="m-subheader__daterange-title tshfontsize2" style="margin-right: 2px; margin-left: 2px;">پروفایل</span>
+                        <!--
+                        <i class="fa fa-chevron-left" style="transform: translateY(3px);color: #aaaeb8;"></i>
+                        <span class="m-subheader__daterange-title" style="margin-right: 2px;">نمایش همه ی پست ها</span>
+                        -->
+                    </h3>
+                </span>
+            </span>
+        </div>
+    </div>
+</div>
+
+
+<div class="m-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="m-portlet m-portlet--full-height m-portlet--tabs  ">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-tools">
+                        <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
+                            <li class="nav-item m-tabs__item">
+                                <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_user_profile_tab_1" role="tab">
+                                    <i class="flaticon-share m--hide"></i>
+                                    پروفایل
+                                </a>
+                            </li>
+                            <li class="nav-item m-tabs__item">
+                                <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_user_profile_tab_2" role="tab">
+                                    تعویض رمز ورود
+                                </a>
+                            </li>
+                            @*<li class="nav-item m-tabs__item">
+                                    <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_user_profile_tab_3" role="tab">
+                                        تنظیمات
+                                    </a>
+                                </li>*@
+                        </ul>
+                    </div>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="m_user_profile_tab_1">
+                        @using (@Html.BeginForm("ChangeSubmitedAdmin", "AdministratorGeneral", FormMethod.Post, new { @id = "profile-form", @class = "m-login__form m-form" }))
+                        {
+                        <div class="m-portlet__body">
+                            @*===================================startadasdasdasdasdadadasdad form 1*@
+                            <div class="m-card-profile">
+                                <div class="m-card-profile__pic">
+                                    <div class="m-card-profile__pic-wrapper">
+                                        <img src="@Url.Content(Profileprop.avatarImageSrc)" alt="">
+                                    </div>
+                                </div>
+                                <div class="m-section__content container-fluid tshtextcenter mb-3">
+                                    <button class="btn btn-brand btn-sm " type="button" data-target="#uploader" data-toggle="modal">انتخاب عکس</button>
+                                </div>
+                                @Html.TextBoxFor(m => m.ad_avatarPicIDfromUploader, new { @style = "" })
+                                <div class="m-card-profile__details">
+                                    <span class="m-card-profile__name">
+                                        @Profileprop.name
+                                    </span>
+                                    <span class="m-card-profile__details ">
+                                        @Profileprop.fullname
+                                    </span>
+                                    <br />
+                                    <a class="m-card-profile__email m-link tshcurpoi">آی پی شما : @Profileprop.ipAdmin</a>
+                                </div>
+                            </div>
+                            <div class="form-group m-form__group row">
+                                <div class="col-10 ml-auto">
+                                    <h3 class="m-form__section ">1. اطلاعات شخصی</h3>
+                                    @if (mvErrorReporterModel != null)
+                                    {
+                                        if (mvErrorReporterModel.Errortype == "Success")
+                                        {
+                                            <span class="text-success"  data-valmsg-for="Username" data-valmsg-replace="true">@mvErrorReporterModel.Errormessage</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="field-validation-error" data-valmsg-for="Username" data-valmsg-replace="true">@mvErrorReporterModel.Errormessage</span>
+
+                                        }
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group m-form__group row">
+                                @Html.LabelFor(m => m.ad_NickName, "نام قابل نمایش :", new { @class = "col-lg-4 col-xs-12 col-form-label" })
+                                <div class="col-lg-5 col-xs-12">
+                                    @Html.TextBoxFor(m => m.ad_NickName, new { @class = "form-control m-input", @Value = Profileprop.name, @placeholder = "نام قابل نمایش" })
+                                    @Html.ValidationMessageFor(m => m.ad_NickName)
+                                </div>
+                            </div>
+                            <div class="form-group m-form__group row">
+                                @Html.LabelFor(m => m.ad_firstname, "نام :", new { @class = "col-lg-4 col-xs-12 col-form-label" })
+
+                                <div class="col-lg-5 col-xs-12">
+                                    @Html.TextBoxFor(m => m.ad_firstname, new { @class = "form-control m-input", @Value = @Profileprop.Firstname, @placeholder = "نام" })
+                                    @Html.ValidationMessageFor(m => m.ad_firstname)
+                                </div>
+                            </div>
+                            <div class="form-group m-form__group row">
+                                @Html.LabelFor(m => m.ad_lastname, "نام خانوادگی :", new { @class = "col-lg-4 col-xs-12 col-form-label" })
+
+                                <div class="col-lg-5 col-xs-12">
+                                    @Html.TextBoxFor(m => m.ad_lastname, new { @class = "form-control m-input", @Value = Profileprop.Lastname, @placeholder = "نام خانوادگی" })
+                                    @Html.ValidationMessageFor(m => m.ad_lastname)
+
+                                </div>
+                            </div>
+                            <div class="form-group m-form__group row">
+                                @Html.LabelFor(m => m.ad_email, "ایمیل :", new { @class = "col-lg-4 col-xs-12 col-form-label" })
+
+                                <div class="col-lg-5 col-xs-12">
+                                    @Html.TextBoxFor(m => m.ad_email, new { @class = "form-control m-input", @Value = Profileprop.email, @placeholder = "ایمیل" })
+                                    @Html.ValidationMessageFor(m => m.ad_email)
+
+                                </div>
+                            </div>
+                            <div class="form-group m-form__group row">
+                                @Html.LabelFor(m => m.ad_phone, "شماره تلفن ثابت :", new { @class = "col-lg-4 col-xs-12 col-form-label" })
+
+                                <div class="col-lg-5 col-xs-12">
+                                    @Html.TextBoxFor(m => m.ad_phone, new { @class = "form-control m-input", @Value = Profileprop.phone, @placeholder = "021xxxxxxxx شماره تلفن ثابت" })
+                                    @Html.ValidationMessageFor(m => m.ad_phone)
+
+                                </div>
+                            </div>
+                            <div class="form-group m-form__group row">
+
+                                @Html.LabelFor(m => m.ad_mobile, "شماره موبایل :", new { @class = "col-lg-4 col-xs-12 col-form-label" })
+
+                                <div class="col-lg-5 col-xs-12">
+                                    @Html.TextBoxFor(m => m.ad_mobile, new { @class = "form-control m-input", @Value = Profileprop.mobile, @placeholder = "09xxxxxxxxx شماره موبایل" })
+                                    @Html.ValidationMessageFor(m => m.ad_mobile)
+                                </div>
+                            </div>
+
+                            @*===================================end of form1*@
+
+
+                        </div>
+
+                            <div class="m-portlet__foot m-portlet__foot--fit">
+                                <div class="m-form__actions">
+                                    <div class="row">
+                                        <div class="col-2">
+                                        </div>
+                                        <div class="col-7 tshtextleft">
+                                            <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom">ذخیره</button>&nbsp;&nbsp;
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                        }
+                    </div>
+                    <div class="tab-pane " id="m_user_profile_tab_2">
+                        <form class="m-form m-form--fit m-form--label-align-right" id="profile-form">
+                            <div class="m-portlet__body">
+                                @*===================================start form 2*@
+
+                                <div class="m-form__seperator m-form__seperator--dashed m-form__seperator--space-2x"></div>
+
+                                <div class="form-group m-form__group row">
+                                    <div class="col-10 ml-auto">
+                                        <h3 class="m-form__section">
+                                            2. رمز عبور
+                                            <small style="display: block; font-size: 14px; margin-top: 10px;">برای تغییر رمز عبور فرم زیر را پر کنید.</small>
+                                        </h3>
+                                    </div>
+                                </div>
+
+                                <div class="form-group m-form__group row">
+                                    <label for="password" class="col-lg-4 col-xs-12 col-form-label">رمز عبور</label>
+                                    <div class="col-lg-5 col-xs-12">
+                                        <input class="form-control m-input" id="password" name="password" type="password" value="">
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <label for="repassword" class="col-lg-4 col-xs-12 col-form-label">تکرار رمز عبور</label>
+                                    <div class="col-lg-5 col-xs-12">
+                                        <input class="form-control m-input" id="repassword" name="repassword" type="password" value="">
+                                    </div>
+                                </div>
+
+                                @*===================================end of form2*@
+
+
+                            </div>
+                            <div class="m-portlet__foot m-portlet__foot--fit">
+                                <div class="m-form__actions">
+                                    <div class="row">
+                                        <div class="col-2">
+                                        </div>
+                                        <div class="col-7 tshtextleft">
+                                            <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom">ذخیره</button>&nbsp;&nbsp;
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
