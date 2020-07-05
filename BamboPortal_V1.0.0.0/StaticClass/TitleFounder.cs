@@ -7,7 +7,7 @@ namespace BamboPortal_V1._0._0._0.StaticClass
 {
     public static class TitleFounder
     {
-        public static string GetTitle(string controller, string action)
+        public static string GetAdminPanelTitle(string controller, string action)
         {
             string result = $"پنل مدیریتی {ProjectProperies.PortalCutsomer} |";
             action = action.ToLower();

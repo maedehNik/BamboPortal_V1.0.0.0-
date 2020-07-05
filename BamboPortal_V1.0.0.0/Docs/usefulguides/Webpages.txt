@@ -1,0 +1,1 @@
+JavaScript Libraries and rendering js in asp.net mvc ==> https://www.pluralsight.com/guides/asp-net-mvc-using-javascript-with-ajax-and-razor-partial-views

@@ -64,6 +64,17 @@ namespace BamboPortal_V1._0._0._0
             //Style Uses Dashboard styles
             //Bundles {END} : Page Scripts --> AdminProfile
 
+
+
+
+
+
+            //Bundles {Start} : Page Scripts --> AdminPanelJSCustome
+            bundles.Add(new ScriptBundle("~/bundles/AdminProfile.js").Include(
+               "~/AdminDesignResource/app/js/jqueryvalidate.js",
+               "~/AdminDesignResource/app/js/adminPanelMainControllerJS.js"));
+            //Bundles {END} : Page Scripts --> AdminProfile
+
         }
     }
 }

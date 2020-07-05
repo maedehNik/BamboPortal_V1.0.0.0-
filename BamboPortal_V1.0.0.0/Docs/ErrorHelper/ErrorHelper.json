@@ -1,0 +1,34 @@
+[
+                                  {
+                                    "ErrorID" : "EX100",
+                                    "Errormessage" : "درخواست ارسال شده مطابق با ساختار امنیتی نمیباشد",
+                                    "Errortype" : "Error"
+                                  },
+                                  {
+                                    "ErrorID" : "EX101",
+                                    "Errormessage" : "کاربر پیدا شده در وضعیت غیر فعال میباشد و اجازه دسترسی به پنل را نخواهد داشت",
+                                    "Errortype" : "Error"
+                                  },
+                                  {
+                                    "ErrorID" : "EX102",
+                                    "Errormessage" : "کاربری با این مشخصات یافت نشد!",
+                                    "Errortype" : "Error"
+                                  },
+                                 {
+                                    "ErrorID" : "EX103",
+                                    "Errormessage" : "عدم توانایی در ایجاد نشست فعال برای شما با پشتیبانی تماس حاصل فرمایید",
+                                    "Errortype" : "Error"
+                                },
+                                {
+                                    "ErrorID" : "SX101",
+                                    "Errormessage" : "اطلاعات کاربری با موفقیت ویرایش شد!",
+                                    "Errortype" : "Success"
+                                },
+
+                {
+                    "ErrorID" : "EX104",
+                    "Errormessage" :"عدم توانایی در ویرایش اطلاعات با پشتیبانی تماس حاصل فرمایید! کد پیگیری برای شما :{rep.CodeGenerated}",
+                    "Errortype" : "Error"
+                }
+				
+				]
