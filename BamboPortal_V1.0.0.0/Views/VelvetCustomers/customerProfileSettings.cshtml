@@ -1,0 +1,113 @@
+﻿
+@{
+    ViewBag.Title = "customerProfileSettings";
+    Layout = "~/Views/SharedViewPages/CustomerSide/CustomerMaster.cshtml";
+}
+
+<div class="container profile-bg" style="padding-top: 100px; margin-bottom: 100px;">
+    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 profile-menu" style="float: right">
+        <h4>منو</h4>
+        <ul>
+            <li>
+                <a href="">
+                    اطلاعات حساب
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    آدرس
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    تاریخچه خرید
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    درخواست های مرجوعی
+                </a>
+            </li>
+            <li class="active">
+                <a href="">
+                    تنظیمات
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12 profile-content" style="float: left">
+        <h4>تنظیمات</h4>
+        <div class="form-theme form-grey">
+            <form action="" method="post" autocomplete="off" id="account-form">
+                <div class="form-group pad-bot-15 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <label class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">خبرنامه ارسال شود؟</label>
+                    <div class="radio-custom">
+                        <label>
+                            <input type="radio" class="option-input radio" name="shops" checked />
+                            <b>بله</b>
+                        </label>
+                        <label>
+                            <input type="radio" class="option-input radio" name="shops" />
+                            <b>خیر</b>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group pad-bot-15 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <input type="submit" class="btn btn-success form-submit reg-submit" value="ذخیره">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    var revapi;
+    jQuery(document).ready(function () {
+        setInterval(function () {
+            $('.owl-prev').trigger('click');
+        }, 3000);
+
+
+        revapi = jQuery("#rev_slider_1").revolution({
+            sliderType: "standard",
+            sliderLayout: "fullscreen",
+            fullScreenOffsetContainer: ".navigation",
+            delay: 9000,
+            navigation: {
+                keyboardNavigation: "off",
+                mouseScrollNavigation: "on",
+                onHoverStop: "off",
+                touch: {
+                    touchenabled: "on",
+                    swipe_threshold: 75,
+                    swipe_min_touches: 1,
+                    swipe_direction: "horizontal",
+                    drag_block_vertical: false
+                },
+                bullets: {
+                    enable: true,
+                    rtl: true,
+                    hide_onmobile: false,
+                    style: "hebe",
+                    hide_onleave: false,
+                    direction: "horizontal",
+                    h_align: "center",
+                    v_align: "bottom",
+                    h_offset: 0,
+                    v_offset: 10,
+                    space: 5,
+                    tmp: '<span class="tp-bullet-inner"></span>'
+                }
+            },
+            responsiveLevels: [4096, 1024, 767, 480],
+            gridwidth: 1230,
+            gridheight: 720
+        });
+
+        $("#LoaderSpinner").hide(0);
+    }); /*ready*/
+</script>
+
+@Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/CustomerSideUserProfile.js")
+
+

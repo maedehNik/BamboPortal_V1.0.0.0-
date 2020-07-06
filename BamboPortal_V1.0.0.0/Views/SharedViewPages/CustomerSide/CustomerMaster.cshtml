@@ -1,0 +1,284 @@
+﻿
+@{
+    ViewBag.Title = "CustomerMaster";
+}
+
+<!DOCTYPE html>
+<html itemscope="" itemtype="http://schema.org/WebPage" lang="fa-IR" dir="rtl">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
+    @Styles.RenderFormat(SiteKeys.StyleVersion, "~/Content/CustomerSide.css")
+    @Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/CustomerSide.js")
+</head>
+<body class="header-left-side rtl">
+    <div class="shopping-cart-slide">
+        <div class="title">
+            سبد خرید شما
+            <br />
+            (5) کالا
+        </div>
+        <div class="cart-items">
+            <div class="cart-item">
+                <div class="cart-item-remove"><a href="#"><i class="fa fa-trash-o"></i></a></div>
+                <div class="cart-item-image">
+                    <img alt="image" src="~/CustomerSide_desinerResource/images/products/cart-thumbs/light-grey-jacket-transparent.png" />
+                </div>
+                <div class="cart-item-info">
+                    <div class="item-name"><a href="#">Grey Jacket</a></div>
+                    <div class="item-quantity">
+                        <form id='qtyform5' method='POST' action='#'>
+                            <input type='button' value='-' class='qtyminus btn' title='quantity5' />
+                            <input type='text' name='quantity5' value='1' class='qty' />
+                            <input type='button' value='+' class='qtyplus btn' title='quantity5' />
+                        </form>
+                    </div>
+                </div>
+                <div class="cart-item-price">1,560,000 ریال</div>
+            </div>
+
+            <div class="cart-item">
+                <button class="btn btn-info" style="width: 100%;">ابتدا وارد حساب کاربری خود شوید</button>
+            </div>
+
+            <!--=============================================================CART ITEMS END-->
+
+        </div>
+        <div class="cart-footer">
+
+
+
+            <div class="cart-sub grand-total">
+                <div class="cart-sub-amount">
+                    1000 ريال
+                </div>
+                <div class="text">
+                    مبلغ قابل پرداخت
+                </div>
+
+            </div>
+            <div class="cart-order-links">
+                <a class="btn shopping-cart-trigger">بستن</a>
+                <a class="btn btn-success">پرداخت</a>
+            </div>
+        </div>
+    </div>
+    <div id="LoaderSpinner" class="loader">
+        <div class="spinner"></div>
+    </div>
+    <div class="page-content">
+
+        <header class="navigation transparent">
+            <div class="main-nav nav-pill full-width header-left">
+                <div class="navbar navbar-default" role="navigat ion">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <a class="logo" href=".">
+                                <img alt="image" src="~/CustomerSide_desinerResource/images/logo-dark.png" />
+                            </a>
+                        </div>
+                        <div class="navbar-icons">
+                            <ul class="nav navbar-nav navbar-left">
+                                <li class="nav-shop nav-shop-fullscreen">
+                                    <a href="#" class="shopping-cart-trigger"><i class="shop-icon icon-basket"></i></a>
+                                </li>
+                                <li class="menu-icon">
+                                    <a class="full-screen-menu-trigger" href="#">
+                                        <ul class="bar-icon-wrapper">
+                                            <li class="bar-icon"></li>
+                                            <li class="bar-icon"></li>
+                                            <li class="bar-icon"></li>
+                                        </ul>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="full-screen-header">
+                        <div class="nav-container">
+                            <div class="nav-holder">
+                                <div class="inner-content">
+                                    <ul class="full-screen-nav">
+                                        <li><a href=".">خانه</a></li>
+                                        <li><a href="AboutUs.aspx">درباره ما</a></li>
+                                        <li class="with-dropdown">
+                                            <a href="#" class="menu-dropdown-link account-li">ناحیه کاربری<span class="dropdown-icon tshfatrtry3 tshfamr"></span></a>
+                                            <ul class="menu-dropdown tshsubmneu">
+                                                <li><a href="#">نایحه کاربری</a></li>
+                                                <li><a href="#">فاکتورها</a></li>
+                                                <li><a href="#">سبد خرید</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="Search.aspx" style="letter-spacing: 0px;">محصولات</a></li>
+                                        <li><a href="Rules.aspx" style="letter-spacing: 0px;">قوانین</a></li>
+                                        <li><a href="SiteMap.aspx" title="SiteMap" style="letter-spacing: 0px;">نقشه سایت</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="shopping-cart-slide">
+            <div class="title">
+                سبد خرید شما
+                <br />
+                (5) کالا
+            </div>
+            <div class="cart-items">
+                <div class="cart-item">
+                    <div class="cart-item-remove"><a href="#"><i class="fa fa-trash-o"></i></a></div>
+                    <div class="cart-item-image">
+                        <img alt="image" src="~/CustomerSide_desinerResource/images/products/cart-thumbs/light-grey-jacket-transparent.png" />
+                    </div>
+                    <div class="cart-item-info">
+                        <div class="item-name"><a href="#">Grey Jacket</a></div>
+                        <div class="item-quantity">
+                            <form id='qtyform5' method='POST' action='#'>
+                                <input type='button' value='-' class='qtyminus btn' title='quantity5' />
+                                <input type='text' name='quantity5' value='1' class='qty' />
+                                <input type='button' value='+' class='qtyplus btn' title='quantity5' />
+                            </form>
+                        </div>
+                    </div>
+                    <div class="cart-item-price">1,560,000 ریال</div>
+                </div>
+
+                <div class="cart-item">
+                    <button class="btn btn-info" style="width: 100%;">ابتدا وارد حساب کاربری خود شوید</button>
+                </div>
+            </div>
+            <div class="cart-footer">
+
+
+
+                <div class="cart-sub grand-total">
+                    <div class="cart-sub-amount">
+                        1000 ريال
+                    </div>
+                    <div class="text">
+                        مبلغ قابل پرداخت
+                    </div>
+
+                </div>
+                <div class="cart-order-links">
+                    <a class="btn shopping-cart-trigger">بستن</a>
+                    <a class="btn btn-success">پرداخت</a>
+                </div>
+            </div>
+        </div>
+
+        @RenderBody()
+
+
+        <footer class="footer" style="margin-top: 0px !important;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <img alt="image" class="img-responsive" src="~/CustomerSide_desinerResource/images/logo-dark-big.png">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <h4 class="footer-title">نماد اعتماد الکترونیک :</h4>
+                            <div class="col-md-12">
+                                <img alt="image" class="img-responsive" src="~/CustomerSide_desinerResource/images/Enamad.png">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <h4 class="footer-title">شعبه شماره 1 :</h4>
+                        <p>
+                            Suite 101, Alpha Building, Creek Street,<br>
+                            City, 100001,<br>
+                            Country<br>
+                            E- <a href="#">support@revelo.com</a><br>
+                            P- <a href="#">+1 101 0000001</a><br>
+                            F- <a href="#">+1 101 1000001</a>
+                        </p>
+                        <br>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d808.9394280925661!2d51.43142306470913!3d35.80588097728032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x28b271f00e6177d4!2z2LTYudio2Ycg2YXYsdqp2LLbjCDZvtin2LHahtmHINmI2YTZiNiq!5e0!3m2!1sen!2sus!4v1580312708942!5m2!1sen!2sus" height="200" frameborder="0" style="width: 100%; border-width: 3px; border-color: #e1306c; border-style: dotted;" allowfullscreen="true"></iframe>
+                        <ul class="social-icons list-inline list-unstyled si-light circle inverse" style="text-align: center; display: flow-root;">
+                            <li><a href="#" class="Whatsapp"><i class="fa fa-whatsapp"></i></a></li>
+                            <li><a href="#" class="pinterest"><i class="fa fa-pinterest"></i></a></li>
+                            <li><a href="#" class="instagram"><i class="fa fa-instagram"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <h4 class="footer-title">شعبه شماره 1 :</h4>
+                        <p>
+                            Suite 101, Alpha Building, Creek Street,<br>
+                            City, 100001,<br>
+                            Country<br>
+                            E- <a href="#">support@revelo.com</a><br>
+                            P- <a href="#">+1 101 0000001</a><br>
+                            F- <a href="#">+1 101 1000001</a>
+                        </p>
+                        <br>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d808.9394280925661!2d51.43142306470913!3d35.80588097728032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x28b271f00e6177d4!2z2LTYudio2Ycg2YXYsdqp2LLbjCDZvtin2LHahtmHINmI2YTZiNiq!5e0!3m2!1sen!2sus!4v1580312708942!5m2!1sen!2sus" height="200" frameborder="0" style="width: 100%; border-width: 3px; border-color: #e1306c; border-style: dotted;" allowfullscreen="true"></iframe>
+                        <ul class="social-icons list-inline list-unstyled si-light circle inverse" style="text-align: center; display: flow-root;">
+                            <li><a href="#" class="Whatsapp"><i class="fa fa-whatsapp"></i></a></li>
+                            <li><a href="#" class="pinterest"><i class="fa fa-pinterest"></i></a></li>
+                            <li><a href="#" class="instagram"><i class="fa fa-instagram"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <h4 class="footer-title">شعبه شماره 1 :</h4>
+                        <p>
+                            Suite 101, Alpha Building, Creek Street,<br>
+                            City, 100001,<br>
+                            Country<br>
+                            E- <a href="#">support@revelo.com</a><br>
+                            P- <a href="#">+1 101 0000001</a><br>
+                            F- <a href="#">+1 101 1000001</a>
+                        </p>
+                        <br>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d808.9394280925661!2d51.43142306470913!3d35.80588097728032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x28b271f00e6177d4!2z2LTYudio2Ycg2YXYsdqp2LLbjCDZvtin2LHahtmHINmI2YTZiNiq!5e0!3m2!1sen!2sus!4v1580312708942!5m2!1sen!2sus" height="200" frameborder="0" style="width: 100%; border-width: 3px; border-color: #e1306c; border-style: dotted;" allowfullscreen="true"></iframe>
+                        <ul class="social-icons list-inline list-unstyled si-light circle inverse" style="text-align: center; display: flow-root;">
+                            <li><a href="#" class="Whatsapp"><i class="fa fa-whatsapp"></i></a></li>
+                            <li><a href="#" class="pinterest"><i class="fa fa-pinterest"></i></a></li>
+                            <li><a href="#" class="instagram"><i class="fa fa-instagram"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 text-left-desktop">
+                            <p class="text-secondary letter-spacing-1">کپی رایت© تمامی حقوق مادی و معنوی  محفوظ برند <a href=".">وِلوِت</a> میباشد</p>
+                            <a href="#">
+                                <p class="text-secondary letter-spacing-1">طراحی شده توسط شرکت توسعه سیستم هوشمند پاندا</p>
+                            </a>
+
+                        </div>
+                        <div class="col-md-6 copyright-right">
+                            <ul class="list-unstyled list-inline footer-inline-links">
+                                <li><a href="#">قوانین و مقررات</a></li>
+                                <li><a href="contact.html">ارتباط با ما</a></li>
+                                <li><a href="sitemap.html">نقشه سایت</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+
+    @Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/CustomerSide2.js")
+    
+</body>
+</html>
+
+

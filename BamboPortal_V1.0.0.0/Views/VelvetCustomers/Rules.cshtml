@@ -1,0 +1,123 @@
+﻿
+@{
+    ViewBag.Title = "Rules";
+    Layout = "~/Views/SharedViewPages/CustomerSide/CustomerMaster.cshtml";
+}
+
+<section class="section-img with-overlay page-custom-header page-top-light tshmbcust" style="background-image:url('../../CustomerSide_desinerResource/images/mess.jpg');">
+    <div class="section-overlay-light" style="background-color: rgba(255, 255, 255, 0.8);">
+        <div class="container" style="margin-top: 80px;">
+            <div class="row">
+                <div class="col-md-12 header-inline">
+                    <div class="header-inline-content">
+                        <h3 class="page-title text-tertiary"><strong>قوانین خرید از گالری پارچه ولوت</strong></h3>
+                    </div>
+                    <div class="header-inline-content header-inline-breadcrumb custom-nav">
+                        <ul class="breadcrumb">
+                            <li><a href=".">ولوت</a></li>
+                            <li class="active">قوانین</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div style="padding-bottom: 100px;">
+    <div class="container">
+        <div id="tab2" class="tab-pane">
+            <div class="panel-group no-border no-color panel-icon-right pad-top-50 rules-div">
+                <h4 class="text-uppercase letter-spacing-1 no-margin pad-bot-30">
+                    <strong>
+                        <i class="fa fa-chevron-left tshfatrtry3"></i>
+                        قوانین و مقررات
+                    </strong>
+                </h4>
+                <p>
+                    شرایط و قوانین استفاده از سرویس‌ها و خدمات انتشارات جنگل
+                    ورود کاربران به وب‏‌سایت انتشارات جنگل هنگام استفاده از پروفایل شخصی، و سایر خدمات ارائه شده توسط انتشارات جنگل به معنای آگاه بودن و پذیرفتن شرایط، قوانین و همچنین نحوه استفاده از سرویس‌‏ها و خدمات است. توجه داشته باشید که ثبت سفارش نیز در هر زمان به معنی پذیرفتن کامل کلیه شرایط و قوانین از سوی کاربر است.
+                    ق
+                </p>
+                <h4 class="text-uppercase letter-spacing-1 no-margin pad-bot-30">
+                    <strong>
+                        <i class="fa fa-chevron-left tshfatrtry3"></i>
+                        قوانین عمومی
+                    </strong>
+                </h4>
+                <p>
+                    توجه داشته باشید کلیه اصول و رویه‏‌های انتشارات جنگل منطبق با قوانین جمهوری اسلامی ایران، قانون تجارت الکترونیک و قانون حمایت از حقوق مصرف کننده است و متعاقبا کاربر نیز موظف به رعایت قوانین مربوطه است. در صورتی که در قوانین مندرج، رویه‏‌ها و سرویس‏‌ها تغییری ایجاد شود، در همین صفحه منتشر و به روز رسانی می شود و شما توافق می‏‌کنید که استفاده مستمر شما از سایت به معنی پذیرش هرگونه تغییر است.
+                    تعریف مشتری یا کاربر
+                    مشتری یا کاربر به شخصی گفته می‌شود که با اطلاعات کاربری خود که در فرم ثبت نام درج کرده است، به ثبت سفارش یا هرگونه استفاده از خدمات انتشارات جنگل اقدام کند.
+                    همچنین از آنجا که انتشارات جنگل یک وب‌سایت آنلاین است، طبق قانون تجارت الکترونیک، مشتری یا مصرف کننده فردی است که به منظوری جز تجارت یا شغل حرفه‌ای به خرید کالا یا خدمات اقدام می‌کند.
+                    تعریف فروشنده
+                    محصولات ارایه شده در وب‌سایت که شامل کتب حقوقی و کتب زبان های خارجی است توسط انتشارات جنگل منتشر شده اند و تماما مجوز های لازمه را کسب کرده اند.
+                </p>
+                <ul class="rules-ul">
+                    <li>
+                        مسئولیت‌های مربوط به کیفیت، قیمت، محتوا، شرایط و همچنین خدمات پس از فروش محصول بر عهده انتشارات جنگل است.
+                    </li>
+                    <li>
+                        فاکتور کالاهایی در سایت عرضه می‌شود، در صورت درخواست خریدار توسط فروشنده ارسال می‌شود.
+                    </li>
+                    <li>
+                        سفارشاتی که طی ساعات اداری به ثبت برسند حداکثر 48 ساعت زمان خواهند برد تا به دست مشتریان ساکن تهران برسند و برای مشتریان سایر شهرستان ها بین 3 تا 7 روز زمان خواهند برد.
+                    </li>
+                    <li>
+                        در شرایط خاص مثل فروش شگفت‌انگیز، احتمال لغو شدن سفارش مربوط به محصولات فروشندگان به دلایلی مانند اتمام موجودی کالا وجود دارد و انتشارات جنگل مجاز است بدون اطلاع قبلی نسبت به توقف سفارش‌‏گیری جدید، اقدام و فروش را متوقف کند.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+        var revapi;
+        jQuery(document).ready(function () {
+            setInterval(function () {
+                $('.owl-prev').trigger('click');
+            }, 3000);
+
+
+            revapi = jQuery("#rev_slider_1").revolution({
+                sliderType: "standard",
+                sliderLayout: "fullscreen",
+                fullScreenOffsetContainer: ".navigation",
+                delay: 9000,
+                navigation: {
+                    keyboardNavigation: "off",
+                    mouseScrollNavigation: "on",
+                    onHoverStop: "off",
+                    touch: {
+                        touchenabled: "on",
+                        swipe_threshold: 75,
+                        swipe_min_touches: 1,
+                        swipe_direction: "horizontal",
+                        drag_block_vertical: false
+                    },
+                    bullets: {
+                        enable: true,
+                        rtl: true,
+                        hide_onmobile: false,
+                        style: "hebe",
+                        hide_onleave: false,
+                        direction: "horizontal",
+                        h_align: "center",
+                        v_align: "bottom",
+                        h_offset: 0,
+                        v_offset: 10,
+                        space: 5,
+                        tmp: '<span class="tp-bullet-inner"></span>'
+                    }
+                },
+                responsiveLevels: [4096, 1024, 767, 480],
+                gridwidth: 1230,
+                gridheight: 720
+            });
+
+            $("#LoaderSpinner").hide(0);
+        });
+</script>
+
+

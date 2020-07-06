@@ -1,0 +1,278 @@
+﻿
+@{
+    ViewBag.Title = "search";
+    Layout = "~/Views/SharedViewPages/CustomerSide/CustomerMaster.cshtml";
+}
+
+<section class="section-img with-overlay page-custom-header page-top-light tshmbcust" style="background-image:url('../../CustomerSide_desinerResource/images/mess.jpg');">
+    <div class="section-overlay-light" style="background-color: rgba(255, 255, 255, 0.8);">
+        <div class="container" style="margin-top: 80px;">
+            <div class="row">
+                <div class="col-md-12 header-inline">
+                    <div class="header-inline-content">
+                        <h3 class="page-title text-tertiary"><strong>محصولات</strong></h3>
+                    </div>
+                    <div class="header-inline-content header-inline-breadcrumb custom-nav">
+                        <ul class="breadcrumb">
+                            <li><a href=".">ولوت</a></li>
+                            <li class="active">محصولات</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container" style="padding-top: 100px;">
+    <div class="row">
+        <div class="col-sm-3 filter-section" style="float: right;">
+            <div class="panel-group no-border no-color panel-icon-right">
+                <div class="panel panel-default">
+                    <div class="panel-heading" data-toggle="collapse" data-target="#collapse9One">
+                        <h4 class="panel-title plus accordion-toggle">
+                            Gender
+                        </h4>
+                    </div>
+                    <div id="collapse9One" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <h6>
+                                <input type="checkbox" class="option-input checkbox" checked />
+                                <a href="#">
+                                    MEN
+                                </a>
+                            </h6>
+                            <h6>
+                                <input type="checkbox" class="option-input checkbox" checked />
+                                <a href="#">
+                                    WOMEN
+                                </a>
+                            </h6>
+                            <h6>
+                                <input type="checkbox" class="option-input checkbox" checked />
+                                <a href="#">
+                                    UNISEX
+                                </a>
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading collapsed" data-toggle="collapse" data-target="#collapse9Two">
+                        <h4 class="panel-title plus accordion-toggle">
+                            Product
+                        </h4>
+                    </div>
+                    <div id="collapse9Two" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <h6>
+                                <input type="checkbox" class="option-input checkbox" checked />
+                                <a href="#">
+                                    MEN
+                                </a>
+                            </h6>
+                            <h6>
+                                <input type="checkbox" class="option-input checkbox" checked />
+                                <a href="#">
+                                    WOMEN
+                                </a>
+                            </h6>
+                            <h6>
+                                <input type="checkbox" class="option-input checkbox" checked />
+                                <a href="#">
+                                    UNISEX
+                                </a>
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading collapsed" data-toggle="collapse" data-target="#collapse9Three">
+                        <h4 class="panel-title plus accordion-toggle">
+                            Color
+                        </h4>
+                    </div>
+                    <div id="collapse9Three" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="filters-colors">
+                                <h6>
+                                    <input type="checkbox" class="option-input checkbox" style="background-color: red;" />
+                                </h6>
+                                <h6>
+                                    <input type="checkbox" class="option-input checkbox" style="background-color: green;" checked />
+                                </h6>
+                                <h6>
+                                    <input type="checkbox" class="option-input checkbox" style="background-color: blue;" checked />
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading collapsed" data-toggle="collapse" data-target="#collapse9Four">
+                        <h4 class="panel-title plus accordion-toggle">
+                            Size
+                        </h4>
+                    </div>
+                    <div id="collapse9Four" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="filters-size clearfix">
+                                <a class="selection-active" href="#">10</a>
+                                <a href="#">11.5</a>
+                                <a href="#">9</a>
+                                <a href="#">s</a>
+                                <a href="#">M</a>
+                                <a href="#">xxl</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading collapsed" data-toggle="collapse" data-target="#collapse9Five" style="border: none!important;">
+                        <h4 class="panel-title plus accordion-toggle">
+                            Price
+                        </h4>
+                    </div>
+                    <div id="collapse9Five" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="price-range-slider">
+                                <p class="range-value">
+                                    <input type="text" id="amount" readonly>
+                                </p>
+                                <div id="slider-range" class="range-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-curtain btn-full-width mar-top-10"><a href="#" class="btn btn-full-width btn-lg">پاک کردن فیلترها</a></div>
+            </div>
+        </div>
+        <div class="col-sm-8 col-sm-offset-1" style="float: left;">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row product">
+                        <div class="col-sm-4">
+                            <div class="product-thumbnail">
+                                <div class="product-image">
+                                    <span class="label label-tags OffsellingObject tshdirltr">-20 %</span>
+                                    <img alt="image" class="img-responsive" src="~/CustomerSide_desinerResource/images/shop/bags/1-person.jpg">
+                                    <div class="thumbnail-btns">
+                                        <a class="btn btn-theme-inverse" href="product-single.html"><i class="pe-7s-glasses pe-2x"></i></a>
+                                        <a class="btn btn-theme-inverse" href="#"><i class="icon-basket"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="text-darker"><a href="#"><small>نام محصول</small></a></h3>
+                                <h6 class="price tshtdlt">5,000,000</h6>
+                                <h6 class="price">4,500,000</h6>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="product-thumbnail">
+                                <div class="product-image">
+                                    <span class="label label-tags theme-background-light NAsellingObject">نا موجود</span>
+                                    <img alt="image" class="img-responsive out-of-stock" src="~/CustomerSide_desinerResource/images/shop/bags/3-person.jpg">
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="text-darker"><a href="#"><small>نام محصول</small></a></h3>
+                                <h6 class="price">4,500,000</h6>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="product-thumbnail">
+                                <div class="product-image">
+                                    <img alt="image" class="img-responsive" src="~/CustomerSide_desinerResource/images/shop/bags/4-person.jpg">
+                                    <div class="thumbnail-btns">
+                                        <a class="btn btn-theme-inverse" href="product-single.html"><i class="pe-7s-glasses pe-2x"></i></a>
+                                        <a class="btn btn-theme-inverse" href="#"><i class="icon-basket"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="text-darker"><a href="#"><small>نام محصول</small></a></h3>
+                                <h6 class="price">4,500,000</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <ul class="pagination">
+                            <li class="disabled"><a href="#"><i class="fa fa-chevron-left"></i></a></li>
+                            <li class="active"><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li><a href="#"><i class="fa fa-chevron-right"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/CustomerSideUI.js")
+
+<script>
+    var revapi;
+    jQuery(document).ready(function () {
+        setInterval(function () {
+            $('.owl-prev').trigger('click');
+        }, 3000);
+
+
+        revapi = jQuery("#rev_slider_1").revolution({
+            sliderType: "standard",
+            sliderLayout: "fullscreen",
+            fullScreenOffsetContainer: ".navigation",
+            delay: 9000,
+            navigation: {
+                keyboardNavigation: "off",
+                mouseScrollNavigation: "on",
+                onHoverStop: "off",
+                touch: {
+                    touchenabled: "on",
+                    swipe_threshold: 75,
+                    swipe_min_touches: 1,
+                    swipe_direction: "horizontal",
+                    drag_block_vertical: false
+                },
+                bullets: {
+                    enable: true,
+                    rtl: true,
+                    hide_onmobile: false,
+                    style: "hebe",
+                    hide_onleave: false,
+                    direction: "horizontal",
+                    h_align: "center",
+                    v_align: "bottom",
+                    h_offset: 0,
+                    v_offset: 10,
+                    space: 5,
+                    tmp: '<span class="tp-bullet-inner"></span>'
+                }
+            },
+            responsiveLevels: [4096, 1024, 767, 480],
+            gridwidth: 1230,
+            gridheight: 720
+        });
+
+        $("#LoaderSpinner").hide(0);
+    }); /*ready*/
+    $(function () {
+        $("#slider-range").slider({
+            range: true,
+            min: 100000,
+            max: 9000000,
+            values: [100000, 9000000],
+            slide: function (event, ui) {
+                $("#amount").val("از " + ui.values[0] + "تومان" + " تا " + ui.values[1] + "تومان");
+            }
+        });
+        $("#amount").val("از " + $("#slider-range").slider("values", 0) + "تومان" + " تا " + $("#slider-range").slider("values", 1) + "تومان");
+    });
+</script>
+
+
