@@ -25,7 +25,8 @@ namespace BamboPortal_V1._0._0._0.Controllers
                     Lastname = ((Administrator)Session["AdministratorRegistery"]).ad_lastname,
                     email = ((Administrator)Session["AdministratorRegistery"]).ad_email,
                     phone = ((Administrator)Session["AdministratorRegistery"]).ad_phone,
-                    mobile = ((Administrator)Session["AdministratorRegistery"]).ad_mobile
+                    mobile = ((Administrator)Session["AdministratorRegistery"]).ad_mobile,
+                    Username = ((Administrator)Session["AdministratorRegistery"]).Username
 
                 };
                 ViewBag.ProfileInfo = propfileinfo;

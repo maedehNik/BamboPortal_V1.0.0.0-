@@ -141,6 +141,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Administrator.cs" />
+    <Compile Include="Models\AdministratorGeneralModels\changeAuthInformation.cs" />
+    <Compile Include="Models\AdministratorGeneralModels\ChangeProfileModel.cs" />
     <Compile Include="Models\AdministratorValidation.cs" />
     <Compile Include="Models\ErrorReporterModel.cs" />
     <Compile Include="Models\LoginAuthForm.cs" />

@@ -103,7 +103,8 @@ namespace BamboPortal_V1._0._0._0.Controllers
                                 ,
                                 AdminModeID = dt.Rows[0]["AdminModeID"].ToString()
                                 ,
-                                ad_NickName = dt.Rows[0]["ad_NickName"].ToString()
+                                ad_NickName = dt.Rows[0]["ad_NickName"].ToString(),
+                                Username = adObj.Username
                             };
                             try
                             {

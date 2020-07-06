@@ -16,5 +16,6 @@ namespace BamboPortal_V1._0._0._0.Models.MasterObjetsModel
         public string Lastname { get; set; }
         public string email { get; set; }
         public string phone { get; set; }
+        public string Username { get; set; }
     }
 }

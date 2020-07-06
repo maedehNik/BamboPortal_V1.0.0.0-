@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BamboPortal_V1._0._0._0.BamboPortalSecurity.EncDec;
 using BamboPortal_V1._0._0._0.DatabaseCenter.Class;
 using BamboPortal_V1._0._0._0.Models;
+using BamboPortal_V1._0._0._0.Models.AdministratorGeneralModels;
 using BamboPortal_V1._0._0._0.Models.MasterObjetsModel;
 using BamboPortal_V1._0._0._0.StaticClass.BugReporter;
 using BamboPortal_V1._0._0._0.StaticClass.UploaderStaticsCalculators;
@@ -19,9 +22,11 @@ namespace BamboPortal_V1._0._0._0.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [AdministratorValidation]
-        public ActionResult Index(Administrator adObj)
+        public ActionResult Index(ChangeProfileModel adObj1)
         {
+            Administrator adObj = adObj1.administrator;
             if (ModelState.IsValid)
             {
                 string adminID = ((Administrator)Session["AdministratorRegistery"]).id_Admin;
@@ -96,26 +101,14 @@ namespace BamboPortal_V1._0._0._0.Controllers
                     Session["AdministratorRegistery"] = sessionChanger;
 
 
-                    ProfileProperty propfileinfo = new ProfileProperty()
-                    {
-                        avatarImageSrc = ((Administrator)Session["AdministratorRegistery"]).ad_avatarprofile,
-                        name = ((Administrator)Session["AdministratorRegistery"]).ad_NickName,
-                        fullname = ((Administrator)Session["AdministratorRegistery"]).ad_firstname + " " + ((Administrator)Session["AdministratorRegistery"]).ad_lastname,
-                        ipAdmin = Request.UserHostAddress,
-                        Firstname = ((Administrator)Session["AdministratorRegistery"]).ad_firstname,
-                        Lastname = ((Administrator)Session["AdministratorRegistery"]).ad_lastname,
-                        email = ((Administrator)Session["AdministratorRegistery"]).ad_email,
-                        phone = ((Administrator)Session["AdministratorRegistery"]).ad_phone,
-                        mobile = ((Administrator)Session["AdministratorRegistery"]).ad_mobile
 
-                    };
                     var ModelSender = new ErrorReporterModel
                     {
                         ErrorID = "SX101",
                         Errormessage = "اطلاعات کاربری با موفقیت ویرایش شد!",
                         Errortype = "Success"
                     };
-                    ViewBag.EXLogin = ModelSender;
+
                     return Json(ModelSender);
                 }
                 else
@@ -123,7 +116,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                     PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
                     var ModelSender = new ErrorReporterModel
                     {
-                        ErrorID = "EX104",
+                        ErrorID = "EX103",
                         Errormessage = $"عدم توانایی در ویرایش اطلاعات با پشتیبانی تماس حاصل فرمایید! کد پیگیری برای شما :{rep.CodeGenerated}",
                         Errortype = "Error"
                     };
@@ -134,14 +127,226 @@ namespace BamboPortal_V1._0._0._0.Controllers
             }
             else
             {
+                List<ModelErrorReporter> allErrors = new List<ModelErrorReporter>();
+                //foreach (ModelError error in ModelState.Values.)
+                var AllValues = ModelState.Values.ToList();
+                var AllKeys = ModelState.Keys.ToList();
+                int errorsCount = AllValues.Count;
+                for (int i = 0; i < errorsCount; i++)
+                {
+                    if (AllValues[i].Errors.Count > 0)
+                    {
+                        ModelErrorReporter er = new ModelErrorReporter()
+                        {
+                            IdOfProperty = AllKeys[i].Replace("administrator.", "administrator_"),
+                            ErrorMessage = AllValues[i].Errors[0].ErrorMessage
+                        };
+                        allErrors.Add(er);
+                    }
+                }
                 var ModelSender = new ErrorReporterModel
                 {
                     ErrorID = "EX104",
-                    Errormessage = $"عدم توانایی در ویرایش اطلاعات با پشتیبانی تماس حاصل فرمایید! ",
-                    Errortype = "Error"
+                    Errormessage = $"عدم رعایت استاندارد ها!",
+                    Errortype = "ErrorWithList",
+                    AllErrors = allErrors
                 };
                 return Json(ModelSender);
 
+            }
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangeAuthInformations(ChangeProfileModel informations)
+        {
+            changeAuthInformation information = informations.authInformation;
+            if (ModelState.IsValid)
+            {
+                string adminID = ((Administrator)Session["AdministratorRegistery"]).id_Admin;
+                PDBC db = new PDBC();
+                List<ExcParameters> dbparams = new List<ExcParameters>();
+                ExcParameters param = new ExcParameters()
+                {
+                    _VALUE = adminID,
+                    _KEY = "@id_Admin"
+                };
+                dbparams.Add(param);
+                db.Connect();
+                using (DataTable dt = db.Select("SELECT [ad_password] FROM [tbl_ADMIN_main] WHERE [id_Admin] = @id_Admin", dbparams))
+                {
+                    if (dt.Rows.Count > 0)
+                    {
+                        EncDec en = new EncDec();
+                        string md5GeneratedPW = en.HMACMD5Generator(information.OLDpassword);
+                        if (md5GeneratedPW == dt.Rows[0]["ad_password"].ToString())
+                        {
+                            if (string.IsNullOrEmpty(information.Newpassword1))
+                            {
+                                param = new ExcParameters()
+                                {
+                                    _VALUE = information.Username,
+                                    _KEY = "@ad_username"
+                                };
+                                dbparams.Add(param);
+                                db.Connect();
+                                string result = db.Script("UPDATE [tbl_ADMIN_main] SET [ad_username] = @ad_username WHERE [id_Admin] = @id_Admin", dbparams);
+                                db.DC();
+                                if (result == "1")
+                                {
+                                    var sessionChanger = (Administrator)Session["AdministratorRegistery"];
+                                    sessionChanger.Username = information.Username;
+                                    Session["AdministratorRegistery"] = sessionChanger;
+                                    var ModelSender = new ErrorReporterModel
+                                    {
+                                        ErrorID = "SX102",
+                                        Errormessage = "نام کاربری با موفقیت ویرایش شد!",
+                                        Errortype = "Success"
+                                    };
+                                    return Json(ModelSender);
+                                }
+                                else
+                                {
+                                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                                    var ModelSender = new ErrorReporterModel
+                                    {
+                                        ErrorID = "EX108",
+                                        Errormessage = "عدم توانایی در ایجاد نشست فعال برای شما با پشتیبانی تماس حاصل فرمایید",
+                                        Errortype = "Error"
+                                    };
+                                    return Json(ModelSender);
+                                }
+                            }
+                            else
+                            {
+                                if (information.Newpassword1 == information.Newpassword2)
+                                {
+                                    param = new ExcParameters()
+                                    {
+                                        _VALUE = information.Username,
+                                        _KEY = "@ad_username"
+                                    };
+                                    dbparams.Add(param);
+                                    param = new ExcParameters()
+                                    {
+                                        _VALUE = md5GeneratedPW,
+                                        _KEY = "@ad_password"
+                                    };
+                                    dbparams.Add(param);
+                                    db.Connect();
+                                    string result = db.Script("UPDATE  [tbl_ADMIN_main] SET [ad_password] = @ad_password,[ad_username] = @ad_username  WHERE [id_Admin] = @id_Admin", dbparams);
+                                    db.DC();
+                                    if(result == "1")
+                                    {
+                                        var sessionChanger = (Administrator)Session["AdministratorRegistery"];
+                                        sessionChanger.Username = information.Username;
+                                        Session["AdministratorRegistery"] = sessionChanger;
+                                        var ModelSender = new ErrorReporterModel
+                                        {
+                                            ErrorID = "SX103",
+                                            Errormessage = "اطلاعات ورود با موفقیت ویرایش شد!",
+                                            Errortype = "Success"
+                                        };
+                                        return Json(ModelSender);
+                                    }
+                                    else
+                                    {
+                                        PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                                        var ModelSender = new ErrorReporterModel
+                                        {
+                                            ErrorID = "EX110",
+                                            Errormessage = $"عدم توانایی در ویرایش اطلاعات با پشتیبانی تماس حاصل فرمایید! کد پیگیری برای شما :{rep.CodeGenerated}",
+                                            Errortype = "Error"
+                                        };
+                                        return Json(ModelSender);
+                                    }
+                                }
+                                else
+                                {
+                                    List<ModelErrorReporter> allErrors = new List<ModelErrorReporter>();
+                                    ModelErrorReporter er = new ModelErrorReporter()
+                                    {
+
+                                        IdOfProperty = "authInformation_Newpassword1",
+                                        ErrorMessage = "عدم یکسانی کلمه های عبور"
+                                    };
+                                    allErrors.Add(er);
+                                    er = new ModelErrorReporter()
+                                    {
+                                        IdOfProperty = "authInformation_Newpassword2",
+                                        ErrorMessage = "عدم یکسانی کلمه های عبور"
+                                    };
+                                    allErrors.Add(er);
+                                    var ModelSender = new ErrorReporterModel
+                                    {
+                                        ErrorID = "EX109",
+                                        Errormessage = "عدم یکسانی کلمه های عبور",
+                                        Errortype = "ErrorWithList",
+                                        AllErrors = allErrors
+
+                                    };
+                                    return Json(ModelSender);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            List<ModelErrorReporter> allErrors = new List<ModelErrorReporter>();
+                            ModelErrorReporter er = new ModelErrorReporter()
+                            {
+                                IdOfProperty = "authInformation_OLDpassword",
+                                ErrorMessage = "کلمه عبور بدرستی وارد نشده است"
+                            };
+                            allErrors.Add(er);
+                            var ModelSender = new ErrorReporterModel
+                            {
+                                ErrorID = "EX105",
+                                Errormessage = $"کلمه عبور حال شما کلید شما برای ایجاد تغییرات میباشد",
+                                Errortype = "ErrorWithList",
+                                AllErrors = allErrors
+                            };
+                            return Json(ModelSender);
+                        }
+                    }
+                    else
+                    {
+                        var ModelSender = new ErrorReporterModel
+                        {
+                            ErrorID = "EX107",
+                            Errormessage = $"کاربر یافت نشد با پشتیبانی تماس بفرمایید",
+                            Errortype = "Error",
+                        };
+                        return Json(ModelSender);
+                    }
+                }
+            }
+            else
+            {
+                List<ModelErrorReporter> allErrors = new List<ModelErrorReporter>();
+                var AllValues = ModelState.Values.ToList();
+                var AllKeys = ModelState.Keys.ToList();
+                int errorsCount = AllValues.Count;
+                for (int i = 0; i < errorsCount; i++)
+                {
+                    if (AllValues[i].Errors.Count > 0)
+                    {
+                        ModelErrorReporter er = new ModelErrorReporter()
+                        {
+                            IdOfProperty = AllKeys[i].Replace("authInformation.", "authInformation_"),
+                            ErrorMessage = AllValues[i].Errors[0].ErrorMessage
+                        };
+                        allErrors.Add(er);
+                    }
+                }
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX106",
+                    Errormessage = $"عدم رعایت استاندارد ها!",
+                    Errortype = "ErrorWithList",
+                    AllErrors = allErrors
+                };
+                return Json(ModelSender);
             }
         }
     }
