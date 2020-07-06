@@ -22,7 +22,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
 
             string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
             string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
-            ViewBag.pageTitle = TitleFounder.GetTitle(controllerName, actionName);
+            ViewBag.pageTitle = TitleFounder.GetAdminPanelTitle(controllerName, actionName);
             if (TempData["urlRedirection"] != null)
             {
                 ViewBag.urlRedirected = TempData["urlRedirection"] as string;

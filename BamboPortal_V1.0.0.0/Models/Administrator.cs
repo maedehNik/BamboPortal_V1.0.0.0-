@@ -11,11 +11,9 @@ namespace BamboPortal_V1._0._0._0.Models
 {
     public class Administrator
     {
-        [Required(ErrorMessage = "وارد کردن نام کاربری اجباری میباشد!")]
-        [MyMaxLengthAttribute(25)]
+
         public string   Username { get; set; }
-        [Required(ErrorMessage = "وارد کردن کلمه عبور اجباری میباشد!")]
-        [MyMaxLengthAttribute(25)]
+
         public string  Password { get; set; }
         [MyMaxLength(50)]
         public string  urlRedirection { get; set; }

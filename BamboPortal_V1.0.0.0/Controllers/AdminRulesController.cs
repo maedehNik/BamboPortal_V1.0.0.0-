@@ -33,7 +33,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 //start PAGE - TITLE
                 string actionName = filterContext.RouteData.Values["action"].ToString();
                 string controllerName = filterContext.RouteData.Values["controller"].ToString();
-                ViewBag.pageTitle = TitleFounder.GetTitle(controllerName, actionName);
+                ViewBag.pageTitle = TitleFounder.GetAdminPanelTitle(controllerName, actionName);
                 //END of PAGE - TITLE
 
 
