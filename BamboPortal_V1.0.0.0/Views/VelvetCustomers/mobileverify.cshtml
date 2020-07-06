@@ -1,0 +1,125 @@
+﻿
+@{
+    ViewBag.Title = "mobileverify";
+    Layout = "~/Views/SharedViewPages/CustomerSide/CustomerMaster.cshtml";
+}
+
+<div class="theme-background-section full-screen fs-overlay pad-top-40">
+    <div class="content-container">
+        <div class="content-inner-container">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4">
+                        <div class="tab-theme login-register">
+                            <div class="tab-content">
+                                <div id="tab1" class="tab-pane active pad-top-50">
+                                    <div class="row">
+                                        <div class="col-md-12 no-padding-side">
+                                            <div class="form-theme form-grey">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 change-mobile-bg">
+                                                    <div class="change-mobile-inner col-lg-4 col-md-4 col-sm-8 col-xs-12 form-theme form-grey">
+                                                        <h5>
+                                                            تغییر شماره موبایل
+                                                            <i class="fa fa-times"></i>
+                                                        </h5>
+                                                        <form action="" method="post" autocomplete="off" id="reset-pw-form">
+                                                            <div class="form-group pad-bot-15">
+                                                                <label for="resetmobile" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">شماره موبایل<i class="icon-phone text-right tsh-icon" style="float: left;"></i></label>
+                                                                <input type="number" class="form-control" name="resetmobile" id="resetmobile">
+                                                            </div>
+                                                            <input type="submit" class="btn btn-primary form-submit" value="تغییر شماره موبایل">
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <form action="" method="post" autocomplete="off" id="verify-form">
+                                                    <div class="form-group pad-bot-15">
+                                                        <label class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;text-align: center">کد ارسالی به شماره 09197386684 را وارد کنید</label>
+                                                        <div class="tshdirltr" style="text-align: center;">
+                                                            <input id="codeBox1" class="codebox" type="number" maxlength="1" onkeyup="onKeyUpEvent(1, event)" onfocus="onFocusEvent(1)" />
+                                                            <input id="codeBox2" class="codebox" type="number" maxlength="1" onkeyup="onKeyUpEvent(2, event)" onfocus="onFocusEvent(2)" />
+                                                            <input id="codeBox3" class="codebox" type="number" maxlength="1" onkeyup="onKeyUpEvent(3, event)" onfocus="onFocusEvent(3)" />
+                                                            <input id="codeBox4" class="codebox" type="number" maxlength="1" onkeyup="onKeyUpEvent(4, event)" onfocus="onFocusEvent(4)" />
+                                                        </div>
+                                                        <span class="verify-error">کد ارسال شده را وارد کنید</span>
+                                                        <label class="resend-code verify-label control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;text-align: center">
+                                                            <span>
+                                                                <i class="fa fa-repeat tshfatrtry3"></i>
+                                                                ارسال دوباره کد تایید
+                                                            </span>
+                                                        </label>
+                                                        <label class="change-phone-label verify-label control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;text-align: center">
+                                                            <span class="change-phone">
+                                                                <i class="fa fa-edit tshfatrtry3"></i>
+                                                                تغییر شماره موبایل
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                    <button type="button" class="btn btn-success form-submit verify-submit">تایید شماره موبایل</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var revapi;
+    jQuery(document).ready(function () {
+        setInterval(function () {
+            $('.owl-prev').trigger('click');
+        }, 3000);
+
+
+        revapi = jQuery("#rev_slider_1").revolution({
+            sliderType: "standard",
+            sliderLayout: "fullscreen",
+            fullScreenOffsetContainer: ".navigation",
+            delay: 9000,
+            navigation: {
+                keyboardNavigation: "off",
+                mouseScrollNavigation: "on",
+                onHoverStop: "off",
+                touch: {
+                    touchenabled: "on",
+                    swipe_threshold: 75,
+                    swipe_min_touches: 1,
+                    swipe_direction: "horizontal",
+                    drag_block_vertical: false
+                },
+                bullets: {
+                    enable: true,
+                    rtl: true,
+                    hide_onmobile: false,
+                    style: "hebe",
+                    hide_onleave: false,
+                    direction: "horizontal",
+                    h_align: "center",
+                    v_align: "bottom",
+                    h_offset: 0,
+                    v_offset: 10,
+                    space: 5,
+                    tmp: '<span class="tp-bullet-inner"></span>'
+                }
+            },
+            responsiveLevels: [4096, 1024, 767, 480],
+            gridwidth: 1230,
+            gridheight: 720
+        });
+
+        $("#LoaderSpinner").hide(0);
+    }); /*ready*/
+</script>
+@Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/CustomerSideUserProfile.js")
+<script>
+    $(document).ready(function () {
+        //success("تایتل","بادی");
+    })
+</script>
+

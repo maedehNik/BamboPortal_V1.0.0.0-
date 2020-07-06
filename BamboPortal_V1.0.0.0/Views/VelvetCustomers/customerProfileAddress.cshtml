@@ -1,0 +1,134 @@
+﻿
+@{
+    ViewBag.Title = "customerProfileAddress";
+    Layout = "~/Views/SharedViewPages/CustomerSide/CustomerMaster.cshtml";
+}
+
+<div class="container profile-bg" style="padding-top: 100px; margin-bottom: 100px;">
+    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 profile-menu" style="float: right">
+        <h4>منو</h4>
+        <ul>
+            <li>
+                <a href="">
+                    اطلاعات حساب
+                </a>
+            </li>
+            <li class="active">
+                <a href="">
+                    آدرس
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    تاریخچه خرید
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    درخواست های مرجوعی
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    تنظیمات
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12 profile-content" style="float: left">
+        <h4>آدرس</h4>
+        <h5 class="col-lg-12 col-md-12 col-sm-12 col-xs-12 title-h5">
+            <i class="fa fa-chevron-left tshfatrtry3"></i>
+            تغییر آدرس
+        </h5>
+        <div class="form-theme form-grey">
+            <form action="" method="post" autocomplete="off" id="account-form3">
+                <div class="form-group pad-bot-15 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <label for="province" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">استان</label>
+                    <select class="custom-select-profile" name="province" id="province">
+                        <option value="">انتخاب کنید</option>
+                        <option value="1">تهران</option>
+                        <option value="2">تهران</option>
+                        <option value="3">تهران</option>
+                        <option value="4">تهران</option>
+                    </select>
+                </div>
+                <div class="form-group pad-bot-15 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <label for="city" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">شهر</label>
+                    <select class="custom-select-profile" name="city" id="city">
+                        <option value="">انتخاب کنید</option>
+                        <option value="1">تهران</option>
+                        <option value="2">تهران</option>
+                        <option value="3">تهران</option>
+                        <option value="4">تهران</option>
+                    </select>
+                </div>
+                <div class="form-group pad-bot-15 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <label for="area" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">منطقه</label>
+                    <input type="text" class="form-control" name="area" id="area">
+                </div>
+                <div class="form-group pad-bot-15 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <label for="pcode" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">کد پستی</label>
+                    <input type="number" class="form-control" name="pcode" id="pcode">
+                </div>
+                <div class="form-group pad-bot-15 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <label for="address" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">کد پستی</label>
+                    <textarea class="form-control" name="address" id="address"></textarea>
+                </div>
+                <div class="form-group pad-bot-15 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <input type="submit" class="btn btn-success form-submit reg-submit" value="ذخیره">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    var revapi;
+    jQuery(document).ready(function () {
+        setInterval(function () {
+            $('.owl-prev').trigger('click');
+        }, 3000);
+
+
+        revapi = jQuery("#rev_slider_1").revolution({
+            sliderType: "standard",
+            sliderLayout: "fullscreen",
+            fullScreenOffsetContainer: ".navigation",
+            delay: 9000,
+            navigation: {
+                keyboardNavigation: "off",
+                mouseScrollNavigation: "on",
+                onHoverStop: "off",
+                touch: {
+                    touchenabled: "on",
+                    swipe_threshold: 75,
+                    swipe_min_touches: 1,
+                    swipe_direction: "horizontal",
+                    drag_block_vertical: false
+                },
+                bullets: {
+                    enable: true,
+                    rtl: true,
+                    hide_onmobile: false,
+                    style: "hebe",
+                    hide_onleave: false,
+                    direction: "horizontal",
+                    h_align: "center",
+                    v_align: "bottom",
+                    h_offset: 0,
+                    v_offset: 10,
+                    space: 5,
+                    tmp: '<span class="tp-bullet-inner"></span>'
+                }
+            },
+            responsiveLevels: [4096, 1024, 767, 480],
+            gridwidth: 1230,
+            gridheight: 720
+        });
+
+        $("#LoaderSpinner").hide(0);
+    }); /*ready*/
+</script>
+
+@Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/CustomerSideUserProfile.js")
