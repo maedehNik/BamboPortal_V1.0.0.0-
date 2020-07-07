@@ -1,4 +1,4 @@
-﻿
+﻿@model BamboPortal_V1._0._0._0.ModelViews.CustomerSide.AboutUsModelView
 @{
     ViewBag.Title = "AboutUs";
     Layout = "~/Views/SharedViewPages/CustomerSide/CustomerMaster.cshtml";
@@ -54,30 +54,22 @@
                     <h4 class="fancy-heading text-center mar-bot-25"><span class="blocked"> <strong>نظر کاربران عزیزی که تا کنون به ما اعتماد کرده اند</strong></span></h4>
                     <!--<h3 class="text-lighter fancy-heading text-tertiary">Velvet Textile Gallery</h3>-->
                     <div class="owl-carousel owl-theme owl-arrows owl-arrows-view testimonial-carousel text-darker tshcomments" data-items="1" data-items-desktop="1" data-items-tablet="1" data-items-mobile="1" data-navigation="true" data-pagination="false" data-auto-height="true">
-                        <div class="item">
-                            <h4 class="no-margin text-main text-vertical-large">
-                                <small>
-                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان
-                                    <span class="weight-500 letter-spacing-1 tshdisblock tshmt">
-                                        <i>
-                                            - Jack Doe
-                                        </i>
-                                    </span>
-                                </small>
-                            </h4>
-                        </div>
-                        <div class="item">
-                            <h4 class="no-margin text-main text-vertical-large">
-                                <small>
-                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان
-                                    <span class="weight-500 letter-spacing-1 tshdisblock tshmt">
-                                        <i>
-                                            - Jack Doe
-                                        </i>
-                                    </span>
-                                </small>
-                            </h4>
-                        </div>
+                        @foreach (var item in Model.CustomerMessages)
+                        {
+                            <div class="item">
+                                <h4 class="no-margin text-main text-vertical-large">
+                                    <small>
+                                  @item.Message
+                                        <span class="weight-500 letter-spacing-1 tshdisblock tshmt">
+                                            <i>
+                                                @item.Name
+                                            </i>
+                                        </span>
+                                    </small>
+                                </h4>
+                            </div>
+                        }
+
                     </div>
                 </div>
             </div>
@@ -85,36 +77,13 @@
                 <div class="col-md-12 pad-top-100 tshmt2">
                     <h4 class="fancy-heading text-center mar-bot-25"><span class="blocked"> <strong>همکاران ما</strong></span></h4>
                     <div class="owl-carousel owl-theme client-block" data-items="5" data-items-desktop="5" data-items-tablet="4" data-items-mobile="2" data-pagination="false" data-auto-play="true">
-                        <div class="item">
-                            <a href="#" data-placement="top" data-toggle="tooltip" class="tip-top" data-original-title="Susan Seymour"><img alt="image" class="img-responsive center-block" src="~/CustomerSide_desinerResource/images/logos/1.png" /></a>
-                        </div>
-                        <div class="item">
-                            <a href="#" data-placement="top" data-toggle="tooltip" class="tip-top" data-original-title="Susan Seymour"><img alt="image" class="img-responsive center-block" src="~/CustomerSide_desinerResource/images/logos/1.png" /></a>
-                        </div>
-                        <div class="item">
-                            <a href="#" data-placement="top" data-toggle="tooltip" class="tip-top" data-original-title="Susan Seymour"><img alt="image" class="img-responsive center-block" src="~/CustomerSide_desinerResource/images/logos/1.png" /></a>
-                        </div>
-                        <div class="item">
-                            <a href="#" data-placement="top" data-toggle="tooltip" class="tip-top" data-original-title="Susan Seymour"><img alt="image" class="img-responsive center-block" src="~/CustomerSide_desinerResource/images/logos/1.png" /></a>
-                        </div>
-                        <div class="item">
-                            <a href="#" data-placement="top" data-toggle="tooltip" class="tip-top" data-original-title="Susan Seymour"><img alt="image" class="img-responsive center-block" src="~/CustomerSide_desinerResource/images/logos/1.png" /></a>
-                        </div>
-                        <div class="item">
-                            <a href="#" data-placement="top" data-toggle="tooltip" class="tip-top" data-original-title="Susan Seymour"><img alt="image" class="img-responsive center-block" src="~/CustomerSide_desinerResource/images/logos/1.png" /></a>
-                        </div>
-                        <div class="item">
-                            <a href="#" data-placement="top" data-toggle="tooltip" class="tip-top" data-original-title="Susan Seymour"><img alt="image" class="img-responsive center-block" src="~/CustomerSide_desinerResource/images/logos/1.png" /></a>
-                        </div>
-                        <div class="item">
-                            <a href="#" data-placement="top" data-toggle="tooltip" class="tip-top" data-original-title="Susan Seymour"><img alt="image" class="img-responsive center-block" src="~/CustomerSide_desinerResource/images/logos/1.png" /></a>
-                        </div>
-                        <div class="item">
-                            <a href="#" data-placement="top" data-toggle="tooltip" class="tip-top" data-original-title="Susan Seymour"><img alt="image" class="img-responsive center-block" src="~/CustomerSide_desinerResource/images/logos/1.png" /></a>
-                        </div>
-                        <div class="item">
-                            <a href="#" data-placement="top" data-toggle="tooltip" class="tip-top" data-original-title="Susan Seymour"><img alt="image" class="img-responsive center-block" src="~/CustomerSide_desinerResource/images/logos/1.png" /></a>
-                        </div>
+
+                        @foreach (var item in Model.TeamMembers)
+                        {
+                            <div class="item">
+                                <a href="#" data-placement="top" data-toggle="tooltip" class="tip-top" data-original-title="@item.Name"><img alt="image" class="img-responsive center-block" src="@item.ImagePath" /></a>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-﻿
+﻿@model BamboPortal_V1._0._0._0.ModelViews.CustomerSide.customerAddressModelView
 @{
     ViewBag.Title = "customerProfileAddress";
     Layout = "~/Views/SharedViewPages/CustomerSide/CustomerMaster.cshtml";
@@ -9,27 +9,27 @@
         <h4>منو</h4>
         <ul>
             <li>
-                <a href="">
+                <a href="@Url.Action("customerProfile","VelvetCustomers")">
                     اطلاعات حساب
                 </a>
             </li>
             <li class="active">
-                <a href="">
+                <a href=".">
                     آدرس
                 </a>
             </li>
             <li>
-                <a href="">
+                <a href="@Url.Action("customerProfileHistory","VelvetCustomers")">
                     تاریخچه خرید
                 </a>
             </li>
             <li>
-                <a href="">
+                <a href="@Url.Action("customerProfileReturn","VelvetCustomers")">
                     درخواست های مرجوعی
                 </a>
             </li>
             <li>
-                <a href="">
+                <a href="@Url.Action("customerProfileSettings","VelvetCustomers")">
                     تنظیمات
                 </a>
             </li>
@@ -39,7 +39,26 @@
         <h4>آدرس</h4>
         <h5 class="col-lg-12 col-md-12 col-sm-12 col-xs-12 title-h5">
             <i class="fa fa-chevron-left tshfatrtry3"></i>
-            تغییر آدرس
+            آدرس ها
+        </h5>
+
+        @foreach (var item in Model.Addresses)
+        {
+            <div class="form-theme form-grey">
+                <div class="form-group pad-bot-15 col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <label for="pcode" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">کد پستی</label>
+                    <label type="number" class="form-control" name="pcode" id="pcode">@item.HintAddress</label>
+                </div>
+                <div class="form-group pad-bot-15 col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                    <label for="address" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">آدرس کامل</label>
+                    <label class="form-control" name="address" id="address">@item.FullAddress</label>
+                </div>
+            </div>
+        }
+
+        <h5 class="col-lg-12 col-md-12 col-sm-12 col-xs-12 title-h5">
+            <i class="fa fa-chevron-left tshfatrtry3"></i>
+            افزودن آدرس
         </h5>
         <div class="form-theme form-grey">
             <form action="" method="post" autocomplete="off" id="account-form3">
@@ -47,10 +66,11 @@
                     <label for="province" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">استان</label>
                     <select class="custom-select-profile" name="province" id="province">
                         <option value="">انتخاب کنید</option>
-                        <option value="1">تهران</option>
-                        <option value="2">تهران</option>
-                        <option value="3">تهران</option>
-                        <option value="4">تهران</option>
+                        @foreach (var item in Model.City)
+                        {
+                            <option value="@item.Id">@item.Value</option>
+                        }
+
                     </select>
                 </div>
                 <div class="form-group pad-bot-15 col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -63,16 +83,13 @@
                         <option value="4">تهران</option>
                     </select>
                 </div>
-                <div class="form-group pad-bot-15 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <label for="area" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">منطقه</label>
-                    <input type="text" class="form-control" name="area" id="area">
-                </div>
+
                 <div class="form-group pad-bot-15 col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <label for="pcode" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">کد پستی</label>
                     <input type="number" class="form-control" name="pcode" id="pcode">
                 </div>
                 <div class="form-group pad-bot-15 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <label for="address" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">کد پستی</label>
+                    <label for="address" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">آدرس کامل</label>
                     <textarea class="form-control" name="address" id="address"></textarea>
                 </div>
                 <div class="form-group pad-bot-15 col-lg-12 col-md-12 col-sm-12 col-xs-12">

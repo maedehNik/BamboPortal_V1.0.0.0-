@@ -1,4 +1,4 @@
-﻿
+﻿@model BamboPortal_V1._0._0._0.Models.CustomerSide.CustomerDetail
 @{
     ViewBag.Title = "customerProfile";
     Layout = "~/Views/SharedViewPages/CustomerSide/CustomerMaster.cshtml";
@@ -9,27 +9,27 @@
         <h4>منو</h4>
         <ul>
             <li class="active">
-                <a href="">
+                <a href=".">
                     اطلاعات حساب
                 </a>
             </li>
             <li>
-                <a href="">
+                <a href="@Url.Action("customerProfileAddress","VelvetCustomers")">
                     آدرس
                 </a>
             </li>
             <li>
-                <a href="">
+                <a href="@Url.Action("customerProfileHistory","VelvetCustomers")">
                     تاریخچه خرید
                 </a>
             </li>
             <li>
-                <a href="">
+                <a href="@Url.Action("customerProfileReturn","VelvetCustomers")">
                     درخواست های مرجوعی
                 </a>
             </li>
             <li>
-                <a href="">
+                <a href="@Url.Action("customerProfileSettings","VelvetCustomers")">
                     تنظیمات
                 </a>
             </li>
@@ -45,19 +45,19 @@
             <form action="" method="post" autocomplete="off" id="account-form">
                 <div class="form-group pad-bot-15 col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <label for="firstname" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">نام<i class="icon-profile-male text-right tsh-icon" style="float: left;"></i></label>
-                    <input type="text" class="form-control" name="firstname" id="firstname">
+                    <input type="text" class="form-control" name="firstname" id="firstname" value="@Model.Name">
                 </div>
                 <div class="form-group pad-bot-15 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <label for="lastname" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">نام خانوادگی<i class="icon-profile-male text-right tsh-icon" style="float: left;"></i></label>
-                    <input type="text" class="form-control" name="lastname" id="lastname">
+                    <label for="lastname" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">نام خانوادگی<i class="icon-profile-male text-right tsh-icon" style="float: left;" ></i></label>
+                    <input type="text" class="form-control" name="lastname" id="lastname" value="@Model.Familly">
                 </div>
                 <div class="form-group pad-bot-15 col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <label for="mobile" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">شماره موبایل<i class="icon-phone text-right tsh-icon" style="float: left;"></i></label>
-                    <input type="number" class="form-control" name="mobile" id="mobile">
+                    <input type="number" class="form-control" name="mobile" id="mobile" value="@Model.PhoneNum">
                 </div>
                 <div class="form-group pad-bot-15 col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <label for="email" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">ایمیل<i class="icon-envelope text-right tsh-icon" style="float: left;"></i></label>
-                    <input type="text" class="form-control" name="email" id="email">
+                    <input type="text" class="form-control" name="email" id="email" value="@Model.Email">
                 </div>
                 <div class="form-group pad-bot-15 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <input type="submit" class="btn btn-success form-submit reg-submit" value="ذخیره">

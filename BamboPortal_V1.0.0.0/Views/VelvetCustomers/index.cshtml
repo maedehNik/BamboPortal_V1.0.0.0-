@@ -1,356 +1,490 @@
-﻿
+﻿@model BamboPortal_V1._0._0._0.ModelViews.CustomerSide.IndexPageModelView
 @{
     ViewBag.Title = "index";
-    Layout = "~/Views/SharedViewPages/CustomerSide/CustomerMaster.cshtml";
+    
 }
 
-<h2>index</h2>
+<!DOCTYPE html>
+<html itemscope="" itemtype="http://schema.org/WebPage" lang="fa-IR" dir="rtl">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
+    @Styles.RenderFormat(SiteKeys.StyleVersion, "~/Content/CustomerSide.css")
+    @Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/CustomerSide.js")
+</head>
+<body class="header-left-side rtl">
+    <div class="shopping-cart-slide">
+        <div class="title">
+            سبد خرید شما
+            <br />
+            (5) کالا
+        </div>
+        <div class="cart-items">
+            <div class="cart-item">
+                <div class="cart-item-remove"><a href="#"><i class="fa fa-trash-o"></i></a></div>
+                <div class="cart-item-image">
+                    <img alt="image" src="~/CustomerSide_desinerResource/images/products/cart-thumbs/light-grey-jacket-transparent.png" />
+                </div>
+                <div class="cart-item-info">
+                    <div class="item-name"><a href="#">Grey Jacket</a></div>
+                    <div class="item-quantity">
+                        <form id='qtyform5' method='POST' action='#'>
+                            <input type='button' value='-' class='qtyminus btn' title='quantity5' />
+                            <input type='text' name='quantity5' value='1' class='qty' />
+                            <input type='button' value='+' class='qtyplus btn' title='quantity5' />
+                        </form>
+                    </div>
+                </div>
+                <div class="cart-item-price">1,560,000 ریال</div>
+            </div>
 
-<div id="home" class="one-page-section owl-carousel owl-theme owl-slider owl-arrows full-width no-padding-side full-height" data-offset-container="" style="overflow: hidden;" data-items="1" data-items-desktop="1" data-items-tablet="1" data-items-mobile="1" data-pagination-speed="2000" data-slide-speed="2000" data-navigation="true" data-auto-play="true" data-stop-on-hover="true">
-    <div class="item">
-        <div class="slider-item full-height" style="background-image: url('../../CustomerSide_desinerResource/images/ntc/bag.jpg'); background-position: center center;background-size: cover;"></div>
-    </div>
-    <div class="item">
-        <div class="slider-item full-height" style="background-image: url('../../CustomerSide_desinerResource/images/ntc/chair-brown.jpg'); background-position: center center;background-size: cover;"></div>
-    </div>
-</div>
+            <div class="cart-item">
+                <button class="btn btn-info" style="width: 100%;">ابتدا وارد حساب کاربری خود شوید</button>
+            </div>
 
-<div class="container-fluid pad-top-50">
-    <div class="row no-margin">
-        <div class="col-md-12 pad-left-40-desktop pad-right-40-desktop pad-left-40-tablet pad-right-40-tablet">
-            <div class="row pad-top-25">
+            <!--=============================================================CART ITEMS END-->
+
+        </div>
+        <div class="cart-footer">
+
+
+
+            <div class="cart-sub grand-total">
+                <div class="cart-sub-amount">
+                    1000 ريال
+                </div>
+                <div class="text">
+                    مبلغ قابل پرداخت
+                </div>
+
+            </div>
+            <div class="cart-order-links">
+                <a class="btn shopping-cart-trigger">بستن</a>
+                <a class="btn btn-success">پرداخت</a>
+            </div>
+        </div>
+    </div>
+    <div id="LoaderSpinner" class="loader">
+        <div class="spinner"></div>
+    </div>
+    <div class="page-content">
+
+        <header class="navigation transparent">
+            <div class="main-nav nav-pill full-width header-left">
+                <div class="navbar navbar-default" role="navigat ion">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <a class="logo" href=".">
+                                <img alt="image" src="~/CustomerSide_desinerResource/images/logo-dark.png" />
+                            </a>
+                        </div>
+                        <div class="navbar-icons">
+                            <ul class="nav navbar-nav navbar-left">
+                                <li class="nav-shop nav-shop-fullscreen">
+                                    <a href="#" class="shopping-cart-trigger"><i class="shop-icon icon-basket"></i></a>
+                                </li>
+                                <li class="menu-icon">
+                                    <a class="full-screen-menu-trigger" href="#">
+                                        <ul class="bar-icon-wrapper">
+                                            <li class="bar-icon"></li>
+                                            <li class="bar-icon"></li>
+                                            <li class="bar-icon"></li>
+                                        </ul>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="full-screen-header">
+                        <div class="nav-container">
+                            <div class="nav-holder">
+                                <div class="inner-content">
+                                    <ul class="full-screen-nav">
+                                        <li><a href="@Url.Action("index","VelvetCustomers")">خانه</a></li>
+                                        <li><a href="@Url.Action("AboutUs","VelvetCustomers")">درباره ما</a></li>
+                                        <li class="with-dropdown">
+                                            <a href="#" class="menu-dropdown-link account-li">ناحیه کاربری<span class="dropdown-icon tshfatrtry3 tshfamr"></span></a>
+                                            <ul class="menu-dropdown tshsubmneu">
+                                                <li><a href="@Url.Action("customerProfile","VelvetCustomers")">ناحیه کاربری</a></li>
+                                                <li><a href="@Url.Action("factor","VelvetCustomers")">فاکتورها</a></li>
+                                                <li><a href="@Url.Action("customershoppingCart","VelvetCustomers")">سبد خرید</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="@Url.Action("search","VelvetCustomers",new {Type="همه",Id=1 })" style="letter-spacing: 0px;">محصولات</a></li>
+                                        <li><a href="@Url.Action("Rules","VelvetCustomers")" style="letter-spacing: 0px;">قوانین</a></li>
+                                        @*<li><a href="SiteMap.aspx" title="SiteMap" style="letter-spacing: 0px;">نقشه سایت</a></li>*@
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="shopping-cart-slide">
+            <div class="title">
+                سبد خرید شما
+                <br />
+                (5) کالا
+            </div>
+            <div class="cart-items">
+                <div class="cart-item">
+                    <div class="cart-item-remove"><a href="#"><i class="fa fa-trash-o"></i></a></div>
+                    <div class="cart-item-image">
+                        <img alt="image" src="~/CustomerSide_desinerResource/images/products/cart-thumbs/light-grey-jacket-transparent.png" />
+                    </div>
+                    <div class="cart-item-info">
+                        <div class="item-name"><a href="#">Grey Jacket</a></div>
+                        <div class="item-quantity">
+                            <form id='qtyform5' method='POST' action='#'>
+                                <input type='button' value='-' class='qtyminus btn' title='quantity5' />
+                                <input type='text' name='quantity5' value='1' class='qty' />
+                                <input type='button' value='+' class='qtyplus btn' title='quantity5' />
+                            </form>
+                        </div>
+                    </div>
+                    <div class="cart-item-price">1,560,000 ریال</div>
+                </div>
+
+                <div class="cart-item">
+                    <button class="btn btn-info" style="width: 100%;">ابتدا وارد حساب کاربری خود شوید</button>
+                </div>
+            </div>
+            <div class="cart-footer">
+
+
+
+                <div class="cart-sub grand-total">
+                    <div class="cart-sub-amount">
+                        1000 ريال
+                    </div>
+                    <div class="text">
+                        مبلغ قابل پرداخت
+                    </div>
+
+                </div>
+                <div class="cart-order-links">
+                    <a class="btn shopping-cart-trigger">بستن</a>
+                    <a class="btn btn-success">پرداخت</a>
+                </div>
+            </div>
+        </div>
+        <!--///////////////////////////////////////////finish header-->
+
+        <div id="home" class="one-page-section owl-carousel owl-theme owl-slider owl-arrows full-width no-padding-side full-height" data-offset-container="" style="overflow: hidden;" data-items="1" data-items-desktop="1" data-items-tablet="1" data-items-mobile="1" data-pagination-speed="2000" data-slide-speed="2000" data-navigation="true" data-auto-play="true" data-stop-on-hover="true">
+            <div class="item">
+                <div class="slider-item full-height" style="background-image: url('../../CustomerSide_desinerResource/images/ntc/bag.jpg'); background-position: center center;background-size: cover;"></div>
+            </div>
+            <div class="item">
+                <div class="slider-item full-height" style="background-image: url('../../CustomerSide_desinerResource/images/ntc/chair-brown.jpg'); background-position: center center;background-size: cover;"></div>
+            </div>
+        </div>
+
+        <div class="container-fluid pad-top-50">
+            <div class="row no-margin">
+                <div class="col-md-12 pad-left-40-desktop pad-right-40-desktop pad-left-40-tablet pad-right-40-tablet">
+                    <div class="row pad-top-25">
+                        <div class="col-md-12 text-center" style="margin-bottom: 25px;">
+                            <h2 class="no-margin tshbb pad-bot-15 text-uppercase tshbb1b">جدیدترین محصولات</h2>
+                            <!--<h5 class="no-margin text-lighter"><i>Velvet Textile Gallery</i></h5>-->
+                        </div>
+                    </div>
+                    <div class="owl-carousel owl-theme owl-arrows owl-arrows-view pad-left-50-mobile pad-right-50-mobile"
+                         data-items="3" data-items-desktop="3" data-items-tablet="2" data-items-mobile="1"
+                         data-pagination="false" data-navigation="true">
+                        @foreach (var item in Model.NewProducts)
+                        {
+                            <div class="item pad-left-40 pad-right-40 no-padding-side-mobile">
+                                <a href="@Url.Action("productpage","VelvetCustomers",new { ProId=item.Id})" class="trailer trailer-inactive-mobile no-margin-top">
+                                    <figure class="trailer-image">
+                                        <img alt="image" src="@item.PicPath" />
+                                        <figcaption>
+                                            <div class="trailer-center">
+                                                <div class="trailer-heading trailer-heading-center">
+                                                    <h2 class="content-background">@item.Title</h2>
+                                                </div>
+                                            </div>
+                                        </figcaption>
+                                    </figure>
+                                </a>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row pad-top-100">
                 <div class="col-md-12 text-center" style="margin-bottom: 25px;">
-                    <h2 class="no-margin tshbb pad-bot-15 text-uppercase tshbb1b">جدیدترین محصولات</h2>
+                    <h2 class="no-margin tshbb pad-bot-15 text-uppercase tshbb1b">پرفروش ترین محصولات</h2>
                     <!--<h5 class="no-margin text-lighter"><i>Velvet Textile Gallery</i></h5>-->
                 </div>
             </div>
-            <div class="owl-carousel owl-theme owl-arrows owl-arrows-view pad-left-50-mobile pad-right-50-mobile"
-                 data-items="3" data-items-desktop="3" data-items-tablet="2" data-items-mobile="1"
-                 data-pagination="false" data-navigation="true">
-                <div class="item pad-left-40 pad-right-40 no-padding-side-mobile">
-                    <div class="trailer trailer-inactive-mobile no-margin-top">
-                        <figure class="trailer-image">
-                            <img alt="image" src="~/CustomerSide_desinerResource/images/shop/trailer/bag.jpg" />
-                            <figcaption>
-                                <div class="trailer-center">
-                                    <div class="trailer-heading trailer-heading-center">
-                                        <h2 class="content-background">Bags</h2>
-                                    </div>
+            <div class="row product pad-bot-50">
+                @foreach (var item in Model.Sale_Products)
+                {
+                    <div class="col-sm-3">
+                        <div class="product-thumbnail">
+                            <div class="product-image">
+                                <img alt="image" class="img-responsive" src="@item.PicPath">
+                                <div class="thumbnail-btns">
+                                    <a class="btn btn-lg btn-theme-inverse" href="@Url.Action("productpage","VelvetCustomers",new { ProId=item.Id})"><i class="pe-7s-glasses pe-2x"></i></a>
+                                    <a class="btn btn-lg btn-theme-inverse" href="#"><i class="icon-basket"></i></a>
                                 </div>
-                            </figcaption>
-                        </figure>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="text-darker"><a href="#"><small>@item.Title</small></a></h3>
+                            @if (item.Price == item.OffPrice)
+                            {
+                                <h6 class="price">@item.OffPrice</h6>
+                            }
+                            else
+                            {
+                                <h6 class="price tshtdlt">@item.Price</h6>
+                                <h6 class="price">@item.OffPrice</h6>
+                            }
+                        </div>
                     </div>
-                </div>
-                <div class="item pad-left-40 pad-right-40 no-padding-side-mobile">
-                    <div class="trailer trailer-inactive-mobile no-margin-top">
-                        <figure class="trailer-image">
-                            <img alt="image" src="~/CustomerSide_desinerResource/images/shop/trailer/tshirt.jpg" />
-                            <figcaption>
-                                <div class="trailer-center">
-                                    <div class="trailer-heading trailer-heading-center">
-                                        <h2 class="content-background">T-shirts</h2>
-                                    </div>
-                                </div>
-                            </figcaption>
-                        </figure>
-                    </div>
-                </div>
-                <div class="item pad-left-40 pad-right-40 no-padding-side-mobile">
-                    <div class="trailer trailer-inactive-mobile no-margin-top">
-                        <figure class="trailer-image">
-                            <img alt="image" src="~/CustomerSide_desinerResource/images/shop/trailer/jeans.jpg" />
-                            <figcaption>
-                                <div class="trailer-center">
-                                    <div class="trailer-heading trailer-heading-center">
-                                        <h2 class="content-background">Jeans</h2>
-                                    </div>
-                                </div>
-                            </figcaption>
-                        </figure>
-                    </div>
-                </div>
-                <div class="item pad-left-40 pad-right-40 no-padding-side-mobile">
-                    <div class="trailer trailer-inactive-mobile no-margin-top">
-                        <figure class="trailer-image">
-                            <img alt="image" src="~/CustomerSide_desinerResource/images/shop/trailer/jacket.jpg" />
-                            <figcaption>
-                                <div class="trailer-center">
-                                    <div class="trailer-heading trailer-heading-center">
-                                        <h2 class="content-background">Jackets</h2>
-                                    </div>
-                                </div>
-                            </figcaption>
-                        </figure>
-                    </div>
-                </div>
-                <div class="item pad-left-40 pad-right-40 no-padding-side-mobile">
-                    <div class="trailer trailer-inactive-mobile no-margin-top">
-                        <figure class="trailer-image">
-                            <img alt="image" src="~/CustomerSide_desinerResource/images/shop/trailer/shoes.jpg" />
-                            <figcaption>
-                                <div class="trailer-center">
-                                    <div class="trailer-heading trailer-heading-center">
-                                        <h2 class="content-background">Shoes</h2>
-                                    </div>
-                                </div>
-                            </figcaption>
-                        </figure>
-                    </div>
-                </div>
-                <div class="item pad-left-40 pad-right-40 no-padding-side-mobile">
-                    <div class="trailer trailer-inactive-mobile no-margin-top">
-                        <figure class="trailer-image">
-                            <img alt="image" src="~/CustomerSide_desinerResource/images/shop/trailer/hat.jpg" />
-                            <figcaption>
-                                <div class="trailer-center">
-                                    <div class="trailer-heading trailer-heading-center">
-                                        <h2 class="content-background">Hats</h2>
-                                    </div>
-                                </div>
-                            </figcaption>
-                        </figure>
-                    </div>
-                </div>
-                <div class="item pad-left-40 pad-right-40 no-padding-side-mobile">
-                    <div class="trailer trailer-inactive-mobile no-margin-top">
-                        <figure class="trailer-image">
-                            <img alt="image" src="~/CustomerSide_desinerResource/images/shop/trailer/blouse.jpg" />
-                            <figcaption>
-                                <div class="trailer-center">
-                                    <div class="trailer-heading trailer-heading-center">
-                                        <h2 class="content-background">Blouse</h2>
-                                    </div>
-                                </div>
-                            </figcaption>
-                        </figure>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                }
 
-<div class="container">
-    <div class="row pad-top-100">
-        <div class="col-md-12 text-center" style="margin-bottom: 25px;">
-            <h2 class="no-margin tshbb pad-bot-15 text-uppercase tshbb1b">پرفروش ترین محصولات</h2>
-            <!--<h5 class="no-margin text-lighter"><i>Velvet Textile Gallery</i></h5>-->
-        </div>
-    </div>
-    <div class="row product pad-bot-50">
-        <div class="col-sm-3">
-            <div class="product-thumbnail">
-                <div class="product-image">
-                    <img alt="image" class="img-responsive" src="~/CustomerSide_desinerResource/images/shop/men/coat-brown-light.jpg">
-                    <div class="thumbnail-btns">
-                        <a class="btn btn-lg btn-theme-inverse" href="product-single.html"><i class="pe-7s-glasses pe-2x"></i></a>
-                        <a class="btn btn-lg btn-theme-inverse" href="#"><i class="icon-basket"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="product-info">
-                <h3 class="text-darker"><a href="#"><small>نام محصول</small></a></h3>
-                <h6 class="price tshtdlt">5,000,000</h6>
-                <h6 class="price">4,500,000</h6>
             </div>
         </div>
-        <div class="col-sm-3">
-            <div class="product-thumbnail">
-                <div class="product-image">
-                    <img alt="image" class="img-responsive" src="~/CustomerSide_desinerResource/images/shop/men/coat-brown-light.jpg">
-                    <div class="thumbnail-btns">
-                        <a class="btn btn-lg btn-theme-inverse" href="product-single.html"><i class="pe-7s-glasses pe-2x"></i></a>
-                        <a class="btn btn-lg btn-theme-inverse" href="#"><i class="icon-basket"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="product-info">
-                <h3 class="text-darker"><a href="#"><small>نام محصول</small></a></h3>
-                <h6 class="price tshtdlt">5,000,000</h6>
-                <h6 class="price">4,500,000</h6>
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <div class="product-thumbnail">
-                <div class="product-image">
-                    <img alt="image" class="img-responsive" src="~/CustomerSide_desinerResource/images/shop/men/coat-brown-light.jpg">
-                    <div class="thumbnail-btns">
-                        <a class="btn btn-lg btn-theme-inverse" href="product-single.html"><i class="pe-7s-glasses pe-2x"></i></a>
-                        <a class="btn btn-lg btn-theme-inverse" href="#"><i class="icon-basket"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="product-info">
-                <h3 class="text-darker"><a href="#"><small>نام محصول</small></a></h3>
-                <h6 class="price tshtdlt">5,000,000</h6>
-                <h6 class="price">4,500,000</h6>
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <div class="product-thumbnail">
-                <div class="product-image">
-                    <img alt="image" class="img-responsive" src="~/CustomerSide_desinerResource/images/shop/men/coat-brown-light.jpg">
-                    <div class="thumbnail-btns">
-                        <a class="btn btn-lg btn-theme-inverse" href="product-single.html"><i class="pe-7s-glasses pe-2x"></i></a>
-                        <a class="btn btn-lg btn-theme-inverse" href="#"><i class="icon-basket"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="product-info">
-                <h3 class="text-darker"><a href="#"><small>نام محصول</small></a></h3>
-                <h6 class="price tshtdlt">5,000,000</h6>
-                <h6 class="price">4,500,000</h6>
-            </div>
-        </div>
-    </div>
-</div>
 
-<div class="pad-bot-50">
-    <div class="row pad-top-25">
-        <div class="col-md-12 text-center" style="margin-bottom: 25px;">
-            <h2 class="no-margin tshbb pad-bot-15 text-uppercase tshbb1b">محصولات ویژه</h2>
-            <!--<h5 class="no-margin text-lighter"><i>Velvet Textile Gallery</i></h5>-->
-        </div>
-    </div>
-    <div class="row product no-margin">
-        <div class="col-sm-4 no-padding">
-            <div class="product-thumbnail no-margin">
-                <div class="product-image prd-img">
-                    <span class="label label-tags theme-background-light text-vertical-large special tshdirltr">-20 %</span>
-                    <img alt="image" class="img-responsive" src="~/CustomerSide_desinerResource/images/fashion-2.jpg">
-                    <div class="thumbnail-btns">
-                        <a class="btn btn-lg btn-theme" href="product-single.html">مشاهده محصول</a>
-                    </div>
+        <div class="pad-bot-50">
+            <div class="row pad-top-25">
+                <div class="col-md-12 text-center" style="margin-bottom: 25px;">
+                    <h2 class="no-margin tshbb pad-bot-15 text-uppercase tshbb1b">محصولات ویژه</h2>
+                    <!--<h5 class="no-margin text-lighter"><i>Velvet Textile Gallery</i></h5>-->
                 </div>
             </div>
-        </div>
-        <div class="col-sm-4 no-padding">
-            <div class="product-thumbnail no-margin">
-                <div class="product-image prd-img">
-                    <span class="label label-tags theme-background-light text-vertical-large special tshdirltr">-20 %</span>
-                    <img alt="image" class="img-responsive" src="~/CustomerSide_desinerResource/images/fashion-2.jpg">
-                    <div class="thumbnail-btns">
-                        <a class="btn btn-lg btn-theme" href="product-single.html">مشاهده محصول</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4 no-padding">
-            <div class="product-thumbnail no-margin">
-                <div class="product-image prd-img">
-                    <span class="label label-tags theme-background-light text-vertical-large special tshdirltr">-20 %</span>
-                    <img alt="image" class="img-responsive" src="~/CustomerSide_desinerResource/images/fashion-2.jpg">
-                    <div class="thumbnail-btns">
-                        <a class="btn btn-lg btn-theme" href="product-single.html">مشاهده محصول</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+            <div class="row product no-margin">
 
-<div class="container">
-    <div class="row pad-top-25">
-        <div class="col-md-12 text-center" style="margin-bottom: 25px;">
-            <h2 class="no-margin tshbb pad-bot-15 text-uppercase tshbb1b">محصولات پیشنهادی</h2>
-            <!--<h5 class="no-margin text-lighter"><i>Velvet Textile Gallery</i></h5>-->
+                @foreach (var item in Model.ProductsG3)
+                {
+                    <div class="col-sm-4 no-padding">
+                        <div class="product-thumbnail no-margin">
+                            <div class="product-image prd-img">
+                                @*<span class="label label-tags theme-background-light text-vertical-large special tshdirltr">-20 %</span>*@
+                                <img alt="image" class="img-responsive" src="@item.PicPath">
+                                <div class="thumbnail-btns">
+                                    <a class="btn btn-lg btn-theme" href="@Url.Action("productpage","VelvetCustomers",new { ProId=item.Id})">مشاهده محصول</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
         </div>
-    </div>
-    <div class="row product pad-bot-50">
-        <div class="col-sm-3">
-            <div class="product-thumbnail">
-                <div class="product-image">
-                    <img alt="image" class="img-responsive" src="~/CustomerSide_desinerResource/images/shop/men/coat-brown-light.jpg">
-                    <div class="thumbnail-btns">
-                        <a class="btn btn-lg btn-theme-inverse" href="product-single.html"><i class="pe-7s-glasses pe-2x"></i></a>
-                        <a class="btn btn-lg btn-theme-inverse" href="#"><i class="icon-basket"></i></a>
+
+        <div class="container">
+            <div class="row pad-top-25">
+                <div class="col-md-12 text-center" style="margin-bottom: 25px;">
+                    <h2 class="no-margin tshbb pad-bot-15 text-uppercase tshbb1b">محصولات پیشنهادی</h2>
+                    <!--<h5 class="no-margin text-lighter"><i>Velvet Textile Gallery</i></h5>-->
+                </div>
+            </div>
+            <div class="row product pad-bot-50">
+                @foreach (var item in Model.SelectedProducts)
+                {
+                    <div class="col-sm-3">
+                        <div class="product-thumbnail">
+                            <div class="product-image">
+                                <img alt="image" class="img-responsive" src="@item.PicPath">
+                                <div class="thumbnail-btns">
+                                    <a class="btn btn-lg btn-theme-inverse" href="product-single.html"><i class="pe-7s-glasses pe-2x"></i></a>
+                                    <a class="btn btn-lg btn-theme-inverse" href="@Url.Action("productpage","VelvetCustomers",new { ProId=item.Id})"><i class="icon-basket"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="text-darker"><a href="#"><small>@item.Title</small></a></h3>
+                            @if (item.Price == item.OffPrice)
+                            {
+                                <h6 class="price">@item.OffPrice</h6>
+                            }
+                            else
+                            {
+                                <h6 class="price tshtdlt">@item.Price</h6>
+                                <h6 class="price">@item.OffPrice</h6>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="container">
+            <div class="row pad-top-25">
+                <div class="col-md-12 text-center" style="margin-bottom: 25px;">
+                    <h2 class="no-margin tshbb pad-bot-15 text-uppercase tshbb1b">شعبات</h2>
+                    <!--<h5 class="no-margin text-lighter"><i>Velvet Textile Gallery</i></h5>-->
+                </div>
+            </div>
+            <div class="row product pad-bot-50 markets">
+                <div class="col-md-3">
+                    <h4 class="footer-title">شعبه تجریش</h4>
+                    <p class="footer-content">
+                        <i class="fa fa-map-marker"></i>
+                        تجریش - خیابان اول - کوچه دوم - پلاک 3 - زنگ 4
+                    </p>
+                    <p class="footer-content">
+                        <i class="fa fa-phone"></i>
+                        <a class="tshbeforetel" href="tel:02122334455">22334455</a>
+                    </p>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d808.9394280925661!2d51.43142306470913!3d35.80588097728032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x28b271f00e6177d4!2z2LTYudio2Ycg2YXYsdqp2LLbjCDZvtin2LHahtmHINmI2YTZiNiq!5e0!3m2!1sen!2sus!4v1580312708942!5m2!1sen!2sus" height="200" frameborder="0" style="width: 100%;" allowfullscreen="true"></iframe>
+                    <ul class="social-icons list-inline list-unstyled si-light circle inverse" style="text-align: center; display: flow-root;">
+                        <li><a href="#" class="Whatsapp"><i class="fa fa-whatsapp soc-icon"></i></a></li>
+                        <li><a href="#" class="pinterest"><i class="fa fa-pinterest soc-icon"></i></a></li>
+                        <li><a href="#" class="instagram"><i class="fa fa-instagram soc-icon"></i></a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h4 class="footer-title">شعبه تجریش</h4>
+                    <p class="footer-content">
+                        <i class="fa fa-map-marker"></i>
+                        تجریش - خیابان اول - کوچه دوم - پلاک 3 - زنگ 4
+                    </p>
+                    <p class="footer-content">
+                        <i class="fa fa-phone"></i>
+                        <a class="tshbeforetel" href="tel:02122334455">22334455</a>
+                    </p>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d808.9394280925661!2d51.43142306470913!3d35.80588097728032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x28b271f00e6177d4!2z2LTYudio2Ycg2YXYsdqp2LLbjCDZvtin2LHahtmHINmI2YTZiNiq!5e0!3m2!1sen!2sus!4v1580312708942!5m2!1sen!2sus" height="200" frameborder="0" style="width: 100%;" allowfullscreen="true"></iframe>
+                    <ul class="social-icons list-inline list-unstyled si-light circle inverse" style="text-align: center; display: flow-root;">
+                        <li><a href="#" class="Whatsapp"><i class="fa fa-whatsapp soc-icon"></i></a></li>
+                        <li><a href="#" class="pinterest"><i class="fa fa-pinterest soc-icon"></i></a></li>
+                        <li><a href="#" class="instagram"><i class="fa fa-instagram soc-icon"></i></a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h4 class="footer-title">شعبه تجریش</h4>
+                    <p class="footer-content">
+                        <i class="fa fa-map-marker"></i>
+                        تجریش - خیابان اول - کوچه دوم - پلاک 3 - زنگ 4
+                    </p>
+                    <p class="footer-content">
+                        <i class="fa fa-phone"></i>
+                        <a class="tshbeforetel" href="tel:02122334455">22334455</a>
+                    </p>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d808.9394280925661!2d51.43142306470913!3d35.80588097728032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x28b271f00e6177d4!2z2LTYudio2Ycg2YXYsdqp2LLbjCDZvtin2LHahtmHINmI2YTZiNiq!5e0!3m2!1sen!2sus!4v1580312708942!5m2!1sen!2sus" height="200" frameborder="0" style="width: 100%;" allowfullscreen="true"></iframe>
+                    <ul class="social-icons list-inline list-unstyled si-light circle inverse" style="text-align: center; display: flow-root;">
+                        <li><a href="#" class="Whatsapp"><i class="fa fa-whatsapp soc-icon"></i></a></li>
+                        <li><a href="#" class="pinterest"><i class="fa fa-pinterest soc-icon"></i></a></li>
+                        <li><a href="#" class="instagram"><i class="fa fa-instagram soc-icon"></i></a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h4 class="footer-title">شعبه تجریش</h4>
+                    <p class="footer-content">
+                        <i class="fa fa-map-marker"></i>
+                        تجریش - خیابان اول - کوچه دوم - پلاک 3 - زنگ 4
+                    </p>
+                    <p class="footer-content">
+                        <i class="fa fa-phone"></i>
+                        <a class="tshbeforetel" href="tel:02122334455">22334455</a>
+                    </p>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d808.9394280925661!2d51.43142306470913!3d35.80588097728032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x28b271f00e6177d4!2z2LTYudio2Ycg2YXYsdqp2LLbjCDZvtin2LHahtmHINmI2YTZiNiq!5e0!3m2!1sen!2sus!4v1580312708942!5m2!1sen!2sus" height="200" frameborder="0" style="width: 100%;" allowfullscreen="true"></iframe>
+                    <ul class="social-icons list-inline list-unstyled si-light circle inverse" style="text-align: center; display: flow-root;">
+                        <li><a href="#" class="Whatsapp"><i class="fa fa-whatsapp soc-icon"></i></a></li>
+                        <li><a href="#" class="pinterest"><i class="fa fa-pinterest soc-icon"></i></a></li>
+                        <li><a href="#" class="instagram"><i class="fa fa-instagram soc-icon"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <!--///////////////////////////////////////////begin footer-->
+
+        <footer class="footer" style="margin-top: 0px !important;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row" style="margin-bottom: 15px;">
+                            <div class="col-md-3" style="float: right">
+                                <img alt="image" class="img-responsive" src="images/logo-dark-big.png">
+                            </div>
+                            <div class="col-md-9">
+                                <p class="tshabout">
+                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <h4 class="footer-title ftr-title-2 tshcontact-h4">اطلاعات تماس</h4>
+                        <div class="col-md-12 tshcontact">
+                            <span>
+                                <i class="fa fa-phone"></i>
+                                <!--شماره تماس:-->
+                                <a class="tshbeforetel" href="tel:02122334455">22334455</a>
+                            </span>
+                            <span>
+                                <i class="fa fa-envelope"></i>
+                                <!--آدرس ایمیل:-->
+                                <a class="tshbeforetel" href="mailto:info@velvet.com">info@velvet.com</a>
+                            </span>
+                            <span style="line-height: 30px">
+                                <i class="fa fa-map-marker"></i>
+                                آدرس دفتر مرکزی:
+                                تجریش - خیابان اول - کوچه دوم - پلاک 3 - زنگ 4
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="row badges-div">
+                            <h4 class="footer-title ftr-title-2">نماد ها</h4>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 badges">
+                                <img alt="image" class="img-responsive" src="images/enamad.png">
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 badges">
+                                <img alt="image" class="img-responsive" src="images/samandehi.png">
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 badges">
+                                <img alt="image" class="img-responsive" src="images/zarinpal.png">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="product-info">
-                <h3 class="text-darker"><a href="#"><small>نام محصول</small></a></h3>
-                <h6 class="price tshtdlt">5,000,000</h6>
-                <h6 class="price">4,500,000</h6>
+            <div class="footer-copyright">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 text-left-desktop">
+                            <p class="text-secondary letter-spacing-1">
+                                کلیه حقوق مادی و معنوی این سایت متعلق به برند
+                                <a href="https://velvet.com">ولوت</a>
+                                میباشد
+                                &copy;
+                                طراحی شده توسط
+                                <a href="">شرکت توسعه سیستم هوشمند پاندا</a>
+                            </p>
+                        </div>
+                        <div class="col-md-4 col-xs-12 copyright-right">
+                            <ul class="list-unstyled list-inline footer-inline-links">
+                                <li><a href="@Url.Action("Rules","VelvetCustomers")">قوانین و مقررات</a></li>
+                                @*<li><a href="contact.html">ارتباط با ما</a></li>*@
+                                <li><a href="@Url.Action("AboutUs","VelvetCustomers")">درباره ما</a></li>
+                                @*<li><a href="sitemap.html">نقشه سایت</a></li>*@
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </footer>
     </div>
-</div>
-<div class="container">
-    <div class="row pad-top-25">
-        <div class="col-md-12 text-center" style="margin-bottom: 25px;">
-            <h2 class="no-margin tshbb pad-bot-15 text-uppercase tshbb1b">شعبات</h2>
-            <!--<h5 class="no-margin text-lighter"><i>Velvet Textile Gallery</i></h5>-->
-        </div>
-    </div>
-    <div class="row product pad-bot-50 markets">
-        <div class="col-md-3">
-            <h4 class="footer-title">شعبه تجریش</h4>
-            <p class="footer-content">
-                <i class="fa fa-map-marker"></i>
-                تجریش - خیابان اول - کوچه دوم - پلاک 3 - زنگ 4
-            </p>
-            <p class="footer-content">
-                <i class="fa fa-phone"></i>
-                <a class="tshbeforetel" href="tel:02122334455">22334455</a>
-            </p>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d808.9394280925661!2d51.43142306470913!3d35.80588097728032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x28b271f00e6177d4!2z2LTYudio2Ycg2YXYsdqp2LLbjCDZvtin2LHahtmHINmI2YTZiNiq!5e0!3m2!1sen!2sus!4v1580312708942!5m2!1sen!2sus" height="200" frameborder="0" style="width: 100%;" allowfullscreen="true"></iframe>
-            <ul class="social-icons list-inline list-unstyled si-light circle inverse" style="text-align: center; display: flow-root;">
-                <li><a href="#" class="Whatsapp"><i class="fa fa-whatsapp soc-icon"></i></a></li>
-                <li><a href="#" class="pinterest"><i class="fa fa-pinterest soc-icon"></i></a></li>
-                <li><a href="#" class="instagram"><i class="fa fa-instagram soc-icon"></i></a></li>
-            </ul>
-        </div>
-        <div class="col-md-3">
-            <h4 class="footer-title">شعبه تجریش</h4>
-            <p class="footer-content">
-                <i class="fa fa-map-marker"></i>
-                تجریش - خیابان اول - کوچه دوم - پلاک 3 - زنگ 4
-            </p>
-            <p class="footer-content">
-                <i class="fa fa-phone"></i>
-                <a class="tshbeforetel" href="tel:02122334455">22334455</a>
-            </p>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d808.9394280925661!2d51.43142306470913!3d35.80588097728032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x28b271f00e6177d4!2z2LTYudio2Ycg2YXYsdqp2LLbjCDZvtin2LHahtmHINmI2YTZiNiq!5e0!3m2!1sen!2sus!4v1580312708942!5m2!1sen!2sus" height="200" frameborder="0" style="width: 100%;" allowfullscreen="true"></iframe>
-            <ul class="social-icons list-inline list-unstyled si-light circle inverse" style="text-align: center; display: flow-root;">
-                <li><a href="#" class="Whatsapp"><i class="fa fa-whatsapp soc-icon"></i></a></li>
-                <li><a href="#" class="pinterest"><i class="fa fa-pinterest soc-icon"></i></a></li>
-                <li><a href="#" class="instagram"><i class="fa fa-instagram soc-icon"></i></a></li>
-            </ul>
-        </div>
-        <div class="col-md-3">
-            <h4 class="footer-title">شعبه تجریش</h4>
-            <p class="footer-content">
-                <i class="fa fa-map-marker"></i>
-                تجریش - خیابان اول - کوچه دوم - پلاک 3 - زنگ 4
-            </p>
-            <p class="footer-content">
-                <i class="fa fa-phone"></i>
-                <a class="tshbeforetel" href="tel:02122334455">22334455</a>
-            </p>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d808.9394280925661!2d51.43142306470913!3d35.80588097728032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x28b271f00e6177d4!2z2LTYudio2Ycg2YXYsdqp2LLbjCDZvtin2LHahtmHINmI2YTZiNiq!5e0!3m2!1sen!2sus!4v1580312708942!5m2!1sen!2sus" height="200" frameborder="0" style="width: 100%;" allowfullscreen="true"></iframe>
-            <ul class="social-icons list-inline list-unstyled si-light circle inverse" style="text-align: center; display: flow-root;">
-                <li><a href="#" class="Whatsapp"><i class="fa fa-whatsapp soc-icon"></i></a></li>
-                <li><a href="#" class="pinterest"><i class="fa fa-pinterest soc-icon"></i></a></li>
-                <li><a href="#" class="instagram"><i class="fa fa-instagram soc-icon"></i></a></li>
-            </ul>
-        </div>
-        <div class="col-md-3">
-            <h4 class="footer-title">شعبه تجریش</h4>
-            <p class="footer-content">
-                <i class="fa fa-map-marker"></i>
-                تجریش - خیابان اول - کوچه دوم - پلاک 3 - زنگ 4
-            </p>
-            <p class="footer-content">
-                <i class="fa fa-phone"></i>
-                <a class="tshbeforetel" href="tel:02122334455">22334455</a>
-            </p>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d808.9394280925661!2d51.43142306470913!3d35.80588097728032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x28b271f00e6177d4!2z2LTYudio2Ycg2YXYsdqp2LLbjCDZvtin2LHahtmHINmI2YTZiNiq!5e0!3m2!1sen!2sus!4v1580312708942!5m2!1sen!2sus" height="200" frameborder="0" style="width: 100%;" allowfullscreen="true"></iframe>
-            <ul class="social-icons list-inline list-unstyled si-light circle inverse" style="text-align: center; display: flow-root;">
-                <li><a href="#" class="Whatsapp"><i class="fa fa-whatsapp soc-icon"></i></a></li>
-                <li><a href="#" class="pinterest"><i class="fa fa-pinterest soc-icon"></i></a></li>
-                <li><a href="#" class="instagram"><i class="fa fa-instagram soc-icon"></i></a></li>
-            </ul>
-        </div>
-    </div>
-</div>
-@Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/CustomerSideIndex.js")
+
+    @Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/CustomerSideIndex.js")
+    @Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/CustomerSide2.js")
+
+</body>
+</html>
