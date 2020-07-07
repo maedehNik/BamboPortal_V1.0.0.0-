@@ -9,7 +9,9 @@ using BamboPortal_V1._0._0._0.BamboPortalSecurity.EncDec;
 using BamboPortal_V1._0._0._0.DatabaseCenter.Class;
 using BamboPortal_V1._0._0._0.Models;
 using BamboPortal_V1._0._0._0.StaticClass;
+using BamboPortal_V1._0._0._0.StaticClass.BugReporter;
 using Microsoft.Ajax.Utilities;
+using Newtonsoft.Json;
 
 namespace BamboPortal_V1._0._0._0.Controllers
 {
@@ -30,7 +32,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
             }
             else
             {
-                
+
                 ViewBag.urlRedirected = "";
             }
             return View();
@@ -109,6 +111,28 @@ namespace BamboPortal_V1._0._0._0.Controllers
                             try
                             {
                                 Session["AdministratorRegistery"] = AdminSession;
+                                try
+                                {
+                                    var userCookieIDV = new HttpCookie(ProjectProperies.AuthCoockieCode());
+                                    userCookieIDV.Value = CoockieController.SetCoockie(AdminSession); ;
+                                    userCookieIDV.Expires = DateTime.Now.AddYears(5);
+                                    Response.SetCookie(userCookieIDV);
+                                }
+                                catch (Exception coockieEXception)
+                                {
+                                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.coockieAuth)
+                                    {
+                                        EXOBJ = coockieEXception
+                                    };
+                                    var ModelSender = new ErrorReporterModel
+                                    {
+                                        ErrorID = "EX103",
+                                        Errormessage = $"عدم توانایی در ایجاد نشست فعال برای شما با پشتیبانی تماس حاصل فرمایید کد ارور شما {rep.CodeGenerated}",
+                                        Errortype = "Error"
+                                    };
+                                    ViewBag.EXLogin = ModelSender;
+                                    return View("Index");
+                                }
                                 if (string.IsNullOrEmpty(adObj.urlRedirection))
                                 {
                                     return RedirectToAction("Index", "AdministratorWorkplace");
@@ -129,15 +153,19 @@ namespace BamboPortal_V1._0._0._0.Controllers
                                             controllername = GotToPage[i];
                                         }
                                     }
-                                    return RedirectToAction(actionname,controllername);
+                                    return RedirectToAction(actionname, controllername);
                                 }
                             }
-                            catch
+                            catch (Exception SessionException)
                             {
+                                PPBugReporter rep = new PPBugReporter(BugTypeFrom.sessionAuth)
+                                {
+                                    EXOBJ = SessionException
+                                };
                                 var ModelSender = new ErrorReporterModel
                                 {
                                     ErrorID = "EX103",
-                                    Errormessage = "عدم توانایی در ایجاد نشست فعال برای شما با پشتیبانی تماس حاصل فرمایید",
+                                    Errormessage = $"عدم توانایی در ایجاد نشست فعال برای شما با پشتیبانی تماس حاصل فرمایید کد ارور شما {rep.CodeGenerated}",
                                     Errortype = "Error"
                                 };
                                 ViewBag.EXLogin = ModelSender;
@@ -187,9 +215,16 @@ namespace BamboPortal_V1._0._0._0.Controllers
 
         public ActionResult LogOut()
         {
+
             Session["AdministratorRegistery"] = null;
             FormsAuthentication.SignOut();
-            Session.Abandon(); 
+            Session.Abandon();
+            if (Request.Cookies[ProjectProperies.AuthCoockieCode()] != null)
+            {
+                var c = new HttpCookie(ProjectProperies.AuthCoockieCode());
+                c.Expires = DateTime.Now.AddDays(-1);
+                Response.Cookies.Add(c);
+            }
             return RedirectToAction("index", "AdminLoginAuth");
         }
     }

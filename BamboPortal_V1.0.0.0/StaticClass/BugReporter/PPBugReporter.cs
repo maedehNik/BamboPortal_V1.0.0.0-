@@ -30,6 +30,11 @@ namespace BamboPortal_V1._0._0._0.StaticClass.BugReporter
             else
             {
                 excep = $"Exception.ToString() : {ER}";
+                if(EXOBJ != null)
+                {
+                    excep += $"\nExceptionOBJ.ToString() : {EXOBJ.ToString()}\n" +
+                               $"InnerException.Message Type : {EXOBJ.InnerException.Message}";
+                }
             }
             string FolderName = Enum.GetName(typeof(BugTypeFrom), TypeFrom);
             string FromWhere = $"BugIN-{FolderName}";

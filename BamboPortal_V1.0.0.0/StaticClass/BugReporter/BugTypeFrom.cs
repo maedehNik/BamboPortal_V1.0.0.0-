@@ -10,6 +10,9 @@ namespace BamboPortal_V1._0._0._0.StaticClass.BugReporter
         SQL = 1,
         ImageFileWriter = 2,
         ApiDesigner =3,
+        coockieAuth =4,
+        sessionAuth = 5
+
 
 
     }

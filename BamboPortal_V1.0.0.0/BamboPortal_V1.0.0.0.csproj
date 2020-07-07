@@ -151,6 +151,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StaticClass\BugReporter\BugTypeFrom.cs" />
     <Compile Include="StaticClass\BugReporter\PPBugReporter.cs" />
+    <Compile Include="StaticClass\CoockieController.cs" />
     <Compile Include="StaticClass\ProjectProperies.cs" />
     <Compile Include="StaticClass\TitleFounder.cs" />
     <Compile Include="StaticClass\UploaderStaticsCalculators\UploaderGeneral.cs" />
@@ -3056,6 +3057,7 @@
     <Content Include="DatabaseCenter\SQL Scripts\1399\Khordad\Note\notedb.txt" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Khordad\Script\bambopoertalSqcScript.sql" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Tir\16\desktop.sql" />
+    <Content Include="Docs\usefulguides\Webpages.txt" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
@@ -3247,6 +3249,7 @@
     <Content Include="CustomerSide_desinerResource\third-party\revolution\fonts\revicons\revicons90c6.ttf" />
     <Content Include="CustomerSide_desinerResource\third-party\revolution\fonts\revicons\revicons90c6.woff" />
     <Content Include="CustomerSide_desinerResource\video\movie.ogv" />
+    <Content Include="Docs\ErrorHelper\ErrorHelper.json" />
     <None Include="packages.config" />
     <Content Include="Views\AdminLoginAuth\Index.cshtml" />
     <Content Include="Views\SharedViewPages\Administrator\MasterView.cshtml" />
