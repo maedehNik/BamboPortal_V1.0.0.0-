@@ -6,8 +6,6 @@
 
             $("#ProfileFormChangeSubmiter").on("submit", function (e) {
                 e.preventDefault();
-                var frmVlalidation = $('#ProfileFormChangeSubmiter').valid();
-                if (frmVlalidation == true) {
                     $("#ProfileFormChangeSubmiterbtn").hide(400);
 
                     $.ajax({
@@ -47,7 +45,7 @@
 
                         }
                     });
-                }
+                
             });
         });
     }
@@ -60,8 +58,7 @@
 
             $("#AUTHChangeSubmiter").on("submit", function (e) {
                 e.preventDefault();
-                var frmVlalidation = $('#AUTHChangeSubmiter').valid();
-                if (frmVlalidation == true) {
+  
                     $("#AUTHChangeSubmiterbtn").hide(400);
 
                     $.ajax({
@@ -71,7 +68,7 @@
                         success: function (data) {
                             console.log(data)
                             const jsondata = data;
-                            
+
                             if (jsondata.Errortype == "Success") {
                                 $("#AUTHChangeSubmiter_SucceessMessage").text(jsondata.Errormessage);
                                 $("#AUTHChangeSubmiter_SucceessMessage").show(200);
@@ -100,7 +97,7 @@
 
                         }
                     });
-                }
+                
             });
         });
     }

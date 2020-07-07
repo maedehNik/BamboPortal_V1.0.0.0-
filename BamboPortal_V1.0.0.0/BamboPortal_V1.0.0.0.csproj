@@ -2095,7 +2095,6 @@
     <Content Include="AdminDesignResource\demo\default\custom\crud\metronic-datatable\scrolling\horizontal.js" />
     <Content Include="AdminDesignResource\demo\default\custom\crud\metronic-datatable\scrolling\vertical.js" />
     <Content Include="AdminDesignResource\demo\default\custom\crud\wizard\wizard.js" />
-    <Content Include="AdminDesignResource\demo\default\custom\header\actions.js" />
     <Content Include="AdminDesignResource\demo\default\media\img\items\svg\doc.svg" />
     <Content Include="AdminDesignResource\demo\default\media\img\items\svg\pdf.svg" />
     <Content Include="AdminDesignResource\demo\default\media\img\logo\favicon.ico" />
@@ -3074,6 +3073,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="AdminDesignResource\demo\default\custom\header\" />
     <Folder Include="App_Data\" />
     <Folder Include="BamboPortalSecurity\LoginAuth\" />
     <Folder Include="Models\CustomerSide\" />

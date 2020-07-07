@@ -120,20 +120,49 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 db.DC();
                 if (result == "1")
                 {
-                    var sessionChanger = (Administrator)Session["AdministratorRegistery"];
-                    sessionChanger.ad_avatarprofile = adObj.ad_avatarprofile;
-                    sessionChanger.ad_NickName = adObj.ad_NickName;
-                    sessionChanger.ad_firstname = adObj.ad_firstname;
-                    sessionChanger.ad_lastname = adObj.ad_lastname;
-                    sessionChanger.ad_email = adObj.ad_email;
-                    sessionChanger.ad_phone = adObj.ad_phone;
-                    sessionChanger.ad_mobile = adObj.ad_mobile;
-                    Session["AdministratorRegistery"] = sessionChanger;
 
-                    var userCookieIDV = new HttpCookie(ProjectProperies.AuthCoockieCode());
-                    userCookieIDV.Value = CoockieController.SetCoockie(sessionChanger); ;
-                    userCookieIDV.Expires = DateTime.Now.AddYears(5);
-                    Response.SetCookie(userCookieIDV);
+                    try
+                    {
+                        var sessionChanger = (Administrator)Session["AdministratorRegistery"];
+                        sessionChanger.ad_avatarprofile = adObj.ad_avatarprofile;
+                        sessionChanger.ad_NickName = adObj.ad_NickName;
+                        sessionChanger.ad_firstname = adObj.ad_firstname;
+                        sessionChanger.ad_lastname = adObj.ad_lastname;
+                        sessionChanger.ad_email = adObj.ad_email;
+                        sessionChanger.ad_phone = adObj.ad_phone;
+                        sessionChanger.ad_mobile = adObj.ad_mobile;
+                        Session["AdministratorRegistery"] = sessionChanger;
+                    }
+                    catch (Exception EX)
+                    {
+                        PPBugReporter rep = new PPBugReporter(BugTypeFrom.sessionAuth, "IN Controller : {AdministratorGeneralController}\nMethod : {public ActionResult Index(ChangeProfileModel adObj LINE 126)}")
+                        {
+                            EXOBJ = EX
+                        };
+                    }
+                    try
+                    {
+                        HttpCookie cookie = HttpContext.Request.Cookies.Get(ProjectProperies.AuthCoockieCode());
+                        var sessionChanger = CoockieController.SayMyName(cookie.Value);
+                        sessionChanger.ad_avatarprofile = adObj.ad_avatarprofile;
+                        sessionChanger.ad_NickName = adObj.ad_NickName;
+                        sessionChanger.ad_firstname = adObj.ad_firstname;
+                        sessionChanger.ad_lastname = adObj.ad_lastname;
+                        sessionChanger.ad_email = adObj.ad_email;
+                        sessionChanger.ad_phone = adObj.ad_phone;
+                        sessionChanger.ad_mobile = adObj.ad_mobile;
+                        var userCookieIDV = new HttpCookie(ProjectProperies.AuthCoockieCode());
+                        userCookieIDV.Value = CoockieController.SetCoockie(sessionChanger); ;
+                        userCookieIDV.Expires = DateTime.Now.AddYears(5);
+                        Response.SetCookie(userCookieIDV);
+                    }
+                    catch (Exception EX)
+                    {
+                        PPBugReporter rep = new PPBugReporter(BugTypeFrom.coockieAuth, "IN Controller : {AdministratorGeneralController}\nMethod : {public ActionResult Index(ChangeProfileModel adObj LINE 126)}")
+                        {
+                            EXOBJ = EX
+                        };
+                    }
 
                     var ModelSender = new ErrorReporterModel
                     {
@@ -257,13 +286,37 @@ namespace BamboPortal_V1._0._0._0.Controllers
                                 db.DC();
                                 if (result == "1")
                                 {
-                                    var sessionChanger = (Administrator)Session["AdministratorRegistery"];
-                                    sessionChanger.Username = information.Username;
-                                    Session["AdministratorRegistery"] = sessionChanger;
-                                    var userCookieIDV = new HttpCookie(ProjectProperies.AuthCoockieCode());
-                                    userCookieIDV.Value = CoockieController.SetCoockie(sessionChanger); ;
-                                    userCookieIDV.Expires = DateTime.Now.AddYears(5);
-                                    Response.SetCookie(userCookieIDV);
+
+                                    try
+                                    {
+                                        var sessionChanger = (Administrator)Session["AdministratorRegistery"];
+                                        sessionChanger.Username = information.Username;
+                                        Session["AdministratorRegistery"] = sessionChanger;
+                                    }
+                                    catch (Exception EX)
+                                    {
+                                        PPBugReporter rep = new PPBugReporter(BugTypeFrom.sessionAuth, "IN Controller : {AdministratorGeneralController}\nMethod : {public ActionResult Index(ChangeProfileModel adObj LINE 298)}")
+                                        {
+                                            EXOBJ = EX
+                                        };
+                                    }
+                                    try
+                                    {
+                                        HttpCookie cookie = HttpContext.Request.Cookies.Get(ProjectProperies.AuthCoockieCode());
+                                        var sessionChanger = CoockieController.SayMyName(cookie.Value);
+                                        sessionChanger.Username = information.Username;
+                                        var userCookieIDV = new HttpCookie(ProjectProperies.AuthCoockieCode());
+                                        userCookieIDV.Value = CoockieController.SetCoockie(sessionChanger); ;
+                                        userCookieIDV.Expires = DateTime.Now.AddYears(5);
+                                        Response.SetCookie(userCookieIDV);
+                                    }
+                                    catch (Exception EX)
+                                    {
+                                        PPBugReporter rep = new PPBugReporter(BugTypeFrom.coockieAuth, "IN Controller : {AdministratorGeneralController}\nMethod : {public ActionResult Index(ChangeProfileModel adObj LINE 315)}")
+                                        {
+                                            EXOBJ = EX
+                                        };
+                                    }
                                     var ModelSender = new ErrorReporterModel
                                     {
                                         ErrorID = "SX102",
@@ -305,13 +358,38 @@ namespace BamboPortal_V1._0._0._0.Controllers
                                     db.DC();
                                     if (result == "1")
                                     {
-                                        var sessionChanger = (Administrator)Session["AdministratorRegistery"];
-                                        sessionChanger.Username = information.Username;
-                                        Session["AdministratorRegistery"] = sessionChanger;
-                                        var userCookieIDV = new HttpCookie(ProjectProperies.AuthCoockieCode());
-                                        userCookieIDV.Value = CoockieController.SetCoockie(sessionChanger); ;
-                                        userCookieIDV.Expires = DateTime.Now.AddYears(5);
-                                        Response.SetCookie(userCookieIDV);
+                                        try
+                                        {
+                                            var sessionChanger = (Administrator)Session["AdministratorRegistery"];
+                                            sessionChanger.Username = information.Username;
+                                            Session["AdministratorRegistery"] = sessionChanger;
+                                        }
+                                        catch (Exception EX)
+                                        {
+                                            PPBugReporter rep = new PPBugReporter(BugTypeFrom.sessionAuth, "IN Controller : {AdministratorGeneralController}\nMethod : {public ActionResult Index(ChangeProfileModel adObj LINE 126)}")
+                                            {
+                                                EXOBJ = EX
+                                            };
+                                        }
+                                        try
+                                        {
+                                            HttpCookie cookie = HttpContext.Request.Cookies.Get(ProjectProperies.AuthCoockieCode());
+                                            var sessionChanger = CoockieController.SayMyName(cookie.Value);
+                                            sessionChanger.Username = information.Username;
+                                            var userCookieIDV = new HttpCookie(ProjectProperies.AuthCoockieCode());
+                                            userCookieIDV.Value = CoockieController.SetCoockie(sessionChanger); ;
+                                            userCookieIDV.Expires = DateTime.Now.AddYears(5);
+                                            Response.SetCookie(userCookieIDV);
+                                        }
+                                        catch (Exception EX)
+                                        {
+                                            PPBugReporter rep = new PPBugReporter(BugTypeFrom.coockieAuth, "IN Controller : {AdministratorGeneralController}\nMethod : {public ActionResult Index(ChangeProfileModel adObj LINE 126)}")
+                                            {
+                                                EXOBJ = EX
+                                            };
+                                        }
+
+
                                         var ModelSender = new ErrorReporterModel
                                         {
                                             ErrorID = "SX103",

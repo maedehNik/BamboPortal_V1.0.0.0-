@@ -1021,7 +1021,22 @@
     @Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/MetronicGlobalThemeBundle.js")
     <!--end::Global Theme Bundle -->
     <!--begin::Page Vendors -->
-    @RenderSection("PageScripts",true)
+    @if (ViewContext.RouteData.GetRequiredString("controller").ToString() == "AdministratorWorkplace")
+    {
+        if (ViewContext.RouteData.GetRequiredString("action").ToString() == "Index")
+        {
+            @Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/Dashboard.js")
+        }
+    }
+    @if (ViewContext.RouteData.GetRequiredString("controller").ToString() == "AdministratorGeneral")
+    {
+        if (ViewContext.RouteData.GetRequiredString("action").ToString() == "Index")
+        {
+            @Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/AdminProfile.js")
+        }
+    }
+
+    @*@RenderSection("PageScripts",tr)*@
 
 
 
