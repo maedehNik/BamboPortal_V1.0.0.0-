@@ -142,13 +142,45 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="ModelFiller\CustomerSide\CustomerModelFiller.cs" />
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\AdministratorGeneralModels\changeAuthInformation.cs" />
     <Compile Include="Models\AdministratorGeneralModels\ChangeProfileModel.cs" />
     <Compile Include="Models\AdministratorValidation.cs" />
+    <Compile Include="Models\CustomerSide\PersonalDataModels\ActivationModel.cs" />
+    <Compile Include="Models\CustomerSide\PersonalDataModels\AddressModel.cs" />
+    <Compile Include="Models\CustomerSide\BlogModels\blogclass.cs" />
+    <Compile Include="Models\CustomerSide\ProductModels\CommentsModel.cs" />
+    <Compile Include="Models\CustomerSide\AboutCompanyModels\Company_Customers_Model.cs" />
+    <Compile Include="Models\CustomerSide\PersonalDataModels\CustomerDetail.cs" />
+    <Compile Include="Models\CustomerSide\AboutCompanyModels\CustomerMessage.cs" />
+    <Compile Include="Models\CustomerSide\ShoppingModels\FactorMasterModel.cs" />
+    <Compile Include="Models\CustomerSide\ShoppingModels\FactorPopUpModel.cs" />
+    <Compile Include="Models\CustomerSide\Id_ValueModel.cs" />
+    <Compile Include="Models\CustomerSide\ShoppingModels\MiniFactorModel.cs" />
+    <Compile Include="Models\CustomerSide\ProductModels\MiniProductModel.cs" />
+    <Compile Include="Models\CustomerSide\ProductModels\MPCModel.cs" />
+    <Compile Include="Models\CustomerSide\ProductModels\OptionModel.cs" />
+    <Compile Include="Models\CustomerSide\ProductModels\page.cs" />
+    <Compile Include="Models\CustomerSide\ProductModels\ProductRateModel.cs" />
+    <Compile Include="Models\CustomerSide\ProductModels\Product_DesignerModel.cs" />
+    <Compile Include="Models\CustomerSide\ShoppingModels\ShoppingCart_item.cs" />
+    <Compile Include="Models\CustomerSide\ShoppingModels\ShoppingCart_item_CustomerPortal.cs" />
+    <Compile Include="Models\CustomerSide\BlogModels\tbl_BLOG.cs" />
+    <Compile Include="Models\CustomerSide\AboutCompanyModels\tbl_BLOG_TeamMembers.cs" />
+    <Compile Include="Models\CustomerSide\PersonalDataModels\tbl_Customer_Main.cs" />
+    <Compile Include="Models\CustomerSide\AboutCompanyModels\TeamMembers.cs" />
+    <Compile Include="Models\CustomerSide\TreeModel.cs" />
     <Compile Include="Models\ErrorReporterModel.cs" />
     <Compile Include="Models\LoginAuthForm.cs" />
     <Compile Include="Models\MasterObjetsModel\ProfileProperty.cs" />
+    <Compile Include="Models\StoreModel.cs" />
+    <Compile Include="ModelViews\CustomerSide\AboutUsModelView.cs" />
+    <Compile Include="ModelViews\CustomerSide\customerAddressModelView.cs" />
+    <Compile Include="ModelViews\CustomerSide\IndexPageModelView.cs" />
+    <Compile Include="ModelViews\CustomerSide\ProductDetail_ModelView.cs" />
+    <Compile Include="ModelViews\CustomerSide\SearchPageModelView.cs" />
+    <Compile Include="ModelViews\CustomerSide\ShoppingCartModelView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StaticClass\BugReporter\BugTypeFrom.cs" />
     <Compile Include="StaticClass\BugReporter\PPBugReporter.cs" />
@@ -3076,7 +3108,6 @@
     <Folder Include="AdminDesignResource\demo\default\custom\header\" />
     <Folder Include="App_Data\" />
     <Folder Include="BamboPortalSecurity\LoginAuth\" />
-    <Folder Include="Models\CustomerSide\" />
     <Folder Include="WebConfigNotes\" />
   </ItemGroup>
   <ItemGroup>

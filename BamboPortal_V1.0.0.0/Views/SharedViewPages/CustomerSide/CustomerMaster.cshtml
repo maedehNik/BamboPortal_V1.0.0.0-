@@ -105,19 +105,19 @@
                             <div class="nav-holder">
                                 <div class="inner-content">
                                     <ul class="full-screen-nav">
-                                        <li><a href=".">خانه</a></li>
-                                        <li><a href="AboutUs.aspx">درباره ما</a></li>
+                                        <li><a href="@Url.Action("index","VelvetCustomers")">خانه</a></li>
+                                        <li><a href="@Url.Action("AboutUs","VelvetCustomers")">درباره ما</a></li>
                                         <li class="with-dropdown">
                                             <a href="#" class="menu-dropdown-link account-li">ناحیه کاربری<span class="dropdown-icon tshfatrtry3 tshfamr"></span></a>
                                             <ul class="menu-dropdown tshsubmneu">
-                                                <li><a href="#">نایحه کاربری</a></li>
-                                                <li><a href="#">فاکتورها</a></li>
-                                                <li><a href="#">سبد خرید</a></li>
+                                                <li><a href="@Url.Action("customerProfile","VelvetCustomers")">ناحیه کاربری</a></li>
+                                                <li><a href="@Url.Action("factor","VelvetCustomers")">فاکتورها</a></li>
+                                                <li><a href="@Url.Action("customershoppingCart","VelvetCustomers")">سبد خرید</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="Search.aspx" style="letter-spacing: 0px;">محصولات</a></li>
-                                        <li><a href="Rules.aspx" style="letter-spacing: 0px;">قوانین</a></li>
-                                        <li><a href="SiteMap.aspx" title="SiteMap" style="letter-spacing: 0px;">نقشه سایت</a></li>
+                                        <li><a href="@Url.Action("search","VelvetCustomers",new {Type="همه",Id=1 })" style="letter-spacing: 0px;">محصولات</a></li>
+                                        <li><a href="@Url.Action("Rules","VelvetCustomers")" style="letter-spacing: 0px;">قوانین</a></li>
+                                        @*<li><a href="SiteMap.aspx" title="SiteMap" style="letter-spacing: 0px;">نقشه سایت</a></li>*@
                                     </ul>
                                 </div>
                             </div>
@@ -264,9 +264,10 @@
                         </div>
                         <div class="col-md-6 copyright-right">
                             <ul class="list-unstyled list-inline footer-inline-links">
-                                <li><a href="#">قوانین و مقررات</a></li>
-                                <li><a href="contact.html">ارتباط با ما</a></li>
-                                <li><a href="sitemap.html">نقشه سایت</a></li>
+                                <li><a href="@Url.Action("Rules","VelvetCustomers")">قوانین و مقررات</a></li>
+                                @*<li><a href="contact.html">ارتباط با ما</a></li>*@
+                                <li><a href="@Url.Action("AboutUs","VelvetCustomers")">درباره ما</a></li>
+                                @*<li><a href="sitemap.html">نقشه سایت</a></li>*@
                             </ul>
                         </div>
                     </div>
