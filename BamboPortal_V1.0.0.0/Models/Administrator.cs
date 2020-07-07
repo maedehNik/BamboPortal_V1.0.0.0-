@@ -12,11 +12,11 @@ namespace BamboPortal_V1._0._0._0.Models
     public class Administrator
     {
 
-        public string   Username { get; set; }
+        public string Username { get; set; }
 
-        public string  Password { get; set; }
+        public string Password { get; set; }
         [MyMaxLength(50)]
-        public string  urlRedirection { get; set; }
+        public string urlRedirection { get; set; }
         public string id_Admin { get; set; }
         public string ad_typeID { get; set; }
 
@@ -52,6 +52,7 @@ namespace BamboPortal_V1._0._0._0.Models
         public string ad_NickName { get; set; }
 
         public string ad_avatarPicIDfromUploader { get; set; }
+        public DateTime SayMyTime { get; set; }
 
     }
 

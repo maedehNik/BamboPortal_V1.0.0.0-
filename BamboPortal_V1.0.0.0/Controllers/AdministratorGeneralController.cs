@@ -9,6 +9,7 @@ using BamboPortal_V1._0._0._0.DatabaseCenter.Class;
 using BamboPortal_V1._0._0._0.Models;
 using BamboPortal_V1._0._0._0.Models.AdministratorGeneralModels;
 using BamboPortal_V1._0._0._0.Models.MasterObjetsModel;
+using BamboPortal_V1._0._0._0.StaticClass;
 using BamboPortal_V1._0._0._0.StaticClass.BugReporter;
 using BamboPortal_V1._0._0._0.StaticClass.UploaderStaticsCalculators;
 
@@ -29,7 +30,36 @@ namespace BamboPortal_V1._0._0._0.Controllers
             Administrator adObj = adObj1.administrator;
             if (ModelState.IsValid)
             {
-                string adminID = ((Administrator)Session["AdministratorRegistery"]).id_Admin;
+                string adminID = "";
+                try
+                {
+                    adminID = ((Administrator)Session["AdministratorRegistery"]).id_Admin;
+                }
+                catch (Exception exception)
+                {
+                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.sessionAuth, "IN Controller : {AdministratorGeneralController}\nMethod : {public ActionResult Index(ChangeProfileModel adObj1)}")
+                    {
+                        EXOBJ = exception
+                    };
+                }
+                //If Session Doesent work 
+                try
+                {
+                    HttpCookie cookie = HttpContext.Request.Cookies.Get(ProjectProperies.AuthCoockieCode());
+                    adminID = CoockieController.SayMyName(cookie.Value).id_Admin;
+                }
+                catch (Exception EX)
+                {
+                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.coockieAuth, "IN Controller : {AdministratorGeneralController}\nMethod : {public ActionResult Index(ChangeProfileModel adObj1)}")
+                    {
+                        EXOBJ = EX
+                    };
+                }
+                if (string.IsNullOrEmpty(adminID))
+                {
+                    adminID = "NO-ID";
+                }
+
                 PDBC db = new PDBC();
                 List<ExcParameters> dbparams = new List<ExcParameters>();
                 adObj.ad_avatarprofile = UploaderGeneral.imageFinder(adObj.ad_avatarPicIDfromUploader);
@@ -100,7 +130,10 @@ namespace BamboPortal_V1._0._0._0.Controllers
                     sessionChanger.ad_mobile = adObj.ad_mobile;
                     Session["AdministratorRegistery"] = sessionChanger;
 
-
+                    var userCookieIDV = new HttpCookie(ProjectProperies.AuthCoockieCode());
+                    userCookieIDV.Value = CoockieController.SetCoockie(sessionChanger); ;
+                    userCookieIDV.Expires = DateTime.Now.AddYears(5);
+                    Response.SetCookie(userCookieIDV);
 
                     var ModelSender = new ErrorReporterModel
                     {
@@ -164,7 +197,35 @@ namespace BamboPortal_V1._0._0._0.Controllers
             changeAuthInformation information = informations.authInformation;
             if (ModelState.IsValid)
             {
-                string adminID = ((Administrator)Session["AdministratorRegistery"]).id_Admin;
+                string adminID = "";
+                try
+                {
+                    adminID = ((Administrator)Session["AdministratorRegistery"]).id_Admin;
+                }
+                catch (Exception exception)
+                {
+                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.sessionAuth, "IN Controller : {AdministratorGeneralController}\nMethod : {public ActionResult Index(ChangeProfileModel adObj1)}")
+                    {
+                        EXOBJ = exception
+                    };
+                }
+                //If Session Doesent work 
+                try
+                {
+                    HttpCookie cookie = HttpContext.Request.Cookies.Get(ProjectProperies.AuthCoockieCode());
+                    adminID = CoockieController.SayMyName(cookie.Value).id_Admin;
+                }
+                catch (Exception EX)
+                {
+                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.coockieAuth, "IN Controller : {AdministratorGeneralController}\nMethod : {public ActionResult Index(ChangeProfileModel adObj1)}")
+                    {
+                        EXOBJ = EX
+                    };
+                }
+                if (string.IsNullOrEmpty(adminID))
+                {
+                    adminID = "NO-ID";
+                }
                 PDBC db = new PDBC();
                 List<ExcParameters> dbparams = new List<ExcParameters>();
                 ExcParameters param = new ExcParameters()
@@ -176,6 +237,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 db.Connect();
                 using (DataTable dt = db.Select("SELECT [ad_password] FROM [tbl_ADMIN_main] WHERE [id_Admin] = @id_Admin", dbparams))
                 {
+                    db.DC();
                     if (dt.Rows.Count > 0)
                     {
                         EncDec en = new EncDec();
@@ -198,6 +260,10 @@ namespace BamboPortal_V1._0._0._0.Controllers
                                     var sessionChanger = (Administrator)Session["AdministratorRegistery"];
                                     sessionChanger.Username = information.Username;
                                     Session["AdministratorRegistery"] = sessionChanger;
+                                    var userCookieIDV = new HttpCookie(ProjectProperies.AuthCoockieCode());
+                                    userCookieIDV.Value = CoockieController.SetCoockie(sessionChanger); ;
+                                    userCookieIDV.Expires = DateTime.Now.AddYears(5);
+                                    Response.SetCookie(userCookieIDV);
                                     var ModelSender = new ErrorReporterModel
                                     {
                                         ErrorID = "SX102",
@@ -237,11 +303,15 @@ namespace BamboPortal_V1._0._0._0.Controllers
                                     db.Connect();
                                     string result = db.Script("UPDATE  [tbl_ADMIN_main] SET [ad_password] = @ad_password,[ad_username] = @ad_username  WHERE [id_Admin] = @id_Admin", dbparams);
                                     db.DC();
-                                    if(result == "1")
+                                    if (result == "1")
                                     {
                                         var sessionChanger = (Administrator)Session["AdministratorRegistery"];
                                         sessionChanger.Username = information.Username;
                                         Session["AdministratorRegistery"] = sessionChanger;
+                                        var userCookieIDV = new HttpCookie(ProjectProperies.AuthCoockieCode());
+                                        userCookieIDV.Value = CoockieController.SetCoockie(sessionChanger); ;
+                                        userCookieIDV.Expires = DateTime.Now.AddYears(5);
+                                        Response.SetCookie(userCookieIDV);
                                         var ModelSender = new ErrorReporterModel
                                         {
                                             ErrorID = "SX103",
