@@ -111,7 +111,7 @@
                                 <div class="form-group m-form__group row">
                                     @Html.LabelFor(m => m.administrator.ad_NickName, "نام قابل نمایش :", new { @class = "col-lg-4 col-xs-12 col-form-label" })
                                     <div class="col-lg-5 col-xs-12">
-                                        @Html.TextBoxFor(m => m.administrator.ad_NickName, new { @class = "form-control m-input", @Value = Profileprop.name, @placeholder = "نام قابل نمایش" })
+                                        @Html.TextBoxFor(m => m.administrator.ad_NickName, new { @class = "form-control m-input", @Value =    Profileprop.name, @placeholder = "نام قابل نمایش" })
                                         @Html.ValidationMessageFor(m => m.administrator.ad_NickName)
                                     </div>
                                 </div>
@@ -171,7 +171,7 @@
                                         <div class="col-2">
                                         </div>
                                         <div class="col-7 tshtextleft">
-                                            <button id="ProfileFormChangeSubmiterbtn" type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom">ذخیره</button>
+                                            <button id="ProfileFormChangeSubmiter_SubmitBTN" type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom">ذخیره</button>
                                         </div>
                                     </div>
                                 </div>
@@ -247,7 +247,7 @@
                                         <div class="col-2">
                                         </div>
                                         <div class="col-7 tshtextleft">
-                                            <button id="AUTHChangeSubmiterbtn" type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom">ذخیره</button>&nbsp;&nbsp;
+                                            <button id="AUTHChangeSubmiter_SubmitBTN" type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom">ذخیره</button>&nbsp;&nbsp;
                                         </div>
                                     </div>
                                 </div>
@@ -263,5 +263,4 @@
         </div>
     </div>
 </div>
-
 

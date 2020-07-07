@@ -40,6 +40,14 @@ namespace BamboPortal_V1._0._0._0.StaticClass
                             break;
                     }
                     break;
+                case "AdministratorProductsController":
+                    switch (action)
+                    {
+                        case "addtype":
+                            return result + "تعریف سردسته محصولات";
+                            break;
+                    }
+                    break;
 
                 default:
                     return "No Title";

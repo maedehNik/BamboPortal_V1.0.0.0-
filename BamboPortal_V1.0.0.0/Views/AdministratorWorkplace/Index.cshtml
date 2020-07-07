@@ -519,11 +519,11 @@
 </div>
 
 
-@section PageScripts{
+@section Scripts{
 
 	@Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/Dashboard.js")
 	<script type="text/javascript">
-        var Dashboard=function() {
+     
 		var e=function(e, t, a, r) {
 					if(0!=e.length) {
 						var o= {
@@ -2222,7 +2222,7 @@
 						)
 			}
 		}
-	}
+	
 	jQuery(document).ready(function() {
 				Dashboard.init()
 			}

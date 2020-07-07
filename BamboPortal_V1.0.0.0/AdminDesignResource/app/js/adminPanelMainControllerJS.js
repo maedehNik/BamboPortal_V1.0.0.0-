@@ -6,46 +6,25 @@
 
             $("#ProfileFormChangeSubmiter").on("submit", function (e) {
                 e.preventDefault();
-                    $("#ProfileFormChangeSubmiterbtn").hide(400);
-
-                    $.ajax({
-                        url: this.action,
-                        type: this.method,
-                        data: $(this).serialize(),
-                        success: function (data) {
-                            console.log(data)
-
-                            const jsondata = data;
-                            console.log(jsondata.Errortype)
-                            if (jsondata.Errortype == "Success") {
-                                $("#ProfileFormChangeSubmiter_SucceessMessage").text(jsondata.Errormessage);
-                                $("#ProfileFormChangeSubmiter_SucceessMessage").show(200);
-                                setTimeout(function () {
-                                    $("#ProfileFormChangeSubmiter_SucceessMessage").hide(200);
-                                }, 5000);
-                                $("#ProfileFormChangeSubmiterbtn").show(400);
-                                location.reload();
-                            } else if (jsondata.Errortype == "ErrorWithList") {
-                                $("#ProfileFormChangeSubmiter_DangerMessage").text(jsondata.Errormessage);
-                                $("#ProfileFormChangeSubmiter_DangerMessage").show(200);
-                                setTimeout(function () {
-                                    $("#ProfileFormChangeSubmiter_DangerMessage").hide(200);
-                                }, 5000);
-                                ValidationOrNotValidateDatas(data, "ProfileFormChangeSubmiter");
-                                $("#ProfileFormChangeSubmiterbtn").show(400);
-                            } else {
-                                $("#ProfileFormChangeSubmiter_DangerMessage").text(jsondata.Errormessage);
-                                $("#ProfileFormChangeSubmiter_DangerMessage").show(200);
-                                setTimeout(function () {
-                                    $("#ProfileFormChangeSubmiter_DangerMessage").hide(200);
-                                }, 5000);
-                                $("#ProfileFormChangeSubmiterbtn").show(400);
-                            }
-
-
+                DisableBTN("ProfileFormChangeSubmiter");
+                $.ajax({
+                    url: this.action,
+                    type: this.method,
+                    data: $(this).serialize(),
+                    success: function (data) {
+                        console.log(data)
+                        const jsondata = data;
+                        console.log(jsondata.Errortype)
+                        if (jsondata.Errortype == "Success") {
+                            AlertToUser("ProfileFormChangeSubmiter", data);
+                        } else if (jsondata.Errortype == "ErrorWithList") {
+                            AlertToUser("ProfileFormChangeSubmiter", data);
+                        } else {
+                            AlertToUser("ProfileFormChangeSubmiter", data);
                         }
-                    });
-                
+                    }
+                });
+
             });
         });
     }
@@ -58,46 +37,27 @@
 
             $("#AUTHChangeSubmiter").on("submit", function (e) {
                 e.preventDefault();
-  
-                    $("#AUTHChangeSubmiterbtn").hide(400);
+                DisableBTN("AUTHChangeSubmiter");
+                $.ajax({
+                    url: this.action,
+                    type: this.method,
+                    data: $(this).serialize(),
+                    success: function (data) {
+                        console.log(data)
+                        const jsondata = data;
 
-                    $.ajax({
-                        url: this.action,
-                        type: this.method,
-                        data: $(this).serialize(),
-                        success: function (data) {
-                            console.log(data)
-                            const jsondata = data;
-
-                            if (jsondata.Errortype == "Success") {
-                                $("#AUTHChangeSubmiter_SucceessMessage").text(jsondata.Errormessage);
-                                $("#AUTHChangeSubmiter_SucceessMessage").show(200);
-                                setTimeout(function () {
-                                    $("#AUTHChangeSubmiter_SucceessMessage").hide(200);
-                                }, 5000);
-                                $("#AUTHChangeSubmiterbtn").show(400);
-                                location.reload();
-                            } else if (jsondata.Errortype == "ErrorWithList") {
-                                $("#AUTHChangeSubmiter_DangerMessage").text(jsondata.Errormessage);
-                                $("#AUTHChangeSubmiter_DangerMessage").show(200);
-                                setTimeout(function () {
-                                    $("#AUTHChangeSubmiter_DangerMessage").hide(200);
-                                }, 5000);
-                                ValidationOrNotValidateDatas(data, "AUTHChangeSubmiter");
-                                $("#AUTHChangeSubmiterbtn").show(400);
-                            } else {
-                                $("#AUTHChangeSubmiter_DangerMessage").text(jsondata.Errormessage);
-                                $("#AUTHChangeSubmiter_DangerMessage").show(200);
-                                setTimeout(function () {
-                                    $("#AUTHChangeSubmiter_DangerMessage").hide(200);
-                                }, 5000);
-                                $("#AUTHChangeSubmiterbtn").show(400);
-                            }
-
-
+                        if (jsondata.Errortype == "Success") {
+                            AlertToUser("AUTHChangeSubmiter", data);
                         }
-                    });
-                
+                        else if (jsondata.Errortype == "ErrorWithList") {
+                            AlertToUser("AUTHChangeSubmiter", data);
+                        }
+                        else {
+                            AlertToUser("AUTHChangeSubmiter", data);
+                        }
+                    }
+                });
+
             });
         });
     }
@@ -107,7 +67,7 @@
 
 });
 //=================================================================================================
-//{Start}got Json of ErrorReporterModel--> AllErrors For validate from backend serverside Validation
+//{Start}got Json of ErrorReporterModel--> AllErrors For validate from backend serverside Validation{
 function ValidationOrNotValidateDatas(data, formID) {
     const AllInps = $("#" + formID).parent().find('input');
     var __iValidationOrNotValidateDatas = 0
@@ -138,5 +98,37 @@ function ThisIsValid(inputID) {
     $("#" + inputID).removeClass("input-validation-error");
 
 }
-//{END}got Json of ErrorReporterModel--> AllErrors For validate from backend serverside Validation
+//}{END}got Json of ErrorReporterModel--> AllErrors For validate from backend serverside Validation
 //=================================================================================================
+//=================================================================================================
+//{Start}AlertAndLoading For User{
+
+function AlertToUser(FormID, data) {
+    setTimeout(function () {
+
+
+        if (data.Errortype == "Success") {
+            swal("درخواست با موفقیت ثبت شد!", data.Errormessage, "success").then(function (e) {
+                $("#" + FormID + "_SubmitBTN").removeClass("m-loader m-loader--light m-loader--right").prop("disabled", false);
+                location.reload();
+            })
+        }
+        else if (data.Errortype == "ErrorWithList") {
+            swal("متاسفانه در ارسال درخواست مشکلی بوجود آمده", data.Errormessage, "error").then(function (e) {
+                ValidationOrNotValidateDatas(data, FormID);
+                $("#" + FormID + "_SubmitBTN").removeClass("m-loader m-loader--light m-loader--right").prop("disabled", false);
+            })
+        }
+        else {
+            swal("متاسفانه در ارسال درخواست مشکلی بوجود آمده", data.Errormessage, "error").then(function (e) {
+                $("#" + FormID + "_SubmitBTN").removeClass("m-loader m-loader--light m-loader--right").prop("disabled", false);
+            })
+        }
+
+    }, 1000);
+
+}
+function DisableBTN(idForm) {
+    $("#" + idForm + "_SubmitBTN").addClass("m-loader m-loader--light m-loader--right").prop("disabled", true);
+}
+//}{END}AlertAndLoading For User

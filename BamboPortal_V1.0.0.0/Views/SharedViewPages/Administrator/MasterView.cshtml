@@ -13,7 +13,7 @@
 <head>
     <meta charset="utf-8" />
     <title>
-         @ViewBag.pageTitle
+        @ViewBag.pageTitle
     </title>
     <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js">
     </script>
@@ -1021,22 +1021,11 @@
     @Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/MetronicGlobalThemeBundle.js")
     <!--end::Global Theme Bundle -->
     <!--begin::Page Vendors -->
-    @if (ViewContext.RouteData.GetRequiredString("controller").ToString() == "AdministratorWorkplace")
-    {
-        if (ViewContext.RouteData.GetRequiredString("action").ToString() == "Index")
-        {
-            @Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/Dashboard.js")
-        }
-    }
-    @if (ViewContext.RouteData.GetRequiredString("controller").ToString() == "AdministratorGeneral")
-    {
-        if (ViewContext.RouteData.GetRequiredString("action").ToString() == "Index")
-        {
-            @Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/AdminProfile.js")
-        }
-    }
 
-    @*@RenderSection("PageScripts",tr)*@
+    @Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/AdminProfile.js")
+
+
+    @RenderSection("Scripts", required: false)
 
 
 

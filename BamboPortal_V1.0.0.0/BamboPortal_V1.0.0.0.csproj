@@ -137,6 +137,7 @@
     <Compile Include="Controllers\AdministratorWorkplaceController.cs" />
     <Compile Include="Controllers\AdminLoginAuthController.cs" />
     <Compile Include="Controllers\AdminRulesController.cs" />
+    <Compile Include="Controllers\TestssController.cs" />
     <Compile Include="Controllers\VelvetCustomersController.cs" />
     <Compile Include="DatabaseCenter\Class\Dbconnect.cs" />
     <Compile Include="Global.asax.cs">
@@ -146,6 +147,8 @@
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\AdministratorGeneralModels\changeAuthInformation.cs" />
     <Compile Include="Models\AdministratorGeneralModels\ChangeProfileModel.cs" />
+    <Compile Include="Models\AdministratorProductsModels\addtype.cs" />
+    <Compile Include="Models\AdministratorProductsModels\AddTypeTable.cs" />
     <Compile Include="Models\AdministratorValidation.cs" />
     <Compile Include="Models\CustomerSide\PersonalDataModels\ActivationModel.cs" />
     <Compile Include="Models\CustomerSide\PersonalDataModels\AddressModel.cs" />
@@ -175,6 +178,7 @@
     <Compile Include="Models\LoginAuthForm.cs" />
     <Compile Include="Models\MasterObjetsModel\ProfileProperty.cs" />
     <Compile Include="Models\StoreModel.cs" />
+    <Compile Include="ModelViews\AdministratorProducts\AddTypeModelView.cs" />
     <Compile Include="ModelViews\CustomerSide\AboutUsModelView.cs" />
     <Compile Include="ModelViews\CustomerSide\customerAddressModelView.cs" />
     <Compile Include="ModelViews\CustomerSide\IndexPageModelView.cs" />
@@ -2127,6 +2131,7 @@
     <Content Include="AdminDesignResource\demo\default\custom\crud\metronic-datatable\scrolling\horizontal.js" />
     <Content Include="AdminDesignResource\demo\default\custom\crud\metronic-datatable\scrolling\vertical.js" />
     <Content Include="AdminDesignResource\demo\default\custom\crud\wizard\wizard.js" />
+    <Content Include="AdminDesignResource\demo\default\custom\header\actions.js" />
     <Content Include="AdminDesignResource\demo\default\media\img\items\svg\doc.svg" />
     <Content Include="AdminDesignResource\demo\default\media\img\items\svg\pdf.svg" />
     <Content Include="AdminDesignResource\demo\default\media\img\logo\favicon.ico" />
@@ -2135,6 +2140,7 @@
     <Content Include="AdminDesignResource\demo\default\media\img\misc\preservation-copy.jpg" />
     <Content Include="AdminDesignResource\demo\default\media\img\misc\ProfileDefault.JPG" />
     <Content Include="AdminDesignResource\demo\default\media\img\misc\quick_actions_bg.jpg" />
+    <Content Include="AdminDesignResource\demo\default\media\img\misc\slider-main.m4v" />
     <Content Include="AdminDesignResource\demo\default\media\img\misc\user_profile_bg.jpg" />
     <Content Include="AdminDesignResource\snippets\apps\mail\mail.js" />
     <Content Include="AdminDesignResource\snippets\custom\apps\mail\mail.js" />
@@ -2159,6 +2165,8 @@
     <Content Include="AdminDesignResource\vendors\base\vendors.bundle.css" />
     <Content Include="AdminDesignResource\vendors\base\vendors.bundle.js" />
     <Content Include="AdminDesignResource\vendors\base\vendors.bundle.rtl.css" />
+    <Content Include="AdminDesignResource\vendors\bootstrap-clockpicker.css" />
+    <Content Include="AdminDesignResource\vendors\bootstrap-clockpicker.js" />
     <Content Include="AdminDesignResource\vendors\custom\custom-css.css" />
     <Content Include="AdminDesignResource\vendors\custom\custom-js.js" />
     <Content Include="AdminDesignResource\vendors\custom\datatables\datatables.bundle.css" />
@@ -2181,6 +2189,8 @@
     <Content Include="AdminDesignResource\vendors\custom\jqvmap\jqvmap.bundle.js" />
     <Content Include="AdminDesignResource\vendors\custom\jqvmap\jqvmap.bundle.rtl.css" />
     <Content Include="AdminDesignResource\vendors\jquery.min.js" />
+    <Content Include="AdminDesignResource\vendors\persianDatepicker-default.css" />
+    <Content Include="AdminDesignResource\vendors\persianDatepicker.js" />
     <Content Include="CustomerSide_desinerResource\assets\gridimages\agency_grid.jpg" />
     <Content Include="CustomerSide_desinerResource\assets\gridimages\carousel_classic1.jpg" />
     <Content Include="CustomerSide_desinerResource\assets\gridimages\carousel_highlight1.jpg" />
@@ -3105,7 +3115,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="AdminDesignResource\demo\default\custom\header\" />
     <Folder Include="App_Data\" />
     <Folder Include="BamboPortalSecurity\LoginAuth\" />
     <Folder Include="WebConfigNotes\" />
@@ -3306,6 +3315,7 @@
     <Content Include="Views\VelvetCustomers\Rules.cshtml" />
     <Content Include="Views\VelvetCustomers\search.cshtml" />
     <Content Include="Views\AdministratorProducts\AddType.cshtml" />
+    <Content Include="Views\Testss\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
