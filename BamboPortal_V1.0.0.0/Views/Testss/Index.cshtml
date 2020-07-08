@@ -61,11 +61,11 @@
                         </ul>
                     </div>
                 </div>
-                <div class="tab-content">
+                <div class="tab-content" id="insertedContent">
                     <div class="tab-pane active row" id="m_user_profile_tab_1">
                         <div class="col-lg-11 col-md-11 col-sm-11" id="ddfsf">
                             <select class="form-control m-bootstrap-select m_selectpicker" id="FormSubmiting_IdofSardastebandi" name="FormSubmiting.IdofSardastebandi" title="انتخاب کنید..." data-live-search="true">
-                                <option value=1>v6</option>
+                                <option value=kirekhar>v6</option>
                                 <option value=12>v5</option>
                                 <option value=13>v4</option>
                                 <option value=14>v32</option>
@@ -111,10 +111,25 @@
 
         $(document).ready(function () {
             $("#FormSubmiting_IdofSardastebandi").select2();
+            $('#FormSubmiting_IdofSardastebandi').on('select2:select', function (e) {
+                console.log(e);
+            });
         });
+
         function ff() {
-        $("#FormSubmiting_IdofSardastebandi_Container").addClass("m-loader m-loader--primary m-loader--right")
+
+            mApp.block("#insertedContent", {
+                overlayColor: "#2c2e3e", type: "loader", state: "success", message: "درحال بارگزاری ..."
+            });
+
+
+            setTimeout(function () {
+                mApp.unblock("#insertedContent")
+            }, 2000)
         }
+
+
+
     </script>
 
 

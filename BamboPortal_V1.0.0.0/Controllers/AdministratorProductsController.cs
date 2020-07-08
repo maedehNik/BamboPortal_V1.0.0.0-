@@ -476,6 +476,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 }
                 model.dastebandi_asli = result;
             }
+
             var res = new List<ProductGroupModel>();
             db.Connect();
             using (DataTable dt = db.Select("SELECT A.[id_MC],B.PTname,A.MCName,A.ISDelete,A.ISDESABLED,A.id_PT FROM [tbl_Product_MainCategory] as A inner join [tbl_Product_Type] as B on A.id_PT=B.id_PT"))
@@ -806,17 +807,177 @@ namespace BamboPortal_V1._0._0._0.Controllers
         }
         //{END}For Product MainCategory
 
-
+        //{start}For Product  SubCategory
         public ActionResult AddSubCategory()
         {
-            return View();
+            AddSubCategoryModelView model = new AddSubCategoryModelView();
+            model.Tbl = new List<ProductGroupModel>();
+            model.SubmiterModel = new AddSubCategorySubmiterModel()
+            {
+                IdSubCategoryForEdit = "0",
+                MainCategoryID = "0",
+                SubCategoryName = "",
+                typeID = "0"
+            };
+            PDBC db = new PDBC();
+            db.Connect();
+            using (DataTable dt = db.Select("SELECT [id_PT] as id ,[PTname] as [name] FROM [tbl_Product_Type] WHERE ISDelete=0 AND ISDESABLED=0"))
+            {
+                db.DC();
+                List<Key_ValueModel> result = new List<Key_ValueModel>();
+                if (dt.Rows.Count > 0)
+                {
+                    var maodel = new Key_ValueModel()
+                    {
+                        Id = 0,
+                        Value = "یک مورد را انتخاب نمایید"
+                    };
+                    result.Add(maodel);
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        maodel = new Key_ValueModel()
+                        {
+                            Id = Convert.ToInt32(dt.Rows[i]["id"]),
+                            Value = dt.Rows[i]["name"].ToString()
+                        };
+                        result.Add(maodel);
+                    }
+                }
+                else
+                {
+                    result.Add(new Key_ValueModel { Id = 0, Value = "موردی برای انتخاب وجود ندارد" });
+
+                }
+                model.IdTypes = result;
+            }
+
+            db.Connect();
+            using (DataTable dt = db.Select("SELECT C.id_SC,B.PTname,A.MCName,C.ISDelete,C.ISDESABLED,C.SCName FROM [tbl_Product_MainCategory] as A inner join [tbl_Product_Type] as B on A.id_PT=B.id_PT inner join [tbl_Product_SubCategory] as C on A.id_MC=C.id_MC"))
+            {
+                var res = new List<ProductGroupModel>();
+                db.DC();
+                int dtrowcount = dt.Rows.Count;
+                for (int i = 0; i < dtrowcount; i++)
+                {
+                    var mdl = new ProductGroupModel()
+                    {
+                        Num = i + 1,
+                        Id = Convert.ToInt32(dt.Rows[i]["id_SC"]),
+                        IsDeleted = Convert.ToInt32(dt.Rows[i]["ISDelete"]),
+                        IsDisables = Convert.ToInt32(dt.Rows[i]["ISDESABLED"]),
+                        Type = dt.Rows[i]["PTname"].ToString(),
+                        Main = dt.Rows[i]["MCName"].ToString(),
+                        Sub = dt.Rows[i]["SCName"].ToString()
+                    };
+                    res.Add(mdl);
+                }
+
+                model.Tbl = res;
+            }
+
+            return View(model);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddSubCategory(string kir)
+        public ActionResult AddSubCategory(AddSubCategoryModelView senderobj)
         {
+            if (ModelState.IsValid)
+            {
+                PDBC db = new PDBC();
+
+                List<ExcParameters> paramss = new List<ExcParameters>();
+                ExcParameters parameters = new ExcParameters();
+                parameters = new ExcParameters()
+                {
+                    _KEY = "@value",
+                    _VALUE = senderobj.SubmiterModel.SubCategoryName
+                };
+                paramss.Add(parameters);
+                parameters = new ExcParameters()
+                {
+                    _KEY = "@data_Sub",
+                    _VALUE = senderobj.SubmiterModel.MainCategoryID
+                };
+                paramss.Add(parameters);
+                db.Connect();
+                string result = db.Script("INSERT INTO [tbl_Product_SubCategory]([id_MC],[SCName],[ISDESABLED],[ISDelete])VALUES (@data_Sub,@value,0,0)", paramss);
+                db.DC();
+                if (result == "1")
+                {
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "SX106",
+                        Errormessage = $"گروه محصولات با موفقیت ثبت شد!",
+                        Errortype = "Success"
+                    };
+                    return Json(ModelSender);
+                }
+                else
+                {
+                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "EX115",
+                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                        Errortype = "Error"
+                    };
+                    return Json(ModelSender);
+                }
+
+
+            }
+            else
+            {
+                List<ModelErrorReporter> allErrors = new List<ModelErrorReporter>();
+                //foreach (ModelError error in ModelState.Values.)
+                var AllValues = ModelState.Values.ToList();
+                var AllKeys = ModelState.Keys.ToList();
+                int errorsCount = AllValues.Count;
+                for (int i = 0; i < errorsCount; i++)
+                {
+                    if (AllValues[i].Errors.Count > 0)
+                    {
+                        ModelErrorReporter er = new ModelErrorReporter()
+                        {
+                            IdOfProperty = AllKeys[i].Replace("SubmiterModel.", "SubmiterModel_"),
+                            ErrorMessage = AllValues[i].Errors[0].ErrorMessage
+                        };
+                        allErrors.Add(er);
+                    }
+                }
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX0012",
+                    Errormessage = $"عدم رعایت استاندارد ها!",
+                    Errortype = "ErrorWithList",
+                    AllErrors = allErrors
+                };
+                return Json(ModelSender);
+            }
+
             return View();
         }
+        [HttpPost]
+        public JsonResult AddSubCategoryActive(string idToActive)
+        {
+
+            return Json("");
+        }
+        [HttpPost]
+        public JsonResult AddSubCategoryDeActive(string idToDEActive)
+        {
+
+            return Json("");
+
+        }
+        [HttpPost]
+        public JsonResult AddSubCategoryDelete(string idTodelete)
+        {
+
+            return Json("");
+
+        }
+        //{END}For Product  SubCategory
 
     }
 }

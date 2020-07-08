@@ -121,12 +121,42 @@
     }
     //{END}For administrator AddMainCategorySubmiter
     //=================================================================================================
+    //=================================================================================================
+    //{Start}For administrator AddSubCategory
+    if ($("#AddSubCategorySubmiter").length == 1) {
+        $(function () {
+            $("#AddSubCategorySubmiter").on("submit", function (e) {
+                e.preventDefault();
+                DisableBTN("AddSubCategorySubmiter");
+                $.ajax({
+                    url: this.action,
+                    type: this.method,
+                    data: $(this).serialize(),
+                    success: function (data) {
+                        console.log(data)
+                        const jsondata = data;
+                        console.log(jsondata.Errortype)
+                        if (jsondata.Errortype == "Success") {
+                            AlertToUser("AddSubCategorySubmiter", data);
+                        } else if (jsondata.Errortype == "ErrorWithList") {
+                            AlertToUser("AddSubCategorySubmiter", data);
+                        } else {
+                            AlertToUser("AddSubCategorySubmiter", data);
+                        }
+                    }
+                });
+            });
+        });
+    }
+    //{END}For administrator AddSubCategory
+    //=================================================================================================
 });
 //=================================================================================================
 //{Start}got Json of ErrorReporterModel--> AllErrors For validate from backend serverside Validation{
 function ValidationOrNotValidateDatas(data, formID) {
-    const AllInps = $("#" + formID).parent().find('input');
+    var AllInps = $("#" + formID).parent().find('input');
     var __iValidationOrNotValidateDatas = 0
+
     for (__iValidationOrNotValidateDatas = 0; __iValidationOrNotValidateDatas < AllInps.length; __iValidationOrNotValidateDatas++) {
         $(AllInps[__iValidationOrNotValidateDatas]).removeClass("input-validation-error");
         var idinp = $(AllInps[__iValidationOrNotValidateDatas]).attr('id');

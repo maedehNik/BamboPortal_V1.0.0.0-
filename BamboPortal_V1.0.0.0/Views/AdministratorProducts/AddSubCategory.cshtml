@@ -1,4 +1,4 @@
-﻿
+﻿@model BamboPortal_V1._0._0._0.ModelViews.AdministratorProducts.AddSubCategoryModelView
 @{
     Layout = "~/Views/SharedViewPages/Administrator/MasterView.cshtml";
 }
@@ -13,6 +13,7 @@
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
+            <input id="deactivemodalID" value="" style="display:none" />
             <div class="modal-body">
                 <p>
                     <small style="display: block">با غیرفعال کردن این گروه اصلی تمام زیرمجموعه های این گروه اصلی نیز غیرفعال خواهند شد.</small>
@@ -20,7 +21,29 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">خیر</button>
-                <button type="button" class="btn btn-danger">بله</button>
+                <button type="button" id="deActiveModal_SubmitBTN" class="btn btn-danger" onclick="return YesDeactivePlz()">بله</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="activemodal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">غیرفعال سازی گروه اصلی</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <small style="display: block">با غیرفعال کردن این گروه اصلی تمام زیرمجموعه های این گروه اصلی نیز غیرفعال خواهند شد.</small>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <input id="activemodalID" value="" style="display:none" />
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">خیر</button>
+                <button type="button" id="ActiveModal_SubmitBTN" class="btn btn-danger" onclick="return YesAactivePlz()">بله</button>
             </div>
         </div>
     </div>
@@ -41,12 +64,14 @@
                 </p>
             </div>
             <div class="modal-footer">
+                <input id="deleteCusID" value="" style="display:none" />
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">خیر</button>
-                <button type="button" class="btn btn-danger">بله</button>
+                <button type="button" id="deleteCus_SubmitBTN" class="btn btn-danger" onclick="return YesDeletePlz()">بله</button>
             </div>
         </div>
     </div>
 </div>
+
 
 
 
@@ -90,10 +115,9 @@
                         </ul>
                     </div>
                 </div>
-                <div class="tab-content">
+                <div class="tab-content" id="AddSubCategoryAllContent">
                     <div class="tab-pane active" id="m_user_profile_tab_1">
                         <input id="AddSubCategorySubmiterRedirection" value="@Url.Action("AddSubCategory", "AdministratorProducts")" style="display:none;" />
-
                         @*=========================================================== Form begins*@
                         @using (@Html.BeginForm("AddSubCategory", "AdministratorProducts", FormMethod.Post, new { @id = "AddSubCategorySubmiter", @class = "m-form m-form--fit m-form--label-align-right" }))
                         {
@@ -102,31 +126,33 @@
                                 <div class="col-12">
                                     <div class="row">
                                         <div class="form-group m-form__group col-lg-6 col-xs-12">
-                                            <label class="col-12 tshtextright" for="nm1">سردسته محصول:</label>
+                                            @Html.LabelFor(m => m.SubmiterModel.typeID, "سردسته محصول :", new { @id = "SubmiterModel_typeIDLBL", @class = "col-12 tshtextright" })
                                             <div class="col-lg-12 col-md-12 col-sm-12">
-                                                <select class="form-control m-bootstrap-select m_selectpicker" id="nm1" name="nm1" title="انتخاب کنید..." data-live-search="true">
-                                                    <option>گزینه یک</option>
-                                                    <option>گزینه دو</option>
-                                                    <option>گزینه سه</option>
+                                                <select class="form-control m-bootstrap-select m_selectpicker" id="SubmiterModel_typeID" name="SubmiterModel.typeID" title="انتخاب کنید..." data-live-search="true" onchange="URLSearchParams()">
+                                                    @foreach (var item in Model.IdTypes)
+                                                    {
+                                                        <option value=@item.Id>@item.Value</option>
+                                                    }
                                                 </select>
+                                                @Html.ValidationMessageFor(m => m.SubmiterModel.typeID)
                                             </div>
                                         </div>
                                         <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
-                                            <label class="col-12 tshtextright" for="nm3">گروه اصلی محصول:</label>
+                                            @Html.LabelFor(m => m.SubmiterModel.MainCategoryID, "سردسته محصول :", new { @id = "SubmiterModel_MainCategoryIDLBL", @class = "col-12 tshtextright" })
                                             <div class="col-lg-12 col-md-12 col-sm-12">
-                                                <select class="form-control m-bootstrap-select m_selectpicker" id="nm3" name="nm3" title="انتخاب کنید..." data-live-search="true">
-                                                    <option>گزینه یک</option>
-                                                    <option>گزینه دو</option>
-                                                    <option>گزینه سه</option>
+                                                <select class="form-control m-bootstrap-select m_selectpicker" id="SubmiterModel_MainCategoryID" name="SubmiterModel.MainCategoryID" title="انتخاب کنید..." data-live-search="true">
+                                                    <option value=0 selected disabled hidden>یک مورد را انتخاب نمایید</option>
                                                 </select>
+                                                @Html.ValidationMessageFor(m => m.SubmiterModel.MainCategoryID)
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                        <div class="form-group m-form__group col-lg-12 col-xs-12">
                                             <div class="col-lg-12">
-                                                <label class="form-control-label" for="nm4">نام گروه:</label>
-                                                <input type="text" name="nm4" id="nm4" class="form-control m-input" placeholder="" value="">
+                                                @Html.LabelFor(m => m.SubmiterModel.SubCategoryName, "نام گروه :", new { @id = "SubmiterModel_SubCategoryNameLBL", @class = "form-control-label" })
+                                                @Html.TextBoxFor(m => m.SubmiterModel.SubCategoryName, new { @class = "form-control m-input", @placeholder = "نام گروه" })
+                                                @Html.ValidationMessageFor(m => m.SubmiterModel.SubCategoryName)
                                             </div>
                                         </div>
                                     </div>
@@ -134,7 +160,7 @@
                                         <div class="m-form__actions">
                                             <div class="row">
                                                 <div class="col-lg-12 tshtextleft" style="padding-left: 0;">
-                                                    <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom tga">ثبت</button>&nbsp;&nbsp;
+                                                    <button type="submit" id="AddSubCategorySubmiter_SubmitBTN" class="btn btn-accent m-btn m-btn--air m-btn--custom tga">ثبت</button>&nbsp;&nbsp;
                                                 </div>
                                             </div>
                                         </div>
@@ -172,74 +198,127 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <th scope="row">1</th>
-                                                    <td>کفش و صنایع وابسته</td>
-                                                    <td>مردانه</td>
-                                                    <td>مردانه</td>
-                                                    <td>
-                                                        <button class="btn btn-success tshpcustom deactivate-btn" data-target="#deactivemodal" data-toggle="modal" data-name="مردانه"><i class="fa fa-check tshfa"></i>فعال</button>
-                                                    </td>
-                                                    <td>
-                                                        <button class="btn btn-warning tshpcustom cus-delete-btn"><i class="fa fa-edit tshfa"></i>ویرایش</button>
-                                                        <button class="btn btn-danger tshpcustom cus-delete-btn" data-target="#deleteCus" data-toggle="modal" data-name="مردانه"><i class="fa fa-trash tshfa"></i>حذف</button>
-                                                    </td>
-                                                </tr>
+                                                @*/////////////////////////////////////////////////////// tbody*@
+                                                @if (Model.Tbl.Count > 0)
+                                                {
+                                                    foreach (var item in Model.Tbl)
+                                                    {
+                                                        <tr>
+                                                            <th scope="row"> @item.Num </th>
+
+                                                            <td> @item.Type </td>
+
+                                                            <td> @item.Main </td>
+
+                                                            <td> @item.Sub </td>
+                                                            @if (item.IsDeleted == 1)
+                                                            {
+                                                                <td>
+                                                                    <button class="btn btn-danger tshpcustom deactivate-btn">
+                                                                        <i class="fa fa-check tshfa"></i>حذف شده
+                                                                    </button>
+                                                                </td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td>
+                                                                    @if (item.IsDisables == 0)
+                                                                    {
+
+                                                                    <button class="btn btn-success tshpcustom deactivate-btn" data-target="#deactivemodal" data-toggle="modal" data-name="مردانه" onclick="return DeActivate('@item.Id')"><i class="fa fa-check tshfa"></i>فعال</button>
+
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                    <button onclick="return Activate('@item.Id')" class="btn btn-warning tshpcustom deactivate-btn" data-target="#activemodal" data-toggle="modal" data-name="مردانه"><i class="fa fa-check tshfa"></i>غیر فعال</button>
+                                                                    }
+                                                                </td>
+                                                                <td>
+                                                                    <button class="btn btn-danger tshpcustom cus-delete-btn" data-target="#deleteCus" data-toggle="modal" data-name="مردانه"><i class="fa fa-trash tshfa"></i>حذف</button>
+                                                                </td>
+                                                            }
+                                                        </tr>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <h3 class="m-badge m-badge--danger m-badge--wide">
+                                                        موردی برای نمایش وجود ندارد.
+
+                                                    </h3>
+                                                }
+
+                                                @*/////////////////////////////////////////////////////// tbody*@
+
                                             </tbody>
                                         </table>
-                                        <table style="display: block;" class="cust-table cust-table-2 table table-striped table-hover m-table m-table--head-separator-primary">
-                                            <tr>
-                                                <th>#</th>
-                                                <td>1</td>
+                                        <table style="display: none;" class="cust-table cust-table-2 table table-striped table-hover m-table m-table--head-separator-primary">
+                                            @*/////////////////////////////////////////////////////// tbody*@
+                                            @if (Model.Tbl.Count > 0)
+                                            {
 
-                                            </tr>
-                                            <tr>
-                                                <th>سردسته</th>
-                                                <td>کفش و صنایع وابسته</td>
-                                            </tr>
-                                            <tr>
-                                                <th>گروه اصلی</th>
-                                                <td>مردانه</td>
-                                            </tr>
-                                            <tr>
-                                                <th>گروه</th>
-                                                <td>مردانه</td>
-                                            </tr>
-                                            <tr>
-                                                <th>وضعیت</th>
-                                                <td>
-                                                    <button class="btn btn-success tshpcustom deactivate-btn" data-target="#deactivemodal" data-toggle="modal" data-name="مردانه"><i class="fa fa-check tshfa"></i>فعال</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>عملیات</th>
-                                                <td>
-                                                    <button class="btn btn-warning tshpcustom cus-delete-btn"><i class="fa fa-edit tshfa"></i>ویرایش</button>
-                                                    <button class="btn btn-danger tshpcustom cus-delete-btn" data-target="#deleteCus" data-toggle="modal" data-name="مردانه"><i class="fa fa-trash tshfa"></i>حذف</button>
-                                                </td>
-                                            </tr>
+                                                foreach (var item in Model.Tbl)
+                                                {
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <td> @item.Num </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th> سردسته </th>
+                                                        <td> @item.Type </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th> گروه اصلی </th>
+                                                        <td> @item.Main </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th> گروه </th>
+                                                        <td> @item.Sub </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th> وضعیت </th>
+                                                        <td>
+                                                            @if (item.IsDeleted == 1)
+                                                            {
+                                                                <button class="btn btn-danger tshpcustom deactivate-btn">
+                                                                    <i class="fa fa-check tshfa"></i>حذف شده
+                                                                </button>
+                                                            }
+                                                            else if (item.IsDisables == 0)
+                                                            {
+                                                                <button class="btn btn-success tshpcustom deactivate-btn" data-target="#deactivemodal" data-toggle="modal" data-name="مردانه" onclick="return DeActivate('@item.Id')"><i class="fa fa-check tshfa"></i>فعال</button>
+                                                            }
+                                                            else
+                                                            {
+                                                                <button onclick="return Activate('@item.Id')" class="btn btn-warning tshpcustom deactivate-btn" data-target="#activemodal" data-toggle="modal" data-name="مردانه"><i class="fa fa-check tshfa"></i>غیر فعال</button>
+                                                            }
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>عملیات</th>
+                                                        <td>
+                                                            @if (item.IsDeleted != 1)
+                                                            {
+
+                                                                <button class="btn btn-warning tshpcustom cus-delete-btn" onclick="return EditorforEdit('@item.Id')"><i class="fa fa-edit tshfa"></i>ویرایش</button>
+                                                                <button onclick="return DeleteMC('@item.Id')" class="btn btn-danger tshpcustom cus-delete-btn" data-target="#deleteCus" data-toggle="modal" data-name="مردانه"><i class="fa fa-trash tshfa"></i>حذف</button>
+
+                                                            }
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <h3 class="m-badge m-badge--danger m-badge--wide">
+                                                    موردی برای نمایش وجود ندارد.
+
+                                                </h3>
+                                            }
+                                            @*/////////////////////////////////////////////////////// tbody*@
                                         </table>
                                         <div class="col-lg-12 mt-4 mb-4">
-                                            <span class="col-lg-3">
-                                                صفحه
-                                                <span>50</span>
-                                                از
-                                                <span>170</span>
-                                            </span>
-                                            <ul class="tshpaglist col-lg-9 mb-5">
-                                                <li class="btn btn-brand disabled">قبلی</li>
-                                                <li class="btn btn-brand active-pag">1</li>
-                                                <li class="btn btn-brand">2</li>
-                                                <li class="btn btn-brand">3</li>
-                                                <li class="btn btn-brand">4</li>
-                                                <li class="btn btn-brand">5</li>
-                                                <li class="btn btn-brand">6</li>
-                                                <li class="btn btn-brand">7</li>
-                                                <li class="btn btn-brand">8</li>
-                                                <li class="btn btn-brand">9</li>
-                                                <li class="btn btn-brand">10</li>
-                                                <li class="btn btn-brand">بعدی</li>
-                                            </ul>
                                         </div>
                                     </div>
                                 </div>
@@ -252,3 +331,151 @@
     </div>
 </div>
 
+
+@section scripts{
+    @Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/Select2.js")
+
+    <script>
+        $(document).ready(function () {
+            $("#SubmiterModel_typeID").select2();
+            $("#SubmiterModel_MainCategoryID").select2();
+            //select2:select
+        });
+        //End of document ready
+        function URLSearchParams() {
+            mApp.block("#AddSubCategoryAllContent", {
+                overlayColor: "#2c2e3e", type: "loader", state: "success", message: "درحال چک کردن حریم دسترسی و دریافت اطلاعات از سمت سرور ..."
+            });
+            //End of mApp.Block
+            const PostJson = {
+                'PTypeID': $("#SubmiterModel_typeID").val()
+            };
+            var HI = '';
+            var _OI = 0;
+            $.ajax({
+                url: '/AdministratorProducts_FieldLoader/GetSubCateGoryForSelect2FromPTypeID',
+                type: "post",
+                data: JSON.stringify(PostJson),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    var objectss = data;
+                    var counter = objectss.length;
+                    $("#SubmiterModel_MainCategoryID").select2("val", "");
+                    for (_OI = 0; _OI < counter; _OI++) {
+                        HI = HI + '<option value="' + data[_OI].Id + '">' + data[_OI].Value + '</option>';
+                    }
+                    if (HI.lenght == 0) {
+                        HI = '<option value="0">هیچ موردی یافت نشد</option>';
+                        swal("داده ایی یافت نشد!", data.Errormessage, "error");
+                    }
+
+                    $("#SubmiterModel_MainCategoryID").html(HI);
+                    $("#SubmiterModel_MainCategoryID").select2();
+                    setTimeout(function () {
+                        mApp.unblock("#AddSubCategoryAllContent")
+                    }, 1000);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    swal("مشکل در برقراری ارتباط با سرور", data.Errormessage, "error");
+                    setTimeout(function () {
+                        mApp.unblock("#AddSubCategoryAllContent")
+                    }, 1000);
+
+                }
+            });
+        }
+
+
+        function DeActivate(id_) {
+            $("#deactivemodalID").val(id_);
+        }
+        function Activate(id) {
+            $("#activemodalID").val(id);
+        }
+        //function EditorforEdit(id) {
+        //    $("#FormSubmiting_IDMainCategoryForEdit").val(id);
+        //    $("#FormSubmiting_NameofCategory").val($("#idofMC-" + id).text());
+        //    $("#FormSubmiting_NameofCategoryLBL").text("در حال ویرایش " + $("#FormSubmiting_NameofCategory").val() + " :");
+        //    var idtype = $("#idoftype-" + id).val();
+        //    console.log(idtype);
+        //    $("#FormSubmiting_IdofSardastebandi").val('' + idtype).trigger('change');
+        //}
+        function DeleteMC(id) {
+            $("#deleteCusID").val(id)
+        }
+        function YesDeactivePlz() {
+
+            const PostJson = {
+                'idToDEActive': $("#deactivemodalID").val()
+            };
+
+            $("#deActiveModal_SubmitBTN").addClass("m-loader m-loader--light m-loader--right").prop("disabled", true);
+            $.ajax({
+                url: '/AdministratorProducts/AddSubCategoryDeActive',
+                type: "post",
+                data: JSON.stringify(PostJson),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    if (data.Errortype == "Success") {
+                        AlertToUser("deActiveModal", data);
+                    } else {
+                        alert(data.Errormessage);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("مشکل در برقراری ارتباط با سرور");
+                }
+            });
+        }
+        function YesAactivePlz() {
+
+            const PostJson = {
+                'idToActive': $("#activemodalID").val()
+            };
+
+            $("#ActiveModal_SubmitBTN").addClass("m-loader m-loader--light m-loader--right").prop("disabled", true);
+            $.ajax({
+                url: '/AdministratorProducts/AddSubCategoryActive',
+                type: "post",
+                data: JSON.stringify(PostJson),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    if (data.Errortype == "Success") {
+                        AlertToUser("ActiveModal", data);
+                    } else {
+                        alert(data.Errormessage);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("مشکل در برقراری ارتباط با سرور");
+                }
+            });
+        }
+        function YesDeletePlz() {
+            const PostJson = {
+                'idTodelete': $("#deleteCusID").val()
+            };
+            $("#deleteCus_SubmitBTN").addClass("m-loader m-loader--light m-loader--right").prop("disabled", true);
+            $.ajax({
+                url: '/AdministratorProducts/AddSubCategoryDelete',
+                type: "post",
+                data: JSON.stringify(PostJson),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    if (data.Errortype == "Success") {
+                        AlertToUser("deleteCus", data);
+                    } else {
+                        alert(data.Errormessage);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("مشکل در برقراری ارتباط با سرور");
+                }
+            });
+        }
+
+
+    </script>
+}

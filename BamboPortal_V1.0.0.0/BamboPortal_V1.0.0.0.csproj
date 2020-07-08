@@ -134,9 +134,11 @@
     <Compile Include="BamboPortalSecurity\EncDec\EncDec.cs" />
     <Compile Include="Controllers\AdministratorGeneralController.cs" />
     <Compile Include="Controllers\AdministratorProductsController.cs" />
+    <Compile Include="Controllers\AdministratorProducts_FieldLoaderController.cs" />
     <Compile Include="Controllers\AdministratorWorkplaceController.cs" />
     <Compile Include="Controllers\AdminLoginAuthController.cs" />
     <Compile Include="Controllers\AdminRulesController.cs" />
+    <Compile Include="Controllers\AdminRules_ProductCTRLController.cs" />
     <Compile Include="Controllers\AllErrorsRedirectController.cs" />
     <Compile Include="Controllers\TestssController.cs" />
     <Compile Include="Controllers\VelvetCustomersController.cs" />
@@ -148,6 +150,7 @@
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\AdministratorGeneralModels\changeAuthInformation.cs" />
     <Compile Include="Models\AdministratorGeneralModels\ChangeProfileModel.cs" />
+    <Compile Include="Models\AdministratorProductsModels\AddSubCategorySubmiterModel.cs" />
     <Compile Include="Models\AdministratorProductsModels\addtype.cs" />
     <Compile Include="Models\AdministratorProductsModels\AddTypeTable.cs" />
     <Compile Include="Models\AdministratorValidation.cs" />
@@ -183,7 +186,9 @@
     <Compile Include="Models\UsefulModels\ProductGroupModel.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddMainCategoryModel.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddMainCategorySubmiterForm.cs" />
+    <Compile Include="ModelViews\AdministratorProducts\AddSubCategoryModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddTypeModelView.cs" />
+    <Compile Include="ModelViews\AdministratorProducts_FieldLoader\GetSubCateGoryForSelect2FromPTypeIDModelView.cs" />
     <Compile Include="ModelViews\CustomerSide\AboutUsModelView.cs" />
     <Compile Include="ModelViews\CustomerSide\customerAddressModelView.cs" />
     <Compile Include="ModelViews\CustomerSide\IndexPageModelView.cs" />
@@ -3122,6 +3127,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="BamboPortalSecurity\LoginAuth\" />
+    <Folder Include="Models\AdministratorProducts_FieldLoader\" />
+    <Folder Include="Views\AdminRules_ProductCTRL\" />
     <Folder Include="WebConfigNotes\" />
   </ItemGroup>
   <ItemGroup>
@@ -3324,6 +3331,7 @@
     <Content Include="Views\AllErrorsRedirect\AdministratorTSHP404.cshtml" />
     <Content Include="Views\AdministratorProducts\MainCategory.cshtml" />
     <Content Include="Views\AdministratorProducts\AddSubCategory.cshtml" />
+    <Content Include="Views\AdministratorProducts_FieldLoader\TestPage.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
