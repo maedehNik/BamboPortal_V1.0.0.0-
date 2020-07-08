@@ -1,6 +1,9 @@
 ﻿using BamboPortal_V1._0._0._0.DatabaseCenter.Class;
+using BamboPortal_V1._0._0._0.Models;
 using BamboPortal_V1._0._0._0.Models.AdministratorProductsModels;
+using BamboPortal_V1._0._0._0.Models.UsefulModels;
 using BamboPortal_V1._0._0._0.ModelViews.AdministratorProducts;
+using BamboPortal_V1._0._0._0.StaticClass.BugReporter;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -13,11 +16,9 @@ namespace BamboPortal_V1._0._0._0.Controllers
     public class AdministratorProductsController : AdminRulesController
     {
         // GET: AdministratorProducts
-        public ActionResult Index()
-        {
-            return View();
-        }
 
+        //{start}For Product Type
+        [HttpGet]
         public ActionResult AddType()
         {
             PDBC db = new PDBC();
@@ -26,6 +27,41 @@ namespace BamboPortal_V1._0._0._0.Controllers
             ATM.TableAvailableProperty = new List<AddTypeTable>();
             ATM.TableDeletedProperties = new List<AddTypeTable>();
 
+            db.Connect();
+            using (DataTable dt = db.Select("SELECT [id_PT] ,[PTname],[ISDESABLED] ,[ISDelete] ,[DateDesabled] ,[DateDeleted] FROM [tbl_Product_Type]"))
+            {
+                db.DC();
+                if (dt.Rows.Count > 0)
+                {
+                    int counts = dt.Rows.Count;
+                    for (int i = 0; i < counts; i++)
+                    {
+                        switch (dt.Rows[i]["ISDelete"].ToString())
+                        {
+                            case "1":
+                                ATM.TableDeletedProperties.Add(new AddTypeTable
+                                {
+                                    id = dt.Rows[i]["id_PT"].ToString(),
+                                    IsActivate = dt.Rows[i]["ISDESABLED"].ToString(),
+                                    IsDeleted = dt.Rows[i]["ISDelete"].ToString(),
+                                    RowColumnNumber = i.ToString(),
+                                    Typename = dt.Rows[i]["PTname"].ToString()
+                                });
+                                break;
+                            case "0":
+                                ATM.TableAvailableProperty.Add(new AddTypeTable
+                                {
+                                    id = dt.Rows[i]["id_PT"].ToString(),
+                                    IsActivate = dt.Rows[i]["ISDESABLED"].ToString(),
+                                    IsDeleted = dt.Rows[i]["ISDelete"].ToString(),
+                                    RowColumnNumber = i.ToString(),
+                                    Typename = dt.Rows[i]["PTname"].ToString()
+                                });
+                                break;
+                        }
+                    }
+                }
+            }
 
 
             if (Request.QueryString["tID"] != null)
@@ -33,39 +69,752 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 List<ExcParameters> excParameters = new List<ExcParameters>();
                 ExcParameters excParameter = new ExcParameters()
                 {
-                    _KEY = "@",
+                    _KEY = "@id_PT",
                     _VALUE = Request.QueryString["tID"].ToString()
                 };
+                excParameters.Add(excParameter);
                 db.Connect();
-                using (DataTable dt = db.Select("", excParameters))
+                using (DataTable dt = db.Select("SELECT [id_PT] ,[PTname] ,[ISDelete] ,[DateDesabled] ,[DateDeleted] FROM [tbl_Product_Type] WHERE [id_PT] = @id_PT", excParameters))
                 {
                     db.DC();
                     if (dt.Rows.Count > 0)
                     {
-
                         addtype ad = new addtype()
                         {
-
-
+                            ProductType = dt.Rows[0]["PTname"].ToString(),
+                            typeID = dt.Rows[0]["id_PT"].ToString()
                         };
+                        ATM.addtypeField = ad;
+                        return View(ATM);
                     }
                     else
                     {
-                        return View();
+                        PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "IN Controller : {AdministratorProductsController}\nMethod : {public ActionResult AddType() Cannot Cast to Request.QueryString[\"tID\"].ToString()}");
+                        var ModelSender = new ErrorReporterModel
+                        {
+                            ErrorID = "EX112",
+                            Errormessage = $"ورود متغیر خلاف پروتکل های امنیتی",
+                            Errortype = "Error"
+                        };
+                        return Json(ModelSender);
                     }
                 }
             }
             else
             {
+                addtype ad = new addtype()
+                {
+                    ProductType = "",
+                    typeID = "0"
+                };
+                ATM.addtypeField = ad;
+                return View(ATM);
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddType(AddTypeModelView senderObjs)
+        {
+            addtype senderObj = senderObjs.addtypeField;
+            PDBC db = new PDBC();
+            if (ModelState.IsValid)
+            {
+                if (senderObj != null)
+                {
+                    uint id = 0;
+                    if (UInt32.TryParse(senderObj.typeID, out id))
+                    {
+                        try
+                        {
+                            if (senderObj.typeID == "0")
+                            {
+                                List<ExcParameters> parss = new List<ExcParameters>();
+                                ExcParameters par = new ExcParameters()
+                                {
+                                    _KEY = "@PTname",
+                                    _VALUE = senderObj.ProductType
+                                };
+                                parss.Add(par);
+                                db.Connect();
+                                string result = db.Script("INSERT INTO[tbl_Product_Type] ([PTname] ,[ISDESABLED] ,[ISDelete]) VALUES (@PTname,0,0)", parss);
+                                db.DC();
+                                if (result == "1")
+                                {
+                                    var ModelSender = new ErrorReporterModel
+                                    {
+                                        ErrorID = "SX105",
+                                        Errormessage = $"اطلاعات با موفقیت ثبت شد!",
+                                        Errortype = "Success"
+                                    };
+                                    return Json(ModelSender);
+                                }
+                                else
+                                {
+                                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                                    var ModelSender = new ErrorReporterModel
+                                    {
+                                        ErrorID = "EX114",
+                                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                                        Errortype = "Error"
+                                    };
+                                    return Json(ModelSender);
+                                }
+                            }
+                            else
+                            {
+                                List<ExcParameters> parss = new List<ExcParameters>();
+                                ExcParameters par = new ExcParameters()
+                                {
+                                    _KEY = "@PTname",
+                                    _VALUE = senderObj.ProductType
+                                };
+                                parss.Add(par);
+                                par = new ExcParameters()
+                                {
+                                    _KEY = "@id_PT",
+                                    _VALUE = senderObj.typeID
+                                };
+                                parss.Add(par);
+                                db.Connect();
+                                string result = db.Script("UPDATE [tbl_Product_Type] SET [PTname] = @PTname WHERE [id_PT] =@id_PT", parss);
+                                db.DC();
+                                if (result == "1")
+                                {
+                                    var ModelSender = new ErrorReporterModel
+                                    {
+                                        ErrorID = "SX104",
+                                        Errormessage = $"اطلاعات با موفقیت تغییر یافت!",
+                                        Errortype = "Success"
+                                    };
+                                    return Json(ModelSender);
+                                }
+                                else
+                                {
+                                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                                    var ModelSender = new ErrorReporterModel
+                                    {
+                                        ErrorID = "EX114",
+                                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                                        Errortype = "Error"
+                                    };
+                                    return Json(ModelSender);
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "IN Controller : {AdministratorProductsController}\nMethod : {public ActionResult AddType(addtype senderObj) Cannot Cast to UINT}")
+                            {
+                                EXOBJ = ex
+                            };
+                            var ModelSender = new ErrorReporterModel
+                            {
+                                ErrorID = "EX113",
+                                Errormessage = $"ورود متغیر خلاف پروتکل های امنیتی",
+                                Errortype = "Error"
+                            };
+                            return Json(ModelSender);
+                        }
+
+
+
+                    }
+                    else
+                    {
+                        PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "IN Controller : {AdministratorProductsController}\nMethod : {public ActionResult AddType(addtype senderObj) Cannot Cast to UINT}");
+                        var ModelSender = new ErrorReporterModel
+                        {
+                            ErrorID = "EX111",
+                            Errormessage = $"ورود متغیر خلاف پروتکل های امنیتی",
+                            Errortype = "Error"
+                        };
+                        return Json(ModelSender);
+                    }
+
+                }
+                else
+                {
+                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "IN Controller : {AdministratorProductsController}\nMethod : {public ActionResult AddType(addtype senderObj)  (senderObj == null)");
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "EX111",
+                        Errormessage = $"ورود متغیر خلاف پروتکل های امنیتی",
+                        Errortype = "Error"
+                    };
+                    return Json(ModelSender);
+                }
+            }
+            else
+            {
+                List<ModelErrorReporter> allErrors = new List<ModelErrorReporter>();
+                //foreach (ModelError error in ModelState.Values.)
+                var AllValues = ModelState.Values.ToList();
+                var AllKeys = ModelState.Keys.ToList();
+                int errorsCount = AllValues.Count;
+                for (int i = 0; i < errorsCount; i++)
+                {
+                    if (AllValues[i].Errors.Count > 0)
+                    {
+                        ModelErrorReporter er = new ModelErrorReporter()
+                        {
+                            IdOfProperty = AllKeys[i].Replace("addtypeField.", "addtypeField_"),
+                            ErrorMessage = AllValues[i].Errors[0].ErrorMessage
+                        };
+                        allErrors.Add(er);
+                    }
+                }
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX115",
+                    Errormessage = $"عدم رعایت استاندارد ها!",
+                    Errortype = "ErrorWithList",
+                    AllErrors = allErrors
+                };
+                return Json(ModelSender);
+            }
+
+
+        }
+        [HttpPost]
+        public JsonResult DeleteType(string idTodelete)
+        {
+            PDBC db = new PDBC();
+            uint id = 0;
+            if (UInt32.TryParse(idTodelete, out id))
+            {
+                List<ExcParameters> parss = new List<ExcParameters>();
+                ExcParameters par = new ExcParameters()
+                {
+                    _KEY = "@id_PT",
+                    _VALUE = idTodelete
+                };
+                parss.Add(par);
+                db.Connect();
+                string result = db.Script("UPDATE [tbl_Product_Type] SET [ISDelete] = 1 ,[DateDeleted] = GETDATE() WHERE [id_PT] =@id_PT", parss);
+                result += db.Script("UPDATE [tbl_Product]SET[ISDELETE] = 1 WHERE [id_Type]=@id_PT", parss);
+                result += db.Script("UPDATE P SET P.ISDelete=1,P.DateDeleted= GETDATE() FROM[tbl_Product_SubCategory] AS P inner Join [tbl_Product_MainCategory] As M On P.id_MC=M.id_MC where M.id_PT=@id_PT", parss);
+                result += db.Script("UPDATE [tbl_Product_MainCategory] SET ISDelete = 1 , DateDeleted= GETDATE() WHERE id_PT=@id_PT", parss);
+                result += db.Script("UPDATE R SET R.ISDelete=1,R.DateDeleted= GETDATE() FROM[tbl_Product_SubCategoryOptionKey]AS R inner Join [tbl_Product_SubCategory] AS P On R.id_SC=P.id_SC inner Join [tbl_Product_MainCategory] As M On P.id_MC=M.id_MC where M.id_PT=@id_PT", parss);
+                db.DC();
+                if (result == "11111")
+                {
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "SX106",
+                        Errormessage = $"این دسته بندی اصلی با موفقیت حذف شد!",
+                        Errortype = "Success"
+                    };
+                    return Json(ModelSender);
+                }
+                else
+                {
+                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "EX115",
+                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                        Errortype = "Error"
+                    };
+                    return Json(ModelSender);
+                }
 
             }
-            return View();
+            else
+            {
+                PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "sher o ver e L326");
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX115",
+                    Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                    Errortype = "Error"
+                };
+                return Json(ModelSender);
+            }
+
         }
-        public ActionResult AddType(addtype senderObj)
+        [HttpPost]
+        public JsonResult ActiveType(string idToActive)
+        {
+            PDBC db = new PDBC();
+            uint id = 0;
+            if (UInt32.TryParse(idToActive, out id))
+            {
+                List<ExcParameters> parss = new List<ExcParameters>();
+                ExcParameters par = new ExcParameters()
+                {
+                    _KEY = "@id_PT",
+                    _VALUE = idToActive
+                };
+                parss.Add(par);
+                db.Connect();
+                string result = db.Script("UPDATE[tbl_Product_Type] SET [ISDESABLED] = 0 ,[DateDesabled] = GETDATE() WHERE id_PT =@id_PT", parss);
+                result += db.Script("UPDATE [tbl_Product]SET[IS_AVAILABEL] = 1 WHERE [id_Type]=@id_PT", parss);
+                result += db.Script("UPDATE P SET P.ISDESABLED=0 FROM[tbl_Product_SubCategory] AS P inner Join [tbl_Product_MainCategory] As M On P.id_MC=M.id_MC where M.id_PT=@id_PT", parss);
+                result += db.Script("UPDATE [tbl_Product_MainCategory] SET ISDESABLED = 0 WHERE id_PT=@id_PT", parss);
+                result += db.Script("UPDATE R SET R.ISDESABLED=0 FROM[tbl_Product_SubCategoryOptionKey]AS R inner Join [tbl_Product_SubCategory] AS P On R.id_SC=P.id_SC inner Join [tbl_Product_MainCategory] As M On P.id_MC=M.id_MC where M.id_PT=@id_PT", parss);
+                db.DC();
+                if (result == "11111")
+                {
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "SX106",
+                        Errormessage = $"این دسته بندی اصلی با موفقیت فعال شد!",
+                        Errortype = "Success"
+                    };
+                    return Json(ModelSender);
+                }
+                else
+                {
+                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "EX115",
+                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                        Errortype = "Error"
+                    };
+                    return Json(ModelSender);
+                }
+
+            }
+            else
+            {
+                PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "sher o ver e L326");
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX115",
+                    Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                    Errortype = "Error"
+                };
+                return Json(ModelSender);
+            }
+        }
+        [HttpPost]
+        public JsonResult DeActiveType(string idToDEActive)
         {
 
+            PDBC db = new PDBC();
+            uint id = 0;
+            if (UInt32.TryParse(idToDEActive, out id))
+            {
+                List<ExcParameters> parss = new List<ExcParameters>();
+                ExcParameters par = new ExcParameters()
+                {
+                    _KEY = "@id_PT",
+                    _VALUE = idToDEActive
+                };
+                parss.Add(par);
+                db.Connect();
+                string result = db.Script("UPDATE[tbl_Product_Type] SET [ISDESABLED] = 1 ,[DateDesabled] = GETDATE()  WHERE id_PT = @id_PT", parss);
+                result += db.Script("UPDATE [tbl_Product]SET[IS_AVAILABEL] = 0 WHERE [id_Type]=@id_PT", parss);
+                result += db.Script("UPDATE P SET P.ISDESABLED=1,P.DateDesabled= GETDATE() FROM[tbl_Product_SubCategory] AS P inner Join [tbl_Product_MainCategory] As M On P.id_MC=M.id_MC where M.id_PT=@id_PT", parss);
+                result += db.Script("UPDATE [tbl_Product_MainCategory] SET ISDESABLED = 1 , DateDesabled= GETDATE() WHERE id_PT=@id_PT", parss);
+                result += db.Script("UPDATE R SET R.ISDESABLED=1,R.DateDesabled= GETDATE() FROM[tbl_Product_SubCategoryOptionKey]AS R inner Join [tbl_Product_SubCategory] AS P On R.id_SC=P.id_SC inner Join [tbl_Product_MainCategory] As M On P.id_MC=M.id_MC where M.id_PT=@id_PT", parss);
+                db.DC();
+                if (result == "11111")
+                {
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "SX106",
+                        Errormessage = $"این دسته بندی اصلی با موفقیت فعال شد!",
+                        Errortype = "Success"
+                    };
+                    return Json(ModelSender);
+                }
+                else
+                {
+                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "EX115",
+                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                        Errortype = "Error"
+                    };
+                    return Json(ModelSender);
+                }
+
+            }
+            else
+            {
+                PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "sher o ver e L326");
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX115",
+                    Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                    Errortype = "Error"
+                };
+                return Json(ModelSender);
+            }
+        }
+        //{END}For Product Type
+        //{START}For Product MainCategory
+        public ActionResult MainCategory()
+        {
+            AddMainCategoryModel model = new AddMainCategoryModel();
+            PDBC db = new PDBC();
+            db.Connect();
+            using (DataTable dt = db.Select("SELECT [id_PT] as id ,[PTname] as [name] FROM [tbl_Product_Type] WHERE ISDelete=0 AND ISDESABLED=0"))
+            {
+                db.DC();
+                List<Key_ValueModel> result = new List<Key_ValueModel>();
+                if (dt.Rows.Count > 0)
+                {
+
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        var maodel = new Key_ValueModel()
+                        {
+                            Id = Convert.ToInt32(dt.Rows[i]["id"]),
+                            Value = dt.Rows[i]["name"].ToString()
+                        };
+                        result.Add(maodel);
+                    }
+                }
+                else
+                {
+                    result.Add(new Key_ValueModel { Id = 0, Value = "موردی برای انتخاب وجود ندارد" });
+
+                }
+                model.dastebandi_asli = result;
+            }
+            var res = new List<ProductGroupModel>();
+            db.Connect();
+            using (DataTable dt = db.Select("SELECT A.[id_MC],B.PTname,A.MCName,A.ISDelete,A.ISDESABLED,A.id_PT FROM [tbl_Product_MainCategory] as A inner join [tbl_Product_Type] as B on A.id_PT=B.id_PT"))
+            {
+                db.DC();
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    var ModelSender = new ProductGroupModel()
+                    {
+                        Num = i + 1,
+                        Id = Convert.ToInt32(dt.Rows[i]["id_MC"]),
+                        IsDeleted = Convert.ToInt32(dt.Rows[i]["ISDelete"]),
+                        IsDisables = Convert.ToInt32(dt.Rows[i]["ISDESABLED"]),
+                        Type = dt.Rows[i]["PTname"].ToString(),
+                        Main = dt.Rows[i]["MCName"].ToString(),
+                        IDtype = dt.Rows[i]["id_PT"].ToString()
+                    };
+
+                    res.Add(ModelSender);
+                }
+                model.Table = res;
+            }
+            //================================================================================ For Editpage
+            model.FormSubmiting = new AddMainCategorySubmiterForm()
+            {
+                IDMainCategoryForEdit = "0",
+                IdofSardastebandi = "0",
+                NameofCategory = ""
+            };
+            //================================================================================ For Editpage
+            return View(model);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult AddMainCategory(AddMainCategoryModel senderobj)
+        {
+            if (ModelState.IsValid)
+            {
+                PDBC db = new PDBC();
+                List<ExcParameters> paramss = new List<ExcParameters>();
+                ExcParameters parameters = new ExcParameters()
+                {
+                    _KEY = "@value",
+                    _VALUE = senderobj.FormSubmiting.NameofCategory
+                };
+                paramss.Add(parameters);
+                parameters = new ExcParameters()
+                {
+                    _KEY = "@data_typa",
+                    _VALUE = senderobj.FormSubmiting.IdofSardastebandi
+                };
+                paramss.Add(parameters);
+                if (senderobj.FormSubmiting.IDMainCategoryForEdit == "0")
+                {
+                    db.Connect();
+                    using (DataTable dt = db.Select("SELECT COUNT(*)as RN from [tbl_Product_MainCategory] WHERE [id_PT] = @data_typa AND [MCName] LIKE @value", paramss))
+                    {
+                        db.DC();
+                        if (dt.Rows[0]["RN"].ToString() != "0")
+                        {
+                            var ModelSender = new ErrorReporterModel
+                            {
+                                ErrorID = "EX115",
+                                Errormessage = $"عدم توانایی در ثبت اطلاعات! مورد با این مشخصات در پایگاه داده موجود است",
+                                Errortype = "Error"
+                            };
+                            return Json(ModelSender);
+                        }
+                    }
+
+                    db.Connect();
+                    string resutlt = db.Script("INSERT INTO [tbl_Product_MainCategory]([id_PT],[MCName],[ISDESABLED],[ISDelete])VALUES (@data_typa, @value,0,0)", paramss);
+                    db.DC();
+                    if (resutlt == "1")
+                    {
+                        var ModelSender = new ErrorReporterModel
+                        {
+                            ErrorID = "SX106",
+                            Errormessage = $"گروه اصلی با موفقیت اضافه گردید!",
+                            Errortype = "Success"
+                        };
+                        return Json(ModelSender);
+                    }
+                    else
+                    {
+                        PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, resutlt);
+                        var ModelSender = new ErrorReporterModel
+                        {
+                            ErrorID = "EX115",
+                            Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                            Errortype = "Error"
+                        };
+                        return Json(ModelSender);
+                    }
+                }
+                else
+                {
+                    parameters = new ExcParameters()
+                    {
+                        _KEY = "@id",
+                        _VALUE = senderobj.FormSubmiting.IDMainCategoryForEdit
+                    };
+                    paramss.Add(parameters);
+                    db.Connect();
+                    string result = db.Script("UPDATE [tbl_Product_MainCategory] SET [MCName] = @value,[id_PT] = @data_typa WHERE id_MC = @id", paramss);
+                    db.DC();
+                    if (result == "1")
+                    {
+                        var ModelSender = new ErrorReporterModel
+                        {
+                            ErrorID = "SX106",
+                            Errormessage = $"گروه اصلی با موفقیت ویرایش گردید!",
+                            Errortype = "Success"
+                        };
+                        return Json(ModelSender);
+                    }
+                    else
+                    {
+                        PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                        var ModelSender = new ErrorReporterModel
+                        {
+                            ErrorID = "EX115",
+                            Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                            Errortype = "Error"
+                        };
+                        return Json(ModelSender);
+                    }
+
+                }
+
+            }
+            else
+            {
+                List<ModelErrorReporter> allErrors = new List<ModelErrorReporter>();
+                //foreach (ModelError error in ModelState.Values.)
+                var AllValues = ModelState.Values.ToList();
+                var AllKeys = ModelState.Keys.ToList();
+                int errorsCount = AllValues.Count;
+                for (int i = 0; i < errorsCount; i++)
+                {
+                    if (AllValues[i].Errors.Count > 0)
+                    {
+                        ModelErrorReporter er = new ModelErrorReporter()
+                        {
+                            IdOfProperty = AllKeys[i].Replace("FormSubmiting.", "FormSubmiting_"),
+                            ErrorMessage = AllValues[i].Errors[0].ErrorMessage
+                        };
+                        allErrors.Add(er);
+                    }
+                }
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX0012",
+                    Errormessage = $"عدم رعایت استاندارد ها!",
+                    Errortype = "ErrorWithList",
+                    AllErrors = allErrors
+                };
+                return Json(ModelSender);
+            }
+
+            return Json("");
+        }
+        [HttpPost]
+        public JsonResult AddMainCategory_DeActive(string idToDEActive)
+        {
+
+            PDBC db = new PDBC();
+            uint id = 0;
+            if (UInt32.TryParse(idToDEActive, out id))
+            {
+                List<ExcParameters> parss = new List<ExcParameters>();
+                ExcParameters par = new ExcParameters()
+                {
+                    _KEY = "@id_PT",
+                    _VALUE = idToDEActive
+                };
+                parss.Add(par);
+                db.Connect();
+                string result = db.Script("UPDATE [tbl_Product_MainCategory] SET [ISDESABLED] = 1 , [DateDesabled] = GETDATE() WHERE id_MC=@id_PT", parss);
+                result += db.Script("UPDATE [tbl_Product]SET[IS_AVAILABEL] = 0 WHERE [id_MainCategory]=@id_PT", parss);
+                result += db.Script("UPDATE[tbl_Product_SubCategory] SET[ISDESABLED] = 1,[DateDesabled] = GETDATE() WHERE [id_MC]=@id_PT", parss);
+                result += db.Script("UPDATE R SET R.ISDESABLED=1,R.DateDesabled= GETDATE() FROM[tbl_Product_SubCategoryOptionKey]AS R inner Join [tbl_Product_SubCategory] AS P On R.id_SC=P.id_SC where P.id_MC=@id_PT", parss);
+                db.DC();
+                if (result == "1111")
+                {
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "SX106",
+                        Errormessage = $"این گروه اصلی با موفقیت غیر فعال شد!",
+                        Errortype = "Success"
+                    };
+                    return Json(ModelSender);
+                }
+                else
+                {
+                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "EX115",
+                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                        Errortype = "Error"
+                    };
+                    return Json(ModelSender);
+                }
+
+            }
+            else
+            {
+                PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "sher o ver e L326");
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX115",
+                    Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                    Errortype = "Error"
+                };
+                return Json(ModelSender);
+            }
+        }
+        [HttpPost]
+        public JsonResult AddMainCategory_Active(string idToActive)
+        {
+            PDBC db = new PDBC();
+            uint id = 0;
+            if (UInt32.TryParse(idToActive, out id))
+            {
+                List<ExcParameters> parss = new List<ExcParameters>();
+                ExcParameters par = new ExcParameters()
+                {
+                    _KEY = "@id_PT",
+                    _VALUE = idToActive
+                };
+                parss.Add(par);
+                db.Connect();
+                string result = db.Script("UPDATE [tbl_Product_MainCategory] SET [ISDESABLED] = 0 , [DateDesabled] = GETDATE() WHERE id_MC=@id_PT", parss);
+                result += db.Script("UPDATE [tbl_Product]SET[IS_AVAILABEL] = 1 WHERE [id_MainCategory]=@id_PT", parss);
+                result += db.Script("UPDATE[tbl_Product_SubCategory] SET[ISDESABLED] = 0 WHERE [id_MC]=@id_PT", parss);
+                result += db.Script("UPDATE R SET R.DateDesabled=0 FROM[tbl_Product_SubCategoryOptionKey]AS R inner Join [tbl_Product_SubCategory] AS P On R.id_SC=P.id_SC where P.id_MC=@id_PT", parss);
+                db.DC();
+                if (result == "1111")
+                {
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "SX106",
+                        Errormessage = $"این گروه اصلی با موفقیت فعال شد!",
+                        Errortype = "Success"
+                    };
+                    return Json(ModelSender);
+                }
+                else
+                {
+                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "EX115",
+                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                        Errortype = "Error"
+                    };
+                    return Json(ModelSender);
+                }
+
+            }
+            else
+            {
+                PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "sher o ver e L326");
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX115",
+                    Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                    Errortype = "Error"
+                };
+                return Json(ModelSender);
+            }
+        }
+        [HttpPost]
+        public JsonResult AddMainCategory_DELETE(string idTodelete)
+        {
+            PDBC db = new PDBC();
+            uint id = 0;
+            if (UInt32.TryParse(idTodelete, out id))
+            {
+                List<ExcParameters> parss = new List<ExcParameters>();
+                ExcParameters par = new ExcParameters()
+                {
+                    _KEY = "@id_PT",
+                    _VALUE = idTodelete
+                };
+                parss.Add(par);
+                db.Connect();
+                string result = db.Script("UPDATE [tbl_Product_MainCategory] SET [ISDelete] =1 , [DateDeleted] = GETDATE()  WHERE id_MC =@id_PT", parss);
+                result += db.Script("UPDATE [tbl_Product]SET[ISDELETE] = 1 WHERE [id_MainCategory]=@id_PT", parss);
+                result += db.Script("UPDATE[tbl_Product_SubCategory] SET[ISDelete] = 1,[DateDeleted] = GETDATE() WHERE [id_MC]=@id_PT", parss);
+                result += db.Script("UPDATE R SET R.ISDelete=1,R.DateDeleted= GETDATE() FROM[tbl_Product_SubCategoryOptionKey]AS R inner Join [tbl_Product_SubCategory] AS P On R.id_SC=P.id_SC where P.id_MC=@id_PT", parss);
+                db.DC();
+                if (result == "1111")
+                {
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "SX106",
+                        Errormessage = $"این گروه بندی اصلی با موفقیت حذف شد!",
+                        Errortype = "Success"
+                    };
+                    return Json(ModelSender);
+                }
+                else
+                {
+                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "EX115",
+                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                        Errortype = "Error"
+                    };
+                    return Json(ModelSender);
+                }
+
+            }
+            else
+            {
+                PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "sher o ver e L326");
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX115",
+                    Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                    Errortype = "Error"
+                };
+                return Json(ModelSender);
+            }
+        }
+        //{END}For Product MainCategory
 
 
+        public ActionResult AddSubCategory()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddSubCategory(string kir)
+        {
             return View();
         }
 

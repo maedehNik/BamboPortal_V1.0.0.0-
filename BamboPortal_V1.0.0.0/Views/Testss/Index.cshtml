@@ -62,8 +62,21 @@
                     </div>
                 </div>
                 <div class="tab-content">
-                    <div class="tab-pane active" id="m_user_profile_tab_1">
+                    <div class="tab-pane active row" id="m_user_profile_tab_1">
+                        <div class="col-lg-11 col-md-11 col-sm-11" id="ddfsf">
+                            <select class="form-control m-bootstrap-select m_selectpicker" id="FormSubmiting_IdofSardastebandi" name="FormSubmiting.IdofSardastebandi" title="انتخاب کنید..." data-live-search="true">
+                                <option value=1>v6</option>
+                                <option value=12>v5</option>
+                                <option value=13>v4</option>
+                                <option value=14>v32</option>
+                                <option value=15>v2</option>
+                                <option value=16>v2</option>
+                                <option value=17>v1</option>
 
+                            </select>
+
+                        </div>
+                        <div class="col-1" id="FormSubmiting_IdofSardastebandi_Container" style="text-align:center"></div>
 
                     </div>
                     <h1 class="btn btn-secondary" id="checkfirst">
@@ -93,42 +106,15 @@
 </div>
 @section Scripts {
 
+    @Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/Select2.js")
     <script>
-        var kk = 0;
+
+        $(document).ready(function () {
+            $("#FormSubmiting_IdofSardastebandi").select2();
+        });
         function ff() {
-
-            //$("#testAlertbtn").addClass("m-loader m-loader--light m-loader--right").prop("disabled", true);
-            //kk++;
-            //setTimeout(function () {
-            //    $("#checkfirst").text(200);
-            //}, 5000);
-            //$("#checksecond").text(kk);
-            $("#testAlertbtn").click(function (e) {
-                swal("متاسفانه در ارسال درخواست مشکلی بوجود آمده","dasdsadasdas", "error").then(function (e) {
-                    $("#checksecond").text("runSuccess");
-                })
-            });
-
-
-            return false;
+        $("#FormSubmiting_IdofSardastebandi_Container").addClass("m-loader m-loader--primary m-loader--right")
         }
-
-
-
-
-                //$(document).ready(function () {
-                //    $("#testAlertbtn").click(function (e) {
-                //        swal({
-                //            title: "آیا مطمئن هستید؟",
-                //            text: "در صورت تایید دیگه امکان بازیابی نیست",
-                //            type: "warning",
-                //            showCancelButton: !0, confirmButtonText: "بله پاک شود!"
-                        //}).then(function (e) {
-                        //    location.reload();
-                        //})
-                //    })
-                //});
-
     </script>
 
 

@@ -137,6 +137,7 @@
     <Compile Include="Controllers\AdministratorWorkplaceController.cs" />
     <Compile Include="Controllers\AdminLoginAuthController.cs" />
     <Compile Include="Controllers\AdminRulesController.cs" />
+    <Compile Include="Controllers\AllErrorsRedirectController.cs" />
     <Compile Include="Controllers\TestssController.cs" />
     <Compile Include="Controllers\VelvetCustomersController.cs" />
     <Compile Include="DatabaseCenter\Class\Dbconnect.cs" />
@@ -178,6 +179,10 @@
     <Compile Include="Models\LoginAuthForm.cs" />
     <Compile Include="Models\MasterObjetsModel\ProfileProperty.cs" />
     <Compile Include="Models\StoreModel.cs" />
+    <Compile Include="Models\UsefulModels\Key_ValueModel.cs" />
+    <Compile Include="Models\UsefulModels\ProductGroupModel.cs" />
+    <Compile Include="ModelViews\AdministratorProducts\AddMainCategoryModel.cs" />
+    <Compile Include="ModelViews\AdministratorProducts\AddMainCategorySubmiterForm.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddTypeModelView.cs" />
     <Compile Include="ModelViews\CustomerSide\AboutUsModelView.cs" />
     <Compile Include="ModelViews\CustomerSide\customerAddressModelView.cs" />
@@ -3316,6 +3321,9 @@
     <Content Include="Views\VelvetCustomers\search.cshtml" />
     <Content Include="Views\AdministratorProducts\AddType.cshtml" />
     <Content Include="Views\Testss\Index.cshtml" />
+    <Content Include="Views\AllErrorsRedirect\AdministratorTSHP404.cshtml" />
+    <Content Include="Views\AdministratorProducts\MainCategory.cshtml" />
+    <Content Include="Views\AdministratorProducts\AddSubCategory.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

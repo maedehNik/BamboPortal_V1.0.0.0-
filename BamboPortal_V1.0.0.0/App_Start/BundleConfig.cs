@@ -26,15 +26,17 @@ namespace BamboPortal_V1._0._0._0
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-             BundleTable.EnableOptimizations = false;
+            BundleTable.EnableOptimizations = false;
 
             //bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
             //            "~/Scripts/jquery-{version}.js"));
 
             //Bundles {Start} : Global Theme Bundle
             bundles.Add(new ScriptBundle("~/bundles/MetronicGlobalThemeBundle.js").Include(
+                "~/AdminDesignResource/vendors/jquery.min.js",
               "~/AdminDesignResource/vendors/base/vendors.bundle.js",
               "~/AdminDesignResource/demo/default/base/scripts.bundle.js"));
+
             bundles.Add(new StyleBundle("~/Content/MetronicGlobalThemeBundle.css").Include(
                       "~/AdminDesignResource/vendors/base/vendors.bundle.rtl.css",
                       "~/AdminDesignResource/demo/default/base/style.bundle.rtl.css"));
@@ -58,12 +60,12 @@ namespace BamboPortal_V1._0._0._0
             //Bundles {END} : Page Scripts --> Dashboard
             //Bundles {Start} : Page Scripts --> AdminProfile
             bundles.Add(new ScriptBundle("~/bundles/AdminProfile.js").Include(
-                "~/AdminDesignResource/vendors/jquery.min.js",
                 "~/AdminDesignResource/app/js/jqueryvalidate.js",
                 "~/AdminDesignResource/app/js/adminPanelMainControllerJS.js"));
             //Style Uses Dashboard styles
             //Bundles {END} : Page Scripts --> AdminProfile
-
+            bundles.Add(new ScriptBundle("~/bundles/Select2.js").Include(
+    "~/AdminDesignResource/demo/default/custom/crud/forms/widgets/select2.js"));
             //Bundles {Start} : Page Scripts --> CustomerSide
             bundles.Add(new ScriptBundle("~/bundles/CustomerSide.js").Include(
                "~/CustomerSide_desinerResource/third-party/jquery/jquery.min.js",
@@ -135,7 +137,7 @@ namespace BamboPortal_V1._0._0._0
             bundles.Add(new ScriptBundle("~/bundles/CustomerSideUI.js").Include(
               "~/CustomerSide_desinerResource/js/jquery-ui.min.js"));
             //Bundles {END} : Page Scripts --> CustomerSide_UserProfile
-           
+
         }
     }
 }

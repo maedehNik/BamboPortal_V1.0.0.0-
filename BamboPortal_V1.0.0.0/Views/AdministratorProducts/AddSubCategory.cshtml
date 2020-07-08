@@ -1,0 +1,254 @@
+﻿
+@{
+    Layout = "~/Views/SharedViewPages/Administrator/MasterView.cshtml";
+}
+
+
+<div class="modal fade" id="deactivemodal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">غیرفعال سازی گروه اصلی</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <small style="display: block">با غیرفعال کردن این گروه اصلی تمام زیرمجموعه های این گروه اصلی نیز غیرفعال خواهند شد.</small>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">خیر</button>
+                <button type="button" class="btn btn-danger">بله</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteCus" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">پاک کردن گروه اصلی</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <small style="display: block">با حذف کردن این گروه اصلی تمام زیرمجموعه های این گروه اصلی نیز حذف خواهند شد.</small>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">خیر</button>
+                <button type="button" class="btn btn-danger">بله</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- BEGIN: Subheader -->
+<div class="m-subheader">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
+                <span class="m-subheader__daterange-label">
+                    <h3 class="m-subheader__title" style="padding-left: 0!important;margin: 0 0 0 2px!important;">
+                        پیشخوان
+                        <i class="fa fa-chevron-left tshfontsize2" style="transform: translateY(3px);color: #aaaeb8;margin-right: 2px;"></i>
+                        <span class="m-subheader__daterange-title tshfontsize2" style="margin-right: 2px;margin-left: 2px;">تعریف گروه محصولات</span>
+                        <!--
+                        <i class="fa fa-chevron-left" style="transform: translateY(3px);color: #aaaeb8;"></i>
+                        <span class="m-subheader__daterange-title" style="margin-right: 2px;">نمایش همه ی پست ها</span>
+                        -->
+                    </h3>
+                </span>
+            </span>
+        </div>
+    </div>
+</div>
+
+
+<div class="m-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="m-portlet m-portlet--full-height m-portlet--tabs  ">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-tools">
+                        <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
+                            <li class="nav-item m-tabs__item">
+                                <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_user_profile_tab_1" role="tab">
+                                    <i class="flaticon-share m--hide"></i>
+                                    <cust_title>
+                                        تعریف گروه محصولات
+                                    </cust_title>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="m_user_profile_tab_1">
+                        <input id="AddSubCategorySubmiterRedirection" value="@Url.Action("AddSubCategory", "AdministratorProducts")" style="display:none;" />
+
+                        @*=========================================================== Form begins*@
+                        @using (@Html.BeginForm("AddSubCategory", "AdministratorProducts", FormMethod.Post, new { @id = "AddSubCategorySubmiter", @class = "m-form m-form--fit m-form--label-align-right" }))
+                        {
+                            @Html.AntiForgeryToken();
+                            <div class="m-portlet__body" style="padding-bottom: 0">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                            <label class="col-12 tshtextright" for="nm1">سردسته محصول:</label>
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <select class="form-control m-bootstrap-select m_selectpicker" id="nm1" name="nm1" title="انتخاب کنید..." data-live-search="true">
+                                                    <option>گزینه یک</option>
+                                                    <option>گزینه دو</option>
+                                                    <option>گزینه سه</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                            <label class="col-12 tshtextright" for="nm3">گروه اصلی محصول:</label>
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <select class="form-control m-bootstrap-select m_selectpicker" id="nm3" name="nm3" title="انتخاب کنید..." data-live-search="true">
+                                                    <option>گزینه یک</option>
+                                                    <option>گزینه دو</option>
+                                                    <option>گزینه سه</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                            <div class="col-lg-12">
+                                                <label class="form-control-label" for="nm4">نام گروه:</label>
+                                                <input type="text" name="nm4" id="nm4" class="form-control m-input" placeholder="" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="m-portlet__foot m-portlet__foot--fit mt-3">
+                                        <div class="m-form__actions">
+                                            <div class="row">
+                                                <div class="col-lg-12 tshtextleft" style="padding-left: 0;">
+                                                    <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom tga">ثبت</button>&nbsp;&nbsp;
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        @*=========================================================== Form ENDs*@
+
+                    </div>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="m_user_profile_tab_1">
+                        <form class="m-form m-form--fit m-form--label-align-right" onsubmit="return false;" id="blgform">
+                            <div class="m-portlet__body" style="padding-bottom: 0">
+                                <div class="col-12">
+                                    <div>
+                                        <div class="m-portlet__head-title container-fluid mt-4">
+                                            <h3 class="m-portlet__head-text" style="font-size: 12px;border-bottom: 1px solid rgba(0,0,0,.1);padding-bottom: 17px;">
+                                                لیست برچسب ها
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <div class="container-fluid">
+                                        <table class="cust-table table table-striped table-hover m-table m-table--head-separator-primary">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>سردسته</th>
+                                                    <th>گروه اصلی</th>
+                                                    <th>گروه</th>
+                                                    <th>وضعیت</th>
+                                                    <th>عملیات</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>کفش و صنایع وابسته</td>
+                                                    <td>مردانه</td>
+                                                    <td>مردانه</td>
+                                                    <td>
+                                                        <button class="btn btn-success tshpcustom deactivate-btn" data-target="#deactivemodal" data-toggle="modal" data-name="مردانه"><i class="fa fa-check tshfa"></i>فعال</button>
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-warning tshpcustom cus-delete-btn"><i class="fa fa-edit tshfa"></i>ویرایش</button>
+                                                        <button class="btn btn-danger tshpcustom cus-delete-btn" data-target="#deleteCus" data-toggle="modal" data-name="مردانه"><i class="fa fa-trash tshfa"></i>حذف</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <table style="display: block;" class="cust-table cust-table-2 table table-striped table-hover m-table m-table--head-separator-primary">
+                                            <tr>
+                                                <th>#</th>
+                                                <td>1</td>
+
+                                            </tr>
+                                            <tr>
+                                                <th>سردسته</th>
+                                                <td>کفش و صنایع وابسته</td>
+                                            </tr>
+                                            <tr>
+                                                <th>گروه اصلی</th>
+                                                <td>مردانه</td>
+                                            </tr>
+                                            <tr>
+                                                <th>گروه</th>
+                                                <td>مردانه</td>
+                                            </tr>
+                                            <tr>
+                                                <th>وضعیت</th>
+                                                <td>
+                                                    <button class="btn btn-success tshpcustom deactivate-btn" data-target="#deactivemodal" data-toggle="modal" data-name="مردانه"><i class="fa fa-check tshfa"></i>فعال</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>عملیات</th>
+                                                <td>
+                                                    <button class="btn btn-warning tshpcustom cus-delete-btn"><i class="fa fa-edit tshfa"></i>ویرایش</button>
+                                                    <button class="btn btn-danger tshpcustom cus-delete-btn" data-target="#deleteCus" data-toggle="modal" data-name="مردانه"><i class="fa fa-trash tshfa"></i>حذف</button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <div class="col-lg-12 mt-4 mb-4">
+                                            <span class="col-lg-3">
+                                                صفحه
+                                                <span>50</span>
+                                                از
+                                                <span>170</span>
+                                            </span>
+                                            <ul class="tshpaglist col-lg-9 mb-5">
+                                                <li class="btn btn-brand disabled">قبلی</li>
+                                                <li class="btn btn-brand active-pag">1</li>
+                                                <li class="btn btn-brand">2</li>
+                                                <li class="btn btn-brand">3</li>
+                                                <li class="btn btn-brand">4</li>
+                                                <li class="btn btn-brand">5</li>
+                                                <li class="btn btn-brand">6</li>
+                                                <li class="btn btn-brand">7</li>
+                                                <li class="btn btn-brand">8</li>
+                                                <li class="btn btn-brand">9</li>
+                                                <li class="btn btn-brand">10</li>
+                                                <li class="btn btn-brand">بعدی</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

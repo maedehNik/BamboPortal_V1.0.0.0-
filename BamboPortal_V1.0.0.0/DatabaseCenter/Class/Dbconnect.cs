@@ -219,12 +219,7 @@ namespace BamboPortal_V1._0._0._0.DatabaseCenter.Class
 
         public DataTable Select(string Query, List<ExcParameters> SafeParameterInsert = null)
         {
-            bool ConnectionChanged = false;
-            if (!_IsConnectionOpen)
-            {
-                Connect();
-                ConnectionChanged = true;
-            }
+           
             if (_IsConnectionOpen)
             {
                 DataTable dt = new DataTable();
@@ -249,16 +244,9 @@ namespace BamboPortal_V1._0._0._0.DatabaseCenter.Class
                 {
                     _EXCReporter = ex;
                 }
-                if (ConnectionChanged)
-                {
-                    DC();
-                }
                 return dt;
             }
-            if (ConnectionChanged)
-            {
-                DC();
-            }
+           
             return new DataTable();
         }
 

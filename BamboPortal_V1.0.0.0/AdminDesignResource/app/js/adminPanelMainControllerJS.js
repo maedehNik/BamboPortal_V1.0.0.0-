@@ -63,8 +63,64 @@
     }
     //{END}For administrator ChangeAuth Information
     //=================================================================================================
-
-
+    //=================================================================================================
+    //{Start}For administrator addtype
+    if ($("#AddTypeSubmiter").length == 1) {
+        $(function () {
+            $("#AddTypeSubmiter").on("submit", function (e) {
+                e.preventDefault();
+                DisableBTN("AddTypeSubmiter");
+                $.ajax({
+                    url: this.action,
+                    type: this.method,
+                    data: $(this).serialize(),
+                    success: function (data) {
+                        console.log(data)
+                        const jsondata = data;
+                        console.log(jsondata.Errortype)
+                        if (jsondata.Errortype == "Success") {
+                            AlertToUser("AddTypeSubmiter", data);
+                        } else if (jsondata.Errortype == "ErrorWithList") {
+                            AlertToUser("AddTypeSubmiter", data);
+                        } else {
+                            AlertToUser("AddTypeSubmiter", data);
+                        }
+                    }
+                });
+            });
+        });
+    }
+    //{END}For administrator addtype
+    //=================================================================================================
+    //=================================================================================================
+    //{Start}For administrator AddMainCategorySubmiter
+    if ($("#AddMainCategorySubmiter").length == 1) {
+        $(function () {
+            $("#AddMainCategorySubmiter").on("submit", function (e) {
+                e.preventDefault();
+                DisableBTN("AddMainCategorySubmiter");
+                $.ajax({
+                    url: this.action,
+                    type: this.method,
+                    data: $(this).serialize(),
+                    success: function (data) {
+                        console.log(data)
+                        const jsondata = data;
+                        console.log(jsondata.Errortype)
+                        if (jsondata.Errortype == "Success") {
+                            AlertToUser("AddMainCategorySubmiter", data);
+                        } else if (jsondata.Errortype == "ErrorWithList") {
+                            AlertToUser("AddMainCategorySubmiter", data);
+                        } else {
+                            AlertToUser("AddMainCategorySubmiter", data);
+                        }
+                    }
+                });
+            });
+        });
+    }
+    //{END}For administrator AddMainCategorySubmiter
+    //=================================================================================================
 });
 //=================================================================================================
 //{Start}got Json of ErrorReporterModel--> AllErrors For validate from backend serverside Validation{
@@ -102,7 +158,7 @@ function ThisIsValid(inputID) {
 //=================================================================================================
 //=================================================================================================
 //{Start}AlertAndLoading For User{
-
+//Redirection in the end of id will redirect user to Formid+Redirection .val() url 
 function AlertToUser(FormID, data) {
     setTimeout(function () {
 
@@ -110,7 +166,16 @@ function AlertToUser(FormID, data) {
         if (data.Errortype == "Success") {
             swal("درخواست با موفقیت ثبت شد!", data.Errormessage, "success").then(function (e) {
                 $("#" + FormID + "_SubmitBTN").removeClass("m-loader m-loader--light m-loader--right").prop("disabled", false);
-                location.reload();
+                try {
+                    if ($("#" + FormID + "Redirection").val().length > 0) {
+                        window.location.replace(window.location.origin + $("#" + FormID + "Redirection").val());
+                    } else {
+
+                        location.reload();
+                    }
+                } catch{
+                    location.reload();
+                }
             })
         }
         else if (data.Errortype == "ErrorWithList") {
@@ -132,3 +197,30 @@ function DisableBTN(idForm) {
     $("#" + idForm + "_SubmitBTN").addClass("m-loader m-loader--light m-loader--right").prop("disabled", true);
 }
 //}{END}AlertAndLoading For User
+//{Start}FormPoster{
+function PosterCreator(idForm) {
+    $("#" + idForm).on("submit", function (e) {
+        e.preventDefault();
+        DisableBTN(idForm);
+        $.ajax({
+            url: this.action,
+            type: this.method,
+            data: $(this).serialize(),
+            success: function (data) {
+                console.log(data)
+                const jsondata = data;
+                console.log(jsondata.Errortype)
+                if (jsondata.Errortype == "Success") {
+                    AlertToUser(idForm, data);
+                } else if (jsondata.Errortype == "ErrorWithList") {
+                    AlertToUser(idForm, data);
+                } else {
+                    AlertToUser(idForm, data);
+                }
+            }
+        });
+        return false;
+    });
+
+}
+//}{END}FormPoster
