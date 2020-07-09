@@ -215,6 +215,7 @@
     <Content Include="AdminDesignResource\app\js\dashboard.js" />
     <Content Include="AdminDesignResource\app\js\jqueryvalidate.js" />
     <Content Include="AdminDesignResource\app\js\layout-builder.js" />
+    <Content Include="AdminDesignResource\app\js\uploader.js" />
     <Content Include="AdminDesignResource\app\media\img\bg\bg-1.jpg" />
     <Content Include="AdminDesignResource\app\media\img\bg\bg-2.jpg" />
     <Content Include="AdminDesignResource\app\media\img\bg\bg-3.jpg" />
