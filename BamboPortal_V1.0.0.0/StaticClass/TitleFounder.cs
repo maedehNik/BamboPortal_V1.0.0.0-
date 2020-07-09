@@ -58,6 +58,9 @@ namespace BamboPortal_V1._0._0._0.StaticClass
                         case "addsubcategoryvaluesofkeys":
                             return result + "مقداردهی ویژگی های گروه محصولات";
                             break;
+                        case "addmaintag":
+                            return result + "تعریف پرچسب های های گروه محصولات";
+                            break;
 
                     }
                     break;

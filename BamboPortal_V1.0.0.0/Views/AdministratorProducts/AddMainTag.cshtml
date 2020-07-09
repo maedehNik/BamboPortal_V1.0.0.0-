@@ -1,0 +1,273 @@
+﻿@model BamboPortal_V1._0._0._0.ModelViews.AdministratorProducts.AddMainTagModelView
+
+@{
+    ViewBag.Title = "AddMainTag";
+    Layout = "~/Views/SharedViewPages/Administrator/MasterView.cshtml";
+}
+
+
+<div class="modal fade" id="deleteCus" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">پاک کردن برچسب</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <small style="display: block">آیا از حذف این برچسب اطمینان دارید؟</small>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <input id="deleteCusID" value="" style="display:none" />
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">خیر</button>
+                <button type="button" id="deleteCus_SubmitBTN" class="btn btn-danger" onclick="return YesDeletePlz()">بله</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- BEGIN: Subheader -->
+<div class="m-subheader">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
+                <span class="m-subheader__daterange-label">
+                    <h3 class="m-subheader__title" style="padding-left: 0!important;margin: 0 0 0 2px!important;">
+                        پیشخوان
+                        <i class="fa fa-chevron-left tshfontsize2" style="transform: translateY(3px);color: #aaaeb8;margin-right: 2px;"></i>
+                        <span class="m-subheader__daterange-title tshfontsize2" style="margin-right: 2px;margin-left: 2px;">تعریف برچسب اصلی</span>
+                        <!--
+                        <i class="fa fa-chevron-left" style="transform: translateY(3px);color: #aaaeb8;"></i>
+                        <span class="m-subheader__daterange-title" style="margin-right: 2px;">نمایش همه ی پست ها</span>
+                        -->
+                    </h3>
+                </span>
+            </span>
+        </div>
+    </div>
+</div>
+
+
+<div class="m-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="m-portlet m-portlet--full-height m-portlet--tabs  ">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-tools">
+                        <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
+                            <li class="nav-item m-tabs__item">
+                                <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_user_profile_tab_1" role="tab">
+                                    @if (Model.SubmiterStructure.TagID == "0")
+                                    {
+                                        <cust_title>
+                                            تعریف برچسب محصولات
+                                        </cust_title>
+                                    }
+                                    else
+                                    {
+                                        <cust_title>
+                                            ویرایش برچسب محصولات
+                                        </cust_title>
+                                        <input value="@Url.Action("AddMainTag", "AdministratorProducts")" id="AddMainTagSubmiterRedirection" style="display:none" />
+                                    }
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="m_user_profile_tab_1">
+
+                        @using (@Html.BeginForm("AddMainTag", "AdministratorProducts", FormMethod.Post, new { @id = "AddMainTagSubmiter", @class = "m-form m-form--fit m-form--label-align-right" }))
+                        {
+
+                            @Html.AntiForgeryToken();
+
+                            @Html.TextBoxFor(m => m.SubmiterStructure.TagID, new { @class = "form-control m-input", @style = "display:none;", @Value = Model.SubmiterStructure.TagID })
+                            <div class="m-portlet__body" style="padding-bottom: 0">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                            <div class="col-lg-12">
+
+                                                @if (Model.SubmiterStructure.TagID == "0")
+                                                {
+                                                    @Html.LabelFor(m => m.SubmiterStructure.MainTagValue, "نام برچسب اصلی :", new { @class = "form-control-label" })
+                                                    @Html.TextBoxFor(m => m.SubmiterStructure.MainTagValue, new { @class = "form-control m-input", @placeholder = "نام برچسب اصلی" })
+                                                    @Html.ValidationMessageFor(m => m.SubmiterStructure.MainTagValue)
+                                                }
+                                                else
+                                                {
+                                                    @Html.LabelFor(m => m.SubmiterStructure.MainTagValue, "در حال ویرایش سردسته (" + Model.SubmiterStructure.MainTagValue + ") :", new { @class = "form-control-label" })
+                                                    @Html.TextBoxFor(m => m.SubmiterStructure.MainTagValue, new { @class = "form-control m-input", @Value = Model.SubmiterStructure.MainTagValue, @placeholder = "نام برچسب اصلی" })
+                                                    @Html.ValidationMessageFor(m => m.SubmiterStructure.MainTagValue)
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                            <div class="col-lg-12">
+                                                @if (Model.SubmiterStructure.TagID == "0")
+                                                {
+                                                    @Html.LabelFor(m => m.SubmiterStructure.MainTagDescription, "توضیحات :", new { @class = "form-control-label" })
+                                                    @Html.TextBoxFor(m => m.SubmiterStructure.MainTagDescription, new { @class = "form-control m-input", @placeholder = "توضیحات" })
+                                                    @Html.ValidationMessageFor(m => m.SubmiterStructure.MainTagDescription)
+                                                }
+                                                else
+                                                {
+                                                    @Html.LabelFor(m => m.SubmiterStructure.MainTagDescription, "در حال ویرایش سردسته (" + Model.SubmiterStructure.MainTagDescription + ") :", new { @class = "form-control-label" })
+                                                    @Html.TextBoxFor(m => m.SubmiterStructure.MainTagDescription, new { @class = "form-control m-input", @Value = Model.SubmiterStructure.MainTagDescription, @placeholder = "توضیحات" })
+                                                    @Html.ValidationMessageFor(m => m.SubmiterStructure.MainTagDescription)
+                                                }
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="m-portlet__foot m-portlet__foot--fit">
+                                        <div class="m-form__actions">
+                                            <div class="row">
+                                                <div class="col-lg-12 tshtextleft" style="padding-left: 0;">
+                                                    <button id="AddMainTagSubmiter_SubmitBTN" type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom tga">ثبت</button>&nbsp;&nbsp;
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        }
+                    </div>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="m_user_profile_tab_1">
+                        <div class="m-form m-form--fit m-form--label-align-right">
+                            <div class="m-portlet__body" style="padding-bottom: 0">
+                                <div class="col-12">
+                                    <div>
+                                        <div class="m-portlet__head-title container-fluid mt-4">
+                                            <h3 class="m-portlet__head-text" style="font-size: 12px;border-bottom: 1px solid rgba(0,0,0,.1);padding-bottom: 17px;">
+                                                لیست برچسب ها
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <div class="container-fluid">
+                                        <table class="cust-table table table-striped table-hover m-table m-table--head-separator-primary">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>برچسب اصلی</th>
+                                                    <th>توضیحات</th>
+                                                    <th>عملیات</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                @if (Model.TBLData.Count > 0)
+                                                {
+                                                    foreach (var item in Model.TBLData)
+                                                    {
+                                                        <tr>
+                                                            <th scope="row">
+                                                                @item.RowNumber
+                                                            </th>
+
+                                                            <td>@item.MainTagValue</td>
+                                                            <td>@item.MainTagDescription</td>
+                                                            <td>
+                                                                <a href="@Url.Action("AddMainTag","AdministratorProducts")?tID=@item.TagID" class="btn btn-warning tshpcustom cus-delete-btn"><i class="fa fa-edit tshfa"></i>ویرایش</a>
+                                                                <button class="btn btn-danger tshpcustom cus-delete-btn"  data-target="#deleteCus" data-toggle="modal" onclick="return DeleteMC(@item.TagID)"><i class="fa fa-trash tshfa"></i>حذف</button>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <h3 class="m-badge m-badge--danger m-badge--wide">
+                                                        موردی برای نمایش وجود ندارد.
+                                                    </h3>
+                                                }
+
+
+                                            </tbody>
+                                        </table>
+                                        <table style="display: none;" class="cust-table cust-table-2 table table-striped table-hover m-table m-table--head-separator-primary">
+                                            @if (Model.TBLData.Count > 0)
+                                            {
+                                                foreach (var item in Model.TBLData)
+                                                {
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <td> @item.RowNumber</td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <th>برچسب اصلی</th>
+                                                        <td>@item.MainTagValue</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>توضیحات</th>
+                                                        <td>@item.MainTagDescription</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>عملیات</th>
+                                                        <td>
+                                                            <a href="@Url.Action("AddMainTag","AdministratorProducts")?tID=@item.TagID" class="btn btn-warning tshpcustom cus-delete-btn"><i class="fa fa-edit tshfa"></i>ویرایش</a>                                                            <button class="btn btn-danger tshpcustom cus-delete-btn" data-target="#deleteCus" data-toggle="modal" onclick="return DeleteMC(@item.TagID)"><i class="fa fa-trash tshfa"></i>حذف</button>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <h3 class="m-badge m-badge--danger m-badge--wide">
+                                                    موردی برای نمایش وجود ندارد.
+                                                </h3>
+                                            }
+
+
+                                        </table>
+                                        <div class="col-lg-12 mt-4 mb-4">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        function DeleteMC(id) {
+            $("#deleteCusID").val(id)
+        }
+        function YesDeletePlz() {
+            const PostJson = {
+                'idTodelete': $("#deleteCusID").val()
+            };
+            $("#deleteCus_SubmitBTN").addClass("m-loader m-loader--light m-loader--right").prop("disabled", true);
+            $.ajax({
+                url: '/AdministratorProducts/AddMainTag_DELETE',
+                type: "post",
+                data: JSON.stringify(PostJson),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    if (data.Errortype == "Success") {
+                        AlertToUser("deleteCus", data);
+                    } else {
+                        alert(data.Errormessage);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("مشکل در برقراری ارتباط با سرور");
+                }
+            });
+        }
+
+    </script>
+}

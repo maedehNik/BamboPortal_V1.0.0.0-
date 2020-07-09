@@ -155,6 +155,7 @@
     <Compile Include="Models\AdministratorProductsModels\AddSubCatKeySubmit.cs" />
     <Compile Include="Models\AdministratorProductsModels\addtype.cs" />
     <Compile Include="Models\AdministratorProductsModels\AddTypeTable.cs" />
+    <Compile Include="Models\AdministratorProductsModels\MainTagStructure.cs" />
     <Compile Include="Models\AdministratorValidation.cs" />
     <Compile Include="Models\CustomerSide\PersonalDataModels\ActivationModel.cs" />
     <Compile Include="Models\CustomerSide\PersonalDataModels\AddressModel.cs" />
@@ -188,6 +189,7 @@
     <Compile Include="Models\UsefulModels\ProductGroupModel.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddMainCategoryModel.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddMainCategorySubmiterForm.cs" />
+    <Compile Include="ModelViews\AdministratorProducts\AddMainTagModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddSubCategoryKeyModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddSubCategoryModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddSubCateGoryValuesOfKeysModelView.cs" />
@@ -3338,6 +3340,7 @@
     <Content Include="Views\AdministratorProducts_FieldLoader\TestPage.cshtml" />
     <Content Include="Views\AdministratorProducts\AddSubCategoryKey.cshtml" />
     <Content Include="Views\AdministratorProducts\AddSubCateGoryValuesOfKeys.cshtml" />
+    <Content Include="Views\AdministratorProducts\AddMainTag.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

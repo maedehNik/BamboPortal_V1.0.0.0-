@@ -208,6 +208,35 @@
     }
     //{END}For administrator AddSubCategory
     //=================================================================================================
+    //=================================================================================================
+    //{Start}For administrator AddSubCategory
+    if ($("#AddMainTagSubmiter").length == 1) {
+        $(function () {
+            $("#AddMainTagSubmiter").on("submit", function (e) {
+                e.preventDefault();
+                DisableBTN("AddMainTagSubmiter");
+                $.ajax({
+                    url: this.action,
+                    type: this.method,
+                    data: $(this).serialize(),
+                    success: function (data) {
+                        console.log(data)
+                        const jsondata = data;
+                        console.log(jsondata.Errortype)
+                        if (jsondata.Errortype == "Success") {
+                            AlertToUser("AddMainTagSubmiter", data);
+                        } else if (jsondata.Errortype == "ErrorWithList") {
+                            AlertToUser("AddMainTagSubmiter", data);
+                        } else {
+                            AlertToUser("AddMainTagSubmiter", data);
+                        }
+                    }
+                });
+            });
+        });
+    }
+    //{END}For administrator AddSubCategory
+    //=================================================================================================
 });
 //=================================================================================================
 //{Start}got Json of ErrorReporterModel--> AllErrors For validate from backend serverside Validation{

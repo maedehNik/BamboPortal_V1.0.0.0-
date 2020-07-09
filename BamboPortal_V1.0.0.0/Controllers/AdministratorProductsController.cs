@@ -1750,6 +1750,265 @@ namespace BamboPortal_V1._0._0._0.Controllers
 
         //{END}For Product  AddSubCateGoryValuesOfKeys
         //=================================================================================================================
+        //=================================================================================================================
+        //{start}For Product  AddMainTag
+        public ActionResult AddMainTag()
+        {
+            AddMainTagModelView model = new AddMainTagModelView();
+            model.TBLData = new List<MainTagStructure>();
+            model.SubmiterStructure = new MainTagStructure()
+            {
+                MainTagValue = "",
+                MainTagDescription = "",
+                TagID = "0"
+            };
+            PDBC db = new PDBC();
+            db.Connect();
+            using (DataTable dt = db.Select("SELECT [id_MainStarTag],[MST_Description],[MST_Name] FROM [tbl_Product_MainStarTags]"))
+            {
+                db.DC();
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    var model1 = new MainTagStructure()
+                    {
+                        RowNumber = i + 1,
+                        TagID = dt.Rows[i]["id_MainStarTag"].ToString(),
+                        MainTagValue = dt.Rows[i]["MST_Name"].ToString(),
+                        MainTagDescription = dt.Rows[i]["MST_Description"].ToString()
+                    };
+                    model.TBLData.Add(model1);
+                }
+            }
 
+            if (Request.QueryString["tID"] != null)
+            {
+                List<ExcParameters> excParameters = new List<ExcParameters>();
+                ExcParameters excParameter = new ExcParameters()
+                {
+                    _KEY = "@id_MainStarTag",
+                    _VALUE = Request.QueryString["tID"].ToString()
+                };
+                excParameters.Add(excParameter);
+                db.Connect();
+                using (DataTable dt = db.Select("SELECT [id_MainStarTag],[MST_Description],[MST_Name] FROM [tbl_Product_MainStarTags] WHERE [id_MainStarTag] = @id_MainStarTag", excParameters))
+                {
+                    db.DC();
+                    if (dt.Rows.Count > 0)
+                    {
+                        MainTagStructure ad = new MainTagStructure()
+                        {
+                            MainTagValue = dt.Rows[0]["MST_Name"].ToString(),
+                            MainTagDescription = dt.Rows[0]["MST_Description"].ToString(),
+                            TagID = Request.QueryString["tID"].ToString()
+                        };
+                        model.SubmiterStructure = ad;
+                        return View(model);
+                    }
+                    else
+                    {
+                        PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "IN Controller : {AdministratorProductsController}\nMethod : {public ActionResult AddType() Cannot Cast to Request.QueryString[\"tID\"].ToString()}");
+                        var ModelSender = new ErrorReporterModel
+                        {
+                            ErrorID = "EX112",
+                            Errormessage = $"ورود متغیر خلاف پروتکل های امنیتی",
+                            Errortype = "Error"
+                        };
+                        return Json(ModelSender);
+                    }
+                }
+            }
+
+
+
+
+            return View(model);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddMainTag(AddMainTagModelView senderobj)
+        {
+            if (ModelState.IsValid)
+            {
+                if (senderobj.SubmiterStructure.TagID == "0")
+                {
+                    PDBC db = new PDBC();
+
+                    List<ExcParameters> paramss = new List<ExcParameters>();
+                    ExcParameters parameters = new ExcParameters();
+
+                    parameters = new ExcParameters()
+                    {
+                        _KEY = "@value",
+                        _VALUE = senderobj.SubmiterStructure.MainTagValue
+                    };
+                    paramss.Add(parameters);
+                    parameters = new ExcParameters()
+                    {
+                        _KEY = "@discription",
+                        _VALUE = senderobj.SubmiterStructure.MainTagDescription
+                    };
+                    paramss.Add(parameters);
+                    db.Connect();
+                    string result = db.Script("INSERT INTO [tbl_Product_MainStarTags]VALUES( @discription , @value )", paramss);
+                    db.DC();
+                    if (result == "1")
+                    {
+                        var ModelSender = new ErrorReporterModel
+                        {
+                            ErrorID = "SX106",
+                            Errormessage = $"برچسب  محصولات با موفقیت ثبت شد!",
+                            Errortype = "Success"
+                        };
+                        return Json(ModelSender);
+                    }
+                    else
+                    {
+                        PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                        var ModelSender = new ErrorReporterModel
+                        {
+                            ErrorID = "EX115",
+                            Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                            Errortype = "Error"
+                        };
+                        return Json(ModelSender);
+                    }
+                }
+                else
+                {
+                    PDBC db = new PDBC();
+
+                    List<ExcParameters> paramss = new List<ExcParameters>();
+                    ExcParameters parameters = new ExcParameters();
+
+                    parameters = new ExcParameters()
+                    {
+                        _KEY = "@value",
+                        _VALUE = senderobj.SubmiterStructure.MainTagValue
+                    };
+                    paramss.Add(parameters);
+                    parameters = new ExcParameters()
+                    {
+                        _KEY = "@discription",
+                        _VALUE = senderobj.SubmiterStructure.MainTagDescription
+                    };
+                    paramss.Add(parameters);
+                    parameters = new ExcParameters()
+                    {
+                        _KEY = "@id",
+                        _VALUE = senderobj.SubmiterStructure.TagID
+                    };
+                    paramss.Add(parameters);
+                    db.Connect();
+                    string result = db.Script("UPDATE [tbl_Product_MainStarTags] SET [MST_Description] = @discription ,[MST_Name] =@value WHERE id_MainStarTag= @id", paramss);
+                    db.DC();
+                    if (result == "1")
+                    {
+                        var ModelSender = new ErrorReporterModel
+                        {
+                            ErrorID = "SX106",
+                            Errormessage = $"برچسب  محصولات با موفقیت ویرایش شد!",
+                            Errortype = "Success"
+                        };
+                        return Json(ModelSender);
+                    }
+                    else
+                    {
+                        PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                        var ModelSender = new ErrorReporterModel
+                        {
+                            ErrorID = "EX115",
+                            Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                            Errortype = "Error"
+                        };
+                        return Json(ModelSender);
+                    }
+                }
+            }
+            else
+            {
+                List<ModelErrorReporter> allErrors = new List<ModelErrorReporter>();
+                //foreach (ModelError error in ModelState.Values.)
+                var AllValues = ModelState.Values.ToList();
+                var AllKeys = ModelState.Keys.ToList();
+                int errorsCount = AllValues.Count;
+                for (int i = 0; i < errorsCount; i++)
+                {
+                    if (AllValues[i].Errors.Count > 0)
+                    {
+                        ModelErrorReporter er = new ModelErrorReporter()
+                        {
+                            IdOfProperty = AllKeys[i].Replace("SubmiterStructure.", "SubmiterStructure_"),
+                            ErrorMessage = AllValues[i].Errors[0].ErrorMessage
+                        };
+                        allErrors.Add(er);
+                    }
+                }
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX0012",
+                    Errormessage = $"عدم رعایت استاندارد ها!",
+                    Errortype = "ErrorWithList",
+                    AllErrors = allErrors
+                };
+                return Json(ModelSender);
+            }
+
+            return Json("");
+        }
+
+        public JsonResult AddMainTag_DELETE(string idTodelete)
+        {
+            PDBC db = new PDBC();
+            uint id = 0;
+            if (UInt32.TryParse(idTodelete, out id))
+            {
+                List<ExcParameters> parss = new List<ExcParameters>();
+                ExcParameters par = new ExcParameters()
+                {
+                    _KEY = "@id_PT",
+                    _VALUE = idTodelete
+                };
+                parss.Add(par);
+                db.Connect();
+                string result = db.Script("DELETE FROM [tbl_Product_MainStarTags]WHERE id_MainStarTag = @id_PT", parss);
+                db.DC();
+                if (result == "1")
+                {
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "SX106",
+                        Errormessage = $"این برچسب با موفقیت حذف شد!",
+                        Errortype = "Success"
+                    };
+                    return Json(ModelSender);
+                }
+                else
+                {
+                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "EX115",
+                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                        Errortype = "Error"
+                    };
+                    return Json(ModelSender);
+                }
+
+            }
+            else
+            {
+                PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "sher o ver e L326");
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX115",
+                    Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                    Errortype = "Error"
+                };
+                return Json(ModelSender);
+            }
+        }
+
+        //{END}For Product  AddMainTag
+        //=================================================================================================================
     }
 }
