@@ -49,6 +49,16 @@ namespace BamboPortal_V1._0._0._0.StaticClass
                         case "maincategory":
                             return result + "تعریف گروه اصلی محصولات";
                             break;
+                        case "addsubcategory":
+                            return result + "تعریف گروه محصولات";
+                            break;
+                        case "addsubcategorykey":
+                            return result + "تعریف ویژگی های گروه محصولات";
+                            break;
+                        case "addsubcategoryvaluesofkeys":
+                            return result + "مقداردهی ویژگی های گروه محصولات";
+                            break;
+
                     }
                     break;
 

@@ -151,6 +151,8 @@
     <Compile Include="Models\AdministratorGeneralModels\changeAuthInformation.cs" />
     <Compile Include="Models\AdministratorGeneralModels\ChangeProfileModel.cs" />
     <Compile Include="Models\AdministratorProductsModels\AddSubCategorySubmiterModel.cs" />
+    <Compile Include="Models\AdministratorProductsModels\AddSubCateGoryValuesOfKeysSubmit.cs" />
+    <Compile Include="Models\AdministratorProductsModels\AddSubCatKeySubmit.cs" />
     <Compile Include="Models\AdministratorProductsModels\addtype.cs" />
     <Compile Include="Models\AdministratorProductsModels\AddTypeTable.cs" />
     <Compile Include="Models\AdministratorValidation.cs" />
@@ -186,7 +188,9 @@
     <Compile Include="Models\UsefulModels\ProductGroupModel.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddMainCategoryModel.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddMainCategorySubmiterForm.cs" />
+    <Compile Include="ModelViews\AdministratorProducts\AddSubCategoryKeyModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddSubCategoryModelView.cs" />
+    <Compile Include="ModelViews\AdministratorProducts\AddSubCateGoryValuesOfKeysModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddTypeModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts_FieldLoader\GetSubCateGoryForSelect2FromPTypeIDModelView.cs" />
     <Compile Include="ModelViews\CustomerSide\AboutUsModelView.cs" />
@@ -3332,6 +3336,8 @@
     <Content Include="Views\AdministratorProducts\MainCategory.cshtml" />
     <Content Include="Views\AdministratorProducts\AddSubCategory.cshtml" />
     <Content Include="Views\AdministratorProducts_FieldLoader\TestPage.cshtml" />
+    <Content Include="Views\AdministratorProducts\AddSubCategoryKey.cshtml" />
+    <Content Include="Views\AdministratorProducts\AddSubCateGoryValuesOfKeys.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

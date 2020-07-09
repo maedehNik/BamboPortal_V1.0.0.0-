@@ -1,5 +1,6 @@
-﻿@model BamboPortal_V1._0._0._0.ModelViews.AdministratorProducts.AddSubCategoryModelView
+﻿@model BamboPortal_V1._0._0._0.ModelViews.AdministratorProducts.AddSubCategoryKeyModelView
 @{
+    ViewBag.Title = "AddSubCategoryKey";
     Layout = "~/Views/SharedViewPages/Administrator/MasterView.cshtml";
 }
 
@@ -8,7 +9,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">غیرفعال سازی گروه اصلی</h5>
+                <h5 class="modal-title">غیرفعال سازی ویژگی</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -16,7 +17,7 @@
             <input id="deactivemodalID" value="" style="display:none" />
             <div class="modal-body">
                 <p>
-                    <small style="display: block">با غیرفعال کردن این گروه اصلی تمام زیرمجموعه های این گروه اصلی نیز غیرفعال خواهند شد.</small>
+                    <small style="display: block">با غیرفعال کردن این ویژگی تمام زیرمجموعه های این ویژگی نیز غیرفعال خواهند شد.</small>
                 </p>
             </div>
             <div class="modal-footer">
@@ -30,14 +31,14 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">غیرفعال سازی گروه اصلی</h5>
+                <h5 class="modal-title">غیرفعال سازی ویژگی</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
                 <p>
-                    <small style="display: block">با غیرفعال کردن این گروه اصلی تمام زیرمجموعه های این گروه اصلی نیز غیرفعال خواهند شد.</small>
+                    <small style="display: block">با غیرفعال کردن این ویژگی تمام زیرمجموعه های این ویژگی نیز غیرفعال خواهند شد.</small>
                 </p>
             </div>
             <div class="modal-footer">
@@ -53,14 +54,14 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">پاک کردن گروه اصلی</h5>
+                <h5 class="modal-title">پاک کردن ویژگی</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
                 <p>
-                    <small style="display: block">با حذف کردن این گروه اصلی تمام زیرمجموعه های این گروه اصلی نیز حذف خواهند شد.</small>
+                    <small style="display: block">با حذف کردن این ویژگی محصول تمام زیرمجموعه های این ویژگی نیز حذف خواهند شد.</small>
                 </p>
             </div>
             <div class="modal-footer">
@@ -73,8 +74,6 @@
 </div>
 
 
-
-
 <!-- BEGIN: Subheader -->
 <div class="m-subheader">
     <div class="d-flex align-items-center">
@@ -84,7 +83,7 @@
                     <h3 class="m-subheader__title" style="padding-left: 0!important;margin: 0 0 0 2px!important;">
                         پیشخوان
                         <i class="fa fa-chevron-left tshfontsize2" style="transform: translateY(3px);color: #aaaeb8;margin-right: 2px;"></i>
-                        <span class="m-subheader__daterange-title tshfontsize2" style="margin-right: 2px;margin-left: 2px;">تعریف گروه محصولات</span>
+                        <span class="m-subheader__daterange-title tshfontsize2" style="margin-right: 2px;margin-left: 2px;">تعریف ویژگی محصولات</span>
                         <!--
                         <i class="fa fa-chevron-left" style="transform: translateY(3px);color: #aaaeb8;"></i>
                         <span class="m-subheader__daterange-title" style="margin-right: 2px;">نمایش همه ی پست ها</span>
@@ -108,51 +107,64 @@
                                 <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_user_profile_tab_1" role="tab">
                                     <i class="flaticon-share m--hide"></i>
                                     <cust_title>
-                                        تعریف گروه محصولات
+                                        تعریف ویژگی محصولات
                                     </cust_title>
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </div>
-                <div class="tab-content" id="AddSubCategoryAllContent">
+                <div class="tab-content">
                     <div class="tab-pane active" id="m_user_profile_tab_1">
-                        <input id="AddSubCategorySubmiterRedirection" value="@Url.Action("AddSubCategory", "AdministratorProducts")" style="display:none;" />
+                        <input id="AddSubCategorySubmiterRedirection" value="@Url.Action("AddSubCategoryKey", "AdministratorProducts")" style="display:none;" />
                         @*=========================================================== Form begins*@
-                        @using (@Html.BeginForm("AddSubCategory", "AdministratorProducts", FormMethod.Post, new { @id = "AddSubCategorySubmiter", @class = "m-form m-form--fit m-form--label-align-right" }))
+                        @using (@Html.BeginForm("AddSubCategoryKey", "AdministratorProducts", FormMethod.Post, new { @id = "AddSubCategoryKey", @class = "m-form m-form--fit m-form--label-align-right" }))
                         {
                             @Html.AntiForgeryToken();
+
                             <div class="m-portlet__body" style="padding-bottom: 0">
                                 <div class="col-12">
                                     <div class="row">
                                         <div class="form-group m-form__group col-lg-6 col-xs-12">
-                                            @Html.LabelFor(m => m.SubmiterModel.typeID, "سردسته محصول :", new { @id = "SubmiterModel_typeIDLBL", @class = "col-12 tshtextright" })
+                                            @Html.LabelFor(m => m.KeySubmit.ProductTypeId, "سردسته محصول :", new { @id = "SubmiterModel_typeIDLBL", @class = "col-12 tshtextright" })
                                             <div class="col-lg-12 col-md-12 col-sm-12">
-                                                <select class="form-control m-bootstrap-select m_selectpicker" id="SubmiterModel_typeID" name="SubmiterModel.typeID" title="انتخاب کنید..." data-live-search="true" onchange="URLSearchParams()">
-                                                    @foreach (var item in Model.IdTypes)
+                                                <select class="form-control m-bootstrap-select m_selectpicker" id="KeySubmit_ProductTypeId" name="KeySubmit.ProductTypeId" title="انتخاب کنید..." data-live-search="true" onchange="URLSearchParams()">
+                                                    @foreach (var item in Model.ProductTypes)
                                                     {
                                                         <option value=@item.Id>@item.Value</option>
                                                     }
                                                 </select>
-                                                @Html.ValidationMessageFor(m => m.SubmiterModel.typeID)
+                                                @Html.ValidationMessageFor(m => m.KeySubmit.ProductTypeId)
                                             </div>
                                         </div>
+                                        @*====================================================end ProductTypeId*@
                                         <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
-                                            @Html.LabelFor(m => m.SubmiterModel.MainCategoryID, "سردسته محصول :", new { @id = "SubmiterModel_MainCategoryIDLBL", @class = "col-12 tshtextright" })
+                                            @Html.LabelFor(m => m.KeySubmit.ProcuctMainCategoryId, "گروه اصلی محصول :", new { @id = "SubmiterModel_typeIDLBL", @class = "col-12 tshtextright" })
+
                                             <div class="col-lg-12 col-md-12 col-sm-12">
-                                                <select class="form-control m-bootstrap-select m_selectpicker" id="SubmiterModel_MainCategoryID" name="SubmiterModel.MainCategoryID" title="انتخاب کنید..." data-live-search="true">
-                                                    <option value=0 selected disabled hidden>یک مورد را انتخاب نمایید</option>
+                                                <select class="form-control m-bootstrap-select m_selectpicker" id="KeySubmit_ProcuctMainCategoryId" name="KeySubmit.ProcuctMainCategoryId" title="انتخاب کنید..." data-live-search="true" onchange="URLSearchParamsProcuctMainCategoryId()">
                                                 </select>
-                                                @Html.ValidationMessageFor(m => m.SubmiterModel.MainCategoryID)
+                                                @Html.ValidationMessageFor(m => m.KeySubmit.ProcuctMainCategoryId)
                                             </div>
                                         </div>
                                     </div>
+                                    @*===========================================================ProcuctMainCategoryId*@
                                     <div class="row">
-                                        <div class="form-group m-form__group col-lg-12 col-xs-12">
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                            @Html.LabelFor(m => m.KeySubmit.ProductSubCategoryId, "گروه محصول :", new { @id = "SubmiterModel_typeIDLBL", @class = "col-12 tshtextright" })
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <select class="form-control m-bootstrap-select m_selectpicker" id="KeySubmit_ProductSubCategoryId" name="KeySubmit.ProductSubCategoryId" title="انتخاب کنید..." data-live-search="true">
+                                                </select>
+                                                @Html.ValidationMessageFor(m => m.KeySubmit.ProductSubCategoryId)
+                                            </div>
+                                        </div>
+                                        @*===========================================================ProductSubCategoryId*@
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
                                             <div class="col-lg-12">
-                                                @Html.LabelFor(m => m.SubmiterModel.SubCategoryName, "نام گروه :", new { @id = "SubmiterModel_SubCategoryNameLBL", @class = "form-control-label" })
-                                                @Html.TextBoxFor(m => m.SubmiterModel.SubCategoryName, new { @class = "form-control m-input", @placeholder = "نام گروه" })
-                                                @Html.ValidationMessageFor(m => m.SubmiterModel.SubCategoryName)
+                                                @Html.LabelFor(m => m.KeySubmit.ProductSubCategoryKeyName, "نام ویژگی :", new { @id = "KeySubmit_ProductSubCategoryKeyName", @class = "form-control-label" })
+                                                @Html.TextBoxFor(m => m.KeySubmit.ProductSubCategoryKeyName, new { @class = "form-control m-input", @placeholder = "نام ویژگی" })
+                                                @Html.ValidationMessageFor(m => m.KeySubmit.ProductSubCategoryKeyName)
+
                                             </div>
                                         </div>
                                     </div>
@@ -160,7 +172,7 @@
                                         <div class="m-form__actions">
                                             <div class="row">
                                                 <div class="col-lg-12 tshtextleft" style="padding-left: 0;">
-                                                    <button type="submit" id="AddSubCategorySubmiter_SubmitBTN" class="btn btn-accent m-btn m-btn--air m-btn--custom tga">ثبت</button>&nbsp;&nbsp;
+                                                    <button id="AddSubCategoryKey_SubmitBTN" type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom tga">ثبت</button>&nbsp;&nbsp;
                                                 </div>
                                             </div>
                                         </div>
@@ -169,8 +181,7 @@
                             </div>
                         }
 
-                        @*=========================================================== Form ENDs*@
-
+                        @*================================================ENDFORM*@
                     </div>
                 </div>
                 <div class="tab-content">
@@ -193,30 +204,28 @@
                                                     <th>سردسته</th>
                                                     <th>گروه اصلی</th>
                                                     <th>گروه</th>
+                                                    <th>ویژگی</th>
                                                     <th>وضعیت</th>
                                                     <th>عملیات</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @*/////////////////////////////////////////////////////// tbody*@
                                                 @if (Model.Tbl.Count > 0)
                                                 {
                                                     foreach (var item in Model.Tbl)
                                                     {
+
+
                                                         <tr>
-                                                            <th scope="row"> @item.Num </th>
-
-                                                            <td> @item.Type </td>
-
-                                                            <td> @item.Main </td>
-
-                                                            <td> @item.Sub </td>
+                                                            <th scope="row">@item.Num</th>
+                                                            <td>@item.Type</td>
+                                                            <td>@item.Main</td>
+                                                            <td>@item.Sub</td>
+                                                            <td>@item.SubK</td>
                                                             @if (item.IsDeleted == 1)
                                                             {
                                                                 <td>
-                                                                    <button class="btn btn-danger tshpcustom deactivate-btn">
-                                                                        <i class="fa fa-check tshfa"></i>حذف شده
-                                                                    </button>
+                                                                    <button class="btn btn-danger tshpcustom deactivate-btn"><i class="fa fa-check tshfa"></i>حذف شده</button>
                                                                 </td>
                                                             }
                                                             else
@@ -224,9 +233,7 @@
                                                                 <td>
                                                                     @if (item.IsDisables == 0)
                                                                     {
-
                                                                     <button class="btn btn-success tshpcustom deactivate-btn" data-target="#deactivemodal" data-toggle="modal" data-name="مردانه" onclick="return DeActivate('@item.Id')"><i class="fa fa-check tshfa"></i>فعال</button>
-
                                                                     }
                                                                     else
                                                                     {
@@ -234,7 +241,9 @@
                                                                     }
                                                                 </td>
                                                                 <td>
-                                                                    <button class="btn btn-danger tshpcustom cus-delete-btn" data-target="#deleteCus" data-toggle="modal" data-name="مردانه"><i class="fa fa-trash tshfa"></i>حذف</button>
+                                                                    <button class="btn btn-warning tshpcustom cus-delete-btn" onclick="return EditorforEdit('@item.Id')"><i class="fa fa-edit tshfa"></i>ویرایش</button>
+                                                                    <button onclick="return DeleteMC('@item.Id')" class="btn btn-danger tshpcustom cus-delete-btn" data-target="#deleteCus" data-toggle="modal" data-name="مردانه"><i class="fa fa-trash tshfa"></i>حذف</button>
+
                                                                 </td>
                                                             }
                                                         </tr>
@@ -248,65 +257,70 @@
                                                     </h3>
                                                 }
 
-                                                @*/////////////////////////////////////////////////////// tbody*@
-
                                             </tbody>
                                         </table>
+
+                                        @*=================================================================================*@
+
                                         <table style="display: none;" class="cust-table cust-table-2 table table-striped table-hover m-table m-table--head-separator-primary">
-                                            @*/////////////////////////////////////////////////////// tbody*@
                                             @if (Model.Tbl.Count > 0)
                                             {
-
                                                 foreach (var item in Model.Tbl)
                                                 {
                                                     <tr>
                                                         <th>#</th>
-                                                        <td> @item.Num </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th> سردسته </th>
-                                                        <td> @item.Type </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th> گروه اصلی </th>
-                                                        <td> @item.Main </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th> گروه </th>
-                                                        <td> @item.Sub </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th> وضعیت </th>
-                                                        <td>
-                                                            @if (item.IsDeleted == 1)
-                                                            {
-                                                                <button class="btn btn-danger tshpcustom deactivate-btn">
-                                                                    <i class="fa fa-check tshfa"></i>حذف شده
-                                                                </button>
-                                                            }
-                                                            else if (item.IsDisables == 0)
-                                                            {
-                                                                <button class="btn btn-success tshpcustom deactivate-btn" data-target="#deactivemodal" data-toggle="modal" data-name="مردانه" onclick="return DeActivate('@item.Id')"><i class="fa fa-check tshfa"></i>فعال</button>
-                                                            }
-                                                            else
-                                                            {
-                                                                <button onclick="return Activate('@item.Id')" class="btn btn-warning tshpcustom deactivate-btn" data-target="#activemodal" data-toggle="modal" data-name="مردانه"><i class="fa fa-check tshfa"></i>غیر فعال</button>
-                                                            }
+                                                        <td>@item.Num</td>
 
-                                                        </td>
                                                     </tr>
                                                     <tr>
-                                                        <th>عملیات</th>
-                                                        <td>
-                                                            @if (item.IsDeleted != 1)
-                                                            {
-
-                                                                <button class="btn btn-warning tshpcustom cus-delete-btn" onclick="return EditorforEdit('@item.Id')"><i class="fa fa-edit tshfa"></i>ویرایش</button>
+                                                        <th>سردسته</th>
+                                                        <td>@item.Type</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>گروه اصلی</th>
+                                                        <td>@item.Main</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>گروه</th>
+                                                        <td>@item.Sub</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>ویژگی</th>
+                                                        <td>@item.SubK</td>
+                                                    </tr>
+                                                    if (item.IsDeleted == 1)
+                                                    {
+                                                        <tr>
+                                                            <th>وضعیت</th>
+                                                            <td>
+                                                                <button class="btn btn-danger tshpcustom deactivate-btn"><i class="fa fa-minus-circle tshfa"></i>حذف شده</button>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                    else
+                                                    {
+                                                        <tr>
+                                                            <th>وضعیت</th>
+                                                            <td>
+                                                                @if (item.IsDisables == 0)
+                                                                {
+                                                                    <button class="btn btn-success tshpcustom deactivate-btn" data-target="#deactivemodal" data-toggle="modal" data-name="مردانه" onclick="return DeActivate('@item.Id')"><i class="fa fa-check tshfa"></i>فعال</button>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <button onclick="return Activate('@item.Id')" class="btn btn-warning tshpcustom deactivate-btn" data-target="#activemodal" data-toggle="modal" data-name="مردانه"><i class="fa fa-check tshfa"></i>غیر فعال</button>
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>عملیات</th>
+                                                            <td>
+                                                                @*<button class="btn btn-warning tshpcustom cus-delete-btn" onclick="return EditorforEdit('@item.Id')"><i class="fa fa-edit tshfa"></i>ویرایش</button>*@
                                                                 <button onclick="return DeleteMC('@item.Id')" class="btn btn-danger tshpcustom cus-delete-btn" data-target="#deleteCus" data-toggle="modal" data-name="مردانه"><i class="fa fa-trash tshfa"></i>حذف</button>
 
-                                                            }
-                                                        </td>
-                                                    </tr>
+                                                            </td>
+                                                        </tr>
+                                                    }
                                                 }
                                             }
                                             else
@@ -316,9 +330,12 @@
 
                                                 </h3>
                                             }
-                                            @*/////////////////////////////////////////////////////// tbody*@
+
+
+
                                         </table>
                                         <div class="col-lg-12 mt-4 mb-4">
+
                                         </div>
                                     </div>
                                 </div>
@@ -331,24 +348,26 @@
     </div>
 </div>
 
-
 @section scripts{
     @Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/Select2.js")
-
     <script>
         $(document).ready(function () {
-            $("#SubmiterModel_typeID").select2();
-            $("#SubmiterModel_MainCategoryID").select2();
+            $("#KeySubmit_ProcuctMainCategoryId").select2();
+            $("#KeySubmit_ProductSubCategoryId").select2();
+            $("#KeySubmit_ProductTypeId").select2();
             //select2:select
         });
         //End of document ready
         function URLSearchParams() {
-            mApp.block("#AddSubCategoryAllContent", {
+            mApp.block("#AddSubCategoryKey", {
                 overlayColor: "#2c2e3e", type: "loader", state: "success", message: "درحال چک کردن حریم دسترسی و دریافت اطلاعات از سمت سرور ..."
             });
+            $("#KeySubmit_ProcuctMainCategoryId").val("");
+            $("#KeySubmit_ProcuctMainCategoryId").html('<option value="0">هیچ موردی یافت نشد</option>');
+            $("#KeySubmit_ProcuctMainCategoryId").select2();
             //End of mApp.Block
             const PostJson = {
-                'PTypeID': $("#SubmiterModel_typeID").val()
+                'PTypeID': $("#KeySubmit_ProductTypeId").val()
             };
             var HI = '';
             var _OI = 0;
@@ -360,7 +379,7 @@
                 success: function (data) {
                     var objectss = data;
                     var counter = objectss.length;
-                    $("#SubmiterModel_MainCategoryID").select2("val", "");
+                    $("#KeySubmit_ProcuctMainCategoryId").select2("val", "");
                     for (_OI = 0; _OI < counter; _OI++) {
                         HI = HI + '<option value="' + data[_OI].Id + '">' + data[_OI].Value + '</option>';
                     }
@@ -369,37 +388,73 @@
                         swal("داده ایی یافت نشد!", data.Errormessage, "error");
                     }
 
-                    $("#SubmiterModel_MainCategoryID").html(HI);
-                    $("#SubmiterModel_MainCategoryID").select2();
+                    $("#KeySubmit_ProcuctMainCategoryId").html(HI);
+                    $("#KeySubmit_ProcuctMainCategoryId").select2();
                     setTimeout(function () {
-                        mApp.unblock("#AddSubCategoryAllContent")
+                        mApp.unblock("#AddSubCategoryKey")
                     }, 1000);
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     swal("مشکل در برقراری ارتباط با سرور", data.Errormessage, "error");
                     setTimeout(function () {
-                        mApp.unblock("#AddSubCategoryAllContent")
+                        mApp.unblock("#AddSubCategoryKey")
                     }, 1000);
 
                 }
             });
         }
+        function URLSearchParamsProcuctMainCategoryId() {
+            mApp.block("#AddSubCategoryKey", {
+                overlayColor: "#2c2e3e", type: "loader", state: "success", message: "درحال چک کردن حریم دسترسی و دریافت اطلاعات از سمت سرور ..."
+            });
+            //End of mApp.Block
+            $("#KeySubmit_ProductSubCategoryId").select2("val", "");
+            $("#KeySubmit_ProductSubCategoryId").html('<option value="0">هیچ موردی یافت نشد</option>');
+            $("#KeySubmit_ProductSubCategoryId").select2();
 
+            const PostJson = {
+                'MainCategoryId': $("#KeySubmit_ProcuctMainCategoryId").val()
+            };
+            var HI = '';
+            var _OI = 0;
+            $.ajax({
+                url: '/AdministratorProducts_FieldLoader/GetSubCateGoryForSelect2FromMainCateGoryID',
+                type: "post",
+                data: JSON.stringify(PostJson),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    var objectss = data;
+                    var counter = objectss.length;
+                    $("#KeySubmit_ProductSubCategoryId").select2("val", "");
+                    for (_OI = 0; _OI < counter; _OI++) {
+                        HI = HI + '<option value="' + data[_OI].Id + '">' + data[_OI].Value + '</option>';
+                    }
+                    if (HI.lenght == 0) {
+                        HI = '<option value="0">هیچ موردی یافت نشد</option>';
+                        swal("داده ایی یافت نشد!", data.Errormessage, "error");
+                    }
 
+                    $("#KeySubmit_ProductSubCategoryId").html(HI);
+                    $("#KeySubmit_ProductSubCategoryId").select2();
+                    setTimeout(function () {
+                        mApp.unblock("#AddSubCategoryKey")
+                    }, 1000);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    swal("مشکل در برقراری ارتباط با سرور", data.Errormessage, "error");
+                    setTimeout(function () {
+                        mApp.unblock("#AddSubCategoryKey")
+                    }, 1000);
+
+                }
+            });
+        }
         function DeActivate(id_) {
             $("#deactivemodalID").val(id_);
         }
         function Activate(id) {
             $("#activemodalID").val(id);
         }
-        //function EditorforEdit(id) {
-        //    $("#FormSubmiting_IDMainCategoryForEdit").val(id);
-        //    $("#FormSubmiting_NameofCategory").val($("#idofMC-" + id).text());
-        //    $("#FormSubmiting_NameofCategoryLBL").text("در حال ویرایش " + $("#FormSubmiting_NameofCategory").val() + " :");
-        //    var idtype = $("#idoftype-" + id).val();
-        //    console.log(idtype);
-        //    $("#FormSubmiting_IdofSardastebandi").val('' + idtype).trigger('change');
-        //}
         function DeleteMC(id) {
             $("#deleteCusID").val(id)
         }
@@ -411,7 +466,7 @@
 
             $("#deActiveModal_SubmitBTN").addClass("m-loader m-loader--light m-loader--right").prop("disabled", true);
             $.ajax({
-                url: '/AdministratorProducts/AddSubCategoryDeActive',
+                url: '/AdministratorProducts/AddSubCategoryKeyDeActive',
                 type: "post",
                 data: JSON.stringify(PostJson),
                 contentType: "application/json; charset=utf-8",
@@ -435,7 +490,7 @@
 
             $("#ActiveModal_SubmitBTN").addClass("m-loader m-loader--light m-loader--right").prop("disabled", true);
             $.ajax({
-                url: '/AdministratorProducts/AddSubCategoryActive',
+                url: '/AdministratorProducts/AddSubCategoryKeyActive',
                 type: "post",
                 data: JSON.stringify(PostJson),
                 contentType: "application/json; charset=utf-8",
@@ -458,7 +513,7 @@
             };
             $("#deleteCus_SubmitBTN").addClass("m-loader m-loader--light m-loader--right").prop("disabled", true);
             $.ajax({
-                url: '/AdministratorProducts/AddSubCategoryDelete',
+                url: '/AdministratorProducts/AddSubCategoryKeyDelete',
                 type: "post",
                 data: JSON.stringify(PostJson),
                 contentType: "application/json; charset=utf-8",
@@ -475,7 +530,6 @@
                 }
             });
         }
-
 
     </script>
 }

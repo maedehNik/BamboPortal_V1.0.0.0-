@@ -1,0 +1,451 @@
+﻿@model BamboPortal_V1._0._0._0.ModelViews.AdministratorProducts.AddSubCateGoryValuesOfKeysModelView
+@{
+    Layout = "~/Views/SharedViewPages/Administrator/MasterView.cshtml";
+}
+<div class="modal fade" id="deleteCus" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">پاک کردن گروه اصلی</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <small style="display: block">با حذف کردن این گروه اصلی تمام زیرمجموعه های این گروه اصلی نیز حذف خواهند شد.</small>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <input id="deleteCusID" value="" style="display:none" />
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">خیر</button>
+                <button type="button" id="deleteCus_SubmitBTN" class="btn btn-danger" onclick="return YesDeletePlz()">بله</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- BEGIN: Subheader -->
+<div class="m-subheader">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
+                <span class="m-subheader__daterange-label">
+                    <h3 class="m-subheader__title" style="padding-left: 0!important;margin: 0 0 0 2px!important;">
+                        پیشخوان
+                        <i class="fa fa-chevron-left tshfontsize2" style="transform: translateY(3px);color: #aaaeb8;margin-right: 2px;"></i>
+                        <span class="m-subheader__daterange-title tshfontsize2" style="margin-right: 2px;margin-left: 2px;">تعریف جزئیات ویژگی ها</span>
+                        <!--
+                        <i class="fa fa-chevron-left" style="transform: translateY(3px);color: #aaaeb8;"></i>
+                        <span class="m-subheader__daterange-title" style="margin-right: 2px;">نمایش همه ی پست ها</span>
+                        -->
+                    </h3>
+                </span>
+            </span>
+        </div>
+    </div>
+</div>
+
+
+<div class="m-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="m-portlet m-portlet--full-height m-portlet--tabs  ">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-tools">
+                        <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
+                            <li class="nav-item m-tabs__item">
+                                <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_user_profile_tab_1" role="tab">
+                                    <i class="flaticon-share m--hide"></i>
+                                    <cust_title>
+                                        تعریف جزئیات ویژگی ها
+                                    </cust_title>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="m_user_profile_tab_1">
+                        <input id="AddSubCateGoryValuesOfKeysSubmiterRedirection" value="@Url.Action("AddSubCateGoryValuesOfKeys", "AdministratorProducts")" style="display:none;" />
+                        @*=========================================================== Form begins*@
+
+                        @using (@Html.BeginForm("AddSubCateGoryValuesOfKeys", "AdministratorProducts", FormMethod.Post, new { @id = "AddSubCateGoryValuesOfKeysSubmiter", @class = "m-form m-form--fit m-form--label-align-right" }))
+                        {
+                            @Html.AntiForgeryToken();
+                            <div class="m-portlet__body" style="padding-bottom: 0">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                            @Html.LabelFor(m => m.KeySubmit.ProductTypeId, "سردسته محصول :", new { @id = "KeySubmit_ProductTypeIdLBL", @class = "col-12 tshtextright" })
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <select class="form-control m-bootstrap-select m_selectpicker" id="KeySubmit_ProductTypeId" name="KeySubmit.ProductTypeId" title="انتخاب کنید..." data-live-search="true" onchange="URLSearchParams()">
+                                                    @foreach (var item in Model.ProductTypes)
+                                                    {
+                                                        <option value=@item.Id>@item.Value</option>
+                                                    }
+                                                </select>
+                                                @Html.ValidationMessageFor(m => m.KeySubmit.ProductTypeId)
+
+                                            </div>
+                                        </div>
+                                        @*====================================================end ProductTypeId*@
+
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                            @Html.LabelFor(m => m.KeySubmit.ProcuctMainCategoryId, "گروه اصلی محصول :", new { @id = "KeySubmit_ProcuctMainCategoryIdLBL", @class = "col-12 tshtextright" })
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <select class="form-control m-bootstrap-select m_selectpicker" id="KeySubmit_ProcuctMainCategoryId" name="KeySubmit.ProcuctMainCategoryId" title="انتخاب کنید..." data-live-search="true" onchange="URLSearchParamsProcuctMainCategoryId()">
+                                                </select>
+                                                @Html.ValidationMessageFor(m => m.KeySubmit.ProcuctMainCategoryId)
+                                            </div>
+                                        </div>
+                                        @*====================================================end ProcuctMainCategoryId*@
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                            @Html.LabelFor(m => m.KeySubmit.ProductSubCategoryId, "گروه محصول :", new { @id = "KeySubmit_ProductSubCategoryIdLBL", @class = "col-12 tshtextright" })
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <select class="form-control m-bootstrap-select m_selectpicker" id="KeySubmit_ProductSubCategoryId" name="KeySubmit.ProductSubCategoryId" title="انتخاب کنید..." data-live-search="true" onchange="URLSearchParamsProcuctSubCategoryId()">
+                                                </select>
+                                                @Html.ValidationMessageFor(m => m.KeySubmit.ProductSubCategoryId)
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                            @Html.LabelFor(m => m.KeySubmit.ProductSubCategoryKeyID, "ویژگی محصول :", new { @id = "KeySubmit_ProductSubCategoryKeyIDLBL", @class = "col-12 tshtextright" })
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <select class="form-control m-bootstrap-select m_selectpicker" id="KeySubmit_ProductSubCategoryKeyID" name="KeySubmit.ProductSubCategoryKeyID" title="انتخاب کنید..." data-live-search="true">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group m-form__group col-lg-12 col-xs-12">
+                                            <div class="col-lg-12">
+                                                @Html.LabelFor(m => m.KeySubmit.ProductSubCategoryValueOfKeyName, "مقدار ویژگی :", new { @id = "KeySubmit_ProductSubCategoryValueOfKeyName»إ»", @class = "form-control-label" })
+                                                @Html.TextBoxFor(m => m.KeySubmit.ProductSubCategoryValueOfKeyName, new { @class = "form-control m-input", @placeholder = "مقدار ویژگی" })
+                                                @Html.ValidationMessageFor(m => m.KeySubmit.ProductSubCategoryValueOfKeyName)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="m-portlet__foot m-portlet__foot--fit mt-3">
+                                        <div class="m-form__actions">
+                                            <div class="row">
+                                                <div class="col-lg-12 tshtextleft" style="padding-left: 0;">
+                                                    <button id="AddSubCateGoryValuesOfKeysSubmiter_SubmitBTN" type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom tga">ثبت</button>&nbsp;&nbsp;
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+
+                    </div>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="m_user_profile_tab_1">
+                        <div class="m-form m-form--fit m-form--label-align-right">
+                            <div class="m-portlet__body" style="padding-bottom: 0">
+                                <div class="col-12">
+                                    <div>
+                                        <div class="m-portlet__head-title container-fluid mt-4">
+                                            <h3 class="m-portlet__head-text" style="font-size: 12px;border-bottom: 1px solid rgba(0,0,0,.1);padding-bottom: 17px;">
+                                                لیست برچسب ها
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <div class="container-fluid">
+                                        <table class="cust-table table table-striped table-hover m-table m-table--head-separator-primary">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>سردسته</th>
+                                                    <th>گروه اصلی</th>
+                                                    <th>گروه</th>
+                                                    <th>ویژگی</th>
+                                                    <th>جزئیات</th>
+                                                    <th>عملیات</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @*===========================================================Start of table*@
+                                                @if (Model.Tbl.Count > 0)
+                                                {
+                                                    foreach (var item in Model.Tbl)
+                                                    {
+                                                        <tr>
+                                                            <th scope="row">@item.Num</th>
+                                                            <td>@item.Type</td>
+                                                            <td>@item.Main</td>
+                                                            <td>@item.Sub</td>
+                                                            <td>@item.SubK</td>
+                                                            <td>@item.SubVal</td>
+                                                            <td>
+                                                                @*<button class="btn btn-warning tshpcustom cus-delete-btn"><i class="fa fa-edit tshfa"></i>ویرایش</button>*@
+                                                                <button class="btn btn-danger tshpcustom cus-delete-btn" data-target="#deleteCus" data-toggle="modal" data-name="مردانه" onclick="return DeleteMC('@item.Id')"><i class="fa fa-trash tshfa"></i>حذف</button>
+                                                            </td>
+                                                        </tr>
+                                                    }
+
+
+
+                                                }
+                                                else
+                                                {
+                                                    <h3 class="m-badge m-badge--danger m-badge--wide">
+                                                        موردی برای نمایش وجود ندارد.
+
+                                                    </h3>
+                                                }
+                                                @*===========================================================End of table*@
+
+                                            </tbody>
+                                        </table>
+                                        <table style="display: none;" class="cust-table cust-table-2 table table-striped table-hover m-table m-table--head-separator-primary">
+                                            @*===========================================================Start of table*@
+                                            @if (Model.Tbl.Count > 0)
+                                            {
+                                                foreach (var item in Model.Tbl)
+                                                {
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <td>@item.Num</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>سردسته</th>
+                                                        <td>@item.Type</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>گروه اصلی</th>
+                                                        <td>@item.Main</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>گروه</th>
+                                                        <td>@item.Sub</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>ویژگی</th>
+                                                        <td>@item.SubK</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>جزئیات</th>
+                                                        <td>@item.SubVal</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>عملیات</th>
+                                                        <td>
+                                                            @*<button class="btn btn-warning tshpcustom cus-delete-btn"><i class="fa fa-edit tshfa"></i>ویرایش</button>*@
+                                                            <button class="btn btn-danger tshpcustom cus-delete-btn" data-target="#deleteCus" data-toggle="modal" onclick="return DeleteMC('@item.Id')"><i class="fa fa-trash tshfa"></i>حذف</button>
+                                                        </td>
+                                                    </tr>
+                                                }
+
+
+                                            }
+                                            else
+                                            {
+                                                <h3 class="m-badge m-badge--danger m-badge--wide">
+                                                    موردی برای نمایش وجود ندارد.
+
+                                                </h3>
+                                            }
+                                            @*===========================================================end of table*@
+                                        </table>
+                                        <div class="col-lg-12 mt-4 mb-4">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    @Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/Select2.js")
+
+    <script>
+
+        $(document).ready(function () {
+            $("#KeySubmit_ProductTypeId").select2();
+            $("#KeySubmit_ProcuctMainCategoryId").select2();
+            $("#KeySubmit_ProductSubCategoryId").select2();
+            $("#KeySubmit_ProductSubCategoryKeyID").select2();
+            //select2:select
+        });
+        function URLSearchParams() {
+            mApp.block("#AddSubCateGoryValuesOfKeysSubmiter", {
+                overlayColor: "#2c2e3e", type: "loader", state: "success", message: "درحال چک کردن حریم دسترسی و دریافت اطلاعات از سمت سرور ..."
+            });
+            $("#KeySubmit_ProcuctMainCategoryId").val("");
+            $("#KeySubmit_ProcuctMainCategoryId").html('<option value="0">هیچ موردی یافت نشد</option>');
+            $("#KeySubmit_ProcuctMainCategoryId").select2();
+            //End of mApp.Block
+            const PostJson = {
+                'PTypeID': $("#KeySubmit_ProductTypeId").val()
+            };
+            var HI = '';
+            var _OI = 0;
+            $.ajax({
+                url: '/AdministratorProducts_FieldLoader/GetMainCateGoryForSelect2FromPTypeID',
+                type: "post",
+                data: JSON.stringify(PostJson),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    var objectss = data;
+                    var counter = objectss.length;
+                    $("#KeySubmit_ProcuctMainCategoryId").select2("val", "");
+                    for (_OI = 0; _OI < counter; _OI++) {
+                        HI = HI + '<option value="' + data[_OI].Id + '">' + data[_OI].Value + '</option>';
+                    }
+                    if (HI.lenght == 0) {
+                        HI = '<option value="0">هیچ موردی یافت نشد</option>';
+                        swal("داده ایی یافت نشد!", data.Errormessage, "error");
+                    }
+
+                    $("#KeySubmit_ProcuctMainCategoryId").html(HI);
+                    $("#KeySubmit_ProcuctMainCategoryId").select2();
+                    setTimeout(function () {
+                        mApp.unblock("#AddSubCateGoryValuesOfKeysSubmiter")
+                    }, 1000);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    swal("مشکل در برقراری ارتباط با سرور", data.Errormessage, "error");
+                    setTimeout(function () {
+                        mApp.unblock("#AddSubCateGoryValuesOfKeysSubmiter")
+                    }, 1000);
+
+                }
+            });
+        }
+        function URLSearchParamsProcuctMainCategoryId() {
+            mApp.block("#AddSubCateGoryValuesOfKeysSubmiter", {
+                overlayColor: "#2c2e3e", type: "loader", state: "success", message: "درحال چک کردن حریم دسترسی و دریافت اطلاعات از سمت سرور ..."
+            });
+            //End of mApp.Block
+            $("#KeySubmit_ProductSubCategoryId").select2("val", "");
+            $("#KeySubmit_ProductSubCategoryId").html('<option value="0">هیچ موردی یافت نشد</option>');
+            $("#KeySubmit_ProductSubCategoryId").select2();
+
+            const PostJson = {
+                'MainCategoryId': $("#KeySubmit_ProcuctMainCategoryId").val()
+            };
+            var HI = '';
+            var _OI = 0;
+            $.ajax({
+                url: '/AdministratorProducts_FieldLoader/GetSubCateGoryForSelect2FromMainCateGoryID',
+                type: "post",
+                data: JSON.stringify(PostJson),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    var objectss = data;
+                    var counter = objectss.length;
+                    $("#KeySubmit_ProductSubCategoryId").select2("val", "");
+                    for (_OI = 0; _OI < counter; _OI++) {
+                        HI = HI + '<option value="' + data[_OI].Id + '">' + data[_OI].Value + '</option>';
+                    }
+                    if (HI.lenght == 0) {
+                        HI = '<option value="0">هیچ موردی یافت نشد</option>';
+                        swal("داده ایی یافت نشد!", data.Errormessage, "error");
+                    }
+
+                    $("#KeySubmit_ProductSubCategoryId").html(HI);
+                    $("#KeySubmit_ProductSubCategoryId").select2();
+                    setTimeout(function () {
+                        mApp.unblock("#AddSubCateGoryValuesOfKeysSubmiter")
+                    }, 1000);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    swal("مشکل در برقراری ارتباط با سرور", data.Errormessage, "error");
+                    setTimeout(function () {
+                        mApp.unblock("#AddSubCateGoryValuesOfKeysSubmiter")
+                    }, 1000);
+
+                }
+            });
+        }
+        function URLSearchParamsProcuctSubCategoryId() {
+            mApp.block("#AddSubCateGoryValuesOfKeysSubmiter", {
+                overlayColor: "#2c2e3e", type: "loader", state: "success", message: "درحال چک کردن حریم دسترسی و دریافت اطلاعات از سمت سرور ..."
+            });
+            //End of mApp.Block
+            $("#KeySubmit_ProductSubCategoryKeyID").select2("val", "");
+            $("#KeySubmit_ProductSubCategoryKeyID").html('<option value="0">هیچ موردی یافت نشد</option>');
+            $("#KeySubmit_ProductSubCategoryKeyID").select2();
+
+            const PostJson = {
+                'SubCategoryID': $("#KeySubmit_ProductSubCategoryId").val()
+            };
+            var HI = '';
+            var _OI = 0;
+            $.ajax({
+                url: '/AdministratorProducts_FieldLoader/GetSubCateGoryKeyForSelect2FromSubCateGoryID',
+                type: "post",
+                data: JSON.stringify(PostJson),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    var objectss = data;
+                    var counter = objectss.length;
+                    $("#KeySubmit_ProductSubCategoryKeyID").select2("val", "");
+                    for (_OI = 0; _OI < counter; _OI++) {
+                        HI = HI + '<option value="' + data[_OI].Id + '">' + data[_OI].Value + '</option>';
+                    }
+                    if (HI.lenght == 0) {
+                        HI = '<option value="0">هیچ موردی یافت نشد</option>';
+                        swal("داده ایی یافت نشد!", data.Errormessage, "error");
+                    }
+
+                    $("#KeySubmit_ProductSubCategoryKeyID").html(HI);
+                    $("#KeySubmit_ProductSubCategoryKeyID").select2();
+                    setTimeout(function () {
+                        mApp.unblock("#AddSubCateGoryValuesOfKeysSubmiter")
+                    }, 1000);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    swal("مشکل در برقراری ارتباط با سرور", data.Errormessage, "error");
+                    setTimeout(function () {
+                        mApp.unblock("#AddSubCateGoryValuesOfKeysSubmiter")
+                    }, 1000);
+
+                }
+            });
+        }
+
+
+
+
+        function DeleteMC(id) {
+            $("#deleteCusID").val(id)
+        }
+        function YesDeletePlz() {
+            const PostJson = {
+                'idTodelete': $("#deleteCusID").val()
+            };
+            $("#deleteCus_SubmitBTN").addClass("m-loader m-loader--light m-loader--right").prop("disabled", true);
+            $.ajax({
+                url: '/AdministratorProducts/AddSubCateGoryValuesOfKeysDelete',
+                type: "post",
+                data: JSON.stringify(PostJson),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    if (data.Errortype == "Success") {
+                        AlertToUser("deleteCus", data);
+                    } else {
+                        alert(data.Errormessage);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("مشکل در برقراری ارتباط با سرور");
+                }
+            });
+        }
+
+    </script>
+}

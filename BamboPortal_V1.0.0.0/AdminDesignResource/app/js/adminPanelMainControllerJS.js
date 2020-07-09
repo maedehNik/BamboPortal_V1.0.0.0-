@@ -150,6 +150,64 @@
     }
     //{END}For administrator AddSubCategory
     //=================================================================================================
+    //=================================================================================================
+    //{Start}For administrator AddSubCategory
+    if ($("#AddSubCategoryKey").length == 1) {
+        $(function () {
+            $("#AddSubCategoryKey").on("submit", function (e) {
+                e.preventDefault();
+                DisableBTN("AddSubCategoryKey");
+                $.ajax({
+                    url: this.action,
+                    type: this.method,
+                    data: $(this).serialize(),
+                    success: function (data) {
+                        console.log(data)
+                        const jsondata = data;
+                        console.log(jsondata.Errortype)
+                        if (jsondata.Errortype == "Success") {
+                            AlertToUser("AddSubCategoryKey", data);
+                        } else if (jsondata.Errortype == "ErrorWithList") {
+                            AlertToUser("AddSubCategoryKey", data);
+                        } else {
+                            AlertToUser("AddSubCategoryKey", data);
+                        }
+                    }
+                });
+            });
+        });
+    }
+    //{END}For administrator AddSubCategory
+    //=================================================================================================
+    //=================================================================================================
+    //{Start}For administrator AddSubCategory
+    if ($("#AddSubCateGoryValuesOfKeysSubmiter").length == 1) {
+        $(function () {
+            $("#AddSubCateGoryValuesOfKeysSubmiter").on("submit", function (e) {
+                e.preventDefault();
+                DisableBTN("AddSubCateGoryValuesOfKeysSubmiter");
+                $.ajax({
+                    url: this.action,
+                    type: this.method,
+                    data: $(this).serialize(),
+                    success: function (data) {
+                        console.log(data)
+                        const jsondata = data;
+                        console.log(jsondata.Errortype)
+                        if (jsondata.Errortype == "Success") {
+                            AlertToUser("AddSubCateGoryValuesOfKeysSubmiter", data);
+                        } else if (jsondata.Errortype == "ErrorWithList") {
+                            AlertToUser("AddSubCateGoryValuesOfKeysSubmiter", data);
+                        } else {
+                            AlertToUser("AddSubCateGoryValuesOfKeysSubmiter", data);
+                        }
+                    }
+                });
+            });
+        });
+    }
+    //{END}For administrator AddSubCategory
+    //=================================================================================================
 });
 //=================================================================================================
 //{Start}got Json of ErrorReporterModel--> AllErrors For validate from backend serverside Validation{
