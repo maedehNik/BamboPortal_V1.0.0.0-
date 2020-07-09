@@ -138,6 +138,11 @@ namespace BamboPortal_V1._0._0._0
               "~/CustomerSide_desinerResource/js/jquery-ui.min.js"));
             //Bundles {END} : Page Scripts --> CustomerSide_UserProfile
 
+            //Bundles {Start} : Page Scripts --> UploaderModules
+            bundles.Add(new ScriptBundle("~/bundles/Uploader.js").Include(
+              "~/AdminDesignResource/app/js/uploader.js"));
+            //Bundles {END} : Page Scripts --> UploaderModules
+
         }
     }
 }

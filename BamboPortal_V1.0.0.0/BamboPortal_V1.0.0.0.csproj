@@ -135,6 +135,7 @@
     <Compile Include="Controllers\AdministratorGeneralController.cs" />
     <Compile Include="Controllers\AdministratorProductsController.cs" />
     <Compile Include="Controllers\AdministratorProducts_FieldLoaderController.cs" />
+    <Compile Include="Controllers\AdministratorUploaderController.cs" />
     <Compile Include="Controllers\AdministratorWorkplaceController.cs" />
     <Compile Include="Controllers\AdminLoginAuthController.cs" />
     <Compile Include="Controllers\AdminRulesController.cs" />
@@ -3135,6 +3136,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="BamboPortalSecurity\LoginAuth\" />
     <Folder Include="Models\AdministratorProducts_FieldLoader\" />
+    <Folder Include="Views\AdministratorUploader\" />
     <Folder Include="Views\AdminRules_ProductCTRL\" />
     <Folder Include="WebConfigNotes\" />
   </ItemGroup>
