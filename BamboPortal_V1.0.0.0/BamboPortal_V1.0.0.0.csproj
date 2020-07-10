@@ -156,6 +156,8 @@
     <Compile Include="Models\AdministratorProductsModels\addtype.cs" />
     <Compile Include="Models\AdministratorProductsModels\AddTypeTable.cs" />
     <Compile Include="Models\AdministratorProductsModels\MainTagStructure.cs" />
+    <Compile Include="Models\AdministratorProductsModels\ReturnInputsOfSubCategorykeyValues.cs" />
+    <Compile Include="Models\AdministratorProductsModels\ReturnInputsOfSubCategorykeyValuesGetSubmiter.cs" />
     <Compile Include="Models\AdministratorUploader\DatabaseImageUploadStructure.cs" />
     <Compile Include="Models\AdministratorUploader\ImageGalleryModel.cs" />
     <Compile Include="Models\AdministratorUploader\ImageInGalleryModel.cs" />
@@ -212,6 +214,7 @@
     <Compile Include="ModelViews\CustomerSide\ShoppingCartModelView.cs" />
     <Compile Include="nonStaticUsefulClass\ImageUploader\ImageSizeConvertor.cs" />
     <Compile Include="nonStaticUsefulClass\ImageUploader\ImageUploader.cs" />
+    <Compile Include="nonStaticUsefulClass\Products\ReturnInputsOfSubCategorykeyValuesAllVals.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StaticClass\BugReporter\BugTypeFrom.cs" />
     <Compile Include="StaticClass\BugReporter\PPBugReporter.cs" />

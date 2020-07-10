@@ -253,9 +253,12 @@
                                         </div>
                                     </div>
                                 </div>
+                                @*============================================================================*@
                                 <div class="sec-3" style="display: none">
-                                    <div class="col-12" id="KeyValuesMContainer">
+                                    <div class="col-12">
 
+                                        <div class="col-12" id="KeyValuesMContainer">
+                                        </div>
                                         <div>
                                             <div class="m-portlet__head-title container-fluid mt-4">
                                                 <h3 class="m-portlet__head-text" style="font-size: 12px;border-bottom: 1px solid rgba(0,0,0,.1);padding-bottom: 17px;">
@@ -264,19 +267,22 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div id="prodform2">
-                                                <div class="form-group m-form__group col-lg-6 col-xs-12">
-                                                    <label for="PRDCTName2" class="col-12 col-form-label tshtextright" style="padding-right: 0;padding-left: 0;">ویژگی:</label>
-                                                    <div class="col-12" style="padding-right: 0;padding-left: 0;">
-                                                        <input class="form-control m-input" name="PRDCTName2" id="PRDCTName2" type="text" value="">
+                                            <div class="col-12" id="prodform2">
+                                                <div class="row">
+                                                    <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                                        <label for="PRDCTName2" class="col-12 col-form-label tshtextright" style="padding-right: 0;padding-left: 0;">ویژگی:</label>
+                                                        <div class="col-12" style="padding-right: 0;padding-left: 0;">
+                                                            <input class="form-control m-input" name="PRDCTName2" id="PRDCTName2" type="text" value="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                                        <label for="PRDCTName3" class="col-12 col-form-label tshtextright" style="padding-right: 0;padding-left: 0;">مقدار:</label>
+                                                        <div class="col-12" style="padding-right: 0;padding-left: 0;">
+                                                            <input class="form-control m-input" name="PRDCTName3" id="PRDCTName3" type="text" value="">
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
-                                                    <label for="PRDCTName3" class="col-12 col-form-label tshtextright" style="padding-right: 0;padding-left: 0;">مقدار:</label>
-                                                    <div class="col-12" style="padding-right: 0;padding-left: 0;">
-                                                        <input class="form-control m-input" name="PRDCTName3" id="PRDCTName3" type="text" value="">
-                                                    </div>
-                                                </div>
+
                                                 <div class="col-12 tshtextleft mb-3">
                                                     <span style="margin-left: 10px;" class="btn btn-sm btn-success m-btn m-btn--air m-btn--custom">افزودن</span>&nbsp;&nbsp;
                                                 </div>
@@ -286,30 +292,22 @@
                                             <table class="cust-table table table-striped table-hover m-table m-table--head-separator-primary">
                                                 <thead>
                                                     <tr>
-                                                        <th>#</th>
                                                         <th>ویژگی</th>
                                                         <th>مقدار</th>
-                                                        <th>غملیات</th>
+                                                        <th>عملیات</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
+                                                <tbody id="TbodyForTagsPC">
                                                     <tr>
-                                                        <th scope="row">1</th>
                                                         <td>ویژگی</td>
                                                         <td>مقدار</td>
                                                         <td>
-                                                            <button class="btn btn-warning tshpcustom tshcolorwhite"><i class="fa fa-edit tshfa"></i>ویرایش</button>
                                                             <button class="btn btn-danger tshpcustom cus-delete-btn" data-target="#deleteCus" data-toggle="modal" data-name="ویژگی"><i class="fa fa-trash tshfa"></i>حذف</button>
                                                         </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                            <table style="display: none;" class="cust-table cust-table-2 table table-striped table-hover m-table m-table--head-separator-primary">
-                                                <tr>
-                                                    <th>#</th>
-                                                    <td>1</td>
-
-                                                </tr>
+                                            <table style="display: none;" class="cust-table cust-table-2 table table-striped table-hover m-table m-table--head-separator-primary" id="TbodyForTagsmobile">
                                                 <tr>
                                                     <th>ویژگی</th>
                                                     <td>ویژگی</td>
@@ -319,9 +317,8 @@
                                                     <td>مقدار</td>
                                                 </tr>
                                                 <tr>
-                                                    <th>وضعیت</th>
+                                                    <th>عملیات</th>
                                                     <td>
-                                                        <button class="btn btn-warning tshpcustom tshcolorwhite"><i class="fa fa-edit tshfa"></i>ویرایش</button>
                                                         <button class="btn btn-danger tshpcustom cus-delete-btn" data-target="#deleteCus" data-toggle="modal" data-name="ویژگی"><i class="fa fa-trash tshfa"></i>حذف</button>
                                                     </td>
                                                 </tr>
@@ -340,6 +337,8 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                @*===========================================================================*@
                                 <div class="sec-4" style="display: none">
                                     <div class="row">
                                         <div class="form-group m-form__group col-lg-6 col-xs-12">
@@ -624,7 +623,7 @@
                     }, 1000);
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    swal("مشکل در برقراری ارتباط با سرور", data.Errormessage, "error");
+                    swal("مشکل در برقراری ارتباط با سرور", textStatus, "error");
                     setTimeout(function () {
                         mApp.unblock(".sec-2")
                     }, 1000);
@@ -672,7 +671,7 @@
                     }, 1000);
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    swal("مشکل در برقراری ارتباط با سرور", data.Errormessage, "error");
+                    swal("مشکل در برقراری ارتباط با سرور", textStatus, "error");
                     setTimeout(function () {
                         mApp.unblock(".sec-2")
                     }, 1000);
@@ -718,7 +717,7 @@
                     }, 1000);
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    swal("مشکل در برقراری ارتباط با سرور", data.Errormessage, "error");
+                    swal("مشکل در برقراری ارتباط با سرور", textStatus, "error");
                     setTimeout(function () {
                         mApp.unblock(".sec-2")
                     }, 1000);
@@ -944,6 +943,47 @@
                     $("#PRDCTSubCat-error").css("display") == 'inline-block' ||
                     $("#PRDCTSubCatKey-error").css("display") == 'inline-block') { } else {
                     $(".tshbtn3").removeClass("tshdisabled-validation");
+                    //==========================================================================AjaxLoad
+                    //sec-2  == section ID
+                    mApp.block(".sec-2", {
+                        overlayColor: "#2c2e3e", type: "loader", state: "success", message: "درحال چک کردن حریم دسترسی و دریافت اطلاعات از سمت سرور ..."
+                    });
+                    const PostJson = {
+                        'ListOfKeyIDs': $("#PRDCTSubCatKey").val()
+                    };
+                    $.ajax({
+                        url: '/AdministratorProducts/ReturnInputsOfSubCategorykeyValues',
+                        type: "post",
+                        data: JSON.stringify(PostJson),
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            $("#KeyValuesMContainer").html(data);
+                            var AllInputs = $(".SubcategoryKeyValueMultiSelect");
+                            console.log(AllInputs);
+                            if (AllInputs.length > 0) {
+                                $('.SubcategoryKeyValueMultiSelect').each(function (index, element) {
+                                    $(this).select2({
+                                        minimumResultsForSearch: -1
+                                    });
+                                });
+                            } else {
+                                swal("داده ایی یافت نشد", "متاسفانه اطلاعاتی یافت نشد", "error");
+                            }
+                            setTimeout(function () {
+                                mApp.unblock(".sec-2")
+                                $(".tshbtn3").click();
+                            }, 1000);
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            swal("مشکل در برقراری ارتباط با سرور", textStatus, "error");
+                            setTimeout(function () {
+                                mApp.unblock(".sec-2")
+                            }, 1000);
+
+                        }
+                    });
+
+                    //=========================================================================EndOfAjaxLoad
                     $(".tshbtn3").click();
                 }
             }, 200)

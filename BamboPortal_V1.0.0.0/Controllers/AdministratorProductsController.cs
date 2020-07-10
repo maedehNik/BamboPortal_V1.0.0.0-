@@ -3,6 +3,7 @@ using BamboPortal_V1._0._0._0.Models;
 using BamboPortal_V1._0._0._0.Models.AdministratorProductsModels;
 using BamboPortal_V1._0._0._0.Models.UsefulModels;
 using BamboPortal_V1._0._0._0.ModelViews.AdministratorProducts;
+using BamboPortal_V1._0._0._0.nonStaticUsefulClass.Products;
 using BamboPortal_V1._0._0._0.StaticClass.BugReporter;
 using System;
 using System.Collections.Generic;
@@ -2055,10 +2056,41 @@ namespace BamboPortal_V1._0._0._0.Controllers
         }
         //{END}For Product  AddProduct
         //=================================================================================================================
-        public ActionResult ReturnInputsOfSubCategorykeyValues(string ListOfKeyIDs)
+        public ActionResult ReturnInputsOfSubCategorykeyValues(string[] ListOfKeyIDs)
         {
+            PDBC db = new PDBC();
+            var ids = ListOfKeyIDs;
 
-            return View();
+            var Subval = new List<ReturnInputsOfSubCategorykeyValues>();
+            db.Connect();
+            ExcParameters pa = new ExcParameters();
+            List<ExcParameters> pas = new List<ExcParameters>();
+            ReturnInputsOfSubCategorykeyValuesAllVals MF = new ReturnInputsOfSubCategorykeyValuesAllVals();
+            for (int i = 0; i < ids.Length; i++)
+            {
+                pa = new ExcParameters()
+                {
+                    _KEY = "@id_SCOK",
+                    _VALUE = ids[i]
+                };
+                pas.Add(pa);
+                var model = new ReturnInputsOfSubCategorykeyValues()
+                {
+                    SubCategoryID = ids[i],
+                    NameOfSubCategoryKey = db.Select("SELECT [SCOKName] FROM [tbl_Product_SubCategoryOptionKey] where [id_SCOK]=@id_SCOK", pas).Rows[0][0].ToString(),
+                    SubCategoryAllKeyValues = MF.SubCat_Value(ids[i])
+                };
+                pas = new List<ExcParameters>();
+                Subval.Add(model);
+            }
+            db.DC();
+            var result = new ReturnInputsOfSubCategorykeyValuesModelView()
+            {
+                AllSubCategoryKeyValues = Subval
+            };
+
+
+            return View(result);
         }
         public ActionResult ProductList()
         {
