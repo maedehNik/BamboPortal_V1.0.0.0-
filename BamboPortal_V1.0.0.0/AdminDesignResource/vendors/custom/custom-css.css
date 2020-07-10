@@ -685,3 +685,11 @@ input[type=number] {
 .custom-chevron-active i {
     transform: translateY(-50%) rotate(180deg) !important;
 }
+
+.field-validation-error {
+    color: #f4516c;
+}
+.input-validation-error {
+    border-width: 2px;
+    border-color: #f4516c;
+}

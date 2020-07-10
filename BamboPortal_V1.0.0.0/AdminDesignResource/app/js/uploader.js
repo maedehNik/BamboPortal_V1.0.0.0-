@@ -1,28 +1,38 @@
-$(document).ready(function () {
+﻿$(document).ready(function () {
     $("body").on("click", ".remove-prw-img", function () {
         $(this).parent().hide();
         var id = $(this).attr("id").replace("img-", "");
         $("#SkipImageIDS").val(id + "," + $("#SkipImageIDS").val())
-         return false;
+        return false;
     })
     // delete e axs zamani ke upload shode
     $(function () {
         var imagesPreview = function (input, placeToInsertImagePreview) {
             if (input.files) {
+                mApp.block("#MultipartUploaderSubmiter", {
+                    overlayColor: "#2c2e3e", type: "loader", state: "success", message: "در حال بارگزاری"
+                });
+                $("#SkipImageIDS").val("");
+                $(placeToInsertImagePreview).html("");
                 var filesAmount = input.files.length;
                 var _i = 0;
                 for (i = 0; i < filesAmount; i++) {
                     var reader = new FileReader();
                     reader.onload = function (event) {
-                        $($.parseHTML('<div class="col-lg-3" style="position: relative;"><button class="btn btn-danger remove-prw-img"id="img-' + _i + '" style="position: absolute;top: 0;right: 0;z-index: 999!important;padding: 7px;"><i class="fa fa-trash"></i></button><img src="' + event.target.result + '"></div>')).appendTo(placeToInsertImagePreview);
+                        $($.parseHTML('<div class="col-lg-3" style="position: relative;"><button class="btn btn-danger remove-prw-img" id="img-' + _i + '" style="position: absolute;top: 0;right: 0;z-index: 999!important;padding: 7px;"><i class="fa fa-trash"></i></button><img src="' + event.target.result + '"></div>')).appendTo(placeToInsertImagePreview);
+                        console.log($(".gallery").html());
                         _i++;
-                        console.log(_i);
                     }
+
+
+                    setTimeout(function () {
+                        mApp.unblock("#MultipartUploaderSubmiter");
+                    }, 1000);
                     reader.readAsDataURL(input.files[i]);
                 }
             }
         };
-        $('.file-selected').on('change', function () {
+        $('#UploadedImages').on('change', function () {
             imagesPreview(this, 'div.gallery');
         });
     });
@@ -157,4 +167,57 @@ $(document).ready(function () {
         }
     })
     // loade daste bani haye file ha
+    $(".Checks").on("click", function () {
+        var allcheckdimg = [];
+        var allimageIds = "";
+        $(".Checks:checkbox:checked").each(function () {
+            var ImageBigSrc = $("#OrginalsizeofIMG-" + $(this).attr("id").replace("CK-", ""));
+            var thimnail = $("#img-" + $(this).attr("id").replace("CK-", ""));
+            const ImgsSelectedjson = {
+                'idOfImg': $(this).attr("id"),
+                'ImageBigSrc': $(ImageBigSrc).val(),
+                'thimnail': $(thimnail).attr("src")
+
+            };
+            allimageIds += $(this).attr("id").replace("CK-", "") + ",";
+            allcheckdimg.push(ImgsSelectedjson);
+        });
+        const JsonObjtoSend = {
+            'Allimgs': allcheckdimg,
+            'AllIds': allimageIds
+        };
+        console.log(JsonObjtoSend);
+        console.log(JSON.stringify($(JsonObjtoSend)));
+        $("#DataSelectedFromGallery").val(JSON.stringify($(JsonObjtoSend)));
+    });
+    //=======================================SelectedIMGS
+    $(".UploadEndsForWork").on("click", function () {
+        $('#uploader').modal('toggle');
+        var ImgsforSlider = JSON.parse($("#DataSelectedFromGallery").val());
+        console.log(ImgsforSlider);
+        $("#AllImagesByID").val(ImgsforSlider[0].AllIds);
+        console.log("allids = " + $("#AllImagesByID").val());
+        var strofSliderImfgs = "";
+        $('.mySlides').remove();
+        console.log($(".mySlides").length);
+        mApp.block(".slideshow-container", { overlayColor: "#000000", state: "primary" });
+        for (var t = 0; t < ImgsforSlider[0].Allimgs.length; t++) {
+            strofSliderImfgs += generateSliderItem(ImgsforSlider[0].Allimgs[t], t);
+        }
+        strofSliderImfgs += '<a class="prev" onclick="plusSlides(-1)">❯</a><a class="next" onclick="plusSlides(1)">❮</a>';
+        setTimeout(function () { mApp.unblock(".slideshow-container") }, 1000);
+        console.log("allimgs" + strofSliderImfgs);
+        $(".slideshow-container").html(strofSliderImfgs);
+    });
+
+    //=================================================== SetSlider
+    function generateSliderItem(objsenderss, k) {
+        var noneorBlock = "none";
+        if (k == 0) {
+            noneorBlock = "block";
+        }
+        return '<div class="mySlides" style="display: ' + noneorBlock + ';position: relative" > <img src="' + objsenderss.thimnail + '" data-url="' + objsenderss.ImageBigSrc + '" style="width:100%" /></div>';
+    }
+
+
 })

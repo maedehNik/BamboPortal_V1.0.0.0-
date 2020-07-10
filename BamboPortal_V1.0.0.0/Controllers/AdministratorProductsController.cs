@@ -2014,11 +2014,52 @@ namespace BamboPortal_V1._0._0._0.Controllers
         //{start}For Product  AddProduct
         public ActionResult AddProduct()
         {
-            return View();
+            AddProductModelView model = new AddProductModelView();
+            PDBC db = new PDBC();
+            db.Connect();
+            using (DataTable dt = db.Select("SELECT [id_PT] as id ,[PTname] as [name] FROM [tbl_Product_Type] WHERE ISDelete=0 AND ISDESABLED=0"))
+            {
+                db.DC();
+                List<Key_ValueModel> result = new List<Key_ValueModel>();
+                if (dt.Rows.Count > 0)
+                {
+                    var maodel = new Key_ValueModel()
+                    {
+                        Id = 0,
+                        Value = "لطفا یک مورد را انتخاب نمایید!"
+                    };
+                    result.Add(maodel);
+
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        maodel = new Key_ValueModel()
+                        {
+                            Id = Convert.ToInt32(dt.Rows[i]["id"]),
+                            Value = dt.Rows[i]["name"].ToString()
+                        };
+                        result.Add(maodel);
+                    }
+                }
+                else
+                {
+                    result.Add(new Key_ValueModel { Id = 0, Value = "موردی برای انتخاب وجود ندارد" });
+
+                }
+                model.ProductTypes = result;
+            }
+
+
+
+
+            return View(model);
         }
         //{END}For Product  AddProduct
         //=================================================================================================================
+        public ActionResult ReturnInputsOfSubCategorykeyValues(string ListOfKeyIDs)
+        {
 
+            return View();
+        }
         public ActionResult ProductList()
         {
             return View();

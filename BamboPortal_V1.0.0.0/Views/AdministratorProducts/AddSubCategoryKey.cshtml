@@ -349,7 +349,7 @@
 </div>
 
 @section scripts{
-    @Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/Select2.js")
+    @Scripts.Render("~/bundles/Select2.js")
     <script>
         $(document).ready(function () {
             $("#KeySubmit_ProcuctMainCategoryId").select2();

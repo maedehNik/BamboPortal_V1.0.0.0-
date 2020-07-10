@@ -120,7 +120,7 @@ namespace BamboPortal_V1._0._0._0
 
             //Bundles {Start} : Page Scripts --> UploaderModules
             bundles.Add(new ScriptBundle("~/bundles/Uploader.js").Include(
-              "~/AdminDesignResource/vendors/custom/custom-js.js",
+              //"~/AdminDesignResource/vendors/custom/custom-js.js",
               "~/AdminDesignResource/app/js/uploader.js"));
             //Bundles {END} : Page Scripts --> UploaderModules
             BundleTable.EnableOptimizations = false;

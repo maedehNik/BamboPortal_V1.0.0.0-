@@ -1,0 +1,22 @@
+﻿@model BamboPortal_V1._0._0._0.ModelViews.AdministratorProducts.ReturnInputsOfSubCategorykeyValuesModelView
+@{
+    ViewBag.Title = "ReturnInputsOfSubCategorykeyValues";
+}
+<div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+    <label for="PRDCTSCKV-@Model.IdOfKey" class="col-12 col-form-label tshtextright">@Model.KeyNames :</label>
+    <div class="col-12">
+        <select class="form-control m-bootstrap-select m_selectpicker SubcategoryKeyValueMultiSelect" name="PRDCTSCKV-@Model.IdOfKey" id="PRDCTSCKV-@Model.IdOfKey" title="انتخاب کنید..." required>
+            @foreach (var item in Model.AllKeyValues)
+            {
+                if (item.Id == 0)
+                {
+                    <option value=0 selected disabled hidden>@item.Value</option>
+                }
+                else
+                {
+                    <option value=@item.Id>@item.Value</option>
+                }
+            }
+        </select>
+    </div>
+</div>

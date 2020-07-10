@@ -238,52 +238,85 @@
     //{END}For administrator AddSubCategory
     //=================================================================================================
     //=================================================================================================
-    //{Start}For administrator AddSubCategory
-    //if ($("#MultipartUploaderSubmiter").length == 1) {
-    //    $(function () {
-    //        $("#MultipartUploaderSubmiter").on("submit", function (e) {
-    //            mApp.block("#MultipartUploaderSubmiter", {
-    //                overlayColor: "#2c2e3e", type: "loader", state: "success", message: "درحال چک کردن حریم دسترسی و دریافت اطلاعات از سمت سرور ..."
-    //            });
-    //            console.log($(this).serialize());
-    //            e.preventDefault();
-    //            DisableBTN("MultipartUploaderSubmiter");
-    //            $.ajax({
-    //                url: this.action,
-    //                type: this.method,
-    //                data: $(this).serialize(),
-    //                success: function (data) {
-    //                    console.log(data)
-    //                    const jsondata = data;
-    //                    console.log(jsondata.Errortype)
-    //                    if (jsondata.Errortype == "Success") {
-    //                        AlertToUser("MultipartUploaderSubmiter", data);
-    //                        setTimeout(function () {
-    //                            mApp.unblock("#MultipartUploaderSubmiter")
-    //                        }, 1000);
-    //                    } else if (jsondata.Errortype == "ErrorWithList") {
-    //                        AlertToUser("MultipartUploaderSubmiter", data);
-    //                        setTimeout(function () {
-    //                            mApp.unblock("#MultipartUploaderSubmiter")
-    //                        }, 1000);
-    //                    } else {
-    //                        AlertToUser("MultipartUploaderSubmiter", data);
-    //                        setTimeout(function () {
-    //                            mApp.unblock("#MultipartUploaderSubmiter")
-    //                        }, 1000);
-    //                    }
-    //                },
-    //                error: function (data) {
-    //                    setTimeout(function () {
-    //                        mApp.unblock("#MultipartUploaderSubmiter")
-    //                    }, 1000);
-    //                }
-    //            });
-    //        });
-    //    });
-    //}
-    //{END}For administrator AddSubCategory
+    //{Start}For administrator MultipartUploaderSubmiter
+    if ($("#MultipartUploaderSubmiter").length == 1) {
+        $(function () {
+            $("#MultipartUploaderSubmiter").on("submit", function (e) {
+                mApp.block("#MultipartUploaderSubmiter", {
+                    overlayColor: "#2c2e3e", type: "loader", state: "success", message: "درحال چک کردن حریم دسترسی و دریافت اطلاعات از سمت سرور ..."
+                });
+                console.log($(this).serialize());
+                var files = $("#UploadedImages").get(0).files;
+                var formData = new FormData();
+                for (var i = 0; i < files.length; i++) {
+                    formData.append(files[i].name, files[i]);
+                }
+                console.log("files");
+                console.log(files);
+                console.log($("#ImageName").val());
+                formData.append("ImageName", $("#ImageName").val());
+                formData.append("ImageAlt", $("#ImageAlt").val());
+                formData.append("ImageDescription", $("#ImageDescription").val());
+                e.preventDefault();
+                console.log(formData);
+                console.log("=====================================");
+                console.log($(formData).serialize())
+                DisableBTN("MultipartUploaderSubmiter");
+
+                AjaxFormToUploader(this.action, this.method, formData);
+            });
+        });
+
+    }
+    function AjaxFormToUploader(urlToAction, type, formdatas) {
+        $.ajax({
+            url: urlToAction,
+            type: type,
+            data: formdatas,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                console.log(data)
+                const jsondata = data;
+                console.log(jsondata.Errortype)
+                if (jsondata.Errortype == "Success") {
+                    AlertToUser("MultipartUploaderSubmiter", data);
+                    $("#ImageName").val("");
+                    $("#ImageAlt").val("");
+                    $("#ImageDescription").val("");
+                    $("#ShownUploaderUpload").hide(200);
+                    $("#ShownUploaderUpload").html("");
+                    $("#ShownUploaderUpload").show(200);
+                    $("#UploadedImages").val("");
+                    setTimeout(function () {
+                        mApp.unblock("#MultipartUploaderSubmiter")
+                    }, 1000);
+                } else if (jsondata.Errortype == "ErrorWithList") {
+                    AlertToUser("MultipartUploaderSubmiter", data);
+                    setTimeout(function () {
+                        mApp.unblock("#MultipartUploaderSubmiter")
+                    }, 1000);
+                } else {
+                    AlertToUser("MultipartUploaderSubmiter", data);
+                    setTimeout(function () {
+                        mApp.unblock("#MultipartUploaderSubmiter")
+                    }, 1000);
+                }
+            },
+            error: function (data) {
+                setTimeout(function () {
+                    mApp.unblock("#MultipartUploaderSubmiter")
+                }, 1000);
+            }
+        });
+    }
+    //{END}For administrator MultipartUploaderSubmiter
     //=================================================================================================
+
+
+
+
+
 });
 //=================================================================================================
 //{Start}got Json of ErrorReporterModel--> AllErrors For validate from backend serverside Validation{
@@ -331,10 +364,11 @@ function AlertToUser(FormID, data) {
             swal("درخواست با موفقیت ثبت شد!", data.Errormessage, "success").then(function (e) {
                 $("#" + FormID + "_SubmitBTN").removeClass("m-loader m-loader--light m-loader--right").prop("disabled", false);
                 try {
-                    if ($("#" + FormID + "Redirection").val().length > 0) {
+                    if ($("#" + FormID + "Redirection").val() == "NoReload") {
+                    }
+                    else if ($("#" + FormID + "Redirection").val().length > 0) {
                         window.location.replace(window.location.origin + $("#" + FormID + "Redirection").val());
                     } else {
-
                         location.reload();
                     }
                 } catch{

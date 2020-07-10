@@ -24,7 +24,6 @@ namespace BamboPortal_V1._0._0._0.Models.AdministratorUploader
         [MyMaxLengthAttribute(30)]
         [Required(ErrorMessage = "وارد کردن لیبل عکس اجباری میباشد!")]
         public string ImageAlt { get; set; }
-        [Required(ErrorMessage = "هیچ عکسی انتخاب نشده است")]
         public List<HttpPostedFileBase> UploadedImages { get; set; }
 
 

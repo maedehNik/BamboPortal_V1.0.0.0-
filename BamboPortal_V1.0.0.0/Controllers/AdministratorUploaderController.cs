@@ -22,14 +22,14 @@ namespace BamboPortal_V1._0._0._0.Controllers
             model.imgs = new List<ImageGalleryModel>();
             PDBC db = new PDBC();
             db.Connect();
-            using (DataTable dt = db.Select("SELECT [thumUploadAddress],[CreatedDate],[Descriptions],[uploadPicName],[alt],[ISDELETE],[PicCategoryType],[PicID],[orgPicID],[orgUploadAddress]  FROM [imageView]"))
+            using (DataTable dt = db.Select("SELECT [thumUploadAddress],[CreatedDate],[Descriptions],[uploadPicName],[alt],[ISDELETE],[PicCategoryType],[PicID],[orgPicID],[orgUploadAddress]  FROM [imageView] WHERE ISDELETE != 1 ORDER BY [savedCode] DESC"))
             {
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     model.imgs.Add(new ImageGalleryModel()
                     {
                         alt = dt.Rows[i]["alt"].ToString(),
-                        CreatedDate= dt.Rows[i]["CreatedDate"].ToString(),
+                        CreatedDate = dt.Rows[i]["CreatedDate"].ToString(),
                         Descriptions = dt.Rows[i]["Descriptions"].ToString(),
                         ISDELETE = dt.Rows[i]["ISDELETE"].ToString(),
                         orgPicID = dt.Rows[i]["orgPicID"].ToString(),
@@ -46,6 +46,24 @@ namespace BamboPortal_V1._0._0._0.Controllers
         }
         public ActionResult Uploader_Image()
         {
+
+            PDBC db = new PDBC();
+            db.Connect();
+            UploaderAlertModelView model = new UploaderAlertModelView();
+            model.Alerts = new List<UploaderModelToAlertSizes>();
+            using (DataTable dt = db.Select("SELECT [picSizeTypeWidth] ,[picSizeTypeHeight]  FROM [tbl_ADMIN_UploaderStructure_ImageSize]"))
+            {
+                db.DC();
+                for (int idPT = 0; idPT < dt.Rows.Count; idPT++)
+                {
+                    model.Alerts.Add(new UploaderModelToAlertSizes()
+                    {
+                        Height = dt.Rows[idPT]["picSizeTypeHeight"].ToString(),
+                        Width = dt.Rows[idPT]["picSizeTypeWidth"].ToString()
+                    });
+                }
+            }
+            TempData["SizesToaler"] = model;
             return View();
         }
         public ActionResult GalleryModal()
@@ -53,8 +71,9 @@ namespace BamboPortal_V1._0._0._0.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult UploadImages(ImageInGalleryModel SenderObj)
+        public JsonResult UploadImages(ImageInGalleryModel SenderObj)
         {
+            var ss = Request.Files;
             if (ModelState.IsValid)
             {
                 List<string> Skips;
@@ -68,7 +87,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                     Skips = new List<string>();
                 }
                 int SkipimagesCount = Skips.Count;
-                int imagescount = SenderObj.UploadedImages.Count;
+                int imagescount = Request.Files.Count;
                 List<HttpPostedFileBase> newss = new List<HttpPostedFileBase>();
                 for (int i = 0; i < imagescount; i++)
                 {
@@ -80,7 +99,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                     }
                     if (Skipper)
                         continue;
-                    newss.Add(SenderObj.UploadedImages[i]);
+                    newss.Add(Request.Files[i]);
                 }
                 Skips = null;
                 if (newss.Count > 0)
@@ -101,7 +120,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                             Errortype = "Success"
                         };
                         TempData["returnData"] = ModelSender;
-                        return RedirectToAction("UploaderPAge", "AdministratorUploader");
+                        return Json(ModelSender);
                     }
                     else if (res == "-1")
                     {
@@ -112,7 +131,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                             Errortype = "Error"
                         };
                         TempData["returnData"] = ModelSender;
-                        return RedirectToAction("UploaderPAge", "AdministratorUploader");
+                        return Json(ModelSender);
                     }
                     else
                     {
@@ -123,7 +142,8 @@ namespace BamboPortal_V1._0._0._0.Controllers
                             Errortype = "Error"
                         };
                         TempData["returnData"] = ModelSender;
-                        return RedirectToAction("UploaderPAge", "AdministratorUploader");
+
+                        return Json(ModelSender);
                     }
                 }
                 else
@@ -135,7 +155,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                         Errortype = "Error"
                     };
                     TempData["returnData"] = ModelSender;
-                    return RedirectToAction("UploaderPAge", "AdministratorUploader");
+                    return Json(ModelSender);
                 }
             }
             else
@@ -165,7 +185,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                     AllErrors = allErrors
                 };
                 TempData["returnData"] = ModelSender;
-                return RedirectToAction("UploaderPAge", "AdministratorUploader");
+                return Json(ModelSender);
             }
         }
 

@@ -58,6 +58,9 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -111,9 +114,6 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="Antlr3.Runtime">
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
@@ -160,6 +160,7 @@
     <Compile Include="Models\AdministratorUploader\ImageGalleryModel.cs" />
     <Compile Include="Models\AdministratorUploader\ImageInGalleryModel.cs" />
     <Compile Include="Models\AdministratorUploader\ReturnedSaveImages.cs" />
+    <Compile Include="Models\AdministratorUploader\UploaderModelToAlertSizes.cs" />
     <Compile Include="Models\AdministratorValidation.cs" />
     <Compile Include="Models\CustomerSide\PersonalDataModels\ActivationModel.cs" />
     <Compile Include="Models\CustomerSide\PersonalDataModels\AddressModel.cs" />
@@ -194,12 +195,15 @@
     <Compile Include="ModelViews\AdministratorProducts\AddMainCategoryModel.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddMainCategorySubmiterForm.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddMainTagModelView.cs" />
+    <Compile Include="ModelViews\AdministratorProducts\AddProductModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddSubCategoryKeyModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddSubCategoryModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddSubCateGoryValuesOfKeysModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddTypeModelView.cs" />
+    <Compile Include="ModelViews\AdministratorProducts\ReturnInputsOfSubCategorykeyValuesModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts_FieldLoader\GetSubCateGoryForSelect2FromPTypeIDModelView.cs" />
     <Compile Include="ModelViews\AdministratorUploader\ImageGalleryModelView.cs" />
+    <Compile Include="ModelViews\AdministratorUploader\UploaderAlertModelView.cs" />
     <Compile Include="ModelViews\CustomerSide\AboutUsModelView.cs" />
     <Compile Include="ModelViews\CustomerSide\customerAddressModelView.cs" />
     <Compile Include="ModelViews\CustomerSide\IndexPageModelView.cs" />
@@ -3130,6 +3134,14 @@
     <Content Include="Docs\usefulguides\Webpages.txt" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <None Include="Scripts\jquery-3.5.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.5.1.js" />
+    <Content Include="Scripts\jquery-3.5.1.min.js" />
+    <Content Include="Scripts\jquery-3.5.1.slim.js" />
+    <Content Include="Scripts\jquery-3.5.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -3139,6 +3151,7 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\AdministratorProducts\ReturnInputsOfSubCategorykeyValues.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -3372,6 +3385,8 @@
     <Content Include="Views\AdminLoginAuth\Logs.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
+    <Content Include="Scripts\jquery-3.5.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.5.1.min.map" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -82,13 +82,19 @@
     </div>
     <!--end::Portlet-->
 </div>
-@{Html.RenderAction("GalleryModal", "AdministratorUploader");}
+
+
+    @*<iframe src="@Url.Action("GalleryModal", "AdministratorUploader")" style="width:100%;height:500px;">
+    </iframe>*@
+@{
+    Html.RenderAction("GalleryModal", "AdministratorUploader");
+}
+
 
 @section Scripts {
 
-    @Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/Uploader.js")
+    @Scripts.Render("~/bundles/Uploader.js")
     <script>
-
 
 
     </script>
