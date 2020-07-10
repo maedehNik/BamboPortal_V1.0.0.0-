@@ -2010,5 +2010,18 @@ namespace BamboPortal_V1._0._0._0.Controllers
 
         //{END}For Product  AddMainTag
         //=================================================================================================================
+        //=================================================================================================================
+        //{start}For Product  AddProduct
+        public ActionResult AddProduct()
+        {
+            return View();
+        }
+        //{END}For Product  AddProduct
+        //=================================================================================================================
+
+        public ActionResult ProductList()
+        {
+            return View();
+        }
     }
 }

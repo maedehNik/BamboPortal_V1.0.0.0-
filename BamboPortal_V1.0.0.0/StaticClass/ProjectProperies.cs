@@ -10,7 +10,7 @@ namespace BamboPortal_V1._0._0._0.StaticClass
         public static string PortalCutsomer = "پارچه گالری ولوت";
         public static string PortalCustomerModelCode = "VelvetCO";
         public static string AdminLoginAuthCode = "13990417";
-
+        public static string imageSavePath = "پارچه-گالری-ولوت-";
         public static string AuthCoockieCode()
         {
             return $"{PortalCustomerModelCode}_{AdminLoginAuthCode}";

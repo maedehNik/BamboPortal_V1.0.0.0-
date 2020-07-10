@@ -1,0 +1,209 @@
+﻿
+@{
+    ViewBag.Title = "AdminsProfile";
+    Layout = "~/Views/SharedViewPages/Administrator/MasterView.cshtml";
+}
+<!-- BEGIN: Subheader -->
+<div class="m-subheader">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
+                <span class="m-subheader__daterange-label">
+                    <h3 class="m-subheader__title" style="padding-left: 0!important;margin: 0 0 0 2px!important;">
+                        پیشخوان
+                        <i class="fa fa-chevron-left tshfontsize2" style="transform: translateY(3px);color: #aaaeb8;margin-right: 2px;"></i>
+                        <span class="m-subheader__daterange-title tshfontsize2" style="margin-right: 2px;margin-left: 2px;">ویرایش مدیر</span>
+                        <!--
+                        <i class="fa fa-chevron-left" style="transform: translateY(3px);color: #aaaeb8;"></i>
+                        <span class="m-subheader__daterange-title" style="margin-right: 2px;">نمایش همه ی پست ها</span>
+                        -->
+                    </h3>
+                </span>
+            </span>
+        </div>
+    </div>
+</div>
+
+
+<div class="m-content">
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="m-portlet m-portlet--full-height  ">
+                <div class="m-portlet__body">
+                    <div class="m-card-profile">
+                        <div class="m-card-profile__title m--hide">
+                            پروفایل شما
+                        </div>
+                        <div class="m-card-profile__pic">
+                            <div class="m-card-profile__pic-wrapper">
+                                <img src="/AdminDesignResource/app/media/img/users/user4.jpg" alt="">
+                            </div>
+                        </div>
+                        <div class="m-card-profile__details">
+                            <span class="m-card-profile__name">
+                                ادمین ولوت
+                            </span>
+                        </div>
+                        <div class="m-widget1">
+                            <div class="m-widget1__item">
+                                <div class="row m-row--no-padding align-items-center">
+                                    <div class="col">
+                                        <h3 class="m-widget1__title tshtextright tshfontsize3">
+                                            <i class="m-menu__link-icon flaticon-email tshfontsize3"></i>
+                                            ایمیل:
+                                        </h3>
+                                        <!--<span class="m-widget1__desc">میانگین درآمد هفتگی</span>-->
+                                    </div>
+                                    <div class="col m--align-right">
+                                        <span class="m-widget1__number m--font-brand tshfontsize3">test@test.com</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-widget1__item">
+                                <div class="row m-row--no-padding align-items-center">
+                                    <div class="col">
+                                        <h3 class="m-widget1__title tshtextright tshfontsize3">
+                                            <i class="fa fa-phone tshfontsize3"></i>
+                                            شماره تلفن:
+                                        </h3>
+                                        <!--<span class="m-widget1__desc">میانگین درآمد هفتگی</span>-->
+                                    </div>
+                                    <div class="col m--align-right">
+                                        <span class="m-widget1__number m--font-brand tshfontsize3">09120000000</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-widget1__item">
+                                <div class="row m-row--no-padding align-items-center">
+                                    <div class="col">
+                                        <h3 class="m-widget1__title tshtextright tshfontsize3">
+                                            <i class="fa fa-phone tshfontsize3"></i>
+                                            شماره تلفن:
+                                        </h3>
+                                        <!--<span class="m-widget1__desc">میانگین درآمد هفتگی</span>-->
+                                    </div>
+                                    <div class="col m--align-right">
+                                        <span class="m-widget1__number m--font-brand tshfontsize3">09120000000</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <button class="col-12 btn btn-success mt-3">
+                                    <i class="fa fa-comment"></i>
+                                    چت
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="m-nav m-nav--hover-bg m-portlet-fit--sides mt-2 cus-prof-menu">
+                        <li class="m-nav__item active-cust-profile personal-btn2 tshcurpoi">
+                            <a class="m-nav__link">
+                                <i class="m-nav__link-icon flaticon-user"></i>
+                                <span class="m-nav__link-text">اطلاعات شخصی</span>
+                            </a>
+                        </li>
+                        <li class="m-nav__item address-btn2 tshcurpoi">
+                            <a class="m-nav__link">
+                                <i class="m-nav__link-icon flaticon-list"></i>
+                                <span class="m-nav__link-text">مدیریت دسترسی ها</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="m-portlet m-portlet--full-height m-portlet--tabs  ">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-tools">
+                        <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
+                            <li class="nav-item m-tabs__item">
+                                <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_user_profile_tab_1" role="tab">
+                                    <i class="flaticon-share m--hide"></i>
+                                    <cust_title>
+                                        اطلاعات شخصی
+                                    </cust_title>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="m_user_profile_tab_1">
+                        <form class="m-form m-form--fit m-form--label-align-right" onsubmit="return false;" id="cusform">
+                            <div class="m-portlet__body">
+                                <div class="per-info">
+                                    <div class="row">
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                            <label for="firstname_cus" class="col-12 col-form-label tshtextright">نام</label>
+                                            <div class="col-12">
+                                                <input class="form-control m-input" id="firstname_cus" name="firstname_cus" type="text" value="نام شخص متن ساختگی">
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                            <label for="lastname_cus" class="col-12 col-form-label tshtextright">نام خانوادگی</label>
+                                            <div class="col-12">
+                                                <input class="form-control m-input" id="lastname_cus" name="lastname_cus" type="text" value="نام خانوادگی شخص متن ساختگی">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                            <label for="nickname_cus" class="col-12 col-form-label tshtextright">نام مستعار</label>
+                                            <div class="col-12">
+                                                <input class="form-control m-input" id="nickname_cus" name="nickname_cus" type="text" value="پاندا">
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                            <label for="email_cus" class="col-12 col-form-label tshtextright">ایمیل</label>
+                                            <div class="col-12">
+                                                <input class="form-control m-input" id="email_cus" name="email_cus" type="text" value="test@test.com">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                            <label for="phone_cus" class="col-12 col-form-label tshtextright">شماره تلفن</label>
+                                            <div class="col-12">
+                                                <input class="form-control m-input" id="phone_cus" name="phone_cus" type="number" value="09120000000">
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                            <label for="phone_cus2" class="col-12 col-form-label tshtextright">شماره تلفن</label>
+                                            <div class="col-12">
+                                                <input class="form-control m-input" id="phone_cus2" name="phone_cus2" type="number" value="09120000000">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="address-cust" style="display: none">
+                                    <div class="form-group m-form__group row">
+                                        <label class="col-form-label col-lg-2 col-sm-12">دسترسی</label>
+                                        <div class="col-lg-9 col-md-8 col-sm-12">
+                                            <select class="form-control m-bootstrap-select m_selectpicker" name="permi_select">
+                                                <option>مدیر کل</option>
+                                                <option>مدیر مطلب گذاری</option>
+                                                <option>حسابداری</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-portlet__foot m-portlet__foot--fit">
+                                <div class="m-form__actions">
+                                    <div class="row">
+                                        <div class="col-2">
+                                        </div>
+                                        <div class="col-12 tshtextleft">
+                                            <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom">ذخیره</button>&nbsp;&nbsp;
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

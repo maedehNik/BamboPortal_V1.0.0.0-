@@ -135,7 +135,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                                 }
                                 if (string.IsNullOrEmpty(adObj.urlRedirection))
                                 {
-                                    return RedirectToAction("Index", "AdministratorWorkplace");
+                                    return RedirectToAction("Logs", "AdminLoginAuth");
                                 }
                                 else
                                 {
@@ -226,6 +226,11 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 Response.Cookies.Add(c);
             }
             return RedirectToAction("index", "AdminLoginAuth");
+        }
+
+        public ActionResult Logs()
+        {
+            return View();
         }
     }
 }

@@ -1,0 +1,602 @@
+﻿
+@{
+    ViewBag.Title = "ShowAdmins";
+    Layout = "~/Views/SharedViewPages/Administrator/MasterView.cshtml";
+}
+
+
+
+<!-- BEGIN: Subheader -->
+<div class="m-subheader">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
+                <span class="m-subheader__daterange-label">
+                    <h3 class="m-subheader__title" style="padding-left: 0!important;margin: 0 0 0 2px!important;">
+                        پیشخوان
+                        <i class="fa fa-chevron-left tshfontsize2" style="transform: translateY(3px);color: #aaaeb8;margin-right: 2px;"></i>
+                        <span class="m-subheader__daterange-title tshfontsize2" style="margin-right: 2px;margin-left: 2px;">لیست مدیران</span>
+                        <!--
+                        <i class="fa fa-chevron-left" style="transform: translateY(3px);color: #aaaeb8;"></i>
+                        <span class="m-subheader__daterange-title" style="margin-right: 2px;">نمایش همه ی پست ها</span>
+                        -->
+                    </h3>
+                </span>
+            </span>
+        </div>
+    </div>
+</div>
+
+
+<div class="m-content">
+    <div class="row">
+        <div class="col-lg-3">
+            <!--begin::Portlet-->
+            <div class="m-portlet">
+                <div class="m-card-profile">
+                    <div class="m-card-profile__pic">
+                        <div class="m-card-profile__pic-wrapper">
+                            <img src="/AdminDesignResource/app/media/img/users/user4.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="m-card-profile__details">
+                        <span class="m-card-profile__name">
+                            ادمین ولوت
+                            <button class="btn btn-success deactivate-btn" data-target="#deactivemodal" data-toggle="modal" data-name="ادمین ولوت" style="padding: 4px 5px;">فعال</button>
+                        </span>
+                        <div>
+                            <a class="m-card-profile__email m-link tshcurpoi">سطح دسترسی: مدیر اصلی</a>
+                        </div>
+                        <div>
+                            <a class="m-card-profile__email m-link tshcurpoi">آخرین بازدید: 2 روز پیش</a>
+                        </div>
+                        <div class="m-widget1">
+                            <div class="m-widget1__item">
+                                <div class="row m-row--no-padding align-items-center">
+                                    <div class="col">
+                                        <h3 class="m-widget1__title tshtextright tshfontsize3">
+                                            <i class="m-menu__link-icon flaticon-email tshfontsize3"></i>
+                                            ایمیل:
+                                        </h3>
+                                        <!--<span class="m-widget1__desc">میانگین درآمد هفتگی</span>-->
+                                    </div>
+                                    <div class="col m--align-right">
+                                        <span class="m-widget1__number m--font-brand tshfontsize3">test@test.com</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-widget1__item">
+                                <div class="row m-row--no-padding align-items-center">
+                                    <div class="col">
+                                        <h3 class="m-widget1__title tshtextright tshfontsize3">
+                                            <i class="fa fa-phone tshfontsize3"></i>
+                                            شماره تماس:
+                                        </h3>
+                                        <!--<span class="m-widget1__desc">میانگین درآمد هفتگی</span>-->
+                                    </div>
+                                    <div class="col m--align-right">
+                                        <span class="m-widget1__number m--font-brand tshfontsize3">09120000000</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <a href="@Url.Action("AdminsProfile","AdministratorGeneral")" class="tshtextdecnone-2">
+                                    <button class="col-12 btn btn-primary mt-3">
+                                        <i class="fa fa-edit"></i>
+                                        ویرایش
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end::Portlet-->
+        </div>
+        <div class="col-lg-3">
+            <!--begin::Portlet-->
+            <div class="m-portlet">
+                <div class="m-card-profile">
+                    <div class="m-card-profile__pic">
+                        <div class="m-card-profile__pic-wrapper">
+                            <img src="/AdminDesignResource/app/media/img/users/user4.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="m-card-profile__details">
+                        <span class="m-card-profile__name">
+                            ادمین ولوت
+                            <button class="btn btn-success deactivate-btn" data-target="#deactivemodal" data-toggle="modal" data-name="ادمین ولوت" style="padding: 4px 5px;">فعال</button>
+                        </span>
+                        <div>
+                            <a class="m-card-profile__email m-link tshcurpoi">سطح دسترسی: مدیر اصلی</a>
+                        </div>
+                        <div>
+                            <a class="m-card-profile__email m-link tshcurpoi">آخرین بازدید: 2 روز پیش</a>
+                        </div>
+                        <div class="m-widget1">
+                            <div class="m-widget1__item">
+                                <div class="row m-row--no-padding align-items-center">
+                                    <div class="col">
+                                        <h3 class="m-widget1__title tshtextright tshfontsize3">
+                                            <i class="m-menu__link-icon flaticon-email tshfontsize3"></i>
+                                            ایمیل:
+                                        </h3>
+                                        <!--<span class="m-widget1__desc">میانگین درآمد هفتگی</span>-->
+                                    </div>
+                                    <div class="col m--align-right">
+                                        <span class="m-widget1__number m--font-brand tshfontsize3">test@test.com</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-widget1__item">
+                                <div class="row m-row--no-padding align-items-center">
+                                    <div class="col">
+                                        <h3 class="m-widget1__title tshtextright tshfontsize3">
+                                            <i class="fa fa-phone tshfontsize3"></i>
+                                            شماره تماس:
+                                        </h3>
+                                        <!--<span class="m-widget1__desc">میانگین درآمد هفتگی</span>-->
+                                    </div>
+                                    <div class="col m--align-right">
+                                        <span class="m-widget1__number m--font-brand tshfontsize3">09120000000</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <a href="@Url.Action("AdminsProfile","AdministratorGeneral")" class="tshtextdecnone-2">
+                                    <button class="col-12 btn btn-primary mt-3">
+                                        <i class="fa fa-edit"></i>
+                                        ویرایش
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end::Portlet-->
+        </div>
+        <div class="col-lg-3">
+            <!--begin::Portlet-->
+            <div class="m-portlet">
+                <div class="m-card-profile">
+                    <div class="m-card-profile__pic">
+                        <div class="m-card-profile__pic-wrapper">
+                            <img src="/AdminDesignResource/app/media/img/users/user4.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="m-card-profile__details">
+                        <span class="m-card-profile__name">
+                            ادمین ولوت
+                            <button class="btn btn-success deactivate-btn" data-target="#deactivemodal" data-toggle="modal" data-name="ادمین ولوت" style="padding: 4px 5px;">فعال</button>
+                        </span>
+                        <div>
+                            <a class="m-card-profile__email m-link tshcurpoi">سطح دسترسی: مدیر اصلی</a>
+                        </div>
+                        <div>
+                            <a class="m-card-profile__email m-link tshcurpoi">آخرین بازدید: 2 روز پیش</a>
+                        </div>
+                        <div class="m-widget1">
+                            <div class="m-widget1__item">
+                                <div class="row m-row--no-padding align-items-center">
+                                    <div class="col">
+                                        <h3 class="m-widget1__title tshtextright tshfontsize3">
+                                            <i class="m-menu__link-icon flaticon-email tshfontsize3"></i>
+                                            ایمیل:
+                                        </h3>
+                                        <!--<span class="m-widget1__desc">میانگین درآمد هفتگی</span>-->
+                                    </div>
+                                    <div class="col m--align-right">
+                                        <span class="m-widget1__number m--font-brand tshfontsize3">test@test.com</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-widget1__item">
+                                <div class="row m-row--no-padding align-items-center">
+                                    <div class="col">
+                                        <h3 class="m-widget1__title tshtextright tshfontsize3">
+                                            <i class="fa fa-phone tshfontsize3"></i>
+                                            شماره تماس:
+                                        </h3>
+                                        <!--<span class="m-widget1__desc">میانگین درآمد هفتگی</span>-->
+                                    </div>
+                                    <div class="col m--align-right">
+                                        <span class="m-widget1__number m--font-brand tshfontsize3">09120000000</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <a href="@Url.Action("AdminsProfile","AdministratorGeneral")" class="tshtextdecnone-2">
+                                    <button class="col-12 btn btn-primary mt-3">
+                                        <i class="fa fa-edit"></i>
+                                        ویرایش
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end::Portlet-->
+        </div>
+        <div class="col-lg-3">
+            <!--begin::Portlet-->
+            <div class="m-portlet">
+                <div class="m-card-profile">
+                    <div class="m-card-profile__pic">
+                        <div class="m-card-profile__pic-wrapper">
+                            <img src="/AdminDesignResource/app/media/img/users/user4.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="m-card-profile__details">
+                        <span class="m-card-profile__name">
+                            ادمین ولوت
+                            <button class="btn btn-success deactivate-btn" data-target="#deactivemodal" data-toggle="modal" data-name="ادمین ولوت" style="padding: 4px 5px;">فعال</button>
+                        </span>
+                        <div>
+                            <a class="m-card-profile__email m-link tshcurpoi">سطح دسترسی: مدیر اصلی</a>
+                        </div>
+                        <div>
+                            <a class="m-card-profile__email m-link tshcurpoi">آخرین بازدید: 2 روز پیش</a>
+                        </div>
+                        <div class="m-widget1">
+                            <div class="m-widget1__item">
+                                <div class="row m-row--no-padding align-items-center">
+                                    <div class="col">
+                                        <h3 class="m-widget1__title tshtextright tshfontsize3">
+                                            <i class="m-menu__link-icon flaticon-email tshfontsize3"></i>
+                                            ایمیل:
+                                        </h3>
+                                        <!--<span class="m-widget1__desc">میانگین درآمد هفتگی</span>-->
+                                    </div>
+                                    <div class="col m--align-right">
+                                        <span class="m-widget1__number m--font-brand tshfontsize3">test@test.com</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-widget1__item">
+                                <div class="row m-row--no-padding align-items-center">
+                                    <div class="col">
+                                        <h3 class="m-widget1__title tshtextright tshfontsize3">
+                                            <i class="fa fa-phone tshfontsize3"></i>
+                                            شماره تماس:
+                                        </h3>
+                                        <!--<span class="m-widget1__desc">میانگین درآمد هفتگی</span>-->
+                                    </div>
+                                    <div class="col m--align-right">
+                                        <span class="m-widget1__number m--font-brand tshfontsize3">09120000000</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <a href="@Url.Action("AdminsProfile","AdministratorGeneral")" class="tshtextdecnone-2">
+                                    <button class="col-12 btn btn-primary mt-3">
+                                        <i class="fa fa-edit"></i>
+                                        ویرایش
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end::Portlet-->
+        </div>
+        <div class="col-lg-3">
+            <!--begin::Portlet-->
+            <div class="m-portlet">
+                <div class="m-card-profile">
+                    <div class="m-card-profile__pic">
+                        <div class="m-card-profile__pic-wrapper">
+                            <img src="/AdminDesignResource/app/media/img/users/user4.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="m-card-profile__details">
+                        <span class="m-card-profile__name">
+                            ادمین ولوت
+                            <button class="btn btn-success deactivate-btn" data-target="#deactivemodal" data-toggle="modal" data-name="ادمین ولوت" style="padding: 4px 5px;">فعال</button>
+                        </span>
+                        <div>
+                            <a class="m-card-profile__email m-link tshcurpoi">سطح دسترسی: مدیر اصلی</a>
+                        </div>
+                        <div>
+                            <a class="m-card-profile__email m-link tshcurpoi">آخرین بازدید: 2 روز پیش</a>
+                        </div>
+                        <div class="m-widget1">
+                            <div class="m-widget1__item">
+                                <div class="row m-row--no-padding align-items-center">
+                                    <div class="col">
+                                        <h3 class="m-widget1__title tshtextright tshfontsize3">
+                                            <i class="m-menu__link-icon flaticon-email tshfontsize3"></i>
+                                            ایمیل:
+                                        </h3>
+                                        <!--<span class="m-widget1__desc">میانگین درآمد هفتگی</span>-->
+                                    </div>
+                                    <div class="col m--align-right">
+                                        <span class="m-widget1__number m--font-brand tshfontsize3">test@test.com</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-widget1__item">
+                                <div class="row m-row--no-padding align-items-center">
+                                    <div class="col">
+                                        <h3 class="m-widget1__title tshtextright tshfontsize3">
+                                            <i class="fa fa-phone tshfontsize3"></i>
+                                            شماره تماس:
+                                        </h3>
+                                        <!--<span class="m-widget1__desc">میانگین درآمد هفتگی</span>-->
+                                    </div>
+                                    <div class="col m--align-right">
+                                        <span class="m-widget1__number m--font-brand tshfontsize3">09120000000</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <a href="@Url.Action("AdminsProfile","AdministratorGeneral")" class="tshtextdecnone-2">
+                                    <button class="col-12 btn btn-primary mt-3">
+                                        <i class="fa fa-edit"></i>
+                                        ویرایش
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end::Portlet-->
+        </div>
+        <div class="col-lg-3">
+            <!--begin::Portlet-->
+            <div class="m-portlet">
+                <div class="m-card-profile">
+                    <div class="m-card-profile__pic">
+                        <div class="m-card-profile__pic-wrapper">
+                            <img src="/AdminDesignResource/app/media/img/users/user4.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="m-card-profile__details">
+                        <span class="m-card-profile__name">
+                            ادمین ولوت
+                            <button class="btn btn-success deactivate-btn" data-target="#deactivemodal" data-toggle="modal" data-name="ادمین ولوت" style="padding: 4px 5px;">فعال</button>
+                        </span>
+                        <div>
+                            <a class="m-card-profile__email m-link tshcurpoi">سطح دسترسی: مدیر اصلی</a>
+                        </div>
+                        <div>
+                            <a class="m-card-profile__email m-link tshcurpoi">آخرین بازدید: 2 روز پیش</a>
+                        </div>
+                        <div class="m-widget1">
+                            <div class="m-widget1__item">
+                                <div class="row m-row--no-padding align-items-center">
+                                    <div class="col">
+                                        <h3 class="m-widget1__title tshtextright tshfontsize3">
+                                            <i class="m-menu__link-icon flaticon-email tshfontsize3"></i>
+                                            ایمیل:
+                                        </h3>
+                                        <!--<span class="m-widget1__desc">میانگین درآمد هفتگی</span>-->
+                                    </div>
+                                    <div class="col m--align-right">
+                                        <span class="m-widget1__number m--font-brand tshfontsize3">test@test.com</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-widget1__item">
+                                <div class="row m-row--no-padding align-items-center">
+                                    <div class="col">
+                                        <h3 class="m-widget1__title tshtextright tshfontsize3">
+                                            <i class="fa fa-phone tshfontsize3"></i>
+                                            شماره تماس:
+                                        </h3>
+                                        <!--<span class="m-widget1__desc">میانگین درآمد هفتگی</span>-->
+                                    </div>
+                                    <div class="col m--align-right">
+                                        <span class="m-widget1__number m--font-brand tshfontsize3">09120000000</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <a href="@Url.Action("AdminsProfile","AdministratorGeneral")" class="tshtextdecnone-2">
+                                    <button class="col-12 btn btn-primary mt-3">
+                                        <i class="fa fa-edit"></i>
+                                        ویرایش
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end::Portlet-->
+        </div>
+        <div class="col-lg-3">
+            <!--begin::Portlet-->
+            <div class="m-portlet">
+                <div class="m-card-profile">
+                    <div class="m-card-profile__pic">
+                        <div class="m-card-profile__pic-wrapper">
+                            <img src="/AdminDesignResource/app/media/img/users/user4.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="m-card-profile__details">
+                        <span class="m-card-profile__name">
+                            ادمین ولوت
+                            <button class="btn btn-success deactivate-btn" data-target="#deactivemodal" data-toggle="modal" data-name="ادمین ولوت" style="padding: 4px 5px;">فعال</button>
+                        </span>
+                        <div>
+                            <a class="m-card-profile__email m-link tshcurpoi">سطح دسترسی: مدیر اصلی</a>
+                        </div>
+                        <div>
+                            <a class="m-card-profile__email m-link tshcurpoi">آخرین بازدید: 2 روز پیش</a>
+                        </div>
+                        <div class="m-widget1">
+                            <div class="m-widget1__item">
+                                <div class="row m-row--no-padding align-items-center">
+                                    <div class="col">
+                                        <h3 class="m-widget1__title tshtextright tshfontsize3">
+                                            <i class="m-menu__link-icon flaticon-email tshfontsize3"></i>
+                                            ایمیل:
+                                        </h3>
+                                        <!--<span class="m-widget1__desc">میانگین درآمد هفتگی</span>-->
+                                    </div>
+                                    <div class="col m--align-right">
+                                        <span class="m-widget1__number m--font-brand tshfontsize3">test@test.com</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-widget1__item">
+                                <div class="row m-row--no-padding align-items-center">
+                                    <div class="col">
+                                        <h3 class="m-widget1__title tshtextright tshfontsize3">
+                                            <i class="fa fa-phone tshfontsize3"></i>
+                                            شماره تماس:
+                                        </h3>
+                                        <!--<span class="m-widget1__desc">میانگین درآمد هفتگی</span>-->
+                                    </div>
+                                    <div class="col m--align-right">
+                                        <span class="m-widget1__number m--font-brand tshfontsize3">09120000000</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <a href="@Url.Action("AdminsProfile","AdministratorGeneral")" class="tshtextdecnone-2">
+                                    <button class="col-12 btn btn-primary mt-3">
+                                        <i class="fa fa-edit"></i>
+                                        ویرایش
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end::Portlet-->
+        </div>
+        <div class="col-lg-3">
+            <!--begin::Portlet-->
+            <div class="m-portlet">
+                <div class="m-card-profile">
+                    <div class="m-card-profile__pic">
+                        <div class="m-card-profile__pic-wrapper">
+                            <img src="/AdminDesignResource/app/media/img/users/user4.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="m-card-profile__details">
+                        <span class="m-card-profile__name">
+                            ادمین ولوت
+                            <button class="btn btn-success deactivate-btn" data-target="#deactivemodal" data-toggle="modal" data-name="ادمین ولوت" style="padding: 4px 5px;">فعال</button>
+                        </span>
+                        <div>
+                            <a class="m-card-profile__email m-link tshcurpoi">سطح دسترسی: مدیر اصلی</a>
+                        </div>
+                        <div>
+                            <a class="m-card-profile__email m-link tshcurpoi">آخرین بازدید: 2 روز پیش</a>
+                        </div>
+                        <div class="m-widget1">
+                            <div class="m-widget1__item">
+                                <div class="row m-row--no-padding align-items-center">
+                                    <div class="col">
+                                        <h3 class="m-widget1__title tshtextright tshfontsize3">
+                                            <i class="m-menu__link-icon flaticon-email tshfontsize3"></i>
+                                            ایمیل:
+                                        </h3>
+                                        <!--<span class="m-widget1__desc">میانگین درآمد هفتگی</span>-->
+                                    </div>
+                                    <div class="col m--align-right">
+                                        <span class="m-widget1__number m--font-brand tshfontsize3">test@test.com</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-widget1__item">
+                                <div class="row m-row--no-padding align-items-center">
+                                    <div class="col">
+                                        <h3 class="m-widget1__title tshtextright tshfontsize3">
+                                            <i class="fa fa-phone tshfontsize3"></i>
+                                            شماره تماس:
+                                        </h3>
+                                        <!--<span class="m-widget1__desc">میانگین درآمد هفتگی</span>-->
+                                    </div>
+                                    <div class="col m--align-right">
+                                        <span class="m-widget1__number m--font-brand tshfontsize3">09120000000</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <a href="@Url.Action("AdminsProfile","AdministratorGeneral")" class="tshtextdecnone-2">
+                                    <button class="col-12 btn btn-primary mt-3">
+                                        <i class="fa fa-edit"></i>
+                                        ویرایش
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end::Portlet-->
+        </div>
+        <div class="col-lg-3">
+            <!--begin::Portlet-->
+            <div class="m-portlet">
+                <div class="m-card-profile">
+                    <div class="m-card-profile__pic">
+                        <div class="m-card-profile__pic-wrapper">
+                            <img src="/AdminDesignResource/app/media/img/users/user4.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="m-card-profile__details">
+                        <span class="m-card-profile__name">
+                            ادمین ولوت
+                            <button class="btn btn-success deactivate-btn" data-target="#deactivemodal" data-toggle="modal" data-name="ادمین ولوت" style="padding: 4px 5px;">فعال</button>
+                        </span>
+                        <div>
+                            <a class="m-card-profile__email m-link tshcurpoi">سطح دسترسی: مدیر اصلی</a>
+                        </div>
+                        <div>
+                            <a class="m-card-profile__email m-link tshcurpoi">آخرین بازدید: 2 روز پیش</a>
+                        </div>
+                        <div class="m-widget1">
+                            <div class="m-widget1__item">
+                                <div class="row m-row--no-padding align-items-center">
+                                    <div class="col">
+                                        <h3 class="m-widget1__title tshtextright tshfontsize3">
+                                            <i class="m-menu__link-icon flaticon-email tshfontsize3"></i>
+                                            ایمیل:
+                                        </h3>
+                                        <!--<span class="m-widget1__desc">میانگین درآمد هفتگی</span>-->
+                                    </div>
+                                    <div class="col m--align-right">
+                                        <span class="m-widget1__number m--font-brand tshfontsize3">test@test.com</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-widget1__item">
+                                <div class="row m-row--no-padding align-items-center">
+                                    <div class="col">
+                                        <h3 class="m-widget1__title tshtextright tshfontsize3">
+                                            <i class="fa fa-phone tshfontsize3"></i>
+                                            شماره تماس:
+                                        </h3>
+                                        <!--<span class="m-widget1__desc">میانگین درآمد هفتگی</span>-->
+                                    </div>
+                                    <div class="col m--align-right">
+                                        <span class="m-widget1__number m--font-brand tshfontsize3">09120000000</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <a href="@Url.Action("AdminsProfile","AdministratorGeneral")" class="tshtextdecnone-2">
+                                    <button class="col-12 btn btn-primary mt-3">
+                                        <i class="fa fa-edit"></i>
+                                        ویرایش
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end::Portlet-->
+        </div>
+    </div>
+</div>
+

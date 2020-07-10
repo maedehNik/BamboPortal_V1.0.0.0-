@@ -497,5 +497,21 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 return Json(ModelSender);
             }
         }
+
+
+        //====================================================================Need To backend
+        public ActionResult AddAdmin()
+        {
+            return View();
+        }
+
+        public ActionResult ShowAdmins()
+        {
+            return View();
+        }
+        public ActionResult AdminsProfile()
+        {
+            return View();
+        }
     }
 }

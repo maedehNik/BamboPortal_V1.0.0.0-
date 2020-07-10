@@ -65,7 +65,7 @@
                     <div class="tab-pane active row" id="m_user_profile_tab_1">
                         <div class="col-lg-11 col-md-11 col-sm-11" id="ddfsf">
                             <select class="form-control m-bootstrap-select m_selectpicker" id="FormSubmiting_IdofSardastebandi" name="FormSubmiting.IdofSardastebandi" title="انتخاب کنید..." data-live-search="true">
-                                <option value=kirekhar>v6</option>
+                                <option value=K_Iekhar>v6</option>
                                 <option value=12>v5</option>
                                 <option value=13>v4</option>
                                 <option value=14>v32</option>
@@ -89,14 +89,20 @@
                                 <div class="col-2">
                                 </div>
                                 <div class="col-7 tshtextleft">
-                                    <button id="testAlertbtn" onclick="return ff()" type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom">ذخیره</button>&nbsp;&nbsp;
+                                    <button class="btn btn-brand btn-sm" data-target="#uploader" data-toggle="modal">انتخاب عکس</button>  
                                 </div>
                             </div>
                         </div>
                     </div>
 
+                    <div class="Bill" style="position:absolute;top:0;left:0;width:100%;height:100vh;z-index:9999;">
+                        append > >link  uplader
+                    </div>
+                    1
 
+                    button on 
 
+                    2
 
                 </div>
 
@@ -104,29 +110,16 @@
         </div>
     </div>
 </div>
+<iframe src="@Url.Action("GalleryModal","AdministratorUploader")">
+
+@*@{Html.RenderAction("GalleryModal","AdministratorUploader");}*@
+
+</iframe>
+
 @section Scripts {
 
-    @Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/Select2.js")
+    @Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/Uploader.js")
     <script>
-
-        $(document).ready(function () {
-            $("#FormSubmiting_IdofSardastebandi").select2();
-            $('#FormSubmiting_IdofSardastebandi').on('select2:select', function (e) {
-                console.log(e);
-            });
-        });
-
-        function ff() {
-
-            mApp.block("#insertedContent", {
-                overlayColor: "#2c2e3e", type: "loader", state: "success", message: "درحال بارگزاری ..."
-            });
-
-
-            setTimeout(function () {
-                mApp.unblock("#insertedContent")
-            }, 2000)
-        }
 
 
 

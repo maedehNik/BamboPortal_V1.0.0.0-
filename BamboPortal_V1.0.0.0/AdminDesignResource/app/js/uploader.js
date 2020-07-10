@@ -1,16 +1,22 @@
 $(document).ready(function () {
     $("body").on("click", ".remove-prw-img", function () {
         $(this).parent().hide();
+        var id = $(this).attr("id").replace("img-", "");
+        $("#SkipImageIDS").val(id + "," + $("#SkipImageIDS").val())
+         return false;
     })
     // delete e axs zamani ke upload shode
     $(function () {
         var imagesPreview = function (input, placeToInsertImagePreview) {
             if (input.files) {
                 var filesAmount = input.files.length;
+                var _i = 0;
                 for (i = 0; i < filesAmount; i++) {
                     var reader = new FileReader();
                     reader.onload = function (event) {
-                        $($.parseHTML('<div class="col-lg-3" style="position: relative;"><button class="btn btn-danger remove-prw-img" style="position: absolute;top: 0;right: 0;z-index: 999!important;padding: 7px;"><i class="fa fa-trash"></i></button><img src="' + event.target.result + '"></div>')).appendTo(placeToInsertImagePreview);
+                        $($.parseHTML('<div class="col-lg-3" style="position: relative;"><button class="btn btn-danger remove-prw-img"id="img-' + _i + '" style="position: absolute;top: 0;right: 0;z-index: 999!important;padding: 7px;"><i class="fa fa-trash"></i></button><img src="' + event.target.result + '"></div>')).appendTo(placeToInsertImagePreview);
+                        _i++;
+                        console.log(_i);
                     }
                     reader.readAsDataURL(input.files[i]);
                 }

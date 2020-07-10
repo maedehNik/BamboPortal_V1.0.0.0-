@@ -1,0 +1,403 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/SharedViewPages/Administrator/MasterView.cshtml";
+}
+
+
+<!-- BEGIN: Subheader -->
+<div class="m-subheader">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
+                <span class="m-subheader__daterange-label">
+                    <h3 class="m-subheader__title" style="padding-left: 0!important;margin: 0 0 0 2px!important;">
+                        پیشخوان
+                        <i class="fa fa-chevron-left tshfontsize2" style="transform: translateY(3px);color: #aaaeb8;margin-right: 2px;"></i>
+                        <span class="m-subheader__daterange-title tshfontsize2" style="margin-right: 2px;margin-left: 2px;">لیست فعالیت های انبار داری</span>
+                        <!--
+                        <i class="fa fa-chevron-left" style="transform: translateY(3px);color: #aaaeb8;"></i>
+                        <span class="m-subheader__daterange-title" style="margin-right: 2px;">نمایش همه ی پست ها</span>
+                        -->
+                    </h3>
+                </span>
+            </span>
+        </div>
+    </div>
+</div>
+
+
+<div class="m-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="m-portlet m-portlet--full-height m-portlet--tabs  ">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-tools">
+                        <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
+                            <li class="nav-item m-tabs__item">
+                                <a class="nav-link m-tabs__link active" data-toggle="tab" href="#tb1" role="tab">
+                                    <i class="flaticon-share m--hide"></i>
+                                    تایتل
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="col-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3 mt-5" style="padding: 0;text-align: center">
+                            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 custom-padding-search" style="margin: 0 auto;text-align: right;">
+                                <div class="input-group" style="position: relative;text-align: right;">
+                                    <span class="m-input-icon__icon m-input-icon__icon--left" style="position: absolute;right: 10px;top: 0;background-color: red!important;z-index: 999!important;height: 100%;text-align: center;"><span><i class="fa fa-hashtag" style="position: absolute;color: #9699A2;top: 50%;transform: translateY(-50%)"></i></span></span>
+
+                                    <input type="text" class="form-control m-input" name="phone" placeholder="کد یا نام محصول را وارد نمایید" style="padding-right: 28px;">
+
+                                    <div class="input-group-append"><a href="javascript:void(0)" class="btn btn-success">ثبت وارده</a></div>
+                                    <div class="input-group-append"><a href="javascript:void(0)" class="btn btn-danger">ثبت صادره</a></div>
+                                </div>
+                                <small>برای ثبت سریع وارده یا صادره ها میتوانید کد یا نام محصول را در این قسمت وارد کرده و فورا به صفحه محصول هدایت شوید</small>
+                                <span class="m-form__help"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tb1">
+                        <div class="m-portlet__body">
+                            <div class="m-section">
+                                <div class="m-section__content">
+                                    <table class="cust-table table table-striped table-hover m-table m-table--head-separator-primary">
+                                        <thead>
+                                            <tr>
+                                                <th>ردیف</th>
+                                                <th>نام محصول</th>
+                                                <th>کد محصول</th>
+                                                <th>واحد شمارش</th>
+                                                <th>حجم وارده</th>
+                                                <th>میانگین قیمت واحد وارده</th>
+                                                <th>قیمت کل وارده</th>
+                                                <th>حجم صادره</th>
+                                                <th>میانگین قیمت واحد صادره</th>
+                                                <th>قیمت کل صادره</th>
+                                                <th>موجودی</th>
+                                                <th>انبار</th>
+                                                <th>#</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    1
+                                                </td>
+                                                <td>
+                                                    نام محصول متن ساختگی
+                                                </td>
+                                                <td class="tshbeforeht">
+                                                    12312312
+                                                </td>
+                                                <td>
+                                                    متر
+                                                </td>
+                                                <td>
+                                                    100
+                                                </td>
+                                                <td class="tshaftertoman tshaftermarginright">
+                                                    500,000
+                                                </td>
+                                                <td class="tshaftertoman tshaftermarginright">
+                                                    500,000
+                                                </td>
+                                                <td>
+                                                    123123
+                                                </td>
+                                                <td class="tshaftertoman tshaftermarginright">
+                                                    123123
+                                                </td>
+                                                <td class="tshaftertoman tshaftermarginright">
+                                                    123123
+                                                </td>
+                                                <td>
+                                                    100
+                                                </td>
+                                                <td>
+                                                    تجریش
+                                                </td>
+                                                <td>
+                                                    <a href="@Url.Action("ProductStockpile","AdministratorProduct_Stockpile")" class="btn btn-success tshpcustom deactivate-btn" ><i class="fa fa-check tshfa"></i>مشاهده</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <table style="display: none;" class="cust-table cust-table-2 table table-striped table-hover m-table m-table--head-separator-primary">
+                                        <tr>
+                                            <th>ردیف</th>
+                                            <td>1</td>
+                                        </tr>
+                                        <tr>
+                                            <th>نام محصول</th>
+                                            <td>متر</td>
+                                        </tr>
+                                        <tr>
+                                            <th>کد محصول</th>
+                                            <td class="tshbeforeht">12312321</td>
+                                        </tr>
+                                        <tr>
+                                            <th>واحد شمارش</th>
+                                            <td>متر</td>
+                                        </tr>
+                                        <tr>
+                                            <th>حجم وارده</th>
+                                            <td>100</td>
+                                        </tr>
+                                        <tr>
+                                            <th>میانگین قیمت واحد وارده</th>
+                                            <td class="tshaftertoman tshaftermarginright">500,000</td>
+                                        </tr>
+                                        <tr>
+                                            <th>قیمت وارده</th>
+                                            <td class="tshaftertoman tshaftermarginright">50</td>
+                                        </tr>
+                                        <tr>
+                                            <th>حجم صادره</th>
+                                            <td>50</td>
+                                        </tr>
+                                        <tr>
+                                            <th>میانگین قیمت واحد صادره</th>
+                                            <td class="tshaftertoman tshaftermarginright">50</td>
+                                        </tr>
+                                        <tr>
+                                            <th>قیمت کل صادره</th>
+                                            <td class="tshaftertoman tshaftermarginright">50</td>
+                                        </tr>
+                                        <tr>
+                                            <th>موجودی</th>
+                                            <td>100</td>
+                                        </tr>
+                                        <tr>
+                                            <th>انبار</th>
+                                            <td>تجریش</td>
+                                        </tr>
+                                        <tr>
+                                            <th>#</th>
+                                            <td>
+                                                <a href="@Url.Action("ProductStockpile","AdministratorProduct_Stockpile")" class="btn btn-success tshpcustom deactivate-btn" data-target="#deactivemodal" data-toggle="modal" data-name="بیلبیلگ"><i class="fa fa-check tshfa"></i>مشاهده</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <div class="col-lg-12 mt-4 mb-4">
+                                        <span class="col-lg-3">
+                                            صفحه
+                                            <span>50</span>
+                                            از
+                                            <span>170</span>
+                                        </span>
+                                        <ul class="tshpaglist col-lg-9">
+                                            <li class="btn btn-brand disabled">قبلی</li>
+                                            <li class="btn btn-brand active-pag">1</li>
+                                            <li class="btn btn-brand">2</li>
+                                            <li class="btn btn-brand">3</li>
+                                            <li class="btn btn-brand">4</li>
+                                            <li class="btn btn-brand">5</li>
+                                            <li class="btn btn-brand">6</li>
+                                            <li class="btn btn-brand">7</li>
+                                            <li class="btn btn-brand">8</li>
+                                            <li class="btn btn-brand">9</li>
+                                            <li class="btn btn-brand">10</li>
+                                            <li class="btn btn-brand">بعدی</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane " id="tb2">
+                        <div class="not-access" style="display: none">
+                            <div class="swal2-icon swal2-error swal2-animate-error-icon" style="display: flex;">
+                                <span class="swal2-x-mark">
+                                    <span class="swal2-x-mark-line-left"></span>
+                                    <span class="swal2-x-mark-line-right"></span>
+                                </span>
+                            </div>
+                            <h5 style="display: block;text-align: center" class="text-danger">شما به این صفحه دسترسی ندارید!</h5>
+                        </div>
+                        <form class="m-form m-form--fit m-form--label-align-right" id="sv-form" onsubmit="return false;">
+                            <div class="row">
+                                <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                    <label for="pdpDefault" class="col-12 col-form-label tshtextright">تاریخ</label>
+                                    <div style="position: relative" class="col-12">
+                                        <input class="form-control" type="text" name="sv1" id="pdpDefault" />
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                    <label for="time" class="col-12 tshtextright col-form-label">ساعت</label>
+                                    <div class="clockpicker col-12">
+                                        <input type="text" class="form-control ttime" name="sv2" id="time">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                    <label for="sv3" class="col-12 tshtextright col-form-label">کد محصول</label>
+                                    <div class="col-12" style="position: relative">
+                                        <div class="input-group-append" style="position: absolute;top: 0;right: 15px;">
+                                            <span class="input-group-text">#</span>
+                                        </div>
+                                        <input class="form-control m-input" style="padding-right: 50px!important;" id="sv3" name="sv3" type="number" value="">
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                    <label for="sv4" class="col-12 tshtextright col-form-label">نام محصول</label>
+                                    <div class="col-12">
+                                        <input class="form-control m-input" id="sv4" name="sv4" type="text" value="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                    <label for="sv5" class="col-12 tshtextright col-form-label">میزان وارده</label>
+                                    <div class="col-12" style="position: relative">
+                                        <input class="form-control m-input" id="sv5" name="sv5" type="number" value="">
+                                        <div class="input-group-append" style="position: absolute;top: 0;left: 15px;">
+                                            <span class="input-group-text">گرم</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                    <label for="sv6" class="col-12 tshtextright col-form-label">قیمت وارده</label>
+                                    <div class="col-12" style="position: relative">
+                                        <input class="form-control m-input" id="sv6" name="sv6" type="number" value="">
+                                        <div class="input-group-append" style="position: absolute;top: 0;left: 15px;">
+                                            <span class="input-group-text">تومان</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group m-form__group col-lg-12 col-xs-12">
+                                    <label for="sv7" class="col-12 tshtextright col-form-label">انبار</label>
+                                    <div class="col-12">
+                                        <select class="form-control m-bootstrap-select m_selectpicker col-12" title="‫انتخاب کنید..." id="sv7" name="sv7" data-live-search="true">
+                                            <option>گزینه یک</option>
+                                            <option>گزینه دو</option>
+                                            <option>گزینه سه</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group col-lg-12 col-xs-12" style="padding-top: 0;">
+                                    <label for="sv8" class="col-12 tshtextright col-form-label">جزئیات محصول</label>
+                                    <div class="col-12">
+                                        <textarea name="sv8" id="sv8" class="form-control" style="height: 150px;padding-top: 15px;padding-bottom: 15px;"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-portlet__foot m-portlet__foot--fit mt-4">
+                                <div class="m-form__actions">
+                                    <div class="row">
+                                        <div class="col-2">
+                                        </div>
+                                        <div class="col-12 tshtextleft">
+                                            <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom sv-form-btn">ثبت</button>&nbsp;&nbsp;
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane" id="tb3">
+                        <div class="not-access" style="display: none">
+                            <div class="swal2-icon swal2-error swal2-animate-error-icon" style="display: flex;">
+                                <span class="swal2-x-mark">
+                                    <span class="swal2-x-mark-line-left"></span>
+                                    <span class="swal2-x-mark-line-right"></span>
+                                </span>
+                            </div>
+                            <h5 style="display: block;text-align: center" class="text-danger">شما به این صفحه دسترسی ندارید!</h5>
+                        </div>
+                        <form class="m-form m-form--fit m-form--label-align-right" id="sv-form2" onsubmit="return false;">
+                            <div class="row">
+                                <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                    <label for="pdpDefault2" class="col-12 col-form-label tshtextright">تاریخ</label>
+                                    <div style="position: relative" class="col-12">
+                                        <input class="form-control" type="text" name="sv1" id="pdpDefault2" />
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                    <label for="time2" class="col-12 tshtextright col-form-label">ساعت</label>
+                                    <div class="clockpicker col-12">
+                                        <input type="text" class="form-control ttime" name="sv2" id="time2">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                    <label for="sv3" class="col-12 tshtextright col-form-label">کد محصول</label>
+                                    <div class="col-12" style="position: relative">
+                                        <div class="input-group-append" style="position: absolute;top: 0;right: 15px;">
+                                            <span class="input-group-text">#</span>
+                                        </div>
+                                        <input class="form-control m-input" style="padding-right: 50px!important;" id="sv33" name="sv3" type="number" value="">
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                    <label for="sv4" class="col-12 tshtextright col-form-label">نام محصول</label>
+                                    <div class="col-12">
+                                        <input class="form-control m-input" id="sv44" name="sv4" type="text" value="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                    <label for="sv5" class="col-12 tshtextright col-form-label">میزان صادره</label>
+                                    <div class="col-12" style="position: relative">
+                                        <input class="form-control m-input" id="sv55" name="sv5" type="number" value="">
+                                        <div class="input-group-append" style="position: absolute;top: 0;left: 15px;">
+                                            <span class="input-group-text">گرم</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                    <label for="sv6" class="col-12 tshtextright col-form-label">قیمت صادره</label>
+                                    <div class="col-12" style="position: relative">
+                                        <input class="form-control m-input" id="sv66" name="sv6" type="number" value="">
+                                        <div class="input-group-append" style="position: absolute;top: 0;left: 15px;">
+                                            <span class="input-group-text">تومان</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group m-form__group col-lg-12 col-xs-12">
+                                    <label for="sv77" class="col-12 tshtextright col-form-label">انبار</label>
+                                    <div class="col-12">
+                                        <select class="form-control m-bootstrap-select m_selectpicker col-12" title="‫انتخاب کنید..." id="sv77" name="sv7" data-live-search="true">
+                                            <option>گزینه یک</option>
+                                            <option>گزینه دو</option>
+                                            <option>گزینه سه</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group col-lg-12 col-xs-12" style="padding-top: 0;">
+                                    <label for="sv8" class="col-12 tshtextright col-form-label">جزئیات محصول</label>
+                                    <div class="col-12">
+                                        <textarea name="sv8" id="sv8" class="form-control" style="height: 150px;padding-top: 15px;padding-bottom: 15px;"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-portlet__foot m-portlet__foot--fit mt-4">
+                                <div class="m-form__actions">
+                                    <div class="row">
+                                        <div class="col-2">
+                                        </div>
+                                        <div class="col-12 tshtextleft">
+                                            <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom sv-form-btn2">ثبت</button>&nbsp;&nbsp;
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

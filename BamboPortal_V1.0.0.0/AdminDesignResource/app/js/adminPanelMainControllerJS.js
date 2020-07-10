@@ -237,6 +237,53 @@
     }
     //{END}For administrator AddSubCategory
     //=================================================================================================
+    //=================================================================================================
+    //{Start}For administrator AddSubCategory
+    //if ($("#MultipartUploaderSubmiter").length == 1) {
+    //    $(function () {
+    //        $("#MultipartUploaderSubmiter").on("submit", function (e) {
+    //            mApp.block("#MultipartUploaderSubmiter", {
+    //                overlayColor: "#2c2e3e", type: "loader", state: "success", message: "درحال چک کردن حریم دسترسی و دریافت اطلاعات از سمت سرور ..."
+    //            });
+    //            console.log($(this).serialize());
+    //            e.preventDefault();
+    //            DisableBTN("MultipartUploaderSubmiter");
+    //            $.ajax({
+    //                url: this.action,
+    //                type: this.method,
+    //                data: $(this).serialize(),
+    //                success: function (data) {
+    //                    console.log(data)
+    //                    const jsondata = data;
+    //                    console.log(jsondata.Errortype)
+    //                    if (jsondata.Errortype == "Success") {
+    //                        AlertToUser("MultipartUploaderSubmiter", data);
+    //                        setTimeout(function () {
+    //                            mApp.unblock("#MultipartUploaderSubmiter")
+    //                        }, 1000);
+    //                    } else if (jsondata.Errortype == "ErrorWithList") {
+    //                        AlertToUser("MultipartUploaderSubmiter", data);
+    //                        setTimeout(function () {
+    //                            mApp.unblock("#MultipartUploaderSubmiter")
+    //                        }, 1000);
+    //                    } else {
+    //                        AlertToUser("MultipartUploaderSubmiter", data);
+    //                        setTimeout(function () {
+    //                            mApp.unblock("#MultipartUploaderSubmiter")
+    //                        }, 1000);
+    //                    }
+    //                },
+    //                error: function (data) {
+    //                    setTimeout(function () {
+    //                        mApp.unblock("#MultipartUploaderSubmiter")
+    //                    }, 1000);
+    //                }
+    //            });
+    //        });
+    //    });
+    //}
+    //{END}For administrator AddSubCategory
+    //=================================================================================================
 });
 //=================================================================================================
 //{Start}got Json of ErrorReporterModel--> AllErrors For validate from backend serverside Validation{

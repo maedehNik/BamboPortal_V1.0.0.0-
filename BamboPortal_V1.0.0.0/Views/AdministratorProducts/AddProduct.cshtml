@@ -1,0 +1,832 @@
+﻿
+@{
+    ViewBag.Title = "AddProduct";
+    Layout = "~/Views/SharedViewPages/Administrator/MasterView.cshtml";
+}
+<!-- BEGIN: Subheader -->
+<div class="m-subheader">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
+                <span class="m-subheader__daterange-label">
+                    <h3 class="m-subheader__title" style="padding-left: 0!important;margin: 0 0 0 2px!important;">
+                        پیشخوان
+                        <i class="fa fa-chevron-left tshfontsize2" style="transform: translateY(3px);color: #aaaeb8;margin-right: 2px;"></i>
+                        <span class="m-subheader__daterange-title tshfontsize2" style="margin-right: 2px;margin-left: 2px;">افزودن محصول جدید</span>
+                        <!--
+                        <i class="fa fa-chevron-left" style="transform: translateY(3px);color: #aaaeb8;"></i>
+                        <span class="m-subheader__daterange-title" style="margin-right: 2px;">نمایش همه ی پست ها</span>
+                        -->
+                    </h3>
+                </span>
+            </span>
+        </div>
+    </div>
+</div>
+
+
+<div class="m-content">
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="m-portlet m-portlet--full-height  ">
+                <div class="m-portlet__body">
+                    <div class="m-card-profile">
+                        <div class="slideshow-container">
+                            <div class="mySlides" style="display: none;position: relative">
+                                <button class="btn btn-danger btn-remove-slider-img" style="padding: 4px;position: absolute;top: -12px;right: -10px;"><i class="fa fa-trash" style="font-size: 10px"></i></button>
+                                <img src="/AdminDesignResource/app/media/img/users/user4.jpg" data-url="1" style="width:100%">
+                            </div>
+                            <div class="mySlides" style="display: none;position: relative">
+                                <button class="btn btn-danger btn-remove-slider-img" style="padding: 4px;position: absolute;top: -12px;right: -10px;"><i class="fa fa-trash" style="font-size: 10px"></i></button>
+                                <img src="assets/demo/default/media/img/misc/quick_actions_bg.jpg" data-url="2" style="width:100%">
+                            </div>
+                            <div class="mySlides" style="display: none;position: relative">
+                                <button class="btn btn-danger btn-remove-slider-img" style="padding: 4px;position: absolute;top: -12px;right: -10px;"><i class="fa fa-trash" style="font-size: 10px"></i></button>
+                                <img src="assets/demo/default/media/img/misc/notification_bg.jpg" data-url="3" style="width:100%">
+                            </div>
+                            <a class="prev" onclick="plusSlides(-1)">&#10095;</a>
+                            <a class="next" onclick="plusSlides(1)">&#10094;</a>
+                        </div>
+                        <div class="m-section__content container-fluid tshtextcenter mt-3">
+                            <button class="btn btn-brand btn-sm" data-target="#uploader" data-toggle="modal">انتخاب عکس</button>
+                        </div>
+                    </div>
+                    <ul class="m-nav m-nav--hover-bg m-portlet-fit--sides mt-2 cus-prof-menu">
+                        <li class="m-nav__item tshcurpoi active-cust-profile tshbtn1">
+                            <a class="m-nav__link">
+                                <i class="m-nav__link-icon fa fa-chevron-left"></i>
+                                <span class="m-nav__link-text">اطلاعات کلی محصول</span>
+                            </a>
+                        </li>
+                        <li class="m-nav__item tshcurpoi tshdisabled-validation tshbtn2">
+                            <a class="m-nav__link">
+                                <i class="m-nav__link-icon fa fa-list"></i>
+                                <span class="m-nav__link-text">دسته بندی محصول</span>
+                            </a>
+                        </li>
+                        <li class="m-nav__item tshcurpoi tshdisabled-validation tshbtn3">
+                            <a class="m-nav__link">
+                                <i class="m-nav__link-icon fa fa-file"></i>
+                                <span class="m-nav__link-text">ویژگی های محصول</span>
+                            </a>
+                        </li>
+                        <li class="m-nav__item tshcurpoi tshdisabled-validation tshbtn4">
+                            <a class="m-nav__link">
+                                <i class="m-nav__link-icon fa fa-money-bill-alt"></i>
+                                <span class="m-nav__link-text">قیمت گذاری اولیه</span>
+                            </a>
+                        </li>
+                        <li class="m-nav__item tshcurpoi tshdisabled-validation tshbtn5">
+                            <a class="m-nav__link">
+                                <i class="m-nav__link-icon  fa fa-money-bill-alt"></i>
+                                <span class="m-nav__link-text">قیمت گذاری نهایی</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="m-portlet m-portlet--full-height m-portlet--tabs  ">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-tools">
+                        <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
+                            <li class="nav-item m-tabs__item">
+                                <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_user_profile_tab_1" role="tab">
+                                    <i class="flaticon-share m--hide"></i>
+                                    <cust_title>
+                                        اطلاعات کلی محصول
+                                    </cust_title>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="m_user_profile_tab_1">
+                        <form class="m-form m-form--fit m-form--label-align-right" onsubmit="return false;" id="prodform">
+                            <div class="m-portlet__body" style="padding-bottom: 0">
+                                <div class="sec-1">
+                                    <div class="row">
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                            <label for="prd1" class="col-12 col-form-label tshtextright">نام محصول:</label>
+                                            <div class="col-12">
+                                                <input class="form-control m-input" id="prd1" name="prd1" type="text" value="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                            <label for="prd2" class="col-12 col-form-label tshtextright">توضیحات محصول:</label>
+                                            <div class="col-12">
+                                                <input class="form-control m-input" id="prd2" name="prd2" type="text" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                            <label for="prd3" class="col-12 col-form-label tshtextright">کلید واژه سئو:</label>
+                                            <div class="col-12">
+                                                <input class="form-control m-input" id="prd3" name="prd3" type="text" value="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                            <label for="prd4" class="col-12 col-form-label tshtextright">توضیحات سئو:</label>
+                                            <div class="col-12">
+                                                <input class="form-control m-input" id="prd4" name="prd4" type="text" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                            <label for="prd5" class="col-12 col-form-label tshtextright">ارزش جستجو:</label>
+                                            <div class="col-12">
+                                                <input class="form-control m-input" id="prd5" name="prd5" type="number" value="">
+                                                <span class="m-form__help">نتایج جست و جوی کاربران بر این اساس نمایش داده خواهند شد.</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12 p-5">
+                                            <label class="m-checkbox">
+                                                <input type="checkbox"> تبلیغ شود؟
+                                                <span></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="m-portlet__foot m-portlet__foot--fit">
+                                        <div class="m-form__actions">
+                                            <div class="row">
+                                                <div class="col-2">
+                                                </div>
+                                                <div class="col-12 tshtextleft">
+                                                    <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom prdn1">بعدی</button>&nbsp;&nbsp;
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sec-2" style="display: none">
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                                <label class="col-form-label col-12 tshtextright" for="prd6" style="padding: 0;">سر دسته محصول:</label>
+                                                <div class="col-12" style="padding: 0;">
+                                                    <select class="form-control m-bootstrap-select m_selectpicker" name="prd6" id="prd6" title="انتخاب کنید..." data-live-search="true">
+                                                        <option>گزینه یک</option>
+                                                        <option>گزینه دو</option>
+                                                        <option>گزینه سه</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                                <label class="col-form-label col-12 tshtextright" for="prd7" style="padding: 0;">گروه اصلی محصول:</label>
+                                                <div class="col-12" style="padding: 0;">
+                                                    <select class="form-control m-bootstrap-select m_selectpicker" name="prd7" id="prd7" title="انتخاب کنید..." data-live-search="true">
+                                                        <option>گزینه یک</option>
+                                                        <option>گزینه دو</option>
+                                                        <option>گزینه سه</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                                <label class="col-form-label col-12 tshtextright" for="prd8" style="padding: 0;">گروه محصول:</label>
+                                                <div class="col-12" style="padding: 0;">
+                                                    <select class="form-control m-bootstrap-select m_selectpicker" name="prd8" id="prd8" title="انتخاب کنید..." data-live-search="true">
+                                                        <option>گزینه یک</option>
+                                                        <option>گزینه دو</option>
+                                                        <option>گزینه سه</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                                <label class="col-form-label col-12 tshtextright" for="prd9" style="padding: 0;">ویژگی های محصول:</label>
+                                                <div class="col-12" style="padding: 0;">
+                                                    <select class="form-control m-bootstrap-select m_selectpicker" name="prd9" id="prd9" data-live-search="true" multiple>
+                                                        <option>گزینه یک</option>
+                                                        <option>گزینه دو</option>
+                                                        <option>گزینه سه</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="m-portlet__foot m-portlet__foot--fit">
+                                        <div class="m-form__actions">
+                                            <div class="row">
+                                                <div class="col-2">
+                                                </div>
+                                                <div class="col-12 tshtextleft">
+                                                    <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom prdn2">بعدی</button>&nbsp;&nbsp;
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sec-3" style="display: none">
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                                <label class="col-form-label col-12 tshtextright" for="prd10" style="padding: 0;">تولید کننده:</label>
+                                                <div class="col-12" style="padding: 0;">
+                                                    <select class="form-control m-bootstrap-select m_selectpicker" name="prd10" id="prd10" title="انتخاب کنید..." data-live-search="true">
+                                                        <option>گزینه یک</option>
+                                                        <option>گزینه دو</option>
+                                                        <option>گزینه سه</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                                <label class="col-form-label col-12 tshtextright" for="prd11" style="padding: 0;">سایز:</label>
+                                                <div class="col-12" style="padding: 0;">
+                                                    <select class="form-control m-bootstrap-select m_selectpicker" name="prd11" id="prd11" title="انتخاب کنید..." data-live-search="true" multiple>
+                                                        <option>گزینه یک</option>
+                                                        <option>گزینه دو</option>
+                                                        <option>گزینه سه</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="m-portlet__head-title container-fluid mt-4">
+                                                <h3 class="m-portlet__head-text" style="font-size: 12px;border-bottom: 1px solid rgba(0,0,0,.1);padding-bottom: 17px;">
+                                                    جزئیات
+                                                </h3>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <form id="prodform2">
+                                                <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                                    <label for="prd12" class="col-12 col-form-label tshtextright" style="padding-right: 0;padding-left: 0;">ویژگی:</label>
+                                                    <div class="col-12" style="padding-right: 0;padding-left: 0;">
+                                                        <input class="form-control m-input" name="prd12" id="prd12" type="text" value="">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                                    <label for="prd13" class="col-12 col-form-label tshtextright" style="padding-right: 0;padding-left: 0;">مقدار:</label>
+                                                    <div class="col-12" style="padding-right: 0;padding-left: 0;">
+                                                        <input class="form-control m-input" name="prd13" id="prd13" type="text" value="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 tshtextleft mb-3">
+                                                    <span style="margin-left: 10px;" class="btn btn-sm btn-success m-btn m-btn--air m-btn--custom">افزودن</span>&nbsp;&nbsp;
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="container-fluid">
+                                            <table class="cust-table table table-striped table-hover m-table m-table--head-separator-primary">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>ویژگی</th>
+                                                        <th>مقدار</th>
+                                                        <th>غملیات</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">1</th>
+                                                        <td>ویژگی</td>
+                                                        <td>مقدار</td>
+                                                        <td>
+                                                            <button class="btn btn-warning tshpcustom tshcolorwhite"><i class="fa fa-edit tshfa"></i>ویرایش</button>
+                                                            <button class="btn btn-danger tshpcustom cus-delete-btn" data-target="#deleteCus" data-toggle="modal" data-name="ویژگی"><i class="fa fa-trash tshfa"></i>حذف</button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <table style="display: none;" class="cust-table cust-table-2 table table-striped table-hover m-table m-table--head-separator-primary">
+                                                <tr>
+                                                    <th>#</th>
+                                                    <td>1</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <th>ویژگی</th>
+                                                    <td>ویژگی</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>مقدار</th>
+                                                    <td>مقدار</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>وضعیت</th>
+                                                    <td>
+                                                        <button class="btn btn-warning tshpcustom tshcolorwhite"><i class="fa fa-edit tshfa"></i>ویرایش</button>
+                                                        <button class="btn btn-danger tshpcustom cus-delete-btn" data-target="#deleteCus" data-toggle="modal" data-name="ویژگی"><i class="fa fa-trash tshfa"></i>حذف</button>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="m-portlet__foot m-portlet__foot--fit">
+                                        <div class="m-form__actions">
+                                            <div class="row">
+                                                <div class="col-2">
+                                                </div>
+                                                <div class="col-12 tshtextleft">
+                                                    <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom prdn3">بعدی</button>&nbsp;&nbsp;
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sec-4" style="display: none">
+                                    <div class="row">
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                            <label for="prd14" class="col-12 col-form-label tshtextright">نوع واحد:</label>
+                                            <div class="col-12">
+                                                <select class="form-control m-bootstrap-select m_selectpicker" name="prd14" id="prd14" title="انتخاب کنید..." data-live-search="true">
+                                                    <option>گزینه یک</option>
+                                                    <option>گزینه دو</option>
+                                                    <option>گزینه سه</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                            <label for="prd15" class="col-12 col-form-label tshtextright">واحد قیمتی:</label>
+                                            <div class="col-12">
+                                                <select class="form-control m-bootstrap-select m_selectpicker" name="prd15" id="prd15" title="انتخاب کنید..." data-live-search="true">
+                                                    <option>گزینه یک</option>
+                                                    <option>گزینه دو</option>
+                                                    <option>گزینه سه</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                            <label for="prd16" class="col-12 col-form-label tshtextright">نوع تخفیف:</label>
+                                            <div class="col-12">
+                                                <select class="form-control m-bootstrap-select m_selectpicker" name="prd16" id="prd16" title="بدون تخفیف" data-live-search="true">
+                                                    <option>گزینه یک</option>
+                                                    <option>گزینه دو</option>
+                                                    <option>گزینه سه</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                            <label for="prd17" class="col-12 col-form-label tshtextright">میزان تخفیف:</label>
+                                            <div class="col-12">
+                                                <input class="form-control m-input" name="prd17" id="prd17" type="number" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                            <label for="prd18" class="col-12 col-form-label tshtextright">قیمت هر واحد:</label>
+                                            <div class="col-12">
+                                                <input class="form-control m-input" name="prd18" id="prd18" type="number" value="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                            <label for="prd19" class="col-12 col-form-label tshtextright">تعداد در هر واحد:</label>
+                                            <div class="col-12">
+                                                <input class="form-control m-input" name="prd19" id="prd19" type="number" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                            <label class="col-12 col-form-label tshtextright">قیمت پرداختی مشتری:</label>
+                                            <div class="col-12">
+                                                <span class="tshaftertoman tshaftermarginright">500,000</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                            <label for="prd20" class="col-12 col-form-label tshtextright">نمایش قیمت:</label>
+                                            <div class="col-12">
+                                                <select class="form-control m-bootstrap-select m_selectpicker" name="prd20" id="prd20" title="انتخاب کنید..." data-live-search="true">
+                                                    <option>گزینه یک</option>
+                                                    <option>گزینه دو</option>
+                                                    <option>گزینه سه</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                            <label for="prd21" class="col-12 col-form-label tshtextright">برچسب اصلی:</label>
+                                            <div class="col-12">
+                                                <select class="form-control m-bootstrap-select m_selectpicker" name="prd21" id="prd21" title="انتخاب کنید..." data-live-search="true">
+                                                    <option>گزینه یک</option>
+                                                    <option>گزینه دو</option>
+                                                    <option>گزینه سه</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                            <label class="col-form-label col-12 tshtextright" for="prd22">برچسب ها:</label>
+                                            <div class="col-12">
+                                                <select class="form-control m-bootstrap-select m_selectpicker" name="prd22" id="prd22" data-live-search="true" multiple>
+                                                    <option>گزینه یک</option>
+                                                    <option>گزینه دو</option>
+                                                    <option>گزینه سه</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="m-portlet__foot m-portlet__foot--fit">
+                                        <div class="m-form__actions">
+                                            <div class="row">
+                                                <div class="col-2">
+                                                </div>
+                                                <div class="col-12 tshtextleft">
+                                                    <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom prdn4">بعدی</button>&nbsp;&nbsp;
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sec-5" style="display: none">
+                                    <div class="row">
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                            <label class="col-12 col-form-label tshtextright">نوع واحد:</label>
+                                            <div class="col-12">
+                                                <select class="form-control m-bootstrap-select m_selectpicker" title="انتخاب کنید..." data-live-search="true">
+                                                    <option>گزینه یک</option>
+                                                    <option>گزینه دو</option>
+                                                    <option>گزینه سه</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                            <label class="col-12 col-form-label tshtextright">واحد قیمتی:</label>
+                                            <div class="col-12">
+                                                <select class="form-control m-bootstrap-select m_selectpicker" title="انتخاب کنید..." data-live-search="true">
+                                                    <option>گزینه یک</option>
+                                                    <option>گزینه دو</option>
+                                                    <option>گزینه سه</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                            <label class="col-12 col-form-label tshtextright">نوع تخفیف:</label>
+                                            <div class="col-12">
+                                                <select class="form-control m-bootstrap-select m_selectpicker" title="بدون تخفیف" data-live-search="true">
+                                                    <option>گزینه یک</option>
+                                                    <option>گزینه دو</option>
+                                                    <option>گزینه سه</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                            <label class="col-12 col-form-label tshtextright">میزان تخفیف:</label>
+                                            <div class="col-12">
+                                                <input class="form-control m-input" type="number" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                            <label class="col-12 col-form-label tshtextright">قیمت هر واحد:</label>
+                                            <div class="col-12">
+                                                <input class="form-control m-input" type="number" value="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                            <label class="col-12 col-form-label tshtextright">تعداد در هر واحد:</label>
+                                            <div class="col-12">
+                                                <input class="form-control m-input" type="number" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                            <label class="col-12 col-form-label tshtextright">قیمت پرداختی مشتری:</label>
+                                            <div class="col-12">
+                                                <span class="tshaftertoman tshaftermarginright">500,000</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                            <label class="col-12 col-form-label tshtextright">نمایش قیمت:</label>
+                                            <div class="col-12">
+                                                <select class="form-control m-bootstrap-select m_selectpicker" title="انتخاب کنید..." data-live-search="true">
+                                                    <option>گزینه یک</option>
+                                                    <option>گزینه دو</option>
+                                                    <option>گزینه سه</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                            <label class="col-12 col-form-label tshtextright">برچسب اصلی:</label>
+                                            <div class="col-12">
+                                                <select class="form-control m-bootstrap-select m_selectpicker" title="انتخاب کنید..." data-live-search="true">
+                                                    <option>گزینه یک</option>
+                                                    <option>گزینه دو</option>
+                                                    <option>گزینه سه</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                            <label class="col-form-label col-12 tshtextright">برچسب ها:</label>
+                                            <div class="col-12">
+                                                <select class="form-control m-bootstrap-select m_selectpicker" data-live-search="true" multiple>
+                                                    <option>گزینه یک</option>
+                                                    <option>گزینه دو</option>
+                                                    <option>گزینه سه</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="m-portlet__foot m-portlet__foot--fit">
+                                        <div class="m-form__actions">
+                                            <div class="row">
+                                                <div class="col-2">
+                                                </div>
+                                                <div class="col-12 tshtextleft">
+                                                    <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom">ذخیره</button>&nbsp;&nbsp;
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@{Html.RenderAction("GalleryModal", "AdministratorUploader");}
+
+@section Scripts {
+
+    @Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/Uploader.js")
+    <script>
+        $("#prodform").validate({
+            rules: {
+                prd1: {
+                    required: true
+                },
+                prd2: {
+                    required: true
+                },
+                prd3: {
+                    required: true
+                },
+                prd4: {
+                    required: true
+                },
+                prd5: {
+                    required: true,
+                    digits: true
+                },
+                prd6: {
+                    required: true
+                },
+                prd7: {
+                    required: true
+                },
+                prd8: {
+                    required: true
+                },
+                prd9: {
+                    required: true
+                },
+                prd10: {
+                    required: true
+                },
+                prd11: {
+                    required: true
+                },
+                prd14: {
+                    required: true
+                },
+                prd15: {
+                    required: true
+                },
+                prd17: {
+                    digits: true
+                },
+                prd18: {
+                    required: true,
+                    digits: true
+                },
+                prd19: {
+                    required: true,
+                    digits: true
+                },
+                prd20: {
+                    required: true
+                },
+                prd21: {
+                    required: true
+                },
+                prd22: {
+                    required: true
+                },
+            },
+            messages: {
+                prd1: {
+                    required: "نام محصول را وارد کنید"
+                },
+                prd2: {
+                    required: "توضیحات محصول را وارد کنید"
+                },
+                prd3: {
+                    required: "کلید واژه سئو را وارد کنید"
+                },
+                prd4: {
+                    required: "توضیحات سئو را وارد کنید"
+                },
+                prd5: {
+                    required: "ارزش جستجو را وارد کنید",
+                    digits: "ارزش جستجو معتبر نیست"
+                },
+                prd6: {
+                    required: "سر دسته محصول را انتخاب کنید"
+                },
+                prd7: {
+                    required: "گروه اصلی محصول را انتخاب کنید"
+                },
+                prd8: {
+                    required: "گروه محصول را انتخاب کنید"
+                },
+                prd9: {
+                    required: "ویژگی های محصول را انتخاب کنید"
+                },
+                prd10: {
+                    required: "تولید کننده را انتخاب کنید"
+                },
+                prd11: {
+                    required: "سایز را انتخاب کنید"
+                },
+                prd14: {
+                    required: "نوع واحد را انتخاب کنید"
+                },
+                prd15: {
+                    required: "واحد قیمتی را انتخاب کنید"
+                },
+                prd17: {
+                    digits: "میزان تخفیف نا معتبر است"
+                },
+                prd18: {
+                    required: "قیمت هر واحد را وارد کنید",
+                    digits: "قیمت معتبر وارد کنید"
+                },
+                prd19: {
+                    required: "تعداد در هر واحد را وارد کنید",
+                    digits: "تعداد معتبر وارد کنید"
+                },
+                prd20: {
+                    required: "نمایش قیمت را انتخاب کنید"
+                },
+                prd21: {
+                    required: "برچسب اصلی را انتخاب کنید"
+                },
+                prd22: {
+                    required: "برچسب ها را انتخاب کنید"
+                },
+            }
+        });
+        $(".tshbtn1").on("click", function () {
+            if (!$(this).hasClass("tshdisabled-validation")) {
+                $("cust_title").text("اطلاعات کلی محصول");
+                $(".cus-prof-menu li").removeClass("active-cust-profile");
+                $(this).addClass("active-cust-profile");
+                $(".sec-2 , .sec-3 , .sec-4 , .sec-5").hide();
+                $(".sec-1").show();
+            }
+        })
+        $(".tshbtn2").on("click", function () {
+            if (!$(this).hasClass("tshdisabled-validation")) {
+                $("cust_title").text("دسته بندی محصول");
+                $(".cus-prof-menu li").removeClass("active-cust-profile");
+                $(this).addClass("active-cust-profile");
+                $(".sec-1 , .sec-3 , .sec-4 , .sec-5").hide();
+                $(".sec-2").show();
+            }
+        })
+        $(".tshbtn3").on("click", function () {
+            if (!$(this).hasClass("tshdisabled-validation")) {
+                $("cust_title").text("ویژگی های محصول");
+                $(".cus-prof-menu li").removeClass("active-cust-profile");
+                $(this).addClass("active-cust-profile");
+                $(".sec-1 , .sec-2 , .sec-4 , .sec-5").hide();
+                $(".sec-3").show();
+            }
+        })
+        $(".tshbtn4").on("click", function () {
+            if (!$(this).hasClass("tshdisabled-validation")) {
+                $("cust_title").text("قیمت کذاری اولیه");
+                $(".cus-prof-menu li").removeClass("active-cust-profile");
+                $(this).addClass("active-cust-profile");
+                $(".sec-1 , .sec-2 , .sec-3 , .sec-5").hide();
+                $(".sec-4").show();
+            }
+        })
+        $(".tshbtn5").on("click", function () {
+            if (!$(this).hasClass("tshdisabled-validation")) {
+                $("cust_title").text("قیمت گذاری نهایی");
+                $(".cus-prof-menu li").removeClass("active-cust-profile");
+                $(this).addClass("active-cust-profile");
+                $(".sec-1 , .sec-2 , .sec-3 , .sec-4").hide();
+                $(".sec-5").show();
+            }
+        })
+        $(".prdn1").on("click", function () {
+            setTimeout(function () {
+                if ($("#prd1-error").css("display") == 'inline-block' ||
+                    $("#prd2-error").css("display") == 'inline-block' ||
+                    $("#prd3-error").css("display") == 'inline-block' ||
+                    $("#prd4-error").css("display") == 'inline-block' ||
+                    $("#prd5-error").css("display") == 'inline-block') { } else {
+                    $(".tshbtn2").removeClass("tshdisabled-validation");
+                    $(".tshbtn2").click();
+                }
+            }, 200)
+        })
+        $(".prdn2").on("click", function () {
+            setTimeout(function () {
+                if ($("#prd6-error").css("display") == 'inline-block' ||
+                    $("#prd7-error").css("display") == 'inline-block' ||
+                    $("#prd8-error").css("display") == 'inline-block' ||
+                    $("#prd9-error").css("display") == 'inline-block') { } else {
+                    $(".tshbtn3").removeClass("tshdisabled-validation");
+                    $(".tshbtn3").click();
+                }
+            }, 200)
+        })
+        $(".prdn3").on("click", function () {
+            setTimeout(function () {
+                if ($("#prd10-error").css("display") == 'inline-block' ||
+                    $("#prd11-error").css("display") == 'inline-block') { } else {
+                    $(".tshbtn4").removeClass("tshdisabled-validation");
+                    $(".tshbtn4").click();
+                }
+            }, 200)
+        })
+        $(".prdn4").on("click", function () {
+            setTimeout(function () {
+                if ($("#prd14-error").css("display") == 'inline-block' ||
+                    $("#prd15-error").css("display") == 'inline-block' ||
+                    $("#prd18-error").css("display") == 'inline-block' ||
+                    $("#prd19-error").css("display") == 'inline-block' ||
+                    $("#prd20-error").css("display") == 'inline-block' ||
+                    $("#prd21-error").css("display") == 'inline-block' ||
+                    $("#prd22-error").css("display") == 'inline-block') { } else {
+                    $(".tshbtn5").removeClass("tshdisabled-validation");
+                    $(".tshbtn5").click();
+                }
+            }, 200)
+        })
+        $(".mySlides").on("click", function () {
+            var imgSrc = $(this).find("img").data("url");
+            $("#viewmodal").modal();
+            $(".view-img").attr("src", imgSrc);
+        });
+        var slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+
+        $("body").on("click", ".remove-prw-img", function () {
+            $(this).parent().hide();
+        })
+        $(".btn-remove-slider-img").on("click", function () {
+            var parChLen = $(".slideshow-container").children().length;
+            if (parChLen == "3") {
+                $(".slideshow-container").remove();
+            }
+            $(this).parent().remove();
+            $(".next").click();
+        })
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+        $(".btn-remove-slider-img").on("click", function () {
+            var parChLen = $(".slideshow-container").children().length;
+            if (parChLen == "3") {
+                $(".slideshow-container").remove();
+            }
+            $(this).parent().remove();
+            $(".next").click();
+        })
+        function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("dot");
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+        }
+    </script>
+}

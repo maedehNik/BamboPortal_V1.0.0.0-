@@ -1,0 +1,185 @@
+﻿
+@{
+    ViewBag.Title = "ProductSaleListFactor";
+    Layout = "~/Views/SharedViewPages/Administrator/MasterView.cshtml";
+}
+
+<!-- BEGIN: Subheader -->
+<div class="m-subheader">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
+                <span class="m-subheader__daterange-label">
+                    <h3 class="m-subheader__title" style="padding-left: 0!important;margin: 0 0 0 2px!important;">
+                        پیشخوان
+                        <i class="fa fa-chevron-left tshfontsize2" style="transform: translateY(3px);color: #aaaeb8;margin-right: 2px;"></i>
+                        <span class="m-subheader__daterange-title tshfontsize2" style="margin-right: 2px;margin-left: 2px;">میزان فروش هر محصول</span>
+                        <!--
+                        <i class="fa fa-chevron-left" style="transform: translateY(3px);color: #aaaeb8;"></i>
+                        <span class="m-subheader__daterange-title" style="margin-right: 2px;">نمایش همه ی پست ها</span>
+                        -->
+                    </h3>
+                </span>
+            </span>
+        </div>
+    </div>
+</div>
+
+
+<div class="m-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="m-portlet m-portlet--full-height m-portlet--tabs  ">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-tools">
+                        <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
+                            <li class="nav-item m-tabs__item">
+                                <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_user_profile_tab_1" role="tab">
+                                    <i class="flaticon-share m--hide"></i>
+                                    <cust_title>
+                                        میزان فروش هر محصول
+                                    </cust_title>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="m_user_profile_tab_1">
+                        <form class="m-form m-form--fit m-form--label-align-right" onsubmit="return false;" id="blgform">
+                            <div class="m-portlet__body" style="padding-bottom: 0">
+                                <div class="col-12">
+                                    <div class="container-fluid">
+                                        <table class="cust-table table table-striped table-hover m-table m-table--head-separator-primary">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>نام محصول</th>
+                                                    <th>قیمت</th>
+                                                    <th>تاریخ ایجاد</th>
+                                                    <th>وضعیت</th>
+                                                    <th>عملیات</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>کفش  نام یا متن ساختگی</td>
+                                                    <td class="tshaftertoman tshaftermarginright">500,000</td>
+                                                    <td>1399/05/19</td>
+                                                    <td>
+                                                        <button class="btn btn-success tshpcustom"><i class="fa fa-check tshfa"></i>موجود</button>
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-brand tshpcustom"><i class="fa fa-eye tshfa"></i>نمایش</button>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tshrow">
+                                                    <td style="background-color: #fff;" class="nothover"></td>
+                                                    <td style="background-color: #fff;" class="nothover"></td>
+                                                    <td style="border-right: 2px solid #d5d6d9;background-color:#f4f5f8;">ویزگی ها:<span class="m-badge m-badge--warning tshcolorwhite m-badge--wide tshbadge">22</span><span class="m-badge m-badge--danger m-badge--wide tshbadge">قرمز</span></td>
+                                                    <td colspan="3" style="background-color: #f4f5f8;">
+                                                        میزان فروش: <span class="tshaftertoman tshaftermarginright">900,000,000</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>کفش  نام یا متن ساختگی</td>
+                                                    <td class="tshaftertoman tshaftermarginright">500,000</td>
+                                                    <td>1399/05/19</td>
+                                                    <td>
+                                                        <button class="btn btn-success tshpcustom"><i class="fa fa-check tshfa"></i>موجود</button>
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-brand tshpcustom"><i class="fa fa-eye tshfa"></i>نمایش</button>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tshrow">
+                                                    <td style="background-color: #fff;" class="nothover"></td>
+                                                    <td style="background-color: #fff;" class="nothover"></td>
+                                                    <td style="border-right: 2px solid #d5d6d9;background-color:#f4f5f8;">ویزگی ها:<span class="m-badge m-badge--warning tshcolorwhite m-badge--wide tshbadge">22</span><span class="m-badge m-badge--danger m-badge--wide tshbadge">قرمز</span></td>
+                                                    <td colspan="3" style="background-color: #f4f5f8;">
+                                                        میزان فروش: <span class="tshaftertoman tshaftermarginright">900,000,000</span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <table style="display: none;" class="cust-table cust-table-2 table table-striped table-hover m-table m-table--head-separator-primary">
+                                            <tr>
+                                                <th>#</th>
+                                                <td>1</td>
+
+                                            </tr>
+                                            <tr>
+                                                <th>نام محصول</th>
+                                                <td> نام یا متن ساختگی</td>
+                                            </tr>
+                                            <tr>
+                                                <th>قیمت</th>
+                                                <td class="tshaftertoman tshaftermarginright">
+                                                    500,000
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>تاریخ ایجاد</th>
+                                                <td>
+                                                    1399/05/19
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>ویژگی ها</th>
+                                                <td>
+                                                    <span class="m-badge tshcolorwhite m-badge--warning m-badge--wide tshbadge">22</span><span class="m-badge m-badge--danger m-badge--wide tshbadge">قرمز</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>میزان فروش</th>
+                                                <td class="tshaftertoman tshaftermarginright">
+                                                    900,000,000
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>وشعیت</th>
+                                                <td>
+                                                    <button class="btn btn-success tshpcustom"><i class="fa fa-check tshfa"></i>موجود</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>عملیات</th>
+                                                <td>
+                                                    <button class="btn btn-brand tshpcustom"><i class="fa fa-eye tshfa"></i>نمایش</button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <div class="col-lg-12 mt-4 mb-4">
+                                            <span class="col-lg-3">
+                                                صفحه
+                                                <span>50</span>
+                                                از
+                                                <span>170</span>
+                                            </span>
+                                            <ul class="tshpaglist col-lg-9 mb-5">
+                                                <li class="btn btn-brand disabled">قبلی</li>
+                                                <li class="btn btn-brand active-pag">1</li>
+                                                <li class="btn btn-brand">2</li>
+                                                <li class="btn btn-brand">3</li>
+                                                <li class="btn btn-brand">4</li>
+                                                <li class="btn btn-brand">5</li>
+                                                <li class="btn btn-brand">6</li>
+                                                <li class="btn btn-brand">7</li>
+                                                <li class="btn btn-brand">8</li>
+                                                <li class="btn btn-brand">9</li>
+                                                <li class="btn btn-brand">10</li>
+                                                <li class="btn btn-brand">بعدی</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

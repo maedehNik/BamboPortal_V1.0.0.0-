@@ -14,6 +14,14 @@ namespace BamboPortal_V1._0._0._0.StaticClass
             controller = controller + "Controller";
             switch (controller)
             {
+                case "AdministratorCustomersController":
+                    switch (action)
+                    {
+                        case "index":
+                            return result + " پروفایل مشتری";
+                            break;
+                    }
+                    break;
                 case "AdminLoginAuthController":
                     switch (action)
                     {
@@ -62,15 +70,19 @@ namespace BamboPortal_V1._0._0._0.StaticClass
                             return result + "تعریف پرچسب های های گروه محصولات";
                             break;
 
+                        case "addproduct":
+                            return result + "تعریف محصولات";
+                            break;
+
                     }
                     break;
 
                 default:
-                    return "No Title";
+                    return result;
                     break;
 
             }
-            return "No Title";
+            return result;
         }
     }
 }

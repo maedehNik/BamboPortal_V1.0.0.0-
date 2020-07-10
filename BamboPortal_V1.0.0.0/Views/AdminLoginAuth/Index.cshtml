@@ -25,7 +25,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
     <!--end::Web font -->
     <!--begin::Global Theme Styles -->
-    @Styles.RenderFormat(SiteKeys.StyleVersion, "~/Content/MetronicGlobalThemeBundle.css")
+    @Styles.Render("~/Content/MetronicGlobalThemeBundle.css")
     <!--end::Global Theme Styles -->
     <link rel="shortcut icon" href="assets/demo/default/media/img/logo/favicon.ico" />
 </head>
@@ -180,10 +180,10 @@
     </div>
     <!-- end:: Page -->
     <!--begin::Global Theme Bundle -->
-    @Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/MetronicGlobalThemeBundle.js")
+    @Scripts.Render("~/bundles/MetronicGlobalThemeBundle.js")
     <!--end::Global Theme Bundle -->
     <!--begin::Page Scripts -->
-    @Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/MetronicPageScripts_LOGIN.js")
+    @Scripts.Render("~/bundles/MetronicPageScripts_LOGIN.js")
     <!--end::Page Scripts -->
 
 </body>

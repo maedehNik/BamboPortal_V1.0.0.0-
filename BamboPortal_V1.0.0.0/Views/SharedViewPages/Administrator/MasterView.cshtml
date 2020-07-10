@@ -17,43 +17,46 @@
     </title>
     <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js">
     </script>
-    @Styles.RenderFormat(SiteKeys.StyleVersion, "~/Content/MetronicGlobalThemeBundle.css")
+    @Styles.Render( "~/Content/MetronicGlobalThemeBundle.css")
     @*For AdministratorWorkplace Controller*@
-    @Styles.RenderFormat(SiteKeys.StyleVersion, "~/Content/Dashboard.css")
+    @Styles.Render( "~/Content/Dashboard.css")
 
 
+    <link rel="shortcut icon" href="/AdminDesignResource/demo/default/media/img/logo/favicon.ico" />
 
 </head>
 
 <!-- end::Head -->
 <!-- end::Body -->
-<div class="modal fade" id="logoutmodal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">خروج از حساب کاربری</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>
-                    از حساب کاربری خارج شوید ؟
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">خیر</button>
-                <a href="@Url.Action("LogOut","AdminLoginAuth")" class="btn btn-danger">بله</a>
-            </div>
-        </div>
-    </div>
-</div>
+
 <body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--fixed m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
 
 
+    <div class="modal fade" id="logoutmodal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">خروج از حساب کاربری</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        از حساب کاربری خارج شوید ؟
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">خیر</button>
+                    <a href="@Url.Action("LogOut","AdminLoginAuth")" class="btn btn-danger">بله</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- begin:: Page -->
-    <div class="m-grid m-grid--hor m-grid--root m-page">
+    <div class="m-grid m-grid--hor m-grid--root m-page" id="AllPnlAdmin">
 
 
         <!-- BEGIN: Header -->
@@ -537,7 +540,7 @@
                             </a>
                         </li>
                         <li class="m-menu__item" aria-haspopup="true">
-                            <a href="Factor_Customers.html" class="m-menu__link ">
+                            <a href="@Url.Action("Index","AdministratorProducts_Factors")" class="m-menu__link ">
                                 <i class="m-menu__link-icon flaticon-users">
                                 </i>
                                 <span class="m-menu__link-title">
@@ -562,7 +565,7 @@
                                 </span>
                                 <ul class="m-menu__subnav">
                                     <li class="m-menu__item " aria-haspopup="true">
-                                        <a href="Admin_ShowAdmins.html" class="m-menu__link ">
+                                        <a href="@Url.Action("ShowAdmins","AdministratorGeneral")" class="m-menu__link ">
                                             <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                                 <span>
                                                 </span>
@@ -571,15 +574,15 @@
                                         </a>
                                     </li>
                                     <li class="m-menu__item " aria-haspopup="true">
-                                        <a href="Admin_Add_Admin.html" class="m-menu__link ">
+                                        <a href="@Url.Action("index","AdministratorGeneral")" class="m-menu__link ">
                                             <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                                 <span>
                                                 </span>
                                             </i>
-                                            <span class="m-menu__link-text">افزودن مدیر جدید</span>
+                                            <span class="m-menu__link-text">ویرایش اطلاعات مدیریتی</span>
                                         </a>
                                     </li>
-                                    <li class="m-menu__item " aria-haspopup="true">
+                                    @*<li class="m-menu__item " aria-haspopup="true">
                                         <a href="Admin_AddAdminType.html" class="m-menu__link ">
                                             <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                                 <span>
@@ -587,70 +590,71 @@
                                             </i>
                                             <span class="m-menu__link-text">تعریف نوع</span>
                                         </a>
-                                    </li>
+                                    </li>*@
                                 </ul>
                             </div>
                         </li>
-                        <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
-                            <a href="javascript:;" class="m-menu__link m-menu__toggle">
-                                <i class="m-menu__link-icon flaticon-technology-2">
-                                </i>
-                                <span class="m-menu__link-text">بلاگ</span>
-                                <i class="m-menu__ver-arrow la la-angle-right">
-                                </i>
-                            </a>
-                            <div class="m-menu__submenu ">
-                                <span class="m-menu__arrow">
-                                </span>
-                                <ul class="m-menu__subnav">
-                                    <li class="m-menu__item " aria-haspopup="true">
-                                        <a href="BlogMain_PostTable.html" class="m-menu__link ">
-                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                                <span>
-                                                </span>
-                                            </i>
-                                            <span class="m-menu__link-text">لیست پست ها</span>
-                                        </a>
-                                    </li>
-                                    <li class="m-menu__item " aria-haspopup="true">
-                                        <a href="BlogMain_NewBlogPost.html" class="m-menu__link ">
-                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                                <span>
-                                                </span>
-                                            </i>
-                                            <span class="m-menu__link-text">ارسال پست جدید</span>
-                                        </a>
-                                    </li>
-                                    <li class="m-menu__item " aria-haspopup="true">
-                                        <a href="BlogMain_Add_Blog_Group.html" class="m-menu__link ">
-                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                                <span>
-                                                </span>
-                                            </i>
-                                            <span class="m-menu__link-text">تعریف گروه</span>
-                                        </a>
-                                    </li>
-                                    <li class="m-menu__item " aria-haspopup="true">
-                                        <a href="BlogMain_Add_Blog_Category.html" class="m-menu__link ">
-                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                                <span>
-                                                </span>
-                                            </i>
-                                            <span class="m-menu__link-text">تعریف دسته بندی</span>
-                                        </a>
-                                    </li>
-                                    <li class="m-menu__item " aria-haspopup="true">
-                                        <a href="BlogMain_Add_Blog_Tags.html" class="m-menu__link ">
-                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                                <span>
-                                                </span>
-                                            </i>
-                                            <span class="m-menu__link-text">تعریف برچسب</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
+                        @*<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                                <a href="javascript:;" class="m-menu__link m-menu__toggle">
+                                    <i class="m-menu__link-icon flaticon-technology-2">
+                                    </i>
+                                    <span class="m-menu__link-text">بلاگ</span>
+                                    <i class="m-menu__ver-arrow la la-angle-right">
+                                    </i>
+                                </a>
+                                <div class="m-menu__submenu ">
+                                    <span class="m-menu__arrow">
+                                    </span>
+                                    <ul class="m-menu__subnav">
+                                        <li class="m-menu__item " aria-haspopup="true">
+                                            <a href="BlogMain_PostTable.html" class="m-menu__link ">
+                                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                    <span>
+                                                    </span>
+                                                </i>
+                                                <span class="m-menu__link-text">لیست پست ها</span>
+                                            </a>
+                                        </li>
+                                        <li class="m-menu__item " aria-haspopup="true">
+                                            <a href="BlogMain_NewBlogPost.html" class="m-menu__link ">
+                                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                    <span>
+                                                    </span>
+                                                </i>
+                                                <span class="m-menu__link-text">ارسال پست جدید</span>
+                                            </a>
+                                        </li>
+                                        <li class="m-menu__item " aria-haspopup="true">
+                                            <a href="BlogMain_Add_Blog_Group.html" class="m-menu__link ">
+                                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                    <span>
+                                                    </span>
+                                                </i>
+                                                <span class="m-menu__link-text">تعریف گروه</span>
+                                            </a>
+                                        </li>
+                                        <li class="m-menu__item " aria-haspopup="true">
+                                            <a href="BlogMain_Add_Blog_Category.html" class="m-menu__link ">
+                                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                    <span>
+                                                    </span>
+                                                </i>
+                                                <span class="m-menu__link-text">تعریف دسته بندی</span>
+                                            </a>
+                                        </li>
+                                        <li class="m-menu__item " aria-haspopup="true">
+                                            <a href="BlogMain_Add_Blog_Tags.html" class="m-menu__link ">
+                                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                    <span>
+                                                    </span>
+                                                </i>
+                                                <span class="m-menu__link-text">تعریف برچسب</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>*@
+
                         <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
                             <a href="javascript:;" class="m-menu__link m-menu__toggle">
                                 <i class="m-menu__link-icon flaticon-cart">
@@ -664,7 +668,7 @@
                                 </span>
                                 <ul class="m-menu__subnav">
                                     <li class="m-menu__item " aria-haspopup="true">
-                                        <a href="Factor_Customers_Buy.html" class="m-menu__link ">
+                                        <a href="@Url.Action("CustomerBuy","AdministratorProducts_Factors")" class="m-menu__link ">
                                             <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                                 <span>
                                                 </span>
@@ -673,7 +677,7 @@
                                         </a>
                                     </li>
                                     <li class="m-menu__item " aria-haspopup="true">
-                                        <a href="Factor_ProductSaleList.html" class="m-menu__link ">
+                                        <a href="@Url.Action("ProductSaleListFactor","AdministratorProducts_Factors")" class="m-menu__link ">
                                             <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                                 <span>
                                                 </span>
@@ -697,7 +701,7 @@
                                 </span>
                                 <ul class="m-menu__subnav">
                                     <li class="m-menu__item " aria-haspopup="true">
-                                        <a href="Factor_FactorTable.html" class="m-menu__link ">
+                                        <a href="@Url.Action("AllFactorTable","AdministratorProducts_Factors")" class="m-menu__link ">
                                             <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                                 <span>
                                                 </span>
@@ -706,7 +710,7 @@
                                         </a>
                                     </li>
                                     <li class="m-menu__item " aria-haspopup="true">
-                                        <a href="Factor_FactorTable_act=Done.html" class="m-menu__link ">
+                                        <a href="@Url.Action("ProductFactorWaitingForMoney","AdministratorProducts_Factors")" class="m-menu__link ">
                                             <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                                 <span>
                                                 </span>
@@ -730,7 +734,7 @@
                                 </span>
                                 <ul class="m-menu__subnav">
                                     <li class="m-menu__item " aria-haspopup="true">
-                                        <a href="Product_Product_List.html" class="m-menu__link ">
+                                        <a href="@Url.Action("ProductList","AdministratorProducts")" class="m-menu__link ">
                                             <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                                 <span>
                                                 </span>
@@ -739,7 +743,7 @@
                                         </a>
                                     </li>
                                     <li class="m-menu__item " aria-haspopup="true">
-                                        <a href="Product_Add_Product.html" class="m-menu__link ">
+                                        <a href="@Url.Action("AddProduct","AdministratorProducts")" class="m-menu__link ">
                                             <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                                 <span>
                                                 </span>
@@ -761,17 +765,17 @@
                                             <span class="m-menu__arrow">
                                             </span>
                                             <ul class="m-menu__subnav">
+                                                @*<li class="m-menu__item " aria-haspopup="true">
+                                                        <a href="Product_ShowCatTree.html" class="m-menu__link ">
+                                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                                <span>
+                                                                </span>
+                                                            </i>
+                                                            <span class="m-menu__link-text">لیست دسته بندی ها</span>
+                                                        </a>
+                                                    </li>*@
                                                 <li class="m-menu__item " aria-haspopup="true">
-                                                    <a href="Product_ShowCatTree.html" class="m-menu__link ">
-                                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                                            <span>
-                                                            </span>
-                                                        </i>
-                                                        <span class="m-menu__link-text">لیست دسته بندی ها</span>
-                                                    </a>
-                                                </li>
-                                                <li class="m-menu__item " aria-haspopup="true">
-                                                    <a href="ProductGroup_AddType.html" class="m-menu__link ">
+                                                    <a href="@Url.Action("AddType","AdministratorProducts")" class="m-menu__link ">
                                                         <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                                             <span>
                                                             </span>
@@ -780,7 +784,7 @@
                                                     </a>
                                                 </li>
                                                 <li class="m-menu__item " aria-haspopup="true">
-                                                    <a href="ProductGroup_AddMainCat.html" class="m-menu__link ">
+                                                    <a href="@Url.Action("MainCategory","AdministratorProducts")" class="m-menu__link ">
                                                         <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                                             <span>
                                                             </span>
@@ -789,7 +793,7 @@
                                                     </a>
                                                 </li>
                                                 <li class="m-menu__item " aria-haspopup="true">
-                                                    <a href="ProductGroup_AddSubCat.html" class="m-menu__link ">
+                                                    <a href="@Url.Action("AddSubCategory","AdministratorProducts")" class="m-menu__link ">
                                                         <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                                             <span>
                                                             </span>
@@ -798,7 +802,7 @@
                                                     </a>
                                                 </li>
                                                 <li class="m-menu__item " aria-haspopup="true">
-                                                    <a href="ProductGroup_AddSubCatKey.html" class="m-menu__link ">
+                                                    <a href="@Url.Action("AddSubCategoryKey","AdministratorProducts")" class="m-menu__link ">
                                                         <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                                             <span>
                                                             </span>
@@ -807,7 +811,7 @@
                                                     </a>
                                                 </li>
                                                 <li class="m-menu__item " aria-haspopup="true">
-                                                    <a href="ProductGroup_AddSubCatValue.html" class="m-menu__link ">
+                                                    <a href="@Url.Action("AddSubCateGoryValuesOfKeys","AdministratorProducts")" class="m-menu__link ">
                                                         <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                                             <span>
                                                             </span>
@@ -833,7 +837,7 @@
                                             </span>
                                             <ul class="m-menu__subnav">
                                                 <li class="m-menu__item " aria-haspopup="true">
-                                                    <a href="ProductGroup_AddMainTag.html" class="m-menu__link ">
+                                                    <a href="@Url.Action("AddMainTag","AdministratorProducts")" class="m-menu__link ">
                                                         <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                                             <span>
                                                             </span>
@@ -841,15 +845,15 @@
                                                         <span class="m-menu__link-text">تعریف برچسب اصلی</span>
                                                     </a>
                                                 </li>
-                                                <li class="m-menu__item " aria-haspopup="true">
-                                                    <a href="ProductGroup_AddProductTag.html" class="m-menu__link ">
-                                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                                            <span>
-                                                            </span>
-                                                        </i>
-                                                        <span class="m-menu__link-text">تعریف برچسب محصول</span>
-                                                    </a>
-                                                </li>
+                                                @*<li class="m-menu__item " aria-haspopup="true">
+                                                        <a href="ProductGroup_AddProductTag.html" class="m-menu__link ">
+                                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                                <span>
+                                                                </span>
+                                                            </i>
+                                                            <span class="m-menu__link-text">تعریف برچسب محصول</span>
+                                                        </a>
+                                                    </li>*@
                                             </ul>
                                         </div>
                                     </li>
@@ -858,9 +862,9 @@
                         </li>
                         <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
                             <a href="javascript:;" class="m-menu__link m-menu__toggle">
-                                <i class="m-menu__link-icon flaticon-settings">
+                                <i class="m-menu__link-icon flaticon-cart">
                                 </i>
-                                <span class="m-menu__link-text">تنظیمات</span>
+                                <span class="m-menu__link-text">انبار داری</span>
                                 <i class="m-menu__ver-arrow la la-angle-right">
                                 </i>
                             </a>
@@ -868,71 +872,97 @@
                                 <span class="m-menu__arrow">
                                 </span>
                                 <ul class="m-menu__subnav">
-                                    <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
-                                        <a href="javascript:;" class="m-menu__link m-menu__toggle">
-                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                                <span>
-                                                </span>
-                                            </i>
-                                            <span class="m-menu__link-text">صفحه ساز</span>
-                                            <i class="m-menu__ver-arrow la la-angle-right">
-                                            </i>
-                                        </a>
-                                        <div class="m-menu__submenu ">
-                                            <span class="m-menu__arrow">
-                                            </span>
-                                            <ul class="m-menu__subnav">
-                                                <li class="m-menu__item " aria-haspopup="true">
-                                                    <a href="aboutus.html" class="m-menu__link ">
-                                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                                            <span>
-                                                            </span>
-                                                        </i>
-                                                        <span class="m-menu__link-text">درباره ما</span>
-                                                    </a>
-                                                </li>
-                                                <li class="m-menu__item " aria-haspopup="true">
-                                                    <a href="contactus.html" class="m-menu__link ">
-                                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                                            <span>
-                                                            </span>
-                                                        </i>
-                                                        <span class="m-menu__link-text">ارتباط با ما</span>
-                                                    </a>
-                                                </li>
-                                                <li class="m-menu__item " aria-haspopup="true">
-                                                    <a href="news.html" class="m-menu__link ">
-                                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                                            <span>
-                                                            </span>
-                                                        </i>
-                                                        <span class="m-menu__link-text">اخبار</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
                                     <li class="m-menu__item " aria-haspopup="true">
-                                        <a href="paymentgateway.html" class="m-menu__link ">
+                                        <a href="@Url.Action("Index","AdministratorProduct_Stockpile")" class="m-menu__link ">
                                             <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                                 <span>
                                                 </span>
                                             </i>
-                                            <span class="m-menu__link-text">درگاه پرداخت</span>
+                                            <span class="m-menu__link-text">لیست انبار داری</span>
                                         </a>
                                     </li>
-                                    <li class="m-menu__item " aria-haspopup="true">
-                                        <a href="enamad.html" class="m-menu__link ">
-                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                                <span>
-                                                </span>
-                                            </i>
-                                            <span class="m-menu__link-text">نماد الکترونیک</span>
-                                        </a>
-                                    </li>
+
                                 </ul>
                             </div>
                         </li>
+                        @*<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                                <a href="javascript:;" class="m-menu__link m-menu__toggle">
+                                    <i class="m-menu__link-icon flaticon-settings">
+                                    </i>
+                                    <span class="m-menu__link-text">تنظیمات</span>
+                                    <i class="m-menu__ver-arrow la la-angle-right">
+                                    </i>
+                                </a>
+                                <div class="m-menu__submenu ">
+                                    <span class="m-menu__arrow">
+                                    </span>
+                                    <ul class="m-menu__subnav">
+                                        <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                                            <a href="javascript:;" class="m-menu__link m-menu__toggle">
+                                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                    <span>
+                                                    </span>
+                                                </i>
+                                                <span class="m-menu__link-text">صفحه ساز</span>
+                                                <i class="m-menu__ver-arrow la la-angle-right">
+                                                </i>
+                                            </a>
+                                            <div class="m-menu__submenu ">
+                                                <span class="m-menu__arrow">
+                                                </span>
+                                                <ul class="m-menu__subnav">
+                                                    <li class="m-menu__item " aria-haspopup="true">
+                                                        <a href="aboutus.html" class="m-menu__link ">
+                                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                                <span>
+                                                                </span>
+                                                            </i>
+                                                            <span class="m-menu__link-text">درباره ما</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="m-menu__item " aria-haspopup="true">
+                                                        <a href="contactus.html" class="m-menu__link ">
+                                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                                <span>
+                                                                </span>
+                                                            </i>
+                                                            <span class="m-menu__link-text">ارتباط با ما</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="m-menu__item " aria-haspopup="true">
+                                                        <a href="news.html" class="m-menu__link ">
+                                                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                                <span>
+                                                                </span>
+                                                            </i>
+                                                            <span class="m-menu__link-text">اخبار</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li class="m-menu__item " aria-haspopup="true">
+                                            <a href="paymentgateway.html" class="m-menu__link ">
+                                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                    <span>
+                                                    </span>
+                                                </i>
+                                                <span class="m-menu__link-text">درگاه پرداخت</span>
+                                            </a>
+                                        </li>
+                                        <li class="m-menu__item " aria-haspopup="true">
+                                            <a href="enamad.html" class="m-menu__link ">
+                                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                                    <span>
+                                                    </span>
+                                                </i>
+                                                <span class="m-menu__link-text">نماد الکترونیک</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>*@
+
                     </ul>
                 </div>
                 <!-- END: Aside Menu -->
@@ -941,9 +971,6 @@
             <div class="m-grid__item m-grid__item--fluid m-wrapper">
 
                 <!-- BEGIN: Subheader -->
-
-
-
                 @RenderBody()
                 <!-- END: Subheader -->
 
@@ -989,45 +1016,18 @@
         <i class="la la-arrow-up">
         </i>
     </div>
-    <!-- end::Scroll Top -->		    <!-- begin::Quick Nav -->
-    <!--<ul class="m-nav-sticky" style="margin-top: 30px;">
-            <li class="m-nav-sticky__item" data-toggle="m-tooltip" title="صفحه ساز" data-placement="left">
-                <a href="crud/page-builder.html">
-    <i class="la la-cog">
-    </i>
-    </a>
-            </li>
-            <li class="m-nav-sticky__item" data-toggle="m-tooltip" title="خرید قالب" data-placement="left">
-                <a href="#" target="_blank">
-    <i class="la la-cart-arrow-down">
-    </i>
-    </a>
-            </li>
-            <li class="m-nav-sticky__item" data-toggle="m-tooltip" title="مستندات" data-placement="left">
-                <a href="#" target="_blank">
-    <i class="la la-code-fork">
-    </i>
-    </a>
-            </li>
-            <li class="m-nav-sticky__item" data-toggle="m-tooltip" title="پشتیبانی" data-placement="left">
-                <a href="#" target="_blank">
-    <i class="la la-life-ring">
-    </i>
-    </a>
-            </li>
-        </ul>-->
-    <!-- begin::Quick Nav -->
-    <!--begin::Global Theme Bundle -->
-    @Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/MetronicGlobalThemeBundle.js")
+ 
+    @Scripts.Render("~/bundles/MetronicGlobalThemeBundle.js")
     <!--end::Global Theme Bundle -->
     <!--begin::Page Vendors -->
 
-    @Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/AdminProfile.js")
+    @Scripts.Render("~/bundles/AdminProfile.js")
+    @*@Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/Uploader.js")*@
 
 
     @RenderSection("Scripts", required: false)
 
- 
+  
 
 </body>
 <!-- end::Body -->

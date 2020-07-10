@@ -7,14 +7,22 @@ namespace BamboPortal_V1._0._0._0.StaticClass.UploaderStaticsCalculators
 {
     public static class UploaderGeneral
     {
-        public static string GetAddressOfResourceByID(string ResName, string TypeofRes, string imageSize = "AllSize")
+        public static string GetAddressOfResourceByID(string ResName, string TypeofRes, ImageSizeEnums imageSize = ImageSizeEnums.AllSize)
         {
             switch (TypeofRes)
             {
                 case "Image":
                     switch (imageSize)
                     {
-                        case "AllSize":
+                        case ImageSizeEnums.AllSize:
+
+                            break;
+
+                        case ImageSizeEnums.Thumbnail:
+
+                            break;
+
+                        case ImageSizeEnums.OriginalSize:
 
                             break;
                         default:
@@ -29,11 +37,11 @@ namespace BamboPortal_V1._0._0._0.StaticClass.UploaderStaticsCalculators
             return "Nothing";
         }
 
-        public static string imageFinder(string id, string imageSize = "AllSize")
+        public static string imageFinder(string id, ImageSizeEnums imageSize = ImageSizeEnums.AllSize)
         {
             return "/AdminDesignResource/app/media/img/users/user4.jpg";
         }
-        public static List<string> imageFinder(List<string> id, string imageSize = "AllSize")
+        public static List<string> imageFinder(List<string> id, ImageSizeEnums imageSize = ImageSizeEnums.AllSize)
         {
             List<string> newids = new List<string>();
             for(int i = 0; i < 100; i++)
