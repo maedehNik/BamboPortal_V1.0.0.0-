@@ -2092,6 +2092,104 @@ namespace BamboPortal_V1._0._0._0.Controllers
 
             return View(result);
         }
+
+        public ActionResult AddproductGetAllFinallyPriceDataAboutProducts()
+        {
+            AddproductGetAllFinallyPriceDataAboutProductsModelView model = new AddproductGetAllFinallyPriceDataAboutProductsModelView();
+            var result = new List<Key_ValueModel>();
+            PDBC db = new PDBC();
+            db.Connect();
+            using (DataTable dt = db.Select("SELECT [id_MainStarTag],[MST_Name] FROM [tbl_Product_MainStarTags]"))
+            {
+                db.DC();
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    var model1 = new Key_ValueModel()
+                    {
+                        Id = Convert.ToInt32(dt.Rows[i]["id_MainStarTag"]),
+                        Value = dt.Rows[i]["MST_Name"].ToString()
+                    };
+
+                    result.Add(model1);
+                }
+            }
+            model.MainTags = result;
+            result = new List<Key_ValueModel>();
+            db.Connect();
+            using (DataTable dt = db.Select("SELECT [OffType],[OffType_Symbol]FROM .[tbl_Product_OffType]"))
+            {
+                db.DC();
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    var model1 = new Key_ValueModel()
+                    {
+                        Id = Convert.ToInt32(dt.Rows[i]["OffType"]),
+                        Value = dt.Rows[i]["OffType_Symbol"].ToString()
+                    };
+
+                    result.Add(model1);
+                }
+            }
+            model.OffTypes = result;
+            result = new List<Key_ValueModel>();
+            db.Connect();
+            using (DataTable dt = db.Select("SELECT [PriceShowId],[PriceShowformat] FROM [tbl_Product_PriceShow]"))
+            {
+                db.DC();
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    var model1 = new Key_ValueModel()
+                    {
+                        Id = Convert.ToInt32(dt.Rows[i]["PriceShowId"]),
+                        Value = dt.Rows[i]["PriceShowformat"].ToString()
+                    };
+
+                    result.Add(model1);
+                }
+            }
+            model.PriceShow = result;
+            result = new List<Key_ValueModel>();
+            db.Connect();
+            using (DataTable dt = db.Select("SELECT [MoneyId],[MoneyTypeName] FROM [tbl_Product_MoneyType]"))
+            {
+                db.DC();
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    var model1 = new Key_ValueModel()
+                    {
+                        Id = Convert.ToInt32(dt.Rows[i]["MoneyId"]),
+                        Value = dt.Rows[i]["MoneyTypeName"].ToString()
+                    };
+
+                    result.Add(model1);
+                }
+            }
+            model.PriceType = result;
+            result = new List<Key_ValueModel>();
+            db.Connect();
+            using (DataTable dt = db.Select("SELECT[id_PQT],[PQT_Demansion] FROM[tbl_Product_ProductQuantityType] order by([PQT_Demansion])"))
+            {
+                db.DC();
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    var model1 = new Key_ValueModel()
+                    {
+                        Id = Convert.ToInt32(dt.Rows[i]["id_PQT"]),
+                        Value = dt.Rows[i]["PQT_Demansion"].ToString()
+                    };
+
+                    result.Add(model1);
+                }
+            }
+            model.QuantityTypes = result;
+            result = new List<Key_ValueModel>();
+
+
+
+
+            return View(model);
+        }
+
         public ActionResult ProductList()
         {
             return View();

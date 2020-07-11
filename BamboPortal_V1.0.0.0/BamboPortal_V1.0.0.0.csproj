@@ -197,6 +197,7 @@
     <Compile Include="ModelViews\AdministratorProducts\AddMainCategoryModel.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddMainCategorySubmiterForm.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddMainTagModelView.cs" />
+    <Compile Include="ModelViews\AdministratorProducts\AddproductGetAllFinallyPriceDataAboutProductsModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddProductModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddSubCategoryKeyModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddSubCategoryModelView.cs" />
@@ -3133,6 +3134,7 @@
     <Content Include="CustomerSide_desinerResource\video\movie.mp4" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Khordad\Note\notedb.txt" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Khordad\Script\bambopoertalSqcScript.sql" />
+    <Content Include="DatabaseCenter\SQL Scripts\1399\Tir\16\desktop - Copy.sql" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Tir\16\desktop.sql" />
     <Content Include="Docs\usefulguides\Webpages.txt" />
     <Content Include="favicon.ico" />
@@ -3155,6 +3157,7 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\AdministratorProducts\ReturnInputsOfSubCategorykeyValues.cshtml" />
+    <Content Include="Views\AdministratorProducts\AddproductGetAllFinallyPriceDataAboutProducts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

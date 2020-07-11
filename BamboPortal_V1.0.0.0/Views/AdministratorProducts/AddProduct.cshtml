@@ -254,7 +254,7 @@
                                     </div>
                                 </div>
                                 @*============================================================================*@
-                                <div class="sec-3" style="display: none">
+                                <div class="sec-3" style="display:none;">
                                     <div class="col-12">
 
                                         <div class="col-12" id="KeyValuesMContainer">
@@ -284,7 +284,7 @@
                                                 </div>
 
                                                 <div class="col-12 tshtextleft mb-3">
-                                                    <span style="margin-left: 10px;" class="btn btn-sm btn-success m-btn m-btn--air m-btn--custom">افزودن</span>&nbsp;&nbsp;
+                                                    <button onclick="return PushTagTargetAdded()" style="margin-left: 10px;" class="btn btn-sm btn-success m-btn m-btn--air m-btn--custom">افزودن</button>&nbsp;&nbsp;
                                                 </div>
                                             </div>
                                         </div>
@@ -298,13 +298,6 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody id="TbodyForTagsPC">
-                                                    <tr>
-                                                        <td>ویژگی</td>
-                                                        <td>مقدار</td>
-                                                        <td>
-                                                            <button class="btn btn-danger tshpcustom cus-delete-btn" data-target="#deleteCus" data-toggle="modal" data-name="ویژگی"><i class="fa fa-trash tshfa"></i>حذف</button>
-                                                        </td>
-                                                    </tr>
                                                 </tbody>
                                             </table>
                                             <table style="display: none;" class="cust-table cust-table-2 table table-striped table-hover m-table m-table--head-separator-primary" id="TbodyForTagsmobile">
@@ -337,117 +330,10 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 @*===========================================================================*@
-                                <div class="sec-4" style="display: none">
-                                    <div class="row">
-                                        <div class="form-group m-form__group col-lg-6 col-xs-12">
-                                            <label for="PRDCTDemansion" class="col-12 col-form-label tshtextright">نوع واحد:</label>
-                                            <div class="col-12">
-                                                <select class="form-control m-bootstrap-select m_selectpicker" name="PRDCTDemansion" id="PRDCTDemansion" title="انتخاب کنید...">
-                                                    <option value=0 selected disabled hidden>یک مورد را انتخاب نمایید</option>
-
-
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
-                                            <label for="PRDCTPriceDemansion" class="col-12 col-form-label tshtextright">واحد قیمتی:</label>
-                                            <div class="col-12">
-                                                <select class="form-control m-bootstrap-select m_selectpicker" name="PRDCTPriceDemansion" id="PRDCTPriceDemansion" title="انتخاب کنید...">
-                                                    <option value=0 selected disabled hidden>یک مورد را انتخاب نمایید</option>
-
-
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group m-form__group col-lg-6 col-xs-12">
-                                            <label for="PRDCTOffType" class="col-12 col-form-label tshtextright">نوع تخفیف:</label>
-                                            <div class="col-12">
-                                                <select class="form-control m-bootstrap-select m_selectpicker" name="PRDCTOffType" id="PRDCTOffType" title="بدون تخفیف">
-                                                    <option value=0 selected disabled hidden>یک مورد را انتخاب نمایید</option>
-
-
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
-                                            <label for="PRDCTOffPriceValue" class="col-12 col-form-label tshtextright">میزان تخفیف:</label>
-                                            <div class="col-12">
-                                                <input class="form-control m-input" name="PRDCTOffPriceValue" id="PRDCTOffPriceValue" type="number" value="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group m-form__group col-lg-6 col-xs-12">
-                                            <label for="PRDCTPricePer1Demansion" class="col-12 col-form-label tshtextright">قیمت هر واحد:</label>
-                                            <div class="col-12">
-                                                <input class="form-control m-input" name="PRDCTPricePer1Demansion" id="PRDCTPricePer1Demansion" type="number" value="">
-                                            </div>
-                                        </div>
-                                        <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
-                                            <label for="PRDCTDemansionValue" class="col-12 col-form-label tshtextright">تعداد در هر واحد:</label>
-                                            <div class="col-12">
-                                                <input class="form-control m-input" name="PRDCTDemansionValue" id="PRDCTDemansionValue" type="number" value="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group m-form__group col-lg-6 col-xs-12">
-                                            <label class="col-12 col-form-label tshtextright">قیمت پرداختی مشتری:</label>
-                                            <div class="col-12">
-                                                <span class="tshaftertoman tshaftermarginright">500,000</span>
-                                            </div>
-                                        </div>
-                                        <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
-                                            <label for="PRDCTPriceShowType" class="col-12 col-form-label tshtextright">نمایش قیمت:</label>
-                                            <div class="col-12">
-                                                <select class="form-control m-bootstrap-select m_selectpicker" name="PRDCTPriceShowType" id="PRDCTPriceShowType" title="انتخاب کنید...">
-                                                    <option value=0 selected disabled hidden>یک مورد را انتخاب نمایید</option>
-
-
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group m-form__group col-lg-6 col-xs-12">
-                                            <label for="PRDCTTagSectionOfProduct" class="col-12 col-form-label tshtextright">برچسب اصلی:</label>
-                                            <div class="col-12">
-                                                <select class="form-control m-bootstrap-select m_selectpicker" name="PRDCTTagSectionOfProduct" id="PRDCTTagSectionOfProduct" title="انتخاب کنید...">
-                                                    <option value=0 selected disabled hidden>یک مورد را انتخاب نمایید</option>
-
-
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
-                                            <label class="col-form-label col-12 tshtextright" for="PRDCTMainTags">برچسب ها:</label>
-                                            <div class="col-12">
-                                                <select class="form-control m-bootstrap-select m_selectpicker" name="PRDCTMainTags" id="PRDCTMainTags" multiple>
-                                                    <option value=0 selected disabled hidden>یک مورد را انتخاب نمایید</option>
-
-
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="m-portlet__foot m-portlet__foot--fit">
-                                        <div class="m-form__actions">
-                                            <div class="row">
-                                                <div class="col-2">
-                                                </div>
-                                                <div class="col-12 tshtextleft">
-                                                    <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom prdn4">بعدی</button>&nbsp;&nbsp;
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="sec-4" style="display: block">
+                                    @{ Html.RenderAction("AddproductGetAllFinallyPriceDataAboutProducts", "AdministratorProducts");}
                                 </div>
-
-
 
                                 @*<div class="sec-5" style="display: none">
                                         <div class="row">
@@ -575,17 +461,25 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/Select2.js")
-
     @Scripts.Render("~/bundles/Uploader.js")
+
     <script>
+
         $(document).ready(function () {
             $("#PRDCTDescription").maxlength({ threshold: 8, warningClass: "m-badge m-badge--primary m-badge--rounded m-badge--wide", limitReachedClass: "m-badge m-badge--brand m-badge--rounded m-badge--wide" });
             $("#PRDCTType").select2();
             $("#PRDCTMainCat").select2();
             $("#PRDCTSubCat").select2();
             $("#PRDCTSubCatKey").select2();
+            $('.Select2Tshp').each(function (index, element) {
+                $(this).select2({
+                    minimumResultsForSearch: -1
+                });
+            });
+            $(".Select2Tshp").select2({ width: 'resolve' });
 
         });
+        //==========================================
         function URLSearchParams() {
             mApp.block(".sec-2", {
                 overlayColor: "#2c2e3e", type: "loader", state: "success", message: "درحال چک کردن حریم دسترسی و دریافت اطلاعات از سمت سرور ..."
@@ -725,9 +619,74 @@
                 }
             });
         }
+        //==========================================
+        //TagTargetAdded Starts
+        var TagTargetAdded = [];
+        var tagtargtid = 0;
+        function PushTagTargetAdded() {
+            console.log("dasdasdasdas");
+            if ($("#PRDCTName2").val().length > 0) {
+                if ($("#PRDCTName3").val().length > 0) {
 
+                    var pushData = {
+                        "TagTargeName": $("#PRDCTName2").val(),
+                        "TagTargeValue": $("#PRDCTName3").val(),
+                        "TagTargetID": tagtargtid
+                    };
+                    tagtargtid++;
+                    TagTargetAdded.push(pushData);
+                    console.log(TagTargetAdded);
+                    RenderTagTargetTable();
+                    toastr.options = {
+                        "closeButton": false,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-bottom-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    };
+                    toastr.success("ویژگی با موفقیت اضافه شد");
+
+                } else {
+                    swal("خطا!", "پرکردن قسمت مقدار ویژگی اجباری میباشد!", "error");
+                }
+            } else {
+                swal("خطا!", "پرکردن قسمت نام ویژگی اجباری میباشد!", "error");
+            }
+            return false;
+        }
+        function RenderTagTargetTable() {
+            var _k = '';
+            var _l = '';
+            console.log(TagTargetAdded.length);
+            for (var ii = 0; ii < TagTargetAdded.length; ii++) {
+                _k += '<tr><td>' + TagTargetAdded[ii].TagTargeName + '</td><td>' + TagTargetAdded[ii].TagTargeValue + '</td><td><button onclick="return DeleteTargetsTag(' + TagTargetAdded[ii].TagTargetID + ')" class="btn btn-danger tshpcustom cus-delete-btn" ><i class="fa fa-trash tshfa"></i>حذف</button></td></tr>';
+                _l += '<tr><th>ویژگی</th><td>' + TagTargetAdded[ii].TagTargeName + '</td></tr><tr><th>مقدار</th><td>' + TagTargetAdded[ii].TagTargeValue + '</td></tr><tr><th>عملیات</th><td><button onclick="return DeleteTargetsTag(' + TagTargetAdded[ii].TagTargetID + ')" class="btn btn-danger tshpcustom cus-delete-btn" ><i class="fa fa-trash tshfa"></i>حذف</button></td></tr>';
+            }
+            console.log(_k);
+            $("#TbodyForTagsPC").html(_k);
+            $("#TbodyForTagsmobile").html(_l);
+        }
+        function DeleteTargetsTag(id) {
+            TagTargetAdded = TagTargetAdded.filter(function (obj) {
+                return obj.TagTargetID !== id;
+            });
+            console.log(TagTargetAdded);
+            RenderTagTargetTable();
+            return false;
+        }
+        //TagTargetAdded Ends
+        //==========================================
         var slideIndex = 1;
-
         showSlides(slideIndex);
         function plusSlides(n) {
             showSlides(slideIndex += n);
@@ -750,7 +709,6 @@
             slides[slideIndex - 1].style.display = "block";
             //dots[slideIndex - 1].className += " active";
         }
-
         $("#prodform").validate({
             rules: {
                 PRDCTName: {
@@ -965,6 +923,8 @@
                                     $(this).select2({
                                         minimumResultsForSearch: -1
                                     });
+                                    $(".SubcategoryKeyValueMultiSelect").select2({ width: 'resolve' });
+
                                 });
                             } else {
                                 swal("داده ایی یافت نشد", "متاسفانه اطلاعاتی یافت نشد", "error");

@@ -11,7 +11,7 @@
 
         <label for="PRDCTSCKV-@MainItem.SubCategoryID" class="col-12 col-form-label tshtextright">@MainItem.NameOfSubCategoryKey :</label>
         <div class="col-12">
-            <select class="form-control m-bootstrap-select m_selectpicker SubcategoryKeyValueMultiSelect" name="PRDCTSCKV-@MainItem.SubCategoryID" id="PRDCTSCKV-@MainItem.SubCategoryID" title="انتخاب کنید..." required>
+            <select class="form-control m-bootstrap-select m_selectpicker SubcategoryKeyValueMultiSelect" name="PRDCTSCKV-@MainItem.SubCategoryID" id="PRDCTSCKV-@MainItem.SubCategoryID" title="انتخاب کنید..." required multiple>
                 @foreach (var item in MainItem.SubCategoryAllKeyValues)
                 {
                     if (item.Id == 0)
