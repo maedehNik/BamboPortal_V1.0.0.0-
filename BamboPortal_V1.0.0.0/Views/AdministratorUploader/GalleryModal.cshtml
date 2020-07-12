@@ -3,8 +3,8 @@
     Layout = null;
 }
 
-<div class="modal fade p-0" id="uploader" tabindex="-1" role="dialog" aria-hidden="true" >
-    <div class="modal-dialog modal-dialog-centered tshuploader-dialog" role="document" >
+<div class="modal fade p-0" id="uploader" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered tshuploader-dialog" role="document">
         <div class="modal-content tshuploader-content">
             <div class="modal-header">
                 <h5 class="modal-title col-12">
@@ -17,7 +17,7 @@
                             </span>
                         </li>
                         <li class="col-6">
-                            <span class="gal-btn">
+                            <span class="gal-btn" >
                                 <i class="fa fa-images"></i>
                                 گالری
                             </span>
@@ -29,10 +29,12 @@
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <input id="DataSelectedFromGallery"  style="display:none"/>
+            <input id="DataSelectedFromGallery" style="display:none" />
             <div class="modal-body" style="overflow-y: auto;overflow-x: hidden;">
                 @{Html.RenderAction("Uploader_Image");}
-                @{Html.RenderAction("Gallery");}
+                <div class="gal-div col-12" style="display: none;height: 100%;">
+                    @{Html.RenderAction("Gallery");}
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-warning" data-dismiss="modal">انصراف</button>

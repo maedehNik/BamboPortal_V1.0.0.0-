@@ -5,10 +5,12 @@ using BamboPortal_V1._0._0._0.Models.UsefulModels;
 using BamboPortal_V1._0._0._0.ModelViews.AdministratorProducts;
 using BamboPortal_V1._0._0._0.nonStaticUsefulClass.Products;
 using BamboPortal_V1._0._0._0.StaticClass.BugReporter;
+using MD.PersianDateTime;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -2189,10 +2191,381 @@ namespace BamboPortal_V1._0._0._0.Controllers
 
             return View(model);
         }
+        [HttpPost]
+        public JsonResult AddProduct_SeimiFinalStepToGenerateProductAndFinalSubmit(AddProductSemiFinalSubmitToCreateProducts Senderobj)
+        {
+            string id_CreatedByAdmin = "1";
+            if (Session[""] != null)
+            {
+
+            }
+            else
+            {
+
+            }
+            List<ExcParameters> paramss = new List<ExcParameters>();
+            PDBC db = new PDBC();
+            var parameters = new ExcParameters()
+            {
+                _KEY = "@id_CreatedByAdmin",
+                _VALUE = id_CreatedByAdmin
+            };
+            paramss.Add(parameters);
+            parameters = new ExcParameters()
+            {
+                _KEY = "@Title",
+                _VALUE = Senderobj.PRDCTName
+            };
+            paramss.Add(parameters);
+            parameters = new ExcParameters()
+            {
+                _KEY = "@Description",
+                _VALUE = Senderobj.PRDCTDescription
+            };
+            paramss.Add(parameters);
+            parameters = new ExcParameters()
+            {
+                _KEY = "@SEO_keyword",
+                _VALUE = "_tshNOkey"
+            };
+            paramss.Add(parameters);
+            parameters = new ExcParameters()
+            {
+                _KEY = "@SEO_description",
+                _VALUE = "_tshNOkey"
+            };
+            paramss.Add(parameters);
+            parameters = new ExcParameters()
+            {
+                _KEY = "@SearchGravity",
+                _VALUE = 1
+            };
+            paramss.Add(parameters);
+            parameters = new ExcParameters()
+            {
+                _KEY = "@IsAd",
+                _VALUE = 0
+            };
+            paramss.Add(parameters);
+
+            db.Connect();
+            string result = db.Script("INSERT INTO[tbl_Product] Output Inserted.id_MProduct VALUES (0, @id_CreatedByAdmin , 0 , 0 , 0 , 0 , 0 ,@Description,GETDATE(), @Title , @SEO_description , @SEO_keyword , @IsAd , @SearchGravity , 0 , 0)", paramss);
+            int id_MProductOUT = 0;
+            if (!Int32.TryParse(result, out id_MProductOUT))
+            {
+                db.DC();
+                PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                var ModelSender1 = new ErrorReporterModel
+                {
+                    ErrorID = "EX115",
+                    Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                    Errortype = "Error"
+                };
+                return Json(ModelSender1);
+            }
+            string[] PicIds = Senderobj.AllImagesByID.Split(',');
+            paramss = new List<ExcParameters>();
+            for (int i = 0; i < PicIds.Length; i++)
+            {
+                parameters = new ExcParameters()
+                {
+                    _KEY = "@id_MProductOUT",
+                    _VALUE = id_MProductOUT
+                };
+                paramss.Add(parameters);
+                parameters = new ExcParameters()
+                {
+                    _KEY = "@PicId",
+                    _VALUE = PicIds[i]
+                };
+                paramss.Add(parameters);
+                db.Script("INSERT INTO [tbl_Product_PicConnector] VALUES (@id_MProductOUT,@PicId)", paramss);
+                paramss = new List<ExcParameters>();
+            }
+            db.DC();
+            //id_MProductOUT Returned in this step
+            //EndofAddpage1
+            //======================================================================================
+            //start of step 2
+            paramss = new List<ExcParameters>();
+            parameters = new ExcParameters()
+            {
+                _KEY = "@id_Type",
+                _VALUE = Senderobj.PRDCTType
+            };
+            paramss.Add(parameters);
+
+            parameters = new ExcParameters()
+            {
+                _KEY = "@id_MainCategory",
+                _VALUE = Senderobj.PRDCTMainCat
+            };
+            paramss.Add(parameters);
+
+            parameters = new ExcParameters()
+            {
+                _KEY = "@id_SubCategory",
+                _VALUE = Senderobj.PRDCTSubCat
+            };
+            paramss.Add(parameters);
+
+            parameters = new ExcParameters()
+            {
+                _KEY = "@id_MProduct",
+                _VALUE = id_MProductOUT
+            };
+            paramss.Add(parameters);
+
+            string query = "UPDATE [tbl_Product] SET [id_Type] =@id_Type ,[id_MainCategory] =@id_MainCategory ,[id_SubCategory] =@id_SubCategory WHERE [id_MProduct]=@id_MProduct";
+            db.Connect();
+            List<ExcParameters> Psubk = new List<ExcParameters>();
+            for (int i = 0; i < Senderobj.AllSubcategory_Keys_Vals.Count; i++)
+            {
+                parameters = new ExcParameters()
+                {
+                    _KEY = "@ItemSubCategoryKeyID",
+                    _VALUE = Senderobj.AllSubcategory_Keys_Vals[i].ItemSubCategoryKeyID
+                };
+                Psubk.Add(parameters);
+                parameters = new ExcParameters()
+                {
+                    _KEY = "@id_MProduct",
+                    _VALUE = id_MProductOUT
+                };
+                Psubk.Add(parameters);
+                string resultitemSe = db.Script("INSERT INTO [tbl_Product_ConnectorSCOK_Product]([id_MProduct],[id_SCOK])VALUES(@id_MProduct,@ItemSubCategoryKeyID)", Psubk);
+                Psubk = new List<ExcParameters>();
+            }
+            string results = db.Script(query, paramss);
+            db.DC();
+            //EndOFStem2
+            //================================================================
+            //db.Script("INSERT INTO[tbl_Product_tblOptions]VALUES(" + id + ",N'" + Key + "',N'" + value + "')");
+            Psubk = new List<ExcParameters>();
+            db.Connect();
+            for (int i = 0; i < Senderobj.TagTargetAdded.Count; i++)
+            {
+                parameters = new ExcParameters()
+                {
+                    _KEY = "@TagTargeName",
+                    _VALUE = Senderobj.TagTargetAdded[i].TagTargeName
+                };
+                Psubk.Add(parameters);
+                parameters = new ExcParameters()
+                {
+                    _KEY = "@TagTargeValue",
+                    _VALUE = Senderobj.TagTargetAdded[i].TagTargeValue
+                };
+                Psubk.Add(parameters);
+                parameters = new ExcParameters()
+                {
+                    _KEY = "@id_MProduct",
+                    _VALUE = id_MProductOUT
+                };
+                Psubk.Add(parameters);
+                string resultitemtest = db.Script("INSERT INTO[tbl_Product_tblOptions]VALUES(@id_MProduct,@TagTargeName,@TagTargeValue)", Psubk);
+                Psubk = new List<ExcParameters>();
+            }
+            //EndSection2
+            //==================================================================
+            //Section 3 Skiped andd calculating in step 4
+            //...................................................................
+            //==================================================================
+            //Step4
+            int PriceXquantity = Convert.ToInt32(Senderobj.PRDCTPricePer1Demansion) * Convert.ToInt32(Senderobj.PRDCTDemansionValue);
+            JaygashtCalculator calculator = new JaygashtCalculator();
+            var jaygashts = calculator.Result(Senderobj.AllSubcategory_Keys_Vals);
+            string itemid = "0";
+            SaveJaygashtOfProducts SJOP = new SaveJaygashtOfProducts();
+            db.Connect();
+            foreach (var item in jaygashts)
+            {
+                itemid = SJOP.MainProduct_Actions("insert", id_MProductOUT, Senderobj.PRDCTDemansionValue, Senderobj.PRDCTDemansion, PriceXquantity.ToString(), Senderobj.PRDCTPricePer1Demansion, "0", "0", "0", Senderobj.PRDCTTagSectionOfProduct, Senderobj.PRDCTPriceDemansion, Senderobj.PRDCTPriceShowType);
+                foreach (var itm in item)
+                {
+                    string resultstiem = db.Script("INSERT INTO[tbl_Product_connectorToMPC_SCOV] VALUES(" + itemid + "," + itm.SubCategoryKeyValue + ")");
+                }
+            }
+            db.DC();
+
+            var ModelSender = new ErrorReporterModel
+            {
+                ErrorID = "SX10776",
+                Errormessage = $"ساخت محصولات با موفقیت انجام شد!",
+                Errortype = "Success"
+            };
+            return Json(ModelSender);
+        }
 
         public ActionResult ProductList()
         {
-            return View();
+
+            ProductListTableModelView modelView = new ProductListTableModelView();
+            modelView.Allrows = new List<ProductListTable>();
+            PDBC db = new PDBC();
+            db.Connect();
+            using (DataTable dt = db.Select("SELECT[id_MProduct],[IS_AVAILABEL],[Description],[DateCreated],[Title],[id_SubCategory],[ISDELETE],(SELECT top 1 [thumUploadAddress] FROM [v_tblProduct_Image] where [v_tblProduct_Image].[id_MProduct]=[tbl_Product].[id_MProduct]) as [pic],(SELECT[PricePerquantity] FROM[tlb_Product_MainProductConnector]WHERE id_MPC=idMPC_WhichTomainPrice) AS price,(SELECT[ad_firstname]+' '+[ad_lastname] FROM [tbl_ADMIN_main]where id_Admin=[id_CreatedByAdmin])as AddBy,(SELECT [PTname]FROM [tbl_Product_Type]where[id_PT]=[id_Type])as [type],(SELECT[SCName]FROM [tbl_Product_SubCategory]where[id_SC]=[id_SubCategory])as SubCat,(SELECT[MCName]FROM [tbl_Product_MainCategory]where[id_MC]=[id_MainCategory])as MainCat FROM [tbl_Product] ORDER BY (DateCreated) DESC"))
+            {
+                db.DC();
+                int dtrows = dt.Rows.Count;
+                for (int i = 0; i < dtrows; i++)
+                {
+                    DateTime date = Convert.ToDateTime(dt.Rows[i]["DateCreated"]);
+                    PersianDateTime persianDateTime = new PersianDateTime(date);
+                    var model = new ProductListTable()
+                    {
+                        id = Convert.ToInt32(dt.Rows[i]["id_MProduct"]),
+                        Productname = dt.Rows[i]["Title"].ToString(),
+                        ProductDescription = dt.Rows[i]["Description"].ToString(),
+                        AdminSubmiterName = dt.Rows[i]["AddBy"].ToString(),
+                        SubmitedDate = persianDateTime.ToString(),
+                        PicThumnailUrl = dt.Rows[i]["pic"].ToString(),
+                    };
+
+                    if (dt.Rows[i]["IS_AVAILABEL"].ToString() == "1")
+                    {
+                        model.ActivateStatus = 1;
+                    }
+                    else
+                    {
+                        model.ActivateStatus = 2;
+                    }
+                    if (dt.Rows[i]["ISDELETE"].ToString() == "1")
+                    {
+                        model.ActivateStatus = 3;
+                    }
+                    model.AllCategorys = new List<Categors>();
+                    model.AllCategorys.Add(new Categors()
+                    {
+                        CategorColor = "success",
+                        CategorName = dt.Rows[i]["SubCat"].ToString()
+
+                    });
+                    model.AllCategorys.Add(new Categors()
+                    {
+                        CategorColor = "info",
+                        CategorName = dt.Rows[i]["MainCat"].ToString()
+
+                    });
+                    model.AllCategorys.Add(new Categors()
+                    {
+                        CategorColor = "danger",
+                        CategorName = dt.Rows[i]["type"].ToString()
+
+                    });
+                    modelView.Allrows.Add(model);
+                }
+            }
+            return View(modelView);
+        }
+
+        [HttpPost]
+        public JsonResult ActiveProduct(string idToActive)
+        {
+            PDBC db = new PDBC();
+            ExcParameters par = new ExcParameters()
+            {
+                _KEY="@id_MProduct",
+                _VALUE=idToActive
+            };
+            List<ExcParameters> parss = new List<ExcParameters>();
+            parss.Add(par);
+            db.Connect();
+            string res = db.Script("UPDATE [tbl_Product] SET [IS_AVAILABEL] = 1 WHERE id_MProduct=@id_MProduct", parss);
+            if(res == "1")
+            {
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "SX106453243",
+                    Errormessage = $"این محصول با موفقیت فعال شد!",
+                    Errortype = "Success"
+                };
+                return Json(ModelSender);
+            }
+            else
+            {
+                PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "sher o ver e L326");
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX11552345",
+                    Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                    Errortype = "Error"
+                };
+                return Json(ModelSender);
+            }
+            
+        }
+
+        [HttpPost]
+        public JsonResult DeActiveProduct(string idToDEActive)
+        {
+            PDBC db = new PDBC();
+            ExcParameters par = new ExcParameters()
+            {
+                _KEY = "@id_MProduct",
+                _VALUE = idToDEActive
+            };
+            List<ExcParameters> parss = new List<ExcParameters>();
+            parss.Add(par);
+            db.Connect();
+            string res = db.Script("UPDATE [tbl_Product] SET [IS_AVAILABEL] = 0 WHERE id_MProduct = @id_MProduct", parss);
+            if (res == "1")
+            {
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "SX1124543",
+                    Errormessage = $"این محصول با موفقیت غیر فعال شد!",
+                    Errortype = "Success"
+                };
+                return Json(ModelSender);
+            }
+            else
+            {
+                PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "sher o ver e L326");
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX115098945",
+                    Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                    Errortype = "Error"
+                };
+                return Json(ModelSender);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult DeleteProduct(string idTodelete)
+        {
+            PDBC db = new PDBC();
+            ExcParameters par = new ExcParameters()
+            {
+                _KEY = "@id_MProduct",
+                _VALUE = idTodelete
+            };
+            List<ExcParameters> parss = new List<ExcParameters>();
+            parss.Add(par);
+            db.Connect();
+            string res = db.Script("UPDATE [tbl_Product] SET [ISDELETE] = 1 WHERE id_MProduct = @id_MProduct", parss);
+            if (res == "1")
+            {
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "SX1124543",
+                    Errormessage = $"این محصول با موفقیت حذف شد!",
+                    Errortype = "Success"
+                };
+                return Json(ModelSender);
+            }
+            else
+            {
+                PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "sher o ver e L326");
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX115098945",
+                    Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                    Errortype = "Error"
+                };
+                return Json(ModelSender);
+            }
         }
     }
 }

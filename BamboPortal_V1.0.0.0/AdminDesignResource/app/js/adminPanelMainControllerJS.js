@@ -422,3 +422,21 @@ function PosterCreator(idForm) {
 
 }
 //}{END}FormPoster
+
+
+$(".deactivate-btn").on("click", function (e) {
+    var data = $(this).data('name');
+    $('#deActiveModal').find('#data-name').text(data);
+    $("#idTodeactivemodal").val($(this).attr("id").replace("DeActive-", ""));
+});
+$(".cus-delete-btn").on("click", function (e) {
+    var data = $(this).data('name');
+    $('#deleteCus').find('#data-name-delete').text(data);
+    $("#idTodeleteCus").val($(this).attr("id").replace("Deletebtnproduct-", ""));
+
+});
+$(".activate-btn").on("click", function (e) {
+    var data = $(this).data('name');
+    $('#ActiveModal').find('#data-name-Active').text(data);
+    $("#activemodalID").val($(this).attr("id").replace("Active-", ""));
+});

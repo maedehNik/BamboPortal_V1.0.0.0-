@@ -53,8 +53,8 @@
     </div>
 </div>
 
-<input id="AllImagesByID" style="display:none" />
-<div class="m-content">
+<input id="AllImagesByID" value="NoIMG" style="" />
+<div class="m-content" id="MainaddProductController">
     <div class="row">
         <div class="col-lg-4">
             <div class="m-portlet m-portlet--full-height  ">
@@ -97,12 +97,12 @@
                                 <span class="m-nav__link-text">قیمت گذاری اولیه</span>
                             </a>
                         </li>
-                        <li class="m-nav__item tshcurpoi tshdisabled-validation tshbtn5">
+                        @*<li class="m-nav__item tshcurpoi tshdisabled-validation tshbtn5">
                             <a class="m-nav__link">
                                 <i class="m-nav__link-icon  fa fa-money-bill-alt"></i>
                                 <span class="m-nav__link-text">قیمت گذاری نهایی</span>
                             </a>
-                        </li>
+                        </li>*@
                     </ul>
                 </div>
             </div>
@@ -208,7 +208,7 @@
 
                                             </div>
                                             <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
-                                                <label class="col-form-label col-12 tshtextright" for="PRDCTMainCat" style="padding: 0;">گروه اصلی محصول:</label>
+                                                <label class=" col-12 tshtextright" for="PRDCTMainCat" style="padding: 0;">گروه اصلی محصول:</label>
                                                 <div class="col-12" style="padding: 0;">
                                                     <select class="form-control m-bootstrap-select m_selectpicker" name="PRDCTMainCat" id="PRDCTMainCat" title="انتخاب کنید..." onchange="URLSearchParamsProcuctMainCategoryId()">
                                                         <option value=0 selected disabled hidden>یک مورد را انتخاب نمایید</option>
@@ -219,7 +219,7 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                            <div class="form-group m-form__group col-lg-12 col-xs-12">
                                                 <label class="col-form-label col-12 tshtextright" for="PRDCTSubCat" style="padding: 0;">گروه محصول:</label>
                                                 <div class="col-12" style="padding: 0;">
                                                     <select class="form-control m-bootstrap-select m_selectpicker" name="PRDCTSubCat" id="PRDCTSubCat" title="انتخاب کنید..." onchange="URLSearchParamsProcuctSubCategoryId()">
@@ -229,7 +229,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                            <div class="form-group m-form__group col-lg-12 col-xs-12" style="padding-top: 0;">
                                                 <label class="col-form-label col-12 tshtextright" for="PRDCTSubCatKey" style="padding: 0;">ویژگی های محصول:</label>
                                                 <div class="col-12" style="padding: 0;">
                                                     <select class="form-control m-bootstrap-select m_selectpicker" name="PRDCTSubCatKey" id="PRDCTSubCatKey" multiple>
@@ -301,20 +301,6 @@
                                                 </tbody>
                                             </table>
                                             <table style="display: none;" class="cust-table cust-table-2 table table-striped table-hover m-table m-table--head-separator-primary" id="TbodyForTagsmobile">
-                                                <tr>
-                                                    <th>ویژگی</th>
-                                                    <td>ویژگی</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>مقدار</th>
-                                                    <td>مقدار</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>عملیات</th>
-                                                    <td>
-                                                        <button class="btn btn-danger tshpcustom cus-delete-btn" data-target="#deleteCus" data-toggle="modal" data-name="ویژگی"><i class="fa fa-trash tshfa"></i>حذف</button>
-                                                    </td>
-                                                </tr>
                                             </table>
                                         </div>
                                     </div>
@@ -331,7 +317,7 @@
                                     </div>
                                 </div>
                                 @*===========================================================================*@
-                                <div class="sec-4" style="display: block">
+                                <div class="sec-4" style="display: none">
                                     @{ Html.RenderAction("AddproductGetAllFinallyPriceDataAboutProducts", "AdministratorProducts");}
                                 </div>
 
@@ -467,10 +453,10 @@
 
         $(document).ready(function () {
             $("#PRDCTDescription").maxlength({ threshold: 8, warningClass: "m-badge m-badge--primary m-badge--rounded m-badge--wide", limitReachedClass: "m-badge m-badge--brand m-badge--rounded m-badge--wide" });
-            $("#PRDCTType").select2();
-            $("#PRDCTMainCat").select2();
-            $("#PRDCTSubCat").select2();
-            $("#PRDCTSubCatKey").select2();
+            $("#PRDCTType").select2({ width: '100%' });
+            $("#PRDCTMainCat").select2({ width: '100%' });
+            $("#PRDCTSubCat").select2({ width: '100%' });
+            $("#PRDCTSubCatKey").select2({ width: '100%' });
             $('.Select2Tshp').each(function (index, element) {
                 $(this).select2({
                     minimumResultsForSearch: -1
@@ -923,7 +909,7 @@
                                     $(this).select2({
                                         minimumResultsForSearch: -1
                                     });
-                                    $(".SubcategoryKeyValueMultiSelect").select2({ width: 'resolve' });
+                                    $(".SubcategoryKeyValueMultiSelect").select2({ width: '100%' });
 
                                 });
                             } else {
@@ -966,8 +952,74 @@
                     $("#PRDCTPriceShowType-error").css("display") == 'inline-block' ||
                     $("#PRDCTTagSectionOfProduct-error").css("display") == 'inline-block' ||
                     $("#PRDCTMainTags-error").css("display") == 'inline-block') { } else {
-                    $(".tshbtn5").removeClass("tshdisabled-validation");
-                    $(".tshbtn5").click();
+
+                    //==================================================================
+
+                    mApp.block("#MainaddProductController", {
+                        overlayColor: "#2c2e3e", type: "loader", state: "success", message: "درحال ارسال اطلاعات و ساخت محصولات متغیر ..."
+                    });
+                    var AllSubcategory_Keys_Vals = [];
+                    $('.SubcategoryKeyValueMultiSelect').each(function (index, element) {
+
+                        var PRDCTSCKV = {
+                            "ItemSubCategoryKeyID": $(this).attr("id").replace("PRDCTSCKV-", ""),
+                            "SubCategoryKeyAllValues": $(this).val()
+                        };
+                        AllSubcategory_Keys_Vals.push(PRDCTSCKV);
+                        console.log(AllSubcategory_Keys_Vals);
+                    });
+
+                    console.log("==========================================================");
+                    const PostJson = {
+                        'PRDCTName': $("#PRDCTName").val(),
+                        'PRDCTDescription': $("#PRDCTDescription").val(),
+                        'AllImagesByID': $("#AllImagesByID").val(),
+                        'PRDCTType': $("#PRDCTType").val(),
+                        'PRDCTMainCat': $("#PRDCTMainCat").val(),
+                        'PRDCTSubCat': $("#PRDCTSubCat").val(),
+                        'AllSubcategory_Keys_Vals': AllSubcategory_Keys_Vals,
+                        'TagTargetAdded': TagTargetAdded,
+                        'PRDCTDemansion': $("#PRDCTDemansion").val(),
+                        'PRDCTPriceDemansion': $("#PRDCTPriceDemansion").val(),
+                        'PRDCTOffType': $("#PRDCTOffType").val(),
+                        'PRDCTOffPriceValue': $("#PRDCTOffPriceValue").val(),
+                        'PRDCTPricePer1Demansion': $("#PRDCTPricePer1Demansion").val(),
+                        'PRDCTDemansionValue': $("#PRDCTDemansionValue").val(),
+                        'PRDCTPriceShowType': $("#PRDCTPriceShowType").val(),
+                        'PRDCTTagSectionOfProduct': $("#PRDCTTagSectionOfProduct").val()
+                    };
+                    console.log(JSON.stringify(PostJson));
+                    $.ajax({
+                        url: '/AdministratorProducts/AddProduct_SeimiFinalStepToGenerateProductAndFinalSubmit',
+                        type: "post",
+                        data: JSON.stringify(PostJson),
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+
+                            if (data.Errortype == "Success") {
+                                AlertToUser("MainaddProductController", data);
+                            setTimeout(function () {
+                                mApp.unblock("MainaddProductController")
+                            }, 1000);
+                            } else {
+                                alert(data.Errormessage);
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            swal("مشکل در برقراری ارتباط با سرور", textStatus, "error");
+                            setTimeout(function () {
+                                mApp.unblock("MainaddProductController")
+                            }, 1000);
+
+                        }
+                    });
+                    console.log(PostJson);
+                    //=================================================
+
+                    //$(".tshbtn5").removeClass("tshdisabled-validation");
+                    //$(".tshbtn5").click();
+
+
                 }
             }, 200)
         })

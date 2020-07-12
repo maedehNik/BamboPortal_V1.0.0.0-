@@ -1,8 +1,91 @@
-﻿
+﻿@model BamboPortal_V1._0._0._0.ModelViews.AdministratorProducts.ProductListTableModelView
 @{
     ViewBag.Title = "ProductList";
     Layout = "~/Views/SharedViewPages/Administrator/MasterView.cshtml";
+    int rowcount = Model.Allrows.Count;
 }
+<div class="modal fade" id="ActiveModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">فعال کردن محصول</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    محصول
+                    <span id="data-name-Active">
+
+                    </span>
+                    فعال شود؟
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">خیر</button>
+                <button id="ActiveModal_SubmitBTN" onclick="return YesAactivePlz()" type="button" class="btn btn-danger">بله</button>
+                <input id="activemodalID" style="display:none" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deActiveModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">غیرفعال کردن محصول</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    محصول
+                    <span id="data-name">
+
+                    </span>
+                    غیرفعال شود؟
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">خیر</button>
+                <button onclick="return YesDeactivePlz()" id="deActiveModal_SubmitBTN" type="button" class="btn btn-danger">بله</button>
+                <input id="idTodeactivemodal" style="display:none" />
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteCus" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">پاک کردن محصول</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    محصول
+                    <span id="data-name-delete">
+
+                    </span>
+                    پاک شود؟
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">خیر</button>
+                <button onclick="return YesDeletePlz()" id="deleteCus_SubmitBTN" type="button" class="btn btn-danger">بله</button>
+                <input id="idTodeleteCus" style="display:none" />
+
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- BEGIN: Subheader -->
 <div class="m-subheader">
@@ -50,12 +133,26 @@
                         </ul>
                     </div>
                 </div>
-                <div class="tab-content">
+                <div class="col-12">
+                    <div class="col-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3 mt-5" style="padding: 0;">
+                            <div class="m-input-icon m-input-icon--left ">
+                                @*m-loader m-loader--primary m-loader--right*@
+                                <input type="text" class="form-control m-input " placeholder="جستجو" id="ProductSearch">
+                                <span class="m-input-icon__icon m-input-icon__icon--left">
+                                    <span><i class="fa fa-search"></i></span>
+                                </span>
+                            </div>
+                            <small>برای یافتن سریع محصول حود نام آنرا وارد نمایید و برای دیدن تمامی محصولات تمام متن جستجو را پاک نمایید</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content" id="tableFreezer">
                     <div class="tab-pane active" id="m_user_profile_tab_1">
                         <div class="m-portlet__body">
                             <div class="m-section container-fluid">
                                 <div class="m-section__content container-fluid">
-                                    <table class="cust-table table table-striped table-hover m-table m-table--head-separator-primary">
+                                    <table class="cust-table table table-striped table-hover m-table m-table--head-separator-primary ">
                                         <thead>
                                             <tr>
                                                 <th>#</th>
@@ -70,107 +167,134 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+
+
+
+                                            @if (Model.Allrows.Count > 0)
+                                            {
+                                                for (int _i = 0; _i < rowcount; _i++)
+                                                {
+
+                                                    <tr>
+                                                        <th scope="row">
+                                                            @_i.ToString()
+                                                        </th>
+                                                        <td> @Model.Allrows[_i].Productname </td>
+                                                        <td style="max-width: 230px"> @Model.Allrows[_i].ProductDescription </td>
+                                                        <td><img src="@Model.Allrows[_i].PicThumnailUrl" alt="" style="max-width: 230px" /></td>
+                                                        @if (Model.Allrows[_i].ActivateStatus != 3)
+                                                        {
+                                                            <td>
+                                                                @if (Model.Allrows[_i].ActivateStatus == 1)
+                                                                {
+                                                                    <button id="DeActive-@Model.Allrows[_i].id" class="btn btn-success tshpcustom deactivate-btn" data-target="#deActiveModal" data-toggle="modal" data-name="@Model.Allrows[_i].Productname"><i class="fa fa-check tshfa"></i>فعال</button>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <button id="Active-@Model.Allrows[_i].id" class="btn btn-warning tshpcustom activate-btn" data-target="#ActiveModal" data-toggle="modal" data-name="@Model.Allrows[_i].Productname"><i class="fa fa-check tshfa"></i>غیر فعال</button>
+                                                                }
+
+
+                                                            </td>
+                                                            <td>
+                                                                @Model.Allrows[_i].SubmitedDate
+                                                            </td>
+                                                            <td>
+                                                                @foreach (var item in Model.Allrows[_i].AllCategorys)
+                                                                {
+                                                                    <span class="m-badge m-badge--@item.CategorColor tshcolorwhite m-badge--wide tshbadge" style="margin: 2px;">@item.CategorName</span>
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                @Model.Allrows[_i].AdminSubmiterName
+                                                            </td>
+                                                            <td>
+                                                                <a href="@Url.Action("ProductDetails","AdministratorProducts")?id=@Model.Allrows[_i].id" class="btn btn-brand tshpcustom" style="margin: 3px;display: block;width: 100%;"><i class="fa fa-eye tshfa"></i>نمایش</a>
+                                                                <button id="Deletebtnproduct-@Model.Allrows[_i].id" class="btn btn-danger tshpcustom cus-delete-btn" style="margin: 3px;display: block;width: 100%;" data-target="#deleteCus" data-toggle="modal" data-name="نام ساختگی برای محصول"><i class="fa fa-trash tshfa"></i>حذف</button>
+                                                            </td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td>
+                                                                <button class="btn btn-danger tshpcustom deactivate-btn"><i class="fa fa-check tshfa"></i>حذف شده</button>
+                                                            </td>
+                                                        }
+                                                    </tr>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <h3 class="m-badge m-badge--danger m-badge--wide">
+                                                    موردی برای نمایش وجود ندارد.
+                                                </h3>
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                    <table style="display: none;" class="cust-table cust-table-2 table table-striped table-hover m-table m-table--head-separator-primary">
+                                        @if (Model.Allrows.Count > 0)
+                                        {
                                             <tr>
-                                                <th scope="row">1</th>
+                                                <th>#</th>
+                                                <td>1</td>
+
+                                            </tr>
+                                            <tr>
+                                                <th>نام محصول</th>
                                                 <td>نام ساختگی برای محصول</td>
-                                                <td style="max-width: 230px">توضیحات محصول توضیحات محصول توضیحات محصول توضیحات محصول توضیحات محصول</td>
-                                                <td><img src="assets/demo/default/media/img/misc/notification_bg.jpg" alt="" style="max-width: 230px"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>توضیحات</th>
+                                                <td>توضیحات محصول توضیحات محصول توضیحات محصول توضیحات محصول توضیحات محصول</td>
+                                            </tr>
+                                            <tr>
+                                                <th>عکس</th>
+                                                <td><img src="assets/demo/default/media/img/misc/notification_bg.jpg" alt="" style="width: 100%"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>وضعیت</th>
                                                 <td>
-                                                    <button class="btn btn-success tshpcustom deactivate-btn" data-target="#deactivemodal" data-toggle="modal" data-name="نام ساختگی برای محصول"><i class="fa fa-check tshfa"></i>فعال</button>
+                                                    <button class="btn btn-success tshpcustom deactivate-btn" data-target="#deactivemodal" data-toggle="modal" data-name="امیرحسین عرب"><i class="fa fa-check tshfa"></i>فعال</button>
                                                 </td>
+                                            </tr>
+                                            <tr>
+                                                <th>تاریخ ثبت</th>
                                                 <td>
                                                     1399/05/17
                                                 </td>
+                                            </tr>
+                                            <tr>
+                                                <th>دسته بندی</th>
                                                 <td>
                                                     <span class="m-badge m-badge--warning tshcolorwhite m-badge--wide tshbadge" style="margin: 2px;">کفش</span>
                                                     <span class="m-badge m-badge--danger m-badge--wide tshbadge" style="margin: 2px;">مردانه</span>
                                                     <span class="m-badge m-badge--success m-badge--wide tshbadge" style="margin: 2px;">کفش و صنایع وابسته</span>
                                                 </td>
+                                            </tr>
+                                            <tr>
+                                                <th>ثبت کننده</th>
                                                 <td>
                                                     ادمین ولوت
                                                 </td>
+                                            </tr>
+                                            <tr>
+                                                <th>عملیات</th>
                                                 <td>
-                                                    <button class="btn btn-brand tshpcustom" style="margin: 3px;display: block;width: 100%;"><i class="fa fa-eye tshfa"></i>نمایش</button>
-                                                    <button class="btn btn-warning tshpcustom" style="margin: 3px;display: block;width: 100%;"><i class="fa fa-edit tshfa"></i>ویرایش</button>
-                                                    <button class="btn btn-danger tshpcustom cus-delete-btn" style="margin: 3px;display: block;width: 100%;" data-target="#deleteCus" data-toggle="modal" data-name="نام ساختگی برای محصول"><i class="fa fa-trash tshfa"></i>حذف</button>
+                                                    <button class="btn btn-brand tshpcustom" style="margin: 3px;"><i class="fa fa-eye tshfa"></i>نمایش</button>
+                                                    <button class="btn btn-warning tshpcustom" style="margin: 3px;"><i class="fa fa-edit tshfa"></i>ویرایش</button>
+                                                    <button class="btn btn-danger tshpcustom cus-delete-btn" style="margin: 3px;" data-target="#deleteCus" data-toggle="modal" data-name="نام ساختگی برای محصول"><i class="fa fa-trash tshfa"></i>حذف</button>
                                                 </td>
                                             </tr>
-                                        </tbody>
-                                    </table>
-                                    <table style="display: none;" class="cust-table cust-table-2 table table-striped table-hover m-table m-table--head-separator-primary">
-                                        <tr>
-                                            <th>#</th>
-                                            <td>1</td>
+                                        }
+                                        else
+                                        {
 
-                                        </tr>
-                                        <tr>
-                                            <th>نام محصول</th>
-                                            <td>نام ساختگی برای محصول</td>
-                                        </tr>
-                                        <tr>
-                                            <th>توضیحات</th>
-                                            <td>توضیحات محصول توضیحات محصول توضیحات محصول توضیحات محصول توضیحات محصول</td>
-                                        </tr>
-                                        <tr>
-                                            <th>عکس</th>
-                                            <td><img src="assets/demo/default/media/img/misc/notification_bg.jpg" alt="" style="width: 100%"></td>
-                                        </tr>
-                                        <tr>
-                                            <th>وضعیت</th>
-                                            <td>
-                                                <button class="btn btn-success tshpcustom deactivate-btn" data-target="#deactivemodal" data-toggle="modal" data-name="امیرحسین عرب"><i class="fa fa-check tshfa"></i>فعال</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>تاریخ ثبت</th>
-                                            <td>
-                                                1399/05/17
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>دسته بندی</th>
-                                            <td>
-                                                <span class="m-badge m-badge--warning tshcolorwhite m-badge--wide tshbadge" style="margin: 2px;">کفش</span>
-                                                <span class="m-badge m-badge--danger m-badge--wide tshbadge" style="margin: 2px;">مردانه</span>
-                                                <span class="m-badge m-badge--success m-badge--wide tshbadge" style="margin: 2px;">کفش و صنایع وابسته</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>ثبت کننده</th>
-                                            <td>
-                                                ادمین ولوت
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>عملیات</th>
-                                            <td>
-                                                <button class="btn btn-brand tshpcustom" style="margin: 3px;"><i class="fa fa-eye tshfa"></i>نمایش</button>
-                                                <button class="btn btn-warning tshpcustom" style="margin: 3px;"><i class="fa fa-edit tshfa"></i>ویرایش</button>
-                                                <button class="btn btn-danger tshpcustom cus-delete-btn" style="margin: 3px;" data-target="#deleteCus" data-toggle="modal" data-name="نام ساختگی برای محصول"><i class="fa fa-trash tshfa"></i>حذف</button>
-                                            </td>
-                                        </tr>
+                                        }
+
+
                                     </table>
                                     <div class="col-lg-12 mt-4 mb-4">
-                                        <span class="col-lg-3">
-                                            صفحه
-                                            <span>50</span>
-                                            از
-                                            <span>170</span>
-                                        </span>
-                                        <ul class="tshpaglist col-lg-9">
-                                            <li class="btn btn-brand disabled">قبلی</li>
-                                            <li class="btn btn-brand active-pag">1</li>
-                                            <li class="btn btn-brand">2</li>
-                                            <li class="btn btn-brand">3</li>
-                                            <li class="btn btn-brand">4</li>
-                                            <li class="btn btn-brand">5</li>
-                                            <li class="btn btn-brand">6</li>
-                                            <li class="btn btn-brand">7</li>
-                                            <li class="btn btn-brand">8</li>
-                                            <li class="btn btn-brand">9</li>
-                                            <li class="btn btn-brand">10</li>
-                                            <li class="btn btn-brand">بعدی</li>
-                                        </ul>
+
                                     </div>
                                 </div>
                             </div>
@@ -189,3 +313,106 @@
 </div>
 
 
+@section Scripts {
+    <script>
+        //Search
+        $("#ProductSearch").on("keyup", function () {
+            mApp.block("#tableFreezer", {
+                overlayColor: "#2c2e3e", type: "loader", state: "success", message: "در حال گرفتن اطلاعات از سمت سرور ..."
+            });
+            var value = $(this).val();
+            $("table tr").each(function (index) {
+                if (index !== 0) {
+
+                    $row = $(this);
+
+                    var id = $row.find("td:first").text();
+
+                    if (id.indexOf(value) !== 0) {
+                        $row.hide();
+                    }
+                    else {
+                        $row.show();
+                    }
+                }
+            });
+            setTimeout(function () {
+                mApp.unblock("#tableFreezer")
+            }, 1000);
+        });
+        // End
+        //Active delete Deactive
+        function YesDeactivePlz() {
+
+            const PostJson = {
+                'idToDEActive': $("#idTodeactivemodal").val()
+            };
+
+            $("#deActiveModal_SubmitBTN").addClass("m-loader m-loader--light m-loader--right").prop("disabled", true);
+            $.ajax({
+                url: '/AdministratorProducts/DeActiveProduct',
+                type: "post",
+                data: JSON.stringify(PostJson),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    if (data.Errortype == "Success") {
+                        AlertToUser("deActiveModal", data);
+                    } else {
+                        alert(data.Errormessage);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("مشکل در برقراری ارتباط با سرور");
+                }
+            });
+        }
+        function YesAactivePlz() {
+
+            const PostJson = {
+                'idToActive': $("#activemodalID").val()
+            };
+
+            $("#ActiveModal_SubmitBTN").addClass("m-loader m-loader--light m-loader--right").prop("disabled", true);
+            $.ajax({
+                url: '/AdministratorProducts/ActiveProduct',
+                type: "post",
+                data: JSON.stringify(PostJson),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    if (data.Errortype == "Success") {
+                        AlertToUser("ActiveModal", data);
+                    } else {
+                        alert(data.Errormessage);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("مشکل در برقراری ارتباط با سرور");
+                }
+            });
+        }
+        function YesDeletePlz() {
+            const PostJson = {
+                'idTodelete': $("#idTodeleteCus").val()
+            };
+            $("#deleteCus_SubmitBTN").addClass("m-loader m-loader--light m-loader--right").prop("disabled", true);
+            $.ajax({
+                url: '/AdministratorProducts/DeleteProduct',
+                type: "post",
+                data: JSON.stringify(PostJson),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    if (data.Errortype == "Success") {
+                        AlertToUser("deleteCus", data);
+                    } else {
+                        alert(data.Errormessage);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("مشکل در برقراری ارتباط با سرور");
+                }
+            });
+        }
+    </script>
+}
