@@ -141,6 +141,7 @@
     <Compile Include="Controllers\AdminRulesController.cs" />
     <Compile Include="Controllers\AdminRules_ProductCTRLController.cs" />
     <Compile Include="Controllers\AllErrorsRedirectController.cs" />
+    <Compile Include="Controllers\CustomerSide_PagesController.cs" />
     <Compile Include="Controllers\TestssController.cs" />
     <Compile Include="Controllers\VelvetCustomersController.cs" />
     <Compile Include="DatabaseCenter\Class\Dbconnect.cs" />
@@ -3184,6 +3185,7 @@
     <Folder Include="Models\AdministratorProducts_FieldLoader\" />
     <Folder Include="UploadedImages\" />
     <Folder Include="Views\AdminRules_ProductCTRL\" />
+    <Folder Include="Views\CustomerSide_Pages\" />
     <Folder Include="WebConfigNotes\" />
   </ItemGroup>
   <ItemGroup>
