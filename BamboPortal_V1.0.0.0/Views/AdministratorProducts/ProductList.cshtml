@@ -180,8 +180,8 @@
                                                             @_i.ToString()
                                                         </th>
                                                         <td> @Model.Allrows[_i].Productname </td>
-                                                        <td style="max-width: 230px"> @Model.Allrows[_i].ProductDescription </td>
-                                                        <td><img src="@Model.Allrows[_i].PicThumnailUrl" alt="" style="max-width: 230px" /></td>
+                                                        <td style="max-width: 230px;width: 50px;word-wrap: break-word;"> @Model.Allrows[_i].ProductDescription </td>
+                                                        <td><img src="@Model.Allrows[_i].PicThumnailUrl" alt="" style="max-width: 230px" onerror="this.onerror=null;this.src='/AdminDesignResource/app/media/img/users/user4.jpg'" /></td>
                                                         @if (Model.Allrows[_i].ActivateStatus != 3)
                                                         {
                                                             <td>
@@ -209,7 +209,12 @@
                                                                 @Model.Allrows[_i].AdminSubmiterName
                                                             </td>
                                                             <td>
-                                                                <a href="@Url.Action("ProductDetails","AdministratorProducts")?id=@Model.Allrows[_i].id" class="btn btn-brand tshpcustom" style="margin: 3px;display: block;width: 100%;"><i class="fa fa-eye tshfa"></i>نمایش</a>
+                                                                @if (Model.Allrows[_i].id != 0)
+                                                                {
+
+                                                                    <a href="@Url.Action("ViewDetails","AdministratorProducts")?idMPC=@Model.Allrows[_i].idMPC" class="btn btn-brand tshpcustom" style="margin: 3px;display: block;width: 100%;"><i class="fa fa-eye tshfa"></i>نمایش</a>
+                                                                }
+
                                                                 <button id="Deletebtnproduct-@Model.Allrows[_i].id" class="btn btn-danger tshpcustom cus-delete-btn" style="margin: 3px;display: block;width: 100%;" data-target="#deleteCus" data-toggle="modal" data-name="نام ساختگی برای محصول"><i class="fa fa-trash tshfa"></i>حذف</button>
                                                             </td>
                                                         }

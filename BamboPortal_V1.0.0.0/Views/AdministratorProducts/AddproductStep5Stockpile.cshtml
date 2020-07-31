@@ -1,0 +1,63 @@
+﻿@model BamboPortal_V1._0._0._0.ModelViews.AdministratorProducts.AddproductStep5StockpileModelView
+@{
+    Layout = null;
+}
+
+@foreach (var item in Model.AllProducts)
+{
+    <input type="hidden" style="display:none;" value="@item.id_MPC" class="IDMPCSender" />
+    <div class="row">
+        <div class="form-group m-form__group col-lg-6 col-xs-12">
+            <label class="col-12 col-form-label tshtextright">نام محصول و دسته بندی ها : @item.ProductName</label>
+        </div>
+        <div class="form-group m-form__group col-lg-12 col-xs-12" style="padding-top: 0;">
+            <div class="col-12" style="overflow: hidden;transform: translate(-5px,-5px);padding: 0!important; display: inline !important;">
+                @foreach (var ProductsJaygashtList in item.ProductsJaygashtList)
+                {
+
+                    <span class="m-badge m-badge--@ProductsJaygashtList.BootstrapColor tshcolorwhite m-badge--wide tshbadge" style="float: right;">@ProductsJaygashtList.ToString()</span>
+                }
+
+            </div>
+        </div>
+        <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+            <label class="col-12 col-form-label tshtextright">واحد قیمتی: @item.MoneyType</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group m-form__group col-lg-6 col-xs-12">
+            <label for="prd18" class="col-12 col-form-label tshtextright">قیمت هر واحد:</label>
+            <div class="col-12">
+                <input class="form-control m-input PriceNumeric" placeholder="قیمت هر واحد" id="PriceNumeric-@item.id_MPC" type="text" value="@item.productPricePerQT" important>
+            </div>
+        </div>
+        <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0px;"> 
+            <label class="col-12 col-form-label tshtextright">تعداد در هر واحد:</label>
+            <div class="input-group m-input-group">
+                <div class="input-group-prepend"><span class="input-group-text" id="basic-addon1">@item.QTDemansion</span></div>
+                <input value="@item.productQT" type="text" class="form-control m-input QTnumeric" placeholder="تعداد در هر واحد" id="QTnumeric-@item.id_MPC" aria-describedby="basic-addon1">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group m-form__group col-12">
+            <label class="col-12 col-form-label tshtextright">کد محصول:</label>
+            <div class="input-group m-input-group">
+                <div class="input-group-prepend"><span class="input-group-text" id="basic-addon1">#</span></div>
+                <input type="text" class="form-control m-input ProductCode" placeholder="کدمحصول" aria-describedby="basic-addon1" id="ProductCode-@item.id_MPC">
+            </div>
+        </div>
+    </div>
+    <div class="m-portlet__foot m-portlet__foot--fit" style="margin-top: 10px;margin-bottom: 10px;"></div>
+}
+<div class="m-portlet__foot m-portlet__foot--fit" style="border-top:none;">
+    <div class="m-form__actions">
+        <div class="row">
+            <div class="col-2">
+            </div>
+            <div class="col-12 tshtextleft">
+                <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom" id="SaveAllDataToStockpile_SubmitBTN" onclick="return SaveAllDataToStockpile()">ذخیره</button>&nbsp;&nbsp;
+            </div>
+        </div>
+    </div>
+</div>

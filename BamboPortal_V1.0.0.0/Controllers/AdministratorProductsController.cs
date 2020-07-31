@@ -4,6 +4,7 @@ using BamboPortal_V1._0._0._0.Models.AdministratorProductsModels;
 using BamboPortal_V1._0._0._0.Models.UsefulModels;
 using BamboPortal_V1._0._0._0.ModelViews.AdministratorProducts;
 using BamboPortal_V1._0._0._0.nonStaticUsefulClass.Products;
+using BamboPortal_V1._0._0._0.StaticClass;
 using BamboPortal_V1._0._0._0.StaticClass.BugReporter;
 using MD.PersianDateTime;
 using System;
@@ -2056,6 +2057,217 @@ namespace BamboPortal_V1._0._0._0.Controllers
 
             return View(model);
         }
+        [HttpGet]
+        public ActionResult ViewDetails(string idMPC)
+        {
+            if (!string.IsNullOrEmpty(idMPC))
+            {
+                int idmp = 0;
+                if (Int32.TryParse(idMPC, out idmp))
+                {
+                    PDBC db = new PDBC();
+                    ExcParameters par = new ExcParameters()
+                    {
+                        _KEY = "@id_MPC",
+                        _VALUE = idMPC
+                    };
+                    List<ExcParameters> pars = new List<ExcParameters>();
+                    pars.Add(par);
+                    ProductViewDetailsModelView model = new ProductViewDetailsModelView();
+                    model.ProductsJaygashtList = new List<ProductViewDetails_ProductSOCKandSOCKVLList>();
+                    model.PropertyTable = new List<ProductViewDetails_PropertyTable>();
+                    model.ProductStoreFromStockpile = new List<ProductViewDetails_PropertyTable>();
+                    model.EditTimeLine = new List<ProductViewDetails_EditTimeLine>();
+                    model.PicAddress = new List<string>();
+                    model.PriceChart = new List<string>();
+                    model.FactorsChart = new List<string>();
+                    string id_MProductReal = "";
+                    db.Connect();
+                    using (DataTable dtproduct = db.Select("SELECT [id_MProduct],[id_MPC],[id_PQT],[IS_AVAILABEL],[id_DraftLevel],[id_Type],[id_MainCategory],[id_SubCategory],[idMPC_WhichTomainPrice],[Description],[DateCreated],[Title],[Seo_Description],[Seo_KeyWords],[IS_AD],[Search_Gravity],[Is_IntheDraft],[ISDELETE],[PTname],[ISDESABLED],[tbl_Product_Type_ISDelete],[MCName],[SCName],[Quantity],[PriceXquantity],[PricePerquantity],[PriceOff],[offTypeValue],[OffType],[tlb_Product_MainProductConnector_ISDELETE],[OutOfStock],[DateToRelease],[PriceShow],[PriceShowformat],[id_CreatedByAdmin],[ad_NickName],[ad_firstname],[ad_lastname],[id_MainStarTag],[PQT_Description],[PQT_Demansion],[PQT_Quantom],[code_Stockpile],[MoneyTypeName]  FROM [v_Connector_MainProductConnectorToProduct] WHERE [id_MPC] = @id_MPC", pars))
+                    {
+                        db.DC();
+                        if (dtproduct.Rows.Count > 0)
+                        {
+                            id_MProductReal = dtproduct.Rows[0]["id_MProduct"].ToString();
+                            model.id_MPC = idMPC;
+                            model.ProductName = dtproduct.Rows[0]["Title"].ToString();
+                            model.ProductStockpileCode = dtproduct.Rows[0]["code_Stockpile"].ToString();
+                            model.Description = dtproduct.Rows[0]["Description"].ToString();
+                            model.ProductPrice = dtproduct.Rows[0]["PriceXquantity"].ToString();
+                            PersianDateTime date = new PersianDateTime(Convert.ToDateTime(dtproduct.Rows[0]["DateCreated"].ToString()));
+                            model.LastEdit = date.ToLongDateTimeString();
+                            model.PriceTypeName = dtproduct.Rows[0]["MoneyTypeName"].ToString();
+                            db.Connect();
+                            using (DataTable dt = db.Select("SELECT [id_MPC] ,[SCOKName] ,[SCOVValueName] FROM [v_ConnectorTheProductConnectorViewToSCOVandSCOKV_s] WHERE [id_MProduct] = " + dtproduct.Rows[0]["id_MProduct"].ToString() + " ORDER BY [id_MPC] DESC"))
+                            {
+                                db.DC();
+                                if (dt.Rows.Count > 0)
+                                {
+                                    int dtrows = dt.Rows.Count;
+                                    ProductViewDetails_ProductSOCKandSOCKVLList products = new ProductViewDetails_ProductSOCKandSOCKVLList();
+                                    products.ProductSOCKSOCKVList = new List<ProductViewDetails_ProductSOCKandSOCKVL>();
+                                    string id_MPC = "";
+                                    products.ProductSOCKSOCKVList.Add(new ProductViewDetails_ProductSOCKandSOCKVL()
+                                    {
+                                        BootstrapColor = BootstrapColorPicker.GetbootstrapColorByTag(BootstrapColorEnums.primary),
+                                        SOCKName = "سردسته بندی اصلی",
+                                        SOCKVName = dtproduct.Rows[0]["PTname"].ToString()
+                                    });
+                                    products.ProductSOCKSOCKVList.Add(new ProductViewDetails_ProductSOCKandSOCKVL()
+                                    {
+                                        BootstrapColor = BootstrapColorPicker.GetbootstrapColorByTag(BootstrapColorEnums.primary),
+                                        SOCKName = "گروه اصلی",
+                                        SOCKVName = dtproduct.Rows[0]["MCName"].ToString()
+                                    });
+                                    products.ProductSOCKSOCKVList.Add(new ProductViewDetails_ProductSOCKandSOCKVL()
+                                    {
+                                        BootstrapColor = BootstrapColorPicker.GetbootstrapColorByTag(BootstrapColorEnums.primary),
+                                        SOCKName = "گروه محصول",
+                                        SOCKVName = dtproduct.Rows[0]["SCName"].ToString()
+                                    });
+                                    for (int i = 0; i < dtrows; i++)
+                                    {
+                                        if (id_MPC != dt.Rows[i]["id_MPC"].ToString())
+                                        {
+                                            if (!string.IsNullOrEmpty(id_MPC))
+                                            {
+                                                products.id_MPC = id_MPC;
+                                                model.ProductsJaygashtList.Add(products);
+                                                products = new ProductViewDetails_ProductSOCKandSOCKVLList();
+                                                products.ProductSOCKSOCKVList = new List<ProductViewDetails_ProductSOCKandSOCKVL>();
+                                                products.id_MPC = dt.Rows[i]["id_MPC"].ToString();
+                                                products.ProductSOCKSOCKVList.Add(new ProductViewDetails_ProductSOCKandSOCKVL()
+                                                {
+                                                    BootstrapColor = BootstrapColorPicker.GetbootstrapColorByTag(BootstrapColorEnums.primary),
+                                                    SOCKName = "سردسته بندی اصلی",
+                                                    SOCKVName = dtproduct.Rows[0]["PTname"].ToString()
+                                                });
+                                                products.ProductSOCKSOCKVList.Add(new ProductViewDetails_ProductSOCKandSOCKVL()
+                                                {
+                                                    BootstrapColor = BootstrapColorPicker.GetbootstrapColorByTag(BootstrapColorEnums.primary),
+                                                    SOCKName = "گروه اصلی",
+                                                    SOCKVName = dtproduct.Rows[0]["MCName"].ToString()
+                                                });
+                                                products.ProductSOCKSOCKVList.Add(new ProductViewDetails_ProductSOCKandSOCKVL()
+                                                {
+                                                    BootstrapColor = BootstrapColorPicker.GetbootstrapColorByTag(BootstrapColorEnums.primary),
+                                                    SOCKName = "گروه محصول",
+                                                    SOCKVName = dtproduct.Rows[0]["SCName"].ToString()
+                                                });
+
+                                            }
+                                        }
+                                        products.ProductSOCKSOCKVList.Add(new ProductViewDetails_ProductSOCKandSOCKVL()
+                                        {
+                                            BootstrapColor = BootstrapColorPicker.GetbootstrapColorRandomByCounter(i),
+                                            SOCKName = dt.Rows[i]["SCOKName"].ToString(),
+                                            SOCKVName = dt.Rows[i]["SCOVValueName"].ToString()
+                                        });
+                                        id_MPC = dt.Rows[i]["id_MPC"].ToString();
+                                        if (i == dtrows - 1)
+                                        {
+                                            products.id_MPC = id_MPC;
+                                            model.ProductsJaygashtList.Add(products);
+                                        }
+                                    }
+
+                                }
+                                else
+                                {
+                                    return RedirectToAction("ProductList");
+                                }
+                            }
+                        }
+                        else
+                        {
+                            return RedirectToAction("ProductList");
+                        }
+                        db.Connect();
+                        using (DataTable dt = db.Select("SELECT [KeyName] ,[Value] FROM [tbl_Product_tblOptions] WHERE [id_MProduct] = " + id_MProductReal))
+                        {
+                            db.DC();
+                            int dtrows = dt.Rows.Count;
+                            ProductViewDetails_PropertyTable pvdpt = new ProductViewDetails_PropertyTable();
+                            if (dtrows == 0)
+                            {
+                                pvdpt = new ProductViewDetails_PropertyTable()
+                                {
+                                    Key = "موردی برای نمایش وجود ندارد",
+                                    Value = "موردی برای نمایش وجود ندارد"
+                                };
+                                model.PropertyTable.Add(pvdpt);
+                            }
+                            for (int i = 0; i < dtrows; i++)
+                            {
+                                pvdpt = new ProductViewDetails_PropertyTable()
+                                {
+                                    Key = dt.Rows[i]["KeyName"].ToString(),
+                                    Value = dt.Rows[i]["Value"].ToString()
+                                };
+                                model.PropertyTable.Add(pvdpt);
+                            }
+                        }
+                    }
+
+                    db.Connect();
+                    using (DataTable dt = db.Select("SELECT [orgUploadAddress] FROM [v_tblProduct_Image] WHERE [id_MProduct]=" + id_MProductReal))
+                    {
+                        db.DC();
+                        int dtrows = dt.Rows.Count;
+                        for (int i = 0; i < dtrows; i++)
+                        {
+                            model.PicAddress.Add(dt.Rows[i]["orgUploadAddress"].ToString());
+                        }
+                    }
+                    if (model.PicAddress.Count == 0)
+                    {
+                        model.PicAddress.Add("/AdminDesignResource/app/media/img/users/user4.jpg");
+                    }
+                    //=================================================================================== EditNeed
+                    string p1 = "", p2 = "", f1 = "", f2 = "";
+                    for (int i = 0; i < 12; i++)
+                    {
+                        p1 += $"\"{i}\",";
+                        p2 += "0 ,";
+                    }
+                    p1 = p1.Trim(',');
+                    p2 = p2.Trim(',');
+                    f1 = p1;
+                    f2 = p2;
+                    model.FactorsChart.Add(f1);
+                    model.FactorsChart.Add(f2);
+                    model.PriceChart.Add(p1);
+                    model.PriceChart.Add(p2);
+                    //=================================================================================== EndEditsNeed
+                    db.Connect();
+                    using (DataTable dtstock = db.Select("SELECT  [shop_id] ,[ItemRemaining] ,[shop_name] ,[shop_IsAvailable] ,[shop_IsDelete] FROM [v_Stockpile_MainView] WHERE [id_MPC] = " + idMPC))
+                    {
+                        db.DC();
+                        for (int i = 0; i < dtstock.Rows.Count; i++)
+                        {
+                            model.ProductStoreFromStockpile.Add(new ProductViewDetails_PropertyTable()
+                            {
+                                Key = dtstock.Rows[i]["shop_name"].ToString(),
+                                Value = dtstock.Rows[i]["ItemRemaining"].ToString()
+                            });
+                        }
+                    }
+
+
+
+                    return View(model);
+                }
+                else
+                {
+                    return RedirectToAction("ProductList");
+                }
+            }
+            else
+            {
+                return RedirectToAction("ProductList");
+            }
+
+        }
         //{END}For Product  AddProduct
         //=================================================================================================================
         public ActionResult ReturnInputsOfSubCategorykeyValues(string[] ListOfKeyIDs)
@@ -2117,22 +2329,22 @@ namespace BamboPortal_V1._0._0._0.Controllers
             }
             model.MainTags = result;
             result = new List<Key_ValueModel>();
-            db.Connect();
-            using (DataTable dt = db.Select("SELECT [OffType],[OffType_Symbol]FROM .[tbl_Product_OffType]"))
-            {
-                db.DC();
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-                    var model1 = new Key_ValueModel()
-                    {
-                        Id = Convert.ToInt32(dt.Rows[i]["OffType"]),
-                        Value = dt.Rows[i]["OffType_Symbol"].ToString()
-                    };
+            //db.Connect();
+            //using (DataTable dt = db.Select("SELECT [OffType],[OffType_Symbol] FROM [tbl_Product_OffType]"))
+            //{
+            //    db.DC();
+            //    for (int i = 0; i < dt.Rows.Count; i++)
+            //    {
+            //        var model1 = new Key_ValueModel()
+            //        {
+            //            Id = Convert.ToInt32(dt.Rows[i]["OffType"]),
+            //            Value = dt.Rows[i]["OffType_Symbol"].ToString()
+            //        };
 
-                    result.Add(model1);
-                }
-            }
-            model.OffTypes = result;
+            //        result.Add(model1);
+            //    }
+            //}
+            //model.OffTypes = result;
             result = new List<Key_ValueModel>();
             db.Connect();
             using (DataTable dt = db.Select("SELECT [PriceShowId],[PriceShowformat] FROM [tbl_Product_PriceShow]"))
@@ -2249,7 +2461,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
             paramss.Add(parameters);
 
             db.Connect();
-            string result = db.Script("INSERT INTO[tbl_Product] Output Inserted.id_MProduct VALUES (0, @id_CreatedByAdmin , 0 , 0 , 0 , 0 , 0 ,@Description,GETDATE(), @Title , @SEO_description , @SEO_keyword , @IsAd , @SearchGravity , 0 , 0)", paramss);
+            string result = db.Script("INSERT INTO [tbl_Product] Output Inserted.id_MProduct VALUES (0, @id_CreatedByAdmin , 0 , 0 , 0 , 0 , 0 ,@Description,GETDATE(), @Title , @SEO_description , @SEO_keyword , @IsAd , @SearchGravity , 0 , 0)", paramss);
             int id_MProductOUT = 0;
             if (!Int32.TryParse(result, out id_MProductOUT))
             {
@@ -2342,29 +2554,33 @@ namespace BamboPortal_V1._0._0._0.Controllers
             //================================================================
             //db.Script("INSERT INTO[tbl_Product_tblOptions]VALUES(" + id + ",N'" + Key + "',N'" + value + "')");
             Psubk = new List<ExcParameters>();
-            db.Connect();
-            for (int i = 0; i < Senderobj.TagTargetAdded.Count; i++)
+            if (Senderobj.TagTargetAdded != null)
             {
-                parameters = new ExcParameters()
+
+                db.Connect();
+                for (int i = 0; i < Senderobj.TagTargetAdded.Count; i++)
                 {
-                    _KEY = "@TagTargeName",
-                    _VALUE = Senderobj.TagTargetAdded[i].TagTargeName
-                };
-                Psubk.Add(parameters);
-                parameters = new ExcParameters()
-                {
-                    _KEY = "@TagTargeValue",
-                    _VALUE = Senderobj.TagTargetAdded[i].TagTargeValue
-                };
-                Psubk.Add(parameters);
-                parameters = new ExcParameters()
-                {
-                    _KEY = "@id_MProduct",
-                    _VALUE = id_MProductOUT
-                };
-                Psubk.Add(parameters);
-                string resultitemtest = db.Script("INSERT INTO[tbl_Product_tblOptions]VALUES(@id_MProduct,@TagTargeName,@TagTargeValue)", Psubk);
-                Psubk = new List<ExcParameters>();
+                    parameters = new ExcParameters()
+                    {
+                        _KEY = "@TagTargeName",
+                        _VALUE = Senderobj.TagTargetAdded[i].TagTargeName
+                    };
+                    Psubk.Add(parameters);
+                    parameters = new ExcParameters()
+                    {
+                        _KEY = "@TagTargeValue",
+                        _VALUE = Senderobj.TagTargetAdded[i].TagTargeValue
+                    };
+                    Psubk.Add(parameters);
+                    parameters = new ExcParameters()
+                    {
+                        _KEY = "@id_MProduct",
+                        _VALUE = id_MProductOUT
+                    };
+                    Psubk.Add(parameters);
+                    string resultitemtest = db.Script("INSERT INTO [tbl_Product_tblOptions] VALUES(@id_MProduct,@TagTargeName,@TagTargeValue)", Psubk);
+                    Psubk = new List<ExcParameters>();
+                }
             }
             //EndSection2
             //==================================================================
@@ -2372,7 +2588,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
             //...................................................................
             //==================================================================
             //Step4
-            int PriceXquantity = Convert.ToInt32(Senderobj.PRDCTPricePer1Demansion) * Convert.ToInt32(Senderobj.PRDCTDemansionValue);
+            Int64 PriceXquantity = Convert.ToInt64(Senderobj.PRDCTPricePer1Demansion) * Convert.ToInt64(Senderobj.PRDCTDemansionValue);
             JaygashtCalculator calculator = new JaygashtCalculator();
             var jaygashts = calculator.Result(Senderobj.AllSubcategory_Keys_Vals);
             string itemid = "0";
@@ -2392,7 +2608,8 @@ namespace BamboPortal_V1._0._0._0.Controllers
             {
                 ErrorID = "SX10776",
                 Errormessage = $"ساخت محصولات با موفقیت انجام شد!",
-                Errortype = "Success"
+                Errortype = "Success",
+                ImportantValsReturn = id_MProductOUT.ToString()
             };
             return Json(ModelSender);
         }
@@ -2404,7 +2621,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
             modelView.Allrows = new List<ProductListTable>();
             PDBC db = new PDBC();
             db.Connect();
-            using (DataTable dt = db.Select("SELECT[id_MProduct],[IS_AVAILABEL],[Description],[DateCreated],[Title],[id_SubCategory],[ISDELETE],(SELECT top 1 [thumUploadAddress] FROM [v_tblProduct_Image] where [v_tblProduct_Image].[id_MProduct]=[tbl_Product].[id_MProduct]) as [pic],(SELECT[PricePerquantity] FROM[tlb_Product_MainProductConnector]WHERE id_MPC=idMPC_WhichTomainPrice) AS price,(SELECT[ad_firstname]+' '+[ad_lastname] FROM [tbl_ADMIN_main]where id_Admin=[id_CreatedByAdmin])as AddBy,(SELECT [PTname]FROM [tbl_Product_Type]where[id_PT]=[id_Type])as [type],(SELECT[SCName]FROM [tbl_Product_SubCategory]where[id_SC]=[id_SubCategory])as SubCat,(SELECT[MCName]FROM [tbl_Product_MainCategory]where[id_MC]=[id_MainCategory])as MainCat FROM [tbl_Product] ORDER BY (DateCreated) DESC"))
+            using (DataTable dt = db.Select("SELECT [id_MProduct],(SELECT TOP 1 [id_MPC] FROM [tlb_Product_MainProductConnector] WHERE [tlb_Product_MainProductConnector].[id_MProduct] =[tbl_Product].[id_MProduct] ) as idMPC,[IS_AVAILABEL],[Description],[DateCreated],[Title],[id_SubCategory],[ISDELETE],(SELECT top 1 [thumUploadAddress] FROM [v_tblProduct_Image] where [v_tblProduct_Image].[id_MProduct]=[tbl_Product].[id_MProduct]) as [pic],(SELECT[PricePerquantity] FROM [tlb_Product_MainProductConnector] WHERE id_MPC=idMPC_WhichTomainPrice) AS price,(SELECT[ad_firstname]+' '+[ad_lastname] FROM [tbl_ADMIN_main]where id_Admin=[id_CreatedByAdmin])as AddBy,(SELECT [PTname]FROM [tbl_Product_Type]where[id_PT]=[id_Type])as [type],(SELECT[SCName]FROM [tbl_Product_SubCategory]where[id_SC]=[id_SubCategory])as SubCat,(SELECT[MCName]FROM [tbl_Product_MainCategory]where[id_MC]=[id_MainCategory])as MainCat FROM [tbl_Product] ORDER BY (DateCreated) DESC"))
             {
                 db.DC();
                 int dtrows = dt.Rows.Count;
@@ -2412,9 +2629,18 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 {
                     DateTime date = Convert.ToDateTime(dt.Rows[i]["DateCreated"]);
                     PersianDateTime persianDateTime = new PersianDateTime(date);
+                    string aa = dt.Rows[i]["id_MProduct"].ToString();
+                    string bb = dt.Rows[i]["idMPC"].ToString();
+                    int bb2 = 0;
+                    int aa2 = 0;
+                    if (!string.IsNullOrEmpty(aa))
+                        aa2 = Convert.ToInt32(aa);
+                    if (!string.IsNullOrEmpty(bb))
+                        bb2 = Convert.ToInt32(bb);
                     var model = new ProductListTable()
                     {
-                        id = Convert.ToInt32(dt.Rows[i]["id_MProduct"]),
+                        idMPC = bb2,
+                        id = aa2,
                         Productname = dt.Rows[i]["Title"].ToString(),
                         ProductDescription = dt.Rows[i]["Description"].ToString(),
                         AdminSubmiterName = dt.Rows[i]["AddBy"].ToString(),
@@ -2465,14 +2691,14 @@ namespace BamboPortal_V1._0._0._0.Controllers
             PDBC db = new PDBC();
             ExcParameters par = new ExcParameters()
             {
-                _KEY="@id_MProduct",
-                _VALUE=idToActive
+                _KEY = "@id_MProduct",
+                _VALUE = idToActive
             };
             List<ExcParameters> parss = new List<ExcParameters>();
             parss.Add(par);
             db.Connect();
             string res = db.Script("UPDATE [tbl_Product] SET [IS_AVAILABEL] = 1 WHERE id_MProduct=@id_MProduct", parss);
-            if(res == "1")
+            if (res == "1")
             {
                 var ModelSender = new ErrorReporterModel
                 {
@@ -2493,7 +2719,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 };
                 return Json(ModelSender);
             }
-            
+
         }
 
         [HttpPost]
@@ -2567,5 +2793,148 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 return Json(ModelSender);
             }
         }
+        [HttpPost]
+        public ActionResult AddproductStep5Stockpile(string id_MProduct)
+        {
+            int id_MProductOUT = 0;
+            if (!Int32.TryParse(id_MProduct, out id_MProductOUT))
+            {
+                return HttpNotFound();
+            }
+            AddproductStep5StockpileModelView model = new AddproductStep5StockpileModelView();
+            model.AllProducts = new List<AddproductStep5Stockpile>();
+            PDBC db = new PDBC();
+            ExcParameters par = new ExcParameters()
+            {
+                _KEY = "@id_MProduct",
+                _VALUE = id_MProduct
+            };
+            List<ExcParameters> pars = new List<ExcParameters>();
+            pars.Add(par);
+            db.Connect();
+            using (DataTable dt = db.Select("SELECT [Quantity] ,[PricePerquantity] ,[Title] ,[PQT_Demansion] ,[MoneyTypeName] ,[id_MPC] FROM [v_Connector_MainProductConnectorToProduct] WHERE [id_MProduct] =@id_MProduct", pars))
+            {
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    AddproductStep5Stockpile stockpile = new AddproductStep5Stockpile()
+                    {
+                        id_MPC = dt.Rows[i]["id_MPC"].ToString(),
+                        MoneyType = dt.Rows[i]["MoneyTypeName"].ToString(),
+                        ProductName = dt.Rows[i]["Title"].ToString(),
+                        productPricePerQT = dt.Rows[i]["PricePerquantity"].ToString(),
+                        productQT = dt.Rows[i]["Quantity"].ToString(),
+                        QTDemansion = dt.Rows[i]["PQT_Demansion"].ToString()
+                    };
+                    stockpile.ProductsJaygashtList = new List<ProductViewDetails_ProductSOCKandSOCKVL>();
+                    using (DataTable dtJ = db.Select("SELECT  [SCOKName] ,[SCOVValueName] FROM [v_ConnectorTheProductConnectorViewToSCOVandSCOKV_s] WHERE [id_MPC] = " + stockpile.id_MPC))
+                    {
+                        for (int j = 0; j < dtJ.Rows.Count; j++)
+                        {
+                            stockpile.ProductsJaygashtList.Add(new ProductViewDetails_ProductSOCKandSOCKVL()
+                            {
+                                BootstrapColor = BootstrapColorPicker.GetbootstrapColorRandomByCounter(j)
+                                ,
+                                SOCKName = dtJ.Rows[j]["SCOKName"].ToString(),
+                                SOCKVName = dtJ.Rows[j]["SCOVValueName"].ToString()
+                            });
+                        }
+                    }
+                    model.AllProducts.Add(stockpile);
+                }
+                db.DC();
+
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        public JsonResult SaveDataToStockpileStep5(SaveDataToStockpileStep5[] ArryTosend)
+        {
+            ExcParameters par = new ExcParameters();
+            List<ExcParameters> pars = new List<ExcParameters>();
+            PDBC db = new PDBC();
+            db.Connect();
+            for (int i = 0; i < ArryTosend.Length; i++)
+            {
+                pars = new List<ExcParameters>();
+                par = new ExcParameters()
+                {
+                    _KEY = "Quantity",
+                    _VALUE = ArryTosend[i].QTnumeric
+                };
+                pars.Add(par);
+                par = new ExcParameters()
+                {
+                    _KEY = "PricePerquantity",
+                    _VALUE = ArryTosend[i].PriceNumeric
+                };
+                pars.Add(par);
+
+                par = new ExcParameters()
+                {
+                    _KEY = "PriceXquantity",
+                    _VALUE = Convert.ToInt64(ArryTosend[i].PriceNumeric) * Convert.ToInt64(ArryTosend[i].QTnumeric)
+                };
+                pars.Add(par);
+                par = new ExcParameters()
+                {
+                    _KEY = "id_MPC",
+                    _VALUE = ArryTosend[i].idMPC
+                };
+                pars.Add(par);
+                string aa = db.Script("UPDATE [tlb_Product_MainProductConnector] SET  [Quantity] = @Quantity ,[PriceXquantity] = @PriceXquantity ,[PricePerquantity] = @PricePerquantity WHERE [id_MPC] = @id_MPC", pars);
+                pars = new List<ExcParameters>();
+                if (aa != "1")
+                {
+                    PPBugReporter reps = new PPBugReporter(BugTypeFrom.SQL, "tlb_Product_MainProductConnector");
+                    var ModelSenders = new ErrorReporterModel
+                    {
+                        ErrorID = "EX115098945",
+                        Errormessage = $"عدم توانایی در ثبت اطلاعات! tlb_Product_MainProductConnector",
+                        Errortype = "Error"
+                    };
+                    return Json(ModelSenders);
+                }
+                par = new ExcParameters()
+                {
+                    _KEY = "id_MPC",
+                    _VALUE = ArryTosend[i].idMPC
+                };
+                pars.Add(par);
+                par = new ExcParameters()
+                {
+                    _KEY = "code_Stockpile",
+                    _VALUE = ArryTosend[i].ProductCode
+                };
+                pars.Add(par);
+                aa = db.Script("UPDATE  [tbl_Modules_StockpileMainTable]  SET [code_Stockpile] = @code_Stockpile  WHERE [id_MPC] =@id_MPC", pars);
+                if (aa != "1")
+                {
+                    PPBugReporter rep1 = new PPBugReporter(BugTypeFrom.SQL, "tbl_Modules_StockpileMainTable");
+                    var ModelSender1 = new ErrorReporterModel
+                    {
+                        ErrorID = "EX115098945",
+                        Errormessage = $"عدم توانایی در ثبت اطلاعات! tbl_Modules_StockpileMainTable",
+                        Errortype = "Error"
+                    };
+                    return Json(ModelSender1);
+                }
+            }
+            db.DC();
+
+
+            var ModelSender = new ErrorReporterModel
+            {
+                ErrorID = "SX105675",
+                Errormessage = $"اطلاعات با موفقیت ثبت شد!",
+                Errortype = "Success"
+            };
+            return Json(ModelSender);
+        }
+        //========================================================
+
+
+
     }
 }

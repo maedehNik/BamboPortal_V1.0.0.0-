@@ -1,6 +1,7 @@
 ﻿using BamboPortal_V1._0._0._0.DatabaseCenter.Class;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 
@@ -101,7 +102,7 @@ namespace BamboPortal_V1._0._0._0.nonStaticUsefulClass.Products
 
             if (action == "insert")
             {
-                query = "INSERT INTO[tlb_Product_MainProductConnector] Output Inserted.id_MPC VALUES(@id_MProduct, @Quantity, @PriceXquantity, @PricePerquantity, @PriceOff, @offTypeValue, @OffType, @id_MainStarTag , 0 , 0 ,  @QuantityModule ,GetDate(), @PriceModule, @PriceShow,@describtion)";
+                query = "INSERT INTO [tlb_Product_MainProductConnector] Output Inserted.id_MPC VALUES(@id_MProduct, @Quantity, @PriceXquantity, @PricePerquantity, @PriceOff, @offTypeValue, @OffType, @id_MainStarTag , 0 , 0 ,  @QuantityModule ,GetDate(), @PriceModule, @PriceShow,@describtion,0)";
             }
             else if (action == "update")
             {
@@ -117,9 +118,22 @@ namespace BamboPortal_V1._0._0._0.nonStaticUsefulClass.Products
             {
                 db.Connect();
                 string res = db.Script(query, paramss);
+                //==========================Add to stockpile=================
+
+                db.Connect();
+                using (DataTable dt = db.Select("SELECT [shop_id]  FROM [tbl_Modules_StockpileShopsMainTable]"))
+                {
+                    string idForShops = db.Script("INSERT INTO [tbl_Modules_StockpileMainTable] ([id_Stockpile_AllowType] ,[code_Stockpile] ,[id_MPC]) output inserted.id_Stockpile VALUES (1 ,N' ' ," + res + " )");
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        string tes = db.Script("INSERT INTO [tbl_Modules_StockpileConnectorMainToShops] ([id_Stockpile] ,[shop_id] ,[ItemRemaining]) VALUES (" + idForShops + " ," + dt.Rows[i]["shop_id"].ToString() + " ,0)");
+                    }
+                    db.DC();
+                }
+                //===========================================
                 if (action == "insert")
                 {
-                    db.Script("INSERT INTO [tbl_Product_PastProductHistory]VALUES(" + res + ",@PriceXquantity,@PricePerquantity,@PriceOff,@OffType,@id_MainStarTag,GETDATE(),@offTypeValue)", paramss);
+                    string ss = db.Script("INSERT INTO [tbl_Product_PastProductHistory] VALUES (" + res + ",@PriceXquantity,@PricePerquantity,@PriceOff,@OffType,@id_MainStarTag,GETDATE(),@offTypeValue)", paramss);
                 }
                 else if (action == "update")
                 {

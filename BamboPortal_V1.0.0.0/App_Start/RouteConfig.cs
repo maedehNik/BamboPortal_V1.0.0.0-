@@ -16,7 +16,7 @@ namespace BamboPortal_V1._0._0._0
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "AdministratorWorkplace", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "VelvetCustomers", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

@@ -7,6 +7,7 @@ namespace BamboPortal_V1._0._0._0.Models.AdministratorProductsModels
 {
     public class ProductListTable
     {
+        public int idMPC { get; set; }
         public int id { get; set; }
         public string Productname { get; set; }
         public string ProductDescription { get; set; }

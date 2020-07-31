@@ -428,7 +428,7 @@ namespace BamboPortal_V1._0._0._0.ModelFiller.CustomerSide
                     Id = Convert.ToInt32(dt.Rows[i]["id_MProduct"]),
                     Title = dt.Rows[i]["Title"].ToString(),
                     Discription = dt.Rows[i]["Description"].ToString(),
-                    PicPath = UploaderGeneral.imageFinder( dt.Rows[i]["pic"].ToString()),
+                    PicPath = UploaderGeneral.imageFinder(dt.Rows[i]["pic"].ToString()),
                     OffPrice = dt.Rows[i]["PriceOff"].ToString(),
                     date = DateReturner(dt.Rows[i]["DateCreated"].ToString(), DateType),
                     MoneyQ = dt.Rows[i]["priceQ"].ToString(),
@@ -576,7 +576,6 @@ namespace BamboPortal_V1._0._0._0.ModelFiller.CustomerSide
                 query.Append(page);
                 query.Append("order by (b.Search_Gravity)DESC");
             }
-
             return query.ToString();
         }
 
@@ -900,7 +899,7 @@ namespace BamboPortal_V1._0._0._0.ModelFiller.CustomerSide
                 {
                     pic.Add(Pictures.Rows[i]["PicID"].ToString());
                 }
-                res.Pictures = UploaderGeneral.imageFinder(pic);
+                res.Pictures = UploaderGeneral.imageFinder(pic, res.Id.ToString());
                 DataTable opt = db.Select("SELECT [KeyName],[Value] FROM [tbl_Product_tblOptions] where id_MProduct=" + res.Id);
                 var options = new List<OptionModel>();
                 for (int i = 0; i < opt.Rows.Count; i++)

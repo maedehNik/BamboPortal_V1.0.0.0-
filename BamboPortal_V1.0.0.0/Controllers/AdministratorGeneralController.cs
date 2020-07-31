@@ -62,7 +62,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
 
                 PDBC db = new PDBC();
                 List<ExcParameters> dbparams = new List<ExcParameters>();
-                adObj.ad_avatarprofile = UploaderGeneral.imageFinder(adObj.ad_avatarPicIDfromUploader);
+                adObj.ad_avatarprofile = "/AdminDesignResource/app/media/img/users/100_12.jpg";
                 ExcParameters param = new ExcParameters()
                 {
                     _VALUE = adminID,

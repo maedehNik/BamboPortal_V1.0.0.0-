@@ -1,0 +1,509 @@
+﻿@model BamboPortal_V1._0._0._0.ModelViews.AdministratorProducts.ProductViewDetailsModelView
+@{
+    ViewBag.Title = "ViewDetails";
+    Layout = "~/Views/SharedViewPages/Administrator/MasterView.cshtml";
+}
+
+<!-- BEGIN: Subheader -->
+<div class="m-subheader">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <span class="m-subheader__daterange" id="">
+                <span class="m-subheader__daterange-label">
+                    <h3 class="m-subheader__title" style="padding-left: 0!important;margin: 0 0 0 2px!important;">
+                        پیشخوان
+                        <i class="fa fa-chevron-left tshfontsize2" style="transform: translateY(3px);color: #aaaeb8;margin-right: 2px;"></i>
+                        <span class="m-subheader__daterange-title tshfontsize2" style="margin-right: 2px;margin-left: 2px;">@Model.ProductName</span>
+                        <!--
+                        <i class="fa fa-chevron-left" style="transform: translateY(3px);color: #aaaeb8;"></i>
+                        <span class="m-subheader__daterange-title" style="margin-right: 2px;">نمایش همه ی پست ها</span>
+                        -->
+                    </h3>
+                </span>
+            </span>
+        </div>
+    </div>
+</div>
+<div class="m-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="m-portlet m-portlet--full-height m-portlet--tabs">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-tools">
+                        <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
+                            <li class="nav-item m-tabs__item">
+                                <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_user_profile_tab_1" role="tab">
+                                    <i class="flaticon-share m--hide"></i>
+                                    <cust_title>
+                                        @Model.ProductName
+                                    </cust_title>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tab-content tshprddet customcanvas">
+                    <div class="tab-pane active" id="m_user_profile_tab_1">
+                        <div class="m-portlet__body">
+                            <div class="col-12 tshcustom">
+                                <div class="row">
+                                    <div class="slideshow-container col-lg-4" style="margin: 0;padding: 0;">
+
+                                        @foreach (var item in Model.PicAddress)
+                                        {
+                                            <div class="mySlides" style="display: none;">
+                                                <img src="@item" style="width:100%">
+                                            </div>
+                                        }
+
+                                        <a class="prev" onclick="plusSlides(-1)">&#10095;</a>
+                                        <a class="next" onclick="plusSlides(1)">&#10094;</a>
+                                    </div>
+                                    <div class="m-portlet__head-tools">
+                                        <ul class="m-portlet__nav tshcustompos" style="position: absolute;left: -15px;top: -15px;z-index: 10;padding-right: 0;">
+                                            <li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="hover">
+                                                <a href="javascript:void(0)" class="m-portlet__nav-link btn btn-secondary  m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill   m-dropdown__toggle">
+                                                    <i class="la la-ellipsis-v"></i>
+                                                </a>
+                                                <div class="m-dropdown__wrapper">
+                                                    <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
+                                                    <div class="m-dropdown__inner">
+                                                        <div class="m-dropdown__body">
+                                                            <div class="m-dropdown__content">
+                                                                <ul class="m-nav">
+                                                                    <li class="m-nav__item">
+                                                                        <a href="javascript:void(0)" class="m-nav__link">
+                                                                            <i class="m-nav__link-icon flaticon-edit"></i>
+                                                                            <span class="m-nav__link-text">ویرایش</span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="m-nav__item deactivate-btn" data-target="#deactivemodal" data-toggle="modal" data-name="کفش بیلبیلک">
+                                                                        <a href="javascript:void(0)" class="m-nav__link">
+                                                                            <i class="m-nav__link-icon fa fa-ban"></i>
+                                                                            <span class="m-nav__link-text">عیرفعال کردن</span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="m-nav__item cus-delete-btn" data-target="#deleteCus" data-toggle="modal" data-name="کفش بیلبیلک">
+                                                                        <a href="javascript:void(0)" class="m-nav__link">
+                                                                            <i class="m-nav__link-icon fa fa-times"></i>
+                                                                            <span class="m-nav__link-text">حذف</span>
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="m-dropdown m-dropdown--inline  m-dropdown--arrow col-lg-8 col-xs-12" m-dropdown-toggle="click" style="height: 45px;padding-right: 10px !important;">
+                                        <a href="#" class="row m-dropdown__toggle btn tshcolorblack dropdown-toggle tshnofa tshaafter col-12 tshtextright" style="border: none!important;padding-left: 0;">
+                                            @foreach (var item in Model.ProductsJaygashtList)
+                                            {
+                                                if (Model.id_MPC == item.id_MPC)
+                                                {
+                                            <span class="col-12 row" style="float: right;display: block;margin-bottom: 10px;">
+                                                <i class="fa fa-chevron-left"></i>
+                                                @Model.ProductName
+                                            </span>
+                                            <br />
+                                                    <div class="col-12" style="overflow: hidden;transform: translate(-5px,-5px);padding: 0!important; display: inline !important;">
+                                                        
+                                                            @foreach (var scokitems in item.ProductSOCKSOCKVList)
+                                                            {
+                                                                <span class=" m-badge m-badge--@scokitems.BootstrapColor tshcolorwhite m-badge--wide tshbadge" style="float: right;">@scokitems.ToString()</span>
+
+                                                            }
+                                                       
+
+                                                    </div>
+                                                }
+                                            }
+
+                                        </a>
+                                        <div class="m-dropdown__wrapper tshcustomwidth" style="width: auto;">
+                                            <span class="m-dropdown__arrow m-dropdown__arrow--left"></span>
+                                            <div class="m-dropdown__inner">
+                                                <div class="m-dropdown__body">
+                                                    <div class="m-dropdown__content">
+                                                        <ul class="m-nav">
+                                                            @foreach (var item in Model.ProductsJaygashtList)
+                                                            {
+                                                                if (Model.id_MPC == item.id_MPC)
+                                                                {
+                                                                    <li class="m-nav__item active-inner">
+                                                                        <a href="" class="m-nav__link tshcolorblack">
+                                                                            <i class="m-nav__link-icon fa fa-chevron-left tshfatransform"></i>
+                                                                            <span class="tshflr">@Model.ProductName</span>
+                                                                            @foreach (var scokitems in item.ProductSOCKSOCKVList)
+                                                                            {
+                                                                                <span class="m-badge m-badge--@scokitems.BootstrapColor tshcolorwhite m-badge--wide tshbadge">@scokitems.ToString()</span>
+                                                                            }
+
+                                                                        </a>
+                                                                    </li>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <li class="m-nav__item">
+                                                                        <a href="@Url.Action("ViewDetails","AdministratorProducts")?idMPC=@item.id_MPC" class="m-nav__link tshcolorblack">
+                                                                            <i class="m-nav__link-icon fa fa-chevron-left tshfatransform"></i>
+                                                                            <span class="tshflr">@Model.ProductName</span>
+                                                                            @foreach (var scokitems in item.ProductSOCKSOCKVList)
+                                                                            {
+                                                                                <span class="m-badge m-badge--@scokitems.BootstrapColor tshcolorwhite m-badge--wide tshbadge">@scokitems.ToString()</span>
+                                                                            }
+                                                                        </a>
+                                                                    </li>
+                                                                }
+                                                            }
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4 col-xs-12">
+                                                <div>
+                                                    <a class="m-card-profile__email m-link tshcurpoi" style="margin: 8px 15px 8px 0;">
+                                                        <i class="fa fa-hashtag"></i>
+                                                        کد محصول: @Model.ProductStockpileCode
+                                                    </a>
+                                                </div>
+                                                <div>
+                                                    <a class="m-card-profile__email m-link tshcurpoi" style="margin: 8px 15px 8px 0;">
+                                                        <i class="fa fa-money-bill-alt"></i>
+                                                        قیمت: <span class="tshaftermarginright">@Model.ProductPrice</span> @Model.PriceTypeName
+                                                    </a>
+                                                </div>
+                                                <div>
+                                                    <a class="m-card-profile__email m-link tshcurpoi" style="margin: 8px 15px 8px 0;">
+                                                        <i class="fa fa-edit"></i>
+                                                        آخرین ویرایش: @Model.LastEdit
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-7 col-xs-12">
+                                                <div class="text-justify tshp" style="padding-top: 2px;">
+                                                    <h5 style="border-bottom: 1px solid black;padding-bottom: 2px;">توضیحات</h5>
+                                                    @if (!string.IsNullOrEmpty(Model.Description.Trim()))
+                                                    {
+                                                        @Model.Description
+                                                    }
+                                                    else
+                                                    {
+                                                        <h3>موردی برای نمایش وجود ندارد</h3>
+                                                    }
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row col-12 tshcustom tshcustomheight">
+                                        <div class="col-lg-3 col-xs-12 mt-5">
+                                            <table class="col-12 table table-striped table-hover m-table m-table--head-separator-primary tshtextcenter">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ویژگی ها</th>
+                                                        <th>جزئیات</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model.PropertyTable)
+                                                    {
+                                                        <tr>
+                                                            <td>@item.Key</td>
+                                                            <td>@item.Value</td>
+                                                        </tr>
+                                                    }
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-lg-3 col-xs-12	 mt-5">
+                                            <table class="col-12 table table-striped table-hover m-table m-table--head-separator-primary tshtextcenter">
+                                                <thead>
+                                                    <tr>
+                                                        <th>فروشگاه</th>
+                                                        <th>تعداد</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model.ProductStoreFromStockpile)
+                                                    {
+                                                        <tr>
+                                                            <td>@item.Key</td>
+                                                            <td class="tshafterqu">@item.Value</td>
+                                                        </tr>
+                                                    }
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-lg-6 col-xs-12 mt-5">
+                                            <div class="col-8" m-dropdown-toggle="click" style="height: 45px;padding-right: 0;">
+                                                <a class=" btn tshcurpoi tshcolorblack col-12 tshtextright" style="border: none!important;padding-right: 0;">
+                                                    <i class="fa fa-chart-bar"></i>
+                                                    <span class="stat-text">نمودار قیمت ماه</span>
+                                                </a>
+                                            </div>
+                                            <div class="m-widget15__chart" style="height:180px;overflow: hidden!important;">
+                                                <div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+                                                <canvas id="m_chart_sales_stats2" class="chartjs-render-monitor" style="display: block;width: 100%;"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 row tshcustom">
+                                    <div class="col-lg-6 col-xs-12 mt-5 tshcustom">
+                                        <div class=" col-8" m-dropdown-toggle="click" style="height: 45px;padding-right: 0;">
+                                            <a class=" btn tshcurpoi tshcolorblack  col-12 tshtextright" style="border: none!important;padding-right: 0;">
+                                                <i class="fa fa-chart-bar"></i>
+                                                <span class="stat-text2">میزان فروش ماه</span>
+                                            </a>
+                                        </div>
+                                        <div class="m-widget15__chart" style="height:180px;overflow: hidden!important;">
+                                            <div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+                                            <canvas id="m_chart_sales_stats4" class="chartjs-render-monitor" style="display: block;width: 100%;"></canvas>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 mt-5" style="margin-left: 0;">
+                                        <div class="m-portlet__body tshlc" style="padding-top: 15px;padding-right: 0;padding-left: 0;">
+                                            <div class="m-portlet__head-title col-12" style="padding: 0;">
+                                                <h3 class="m-portlet__head-text tshcolorblack" style="font-size: 12px;border-bottom: 0.214rem solid #E7E9F5;padding-bottom: 10px;margin: 0;">
+                                                    <i class="fa fa-list"></i>
+                                                    آخرین تغیرات
+                                                </h3>
+                                            </div>
+                                            <div class="m-scrollable m-scroller ps ps--active-y" data-scrollable="true" data-height="250" data-mobile-height="300" style="height: 380px; overflow: hidden;">
+                                                <!--Begin::Timeline 2 -->
+                                                <div class="m-timeline-2">
+                                                    <div class="m-timeline-2__items m--padding-top-25 m--padding-bottom-30">
+                                                        @if (Model.EditTimeLine.Count > 0)
+                                                        {
+                                                            foreach (var item in Model.EditTimeLine)
+                                                            {
+                                                                <div class="m-timeline-2__item">
+                                                                    <span class="m-timeline-2__item-time">@item.DateEdited</span>
+                                                                    <div class="m-timeline-2__item-cricle">
+                                                                        <i class="fa fa-genderless m--font-@item.BootstrapColor"></i>
+                                                                    </div>
+                                                                    <div class="m-timeline-2__item-text  m--padding-top-5">
+                                                                        <span class=" tshaftermarginright tshafterfwn">@item.EditText</span>
+                                                                    </div>
+                                                                </div>
+
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="m-timeline-2__item">
+                                                                <span class="m-timeline-2__item-time">??:??</span>
+                                                                <div class="m-timeline-2__item-cricle">
+                                                                    <i class="fa fa-genderless m--font-danger"></i>
+                                                                </div>
+                                                                <div class="m-timeline-2__item-text  m--padding-top-5">
+                                                                    <span class=" tshaftermarginright tshafterfwn">داده ایی موجود نمیباشد</span>
+                                                                </div>
+                                                            </div>
+
+                                                        }
+
+                                                    </div>
+                                                </div>
+                                                <!--End::Timeline 2 -->
+                                            </div>
+                                            <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+                                                <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                                            </div>
+                                            <div class="ps__rail-y" style="top: 0px; height: 380px; left: 560px;">
+                                                <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 277px;"></div>
+                                            </div>
+                                            <!--
+                                            <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+                                                    <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                                                </div>
+                                            </div>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    <script>
+
+
+        $(document).ready(function () {
+            MRM();
+            showSlides(slideIndex);
+        });
+
+        function MRM() {
+
+            if (0 != $("#m_chart_sales_stats2").length) {
+                var e = {
+                    type: "line",
+                    data: {
+                        labels: ["1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1"],
+                        datasets: [{
+                            label: "قیمت", borderColor: mApp.getColor("brand"), borderWidth: 2, pointBackgroundColor: mApp.getColor("brand"), backgroundColor: mApp.getColor("accent"), pointHoverBackgroundColor: mApp.getColor("danger"), pointHoverBorderColor: Chart.helpers.color(mApp.getColor("danger")).alpha(.2).rgbString(), data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                        }
+                        ]
+                    }
+                    ,
+                    options: {
+                        title: {
+                            display: !1
+                        }
+                        ,
+                        tooltips: {
+                            intersect: !1, mode: "nearest", xPadding: 10, yPadding: 10, caretPadding: 10
+                        }
+                        ,
+                        legend: {
+                            display: !1,
+                            labels: {
+                                usePointStyle: !1
+                            }
+                        }
+                        ,
+                        responsive: !0,
+                        maintainAspectRatio: !1,
+                        hover: {
+                            mode: "index"
+                        }
+                        ,
+                        scales: {
+                            xAxes: [{
+                                display: !1,
+                                gridLines: !1,
+                                scaleLabel: {
+                                    display: !0, labelString: "Month"
+                                }
+                            }
+                            ],
+                            yAxes: [{
+                                display: !1,
+                                gridLines: !1,
+                                scaleLabel: {
+                                    display: !0, labelString: "Value"
+                                }
+                            }
+                            ]
+                        }
+                        ,
+                        elements: {
+                            point: {
+                                radius: 3, borderWidth: 0, hoverRadius: 8, hoverBorderWidth: 2
+                            }
+                        }
+                    }
+                }
+                    ;
+                new Chart($("#m_chart_sales_stats2"), e)
+            }
+
+            if (0 != $("#m_chart_sales_stats4").length) {
+                var e = {
+                    type: "line",
+                    data: {
+                        labels: ["1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1"],
+                        datasets: [{
+                            label: "میزان فروش", borderColor: mApp.getColor("brand"), borderWidth: 2, pointBackgroundColor: mApp.getColor("brand"), backgroundColor: mApp.getColor("success"), pointHoverBackgroundColor: mApp.getColor("danger"), pointHoverBorderColor: Chart.helpers.color(mApp.getColor("danger")).alpha(.2).rgbString(), data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                        }
+                        ]
+                    }
+                    ,
+                    options: {
+                        title: {
+                            display: !1
+                        }
+                        ,
+                        tooltips: {
+                            intersect: !1, mode: "nearest", xPadding: 10, yPadding: 10, caretPadding: 10
+                        }
+                        ,
+                        legend: {
+                            display: !1,
+                            labels: {
+                                usePointStyle: !1
+                            }
+                        }
+                        ,
+                        responsive: !0,
+                        maintainAspectRatio: !1,
+                        hover: {
+                            mode: "index"
+                        }
+                        ,
+                        scales: {
+                            xAxes: [{
+                                display: !1,
+                                gridLines: !1,
+                                scaleLabel: {
+                                    display: !0, labelString: "Month"
+                                }
+                            }
+                            ],
+                            yAxes: [{
+                                display: !1,
+                                gridLines: !1,
+                                scaleLabel: {
+                                    display: !0, labelString: "Value"
+                                }
+                            }
+                            ]
+                        }
+                        ,
+                        elements: {
+                            point: {
+                                radius: 3, borderWidth: 0, hoverRadius: 8, hoverBorderWidth: 2
+                            }
+                        }
+                    }
+                }
+                    ;
+                new Chart($("#m_chart_sales_stats4"), e)
+            }
+
+        }
+
+        //========================================================SliderBegins
+        var slideIndex = 1;
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+        function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("dot");
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            //dots[slideIndex - 1].className += " active";
+        }
+                //===========================================
+    </script>
+
+
+}

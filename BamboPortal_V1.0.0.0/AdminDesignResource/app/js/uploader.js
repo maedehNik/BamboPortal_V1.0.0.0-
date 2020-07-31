@@ -143,34 +143,36 @@
         $(this).addClass("active-upload")
         $(".upload-div").hide();
 
-        mApp.block("#uploader", {
-            overlayColor: "#2c2e3e", type: "loader", state: "success", message: "درحال چک کردن حریم دسترسی و دریافت اطلاعات از سمت سرور ..."
-        });
-        $.ajax({
-            url: '/AdministratorUploader/Gallery',
-            type: "get",
-            success: function (data) {
-                $(".gal-div").html(data);
-                setTimeout(function () {
-                    mApp.unblock("#uploader")
-                    $(".gal-div").show(200);
-                    $(".select-uploader").show();
-                    $(".upload-fields").hide();
-                }, 1000);
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                swal("مشکل در برقراری ارتباط با سرور", data.Errormessage, "error");
-                setTimeout(function () {
-                    mApp.unblock("#uploader")
-                    $(".gal-div").show();
-                    $(".select-uploader").show();
-                    $(".upload-fields").hide();
-                }, 1000);
+        //mApp.block("#uploader", {
+        //    overlayColor: "#2c2e3e", type: "loader", state: "success", message: "درحال چک کردن حریم دسترسی و دریافت اطلاعات از سمت سرور ..."
+        //});
+        //$.ajax({
+        //    url: '/AdministratorUploader/Gallery',
+        //    type: "get",
+        //    success: function (data) {
+        //        $(".gal-div").html(data);
+        //        setTimeout(function () {
+        //            mApp.unblock("#uploader")
+        //            $(".gal-div").show(200);
+        //            $(".select-uploader").show();
+        //            $(".upload-fields").hide();
+        //        }, 1000);
+        //    },
+        //    error: function (jqXHR, textStatus, errorThrown) {
+        //        swal("مشکل در برقراری ارتباط با سرور", data.Errormessage, "error");
+        //        setTimeout(function () {
+        //            mApp.unblock("#uploader")
+        //            $(".gal-div").show();
+        //            $(".select-uploader").show();
+        //            $(".upload-fields").hide();
+        //        }, 1000);
 
-            }
-        });
+        //    }
+        //});
+        $(".gal-div").show(200);
+        $(".select-uploader").show();
+        $(".upload-fields").hide();
 
-       
 
     })
     $(".upload-btn").on("click", function () {
@@ -246,9 +248,5 @@
         return '<div class="mySlides" style="display: ' + noneorBlock + ';position: relative" > <img src="' + objsenderss.thimnail + '" data-url="' + objsenderss.ImageBigSrc + '" style="width:100%" /></div>';
     }
 
-    function refrehGallery() {
-        console.log("salam");
-        console.log("salam");
-    }
 
 })

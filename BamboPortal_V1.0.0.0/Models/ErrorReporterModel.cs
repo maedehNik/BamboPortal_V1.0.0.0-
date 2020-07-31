@@ -12,6 +12,7 @@ namespace BamboPortal_V1._0._0._0.Models
         public string ErrorID { get; set; }
         public string Errortype { get; set; }
         public List<ModelErrorReporter> AllErrors { set; get; }
+        public string ImportantValsReturn { get; set; }
     }
     public class ModelErrorReporter
     {

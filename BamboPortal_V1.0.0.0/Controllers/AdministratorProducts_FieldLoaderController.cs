@@ -71,7 +71,6 @@ namespace BamboPortal_V1._0._0._0.Controllers
 
             return Json(model);
         }
-
         [HttpPost]
         public JsonResult GetSubCateGoryForSelect2FromMainCateGoryID(string MainCategoryId)
         {

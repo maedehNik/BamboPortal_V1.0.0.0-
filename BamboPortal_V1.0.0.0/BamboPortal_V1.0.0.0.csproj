@@ -134,6 +134,7 @@
     <Compile Include="Controllers\AdministratorProducts_FactorsController.cs" />
     <Compile Include="Controllers\AdministratorProducts_FieldLoaderController.cs" />
     <Compile Include="Controllers\AdministratorProduct_StockpileController.cs" />
+    <Compile Include="Controllers\AdministratorStockpileController.cs" />
     <Compile Include="Controllers\AdministratorUploaderController.cs" />
     <Compile Include="Controllers\AdministratorWorkplaceController.cs" />
     <Compile Include="Controllers\AdminLoginAuthController.cs" />
@@ -151,6 +152,7 @@
     <Compile Include="Models\AdministratorGeneralModels\changeAuthInformation.cs" />
     <Compile Include="Models\AdministratorGeneralModels\ChangeProfileModel.cs" />
     <Compile Include="Models\AdministratorProductsModels\AddProductSemiFinalSubmitToCreateProducts.cs" />
+    <Compile Include="Models\AdministratorProductsModels\AddproductStep5Stockpile.cs" />
     <Compile Include="Models\AdministratorProductsModels\AddSubCategorySubmiterModel.cs" />
     <Compile Include="Models\AdministratorProductsModels\AddSubCateGoryValuesOfKeysSubmit.cs" />
     <Compile Include="Models\AdministratorProductsModels\AddSubCatKeySubmit.cs" />
@@ -158,8 +160,12 @@
     <Compile Include="Models\AdministratorProductsModels\AddTypeTable.cs" />
     <Compile Include="Models\AdministratorProductsModels\MainTagStructure.cs" />
     <Compile Include="Models\AdministratorProductsModels\ProductListTable.cs" />
+    <Compile Include="Models\AdministratorProductsModels\ProductViewDetails_EditTimeLine.cs" />
+    <Compile Include="Models\AdministratorProductsModels\ProductViewDetails_ProductSOCKandSOCKVL.cs" />
+    <Compile Include="Models\AdministratorProductsModels\ProductViewDetails_PropertyTable.cs" />
     <Compile Include="Models\AdministratorProductsModels\ReturnInputsOfSubCategorykeyValues.cs" />
     <Compile Include="Models\AdministratorProductsModels\ReturnInputsOfSubCategorykeyValuesGetSubmiter.cs" />
+    <Compile Include="Models\AdministratorProductsModels\SaveDataToStockpileStep5.cs" />
     <Compile Include="Models\AdministratorUploader\DatabaseImageUploadStructure.cs" />
     <Compile Include="Models\AdministratorUploader\ImageGalleryModel.cs" />
     <Compile Include="Models\AdministratorUploader\ImageInGalleryModel.cs" />
@@ -201,11 +207,14 @@
     <Compile Include="ModelViews\AdministratorProducts\AddMainTagModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddproductGetAllFinallyPriceDataAboutProductsModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddProductModelView.cs" />
+    <Compile Include="ModelViews\AdministratorProducts\AddproductStep5StockpileModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddSubCategoryKeyModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddSubCategoryModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddSubCateGoryValuesOfKeysModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddTypeModelView.cs" />
+    <Compile Include="ModelViews\AdministratorProducts\ProductDeitalsModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\ProductListTableModelView.cs" />
+    <Compile Include="ModelViews\AdministratorProducts\ProductViewDetailsModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\ReturnInputsOfSubCategorykeyValuesModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts_FieldLoader\GetSubCateGoryForSelect2FromPTypeIDModelView.cs" />
     <Compile Include="ModelViews\AdministratorUploader\ImageGalleryModelView.cs" />
@@ -222,6 +231,8 @@
     <Compile Include="nonStaticUsefulClass\Products\ReturnInputsOfSubCategorykeyValuesAllVals.cs" />
     <Compile Include="nonStaticUsefulClass\Products\SaveJaygashtOfProducts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StaticClass\BootstrapColorEnums.cs" />
+    <Compile Include="StaticClass\BootstrapColorPicker.cs" />
     <Compile Include="StaticClass\BugReporter\BugTypeFrom.cs" />
     <Compile Include="StaticClass\BugReporter\PPBugReporter.cs" />
     <Compile Include="StaticClass\CoockieController.cs" />
@@ -3163,6 +3174,9 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\AdministratorProducts\ReturnInputsOfSubCategorykeyValues.cshtml" />
     <Content Include="Views\AdministratorProducts\AddproductGetAllFinallyPriceDataAboutProducts.cshtml" />
+    <Content Include="Views\AdministratorProducts\ViewDetails.cshtml" />
+    <Content Include="Views\AdministratorProducts\AddproductStep5Stockpile.cshtml" />
+    <Content Include="Views\AdministratorStockpile\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -53,7 +53,7 @@
     </div>
 </div>
 
-<input id="AllImagesByID" value="NoIMG" style="" />
+<input id="AllImagesByID" value="NoIMG" style="display:none;" />
 <div class="m-content" id="MainaddProductController">
     <div class="row">
         <div class="col-lg-4">
@@ -97,12 +97,12 @@
                                 <span class="m-nav__link-text">قیمت گذاری اولیه</span>
                             </a>
                         </li>
-                        @*<li class="m-nav__item tshcurpoi tshdisabled-validation tshbtn5">
+                        <li class="m-nav__item tshcurpoi tshdisabled-validation tshbtn5">
                             <a class="m-nav__link">
-                                <i class="m-nav__link-icon  fa fa-money-bill-alt"></i>
-                                <span class="m-nav__link-text">قیمت گذاری نهایی</span>
+                                <i class="m-nav__link-icon  fa fa-inbox"></i>
+                                <span class="m-nav__link-text">قیمت گذاری نهایی و تنظیمات انبار</span>
                             </a>
-                        </li>*@
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -190,7 +190,6 @@
                                         <div class="row">
                                             <div class="form-group m-form__group col-lg-6 col-xs-12">
                                                 <label class="col-12 tshtextright" for="PRDCTType" style="padding: 0;">سر دسته محصول:</label>
-
                                                 <select class="form-control m-bootstrap-select m_selectpicker" name="PRDCTType" id="PRDCTType" title="انتخاب کنید..." onchange="URLSearchParams()">
                                                     @foreach (var item in Model.ProductTypes)
                                                     {
@@ -212,7 +211,6 @@
                                                 <div class="col-12" style="padding: 0;">
                                                     <select class="form-control m-bootstrap-select m_selectpicker" name="PRDCTMainCat" id="PRDCTMainCat" title="انتخاب کنید..." onchange="URLSearchParamsProcuctMainCategoryId()">
                                                         <option value=0 selected disabled hidden>یک مورد را انتخاب نمایید</option>
-
 
                                                     </select>
                                                 </div>
@@ -317,118 +315,15 @@
                                     </div>
                                 </div>
                                 @*===========================================================================*@
-                                <div class="sec-4" style="display: none">
+                                <div class="sec-4" style="display: ">
                                     @{ Html.RenderAction("AddproductGetAllFinallyPriceDataAboutProducts", "AdministratorProducts");}
                                 </div>
 
-                                @*<div class="sec-5" style="display: none">
-                                        <div class="row">
-                                            <div class="form-group m-form__group col-lg-6 col-xs-12">
-                                                <label class="col-12 col-form-label tshtextright">نوع واحد:</label>
-                                                <div class="col-12">
-                                                    <select class="form-control m-bootstrap-select m_selectpicker" title="انتخاب کنید...">
-                                                        <option value=0 selected disabled hidden>یک مورد را انتخاب نمایید</option>
+                                <div class="sec-5" style="display: block">
 
 
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
-                                                <label class="col-12 col-form-label tshtextright">واحد قیمتی:</label>
-                                                <div class="col-12">
-                                                    <select class="form-control m-bootstrap-select m_selectpicker" title="انتخاب کنید...">
-                                                        <option value=0 selected disabled hidden>یک مورد را انتخاب نمایید</option>
 
-
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group m-form__group col-lg-6 col-xs-12">
-                                                <label class="col-12 col-form-label tshtextright">نوع تخفیف:</label>
-                                                <div class="col-12">
-                                                    <select class="form-control m-bootstrap-select m_selectpicker" title="بدون تخفیف">
-                                                        <option value=0 selected disabled hidden>یک مورد را انتخاب نمایید</option>
-
-
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
-                                                <label class="col-12 col-form-label tshtextright">میزان تخفیف:</label>
-                                                <div class="col-12">
-                                                    <input class="form-control m-input" type="number" value="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group m-form__group col-lg-6 col-xs-12">
-                                                <label class="col-12 col-form-label tshtextright">قیمت هر واحد:</label>
-                                                <div class="col-12">
-                                                    <input class="form-control m-input" type="number" value="">
-                                                </div>
-                                            </div>
-                                            <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
-                                                <label class="col-12 col-form-label tshtextright">تعداد در هر واحد:</label>
-                                                <div class="col-12">
-                                                    <input class="form-control m-input" type="number" value="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group m-form__group col-lg-6 col-xs-12">
-                                                <label class="col-12 col-form-label tshtextright">قیمت پرداختی مشتری:</label>
-                                                <div class="col-12">
-                                                    <span class="tshaftertoman tshaftermarginright">500,000</span>
-                                                </div>
-                                            </div>
-                                            <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
-                                                <label class="col-12 col-form-label tshtextright">نمایش قیمت:</label>
-                                                <div class="col-12">
-                                                    <select class="form-control m-bootstrap-select m_selectpicker" title="انتخاب کنید...">
-                                                        <option value=0 selected disabled hidden>یک مورد را انتخاب نمایید</option>
-
-
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group m-form__group col-lg-6 col-xs-12">
-                                                <label class="col-12 col-form-label tshtextright">برچسب اصلی:</label>
-                                                <div class="col-12">
-                                                    <select class="form-control m-bootstrap-select m_selectpicker" title="انتخاب کنید...">
-                                                        <option value=0 selected disabled hidden>یک مورد را انتخاب نمایید</option>
-
-
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
-                                                <label class="col-form-label col-12 tshtextright">برچسب ها:</label>
-                                                <div class="col-12">
-                                                    <select class="form-control m-bootstrap-select m_selectpicker" multiple>
-                                                        <option value=0 selected disabled hidden>یک مورد را انتخاب نمایید</option>
-
-
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="m-portlet__foot m-portlet__foot--fit">
-                                            <div class="m-form__actions">
-                                                <div class="row">
-                                                    <div class="col-2">
-                                                    </div>
-                                                    <div class="col-12 tshtextleft">
-                                                        <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom">ذخیره</button>&nbsp;&nbsp;
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>*@
-
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -464,7 +359,18 @@
             });
             $(".Select2Tshp").select2({ width: 'resolve' });
 
+            $("#PRDCTDemansionValue").inputmask({ mask: "9", repeat: 4, greedy: !1 });
+            $("#PRDCTPricePer1Demansion").inputmask({ mask: "9", repeat: 10, greedy: !1 });
+
+
+            //$("#MRT1").inputmask({ mask: "9", repeat: 10, greedy: !1 })
+
+
+
         });
+        function mrmTest() {
+            console.log($("#MRT1").val());
+        }
         //==========================================
         function URLSearchParams() {
             mApp.block(".sec-2", {
@@ -695,6 +601,7 @@
             slides[slideIndex - 1].style.display = "block";
             //dots[slideIndex - 1].className += " active";
         }
+
         $("#prodform").validate({
             rules: {
                 PRDCTName: {
@@ -938,7 +845,12 @@
             setTimeout(function () {
                 if ($("#PRDCTName0-error").css("display") == 'inline-block' ||
                     $("#PRDCTName1-error").css("display") == 'inline-block') { } else {
+                    $(".PRDCTPriceDemansion").select2({ width: 'resolve' });
+                    $(".PRDCTTagSectionOfProduct").select2({ width: 'resolve' });
+                    $(".PRDCTPriceShowType").select2({ width: 'resolve' });
+                    $(".PRDCTDemansion").select2({ width: 'resolve' });
                     $(".tshbtn4").removeClass("tshdisabled-validation");
+
                     $(".tshbtn4").click();
                 }
             }, 200)
@@ -981,8 +893,8 @@
                         'TagTargetAdded': TagTargetAdded,
                         'PRDCTDemansion': $("#PRDCTDemansion").val(),
                         'PRDCTPriceDemansion': $("#PRDCTPriceDemansion").val(),
-                        'PRDCTOffType': $("#PRDCTOffType").val(),
-                        'PRDCTOffPriceValue': $("#PRDCTOffPriceValue").val(),
+                        'PRDCTOffType': "1",
+                        'PRDCTOffPriceValue': "0",
                         'PRDCTPricePer1Demansion': $("#PRDCTPricePer1Demansion").val(),
                         'PRDCTDemansionValue': $("#PRDCTDemansionValue").val(),
                         'PRDCTPriceShowType': $("#PRDCTPriceShowType").val(),
@@ -995,14 +907,42 @@
                         data: JSON.stringify(PostJson),
                         contentType: "application/json; charset=utf-8",
                         success: function (data) {
-
                             if (data.Errortype == "Success") {
                                 AlertToUser("MainaddProductController", data);
-                            setTimeout(function () {
-                                mApp.unblock("MainaddProductController")
-                            }, 1000);
+                                var PostJ = {
+                                    "id_MProduct": data.ImportantValsReturn
+                                };
+                                console.log(JSON.stringify(PostJ));
+                                $.ajax({
+                                    url: '/AdministratorProducts/AddproductStep5Stockpile',
+                                    type: "post",
+                                    data: JSON.stringify(PostJ),
+                                    contentType: "application/json; charset=utf-8",
+                                    success: function (data) {
+                                        console.log("Dasdsadasdasd");
+                                        console.log(data);
+                                        $(".sec-5").html(data);
+                                        //======================================
+                                        $('.PriceNumeric').each(function (index, element) {
+                                            $(this).inputmask({ mask: "9", repeat: 9, greedy: !1 });
+                                        });
+                                        $('.QTnumeric').each(function (index, element) {
+                                            $(this).inputmask({ mask: "9", repeat: 3, greedy: !1 });
+                                            console.log("MRM1");
+                                        });
+                                        $(".tshbtn5").removeClass("tshdisabled-validation");
+                                        //======================================
+                                        setTimeout(function () {
+                                            mApp.unblock("#MainaddProductController");
+                                            $(".tshbtn5").click();
+                                        }, 1000);
+                                    }
+                                });
                             } else {
                                 alert(data.Errormessage);
+                                setTimeout(function () {
+                                    mApp.unblock("#MainaddProductController")
+                                }, 1000);
                             }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
@@ -1016,14 +956,99 @@
                     console.log(PostJson);
                     //=================================================
 
-                    //$(".tshbtn5").removeClass("tshdisabled-validation");
-                    //$(".tshbtn5").click();
 
 
                 }
             }, 200)
         })
+        function SaveAllDataToStockpile() {
+            var CheckAccess = 1;
+            $('.QTnumeric').each(function (index, element) {
+                if ($(this).val() == "") {
+                    CheckAccess = 0;
+                }
+            });
+            $('.ProductCode').each(function (index, element) {
+                if ($(this).val() == "") {
+                    CheckAccess = 0;
+                }
+            });
+            $('.PriceNumeric').each(function (index, element) {
+                if ($(this).val() == "") {
+                    CheckAccess = 0;
+                }
+            });
+            if (CheckAccess == 0) {
+                swal("مشکل", "پر کردن تمامی فیلد ها اجباریست", "error");
+            }
+            if (CheckAccess == 1) {
+
+                setTimeout(function () {
+                    mApp.block(".sec-5", {
+                        overlayColor: "#2c2e3e", type: "loader", state: "success", message: "درحال ذخیره سازی اطلاعات ..."
+                    });
+                    var ArryTosend = [];
+                    $('.IDMPCSender').each(function (index, element) {
+                        console.log("salam----");
+                        console.log($(this).val());
+                        var PostJ = {
+                            "PriceNumeric": $("#PriceNumeric-" + $(this).val()).val(),
+                            "QTnumeric": $("#QTnumeric-" + $(this).val()).val(),
+                            "ProductCode": $("#ProductCode-" + $(this).val()).val(),
+                            "idMPC": $(this).val()
+                        };
+                        ArryTosend.push(PostJ);
+                        console.log("MRM1");
+                    });
+                    console.log(ArryTosend);
+
+                    $.ajax({
+                        url: '/AdministratorProducts/SaveDataToStockpileStep5',
+                        type: "post",
+                        data: JSON.stringify(ArryTosend),
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            if (data.Errortype == "Success") {
+                                setTimeout(function () {
+                                    swal("درخواست با موفقیت ثبت شد!", data.Errormessage, "success").then(function (e) {
+                                        try {
+                                            window.location.replace(window.location.origin + $("#SaveAllDataToStockpileRedirection").val());
+                                        } catch{
+                                            location.reload();
+                                        }
+                                    })
+                                }, 1000);
+                            } else {
+                                alert(data.Errormessage);
+                                setTimeout(function () {
+                                    mApp.unblock(".sec-5")
+                                }, 1000);
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            swal("مشکل در برقراری ارتباط با سرور", textStatus, "error");
+                            setTimeout(function () {
+                                mApp.unblock(".sec-5")
+                            }, 1000);
+
+                        }
+                    });
+
+
+
+
+
+
+                }, 200);
+            }
+
+            return false;
+        }
 
     </script>
 
 }
+<input id="SaveAllDataToStockpileRedirection" style="display:none" value="@Url.Action("ProductList","AdministratorProducts")" />
+<input id="MainaddProductControllerRedirection" style="display:none" value="NoReload" />
+
+

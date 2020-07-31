@@ -7,7 +7,7 @@
     <div class="form-group m-form__group col-lg-6 col-xs-12">
         <label for="PRDCTDemansion" class="col-12 col-form-label tshtextright">نوع واحد:</label>
         <div class="col-12">
-            <select class="form-control m-bootstrap-select m_selectpicker Select2Tshp" name="PRDCTDemansion" id="PRDCTDemansion" title="انتخاب کنید...">
+            <select style="width:100%!important" class="form-control m-bootstrap-select m_selectpicker Select2Tshp" name="PRDCTDemansion" id="PRDCTDemansion" title="انتخاب کنید...">
                 <option value=0 selected disabled hidden>یک مورد را انتخاب نمایید</option>
                 @foreach (var item in Model.QuantityTypes)
                 {
@@ -19,7 +19,7 @@
     <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
         <label for="PRDCTPriceDemansion" class="col-12 col-form-label tshtextright">واحد قیمتی:</label>
         <div class="col-12">
-            <select class="form-control m-bootstrap-select m_selectpicker Select2Tshp" name="PRDCTPriceDemansion" id="PRDCTPriceDemansion" title="انتخاب کنید...">
+            <select style="width:100%!important" class="form-control m-bootstrap-select m_selectpicker Select2Tshp" name="PRDCTPriceDemansion" id="PRDCTPriceDemansion" title="انتخاب کنید...">
                 <option value=0 selected disabled hidden>یک مورد را انتخاب نمایید</option>
                 @foreach (var item in Model.PriceType)
                 {
@@ -30,7 +30,7 @@
         </div>
     </div>
 </div>
-<div class="row">
+@*<div class="row">
     <div class="form-group m-form__group col-lg-6 col-xs-12">
         <label for="PRDCTOffType" class="col-12 col-form-label tshtextright">نوع تخفیف:</label>
         <div class="col-12">
@@ -49,32 +49,45 @@
             <input class="form-control m-input" name="PRDCTOffPriceValue" id="PRDCTOffPriceValue" type="number" value="">
         </div>
     </div>
-</div>
+</div>*@
 <div class="row">
     <div class="form-group m-form__group col-lg-6 col-xs-12">
         <label for="PRDCTPricePer1Demansion" class="col-12 col-form-label tshtextright">قیمت هر واحد:</label>
         <div class="col-12">
-            <input class="form-control m-input" name="PRDCTPricePer1Demansion" id="PRDCTPricePer1Demansion" type="number" value="">
+            <input class="form-control m-input PriceNumeric" name="PRDCTPricePer1Demansion" id="PRDCTPricePer1Demansion" type="text" value="">
         </div>
     </div>
     <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
         <label for="PRDCTDemansionValue" class="col-12 col-form-label tshtextright">تعداد در هر واحد:</label>
         <div class="col-12">
-            <input class="form-control m-input" name="PRDCTDemansionValue" id="PRDCTDemansionValue" type="number" value="">
+            <input class="form-control m-input QTnumeric" name="PRDCTDemansionValue" id="PRDCTDemansionValue" type="text" value="">
         </div>
     </div>
 </div>
 <div class="row">
-    <div class="form-group m-form__group col-lg-6 col-xs-12">
-        <label class="col-12 col-form-label tshtextright">قیمت پرداختی مشتری:</label>
+    @*<div class="form-group m-form__group col-lg-6 col-xs-12">
+            <label class="col-12 col-form-label tshtextright">قیمت پرداختی مشتری:</label>
+            <div class="col-12">
+                <span class="tshaftertoman tshaftermarginright">500,000</span>
+            </div>
+        </div>*@
+    <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-bottom: 50px;">
+        <label for="PRDCTTagSectionOfProduct" class="col-12 col-form-label tshtextright">برچسب اصلی:</label>
         <div class="col-12">
-            <span class="tshaftertoman tshaftermarginright">500,000</span>
+            <select class="form-control m-bootstrap-select m_selectpicker Select2Tshp" style="width:100%!important" name="PRDCTTagSectionOfProduct" id="PRDCTTagSectionOfProduct" title="انتخاب کنید...">
+                <option value=0 selected disabled hidden>یک مورد را انتخاب نمایید</option>
+
+                @foreach (var item in Model.MainTags)
+                {
+                    <option value=@item.Id>@item.Value</option>
+                }
+            </select>
         </div>
     </div>
     <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
         <label for="PRDCTPriceShowType" class="col-12 col-form-label tshtextright">نمایش قیمت:</label>
         <div class="col-12">
-            <select class="form-control m-bootstrap-select m_selectpicker Select2Tshp" name="PRDCTPriceShowType" id="PRDCTPriceShowType" title="انتخاب کنید...">
+            <select style="width:100%!important" class="form-control m-bootstrap-select m_selectpicker Select2Tshp" name="PRDCTPriceShowType" id="PRDCTPriceShowType" title="انتخاب کنید...">
                 <option value=0 selected disabled hidden>یک مورد را انتخاب نمایید</option>
                 @foreach (var item in Model.PriceShow)
                 {
@@ -85,19 +98,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-bottom: 50px;">
-        <label for="PRDCTTagSectionOfProduct" class="col-12 col-form-label tshtextright">برچسب اصلی:</label>
-        <div class="col-12">
-            <select class="form-control m-bootstrap-select m_selectpicker Select2Tshp" name="PRDCTTagSectionOfProduct" id="PRDCTTagSectionOfProduct" title="انتخاب کنید...">
-                <option value=0 selected disabled hidden>یک مورد را انتخاب نمایید</option>
 
-                @foreach (var item in Model.MainTags)
-                {
-                    <option value=@item.Id>@item.Value</option>
-                }
-            </select>
-        </div>
-    </div>
     @*<div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
         <label class="col-form-label col-12 tshtextright" for="PRDCTMainTags">برچسب ها:</label>
         <div class="col-12">
