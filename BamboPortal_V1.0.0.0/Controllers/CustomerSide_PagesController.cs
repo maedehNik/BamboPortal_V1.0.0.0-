@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace BamboPortal_V1._0._0._0.Controllers
 {
-    public class CustomerSide_PagesController : Controller
+    public class CustomerSide_PagesController : CustomerSide_CustomerRuleController
     {
         // GET: CustomerSide_Pages
         public ActionResult Index()
