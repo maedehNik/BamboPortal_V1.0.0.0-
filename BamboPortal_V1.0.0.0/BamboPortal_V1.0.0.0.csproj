@@ -141,9 +141,13 @@
     <Compile Include="Controllers\AdminRulesController.cs" />
     <Compile Include="Controllers\AdminRules_ProductCTRLController.cs" />
     <Compile Include="Controllers\AllErrorsRedirectController.cs" />
+    <Compile Include="Controllers\CustomerSide_BlogController.cs" />
+    <Compile Include="Controllers\CustomerSide_BlogRuleController.cs" />
+    <Compile Include="Controllers\CustomerSide_CustomerProfileController.cs" />
     <Compile Include="Controllers\CustomerSide_CustomerProfileRuleController.cs" />
     <Compile Include="Controllers\CustomerSide_CustomerRuleController.cs" />
     <Compile Include="Controllers\CustomerSide_PagesController.cs" />
+    <Compile Include="Controllers\CustomerSide_ProductController.cs" />
     <Compile Include="Controllers\TestssController.cs" />
     <Compile Include="Controllers\VelvetCustomersController.cs" />
     <Compile Include="DatabaseCenter\Class\Dbconnect.cs" />
@@ -3153,6 +3157,7 @@
     <Content Include="CustomerSide_desinerResource\video\movie.mp4" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Khordad\Note\notedb.txt" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Khordad\Script\bambopoertalSqcScript.sql" />
+    <Content Include="DatabaseCenter\SQL Scripts\1399\Mordad\first1.sql" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Tir\16\desktop - Copy.sql" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Tir\16\desktop.sql" />
     <Content Include="Docs\usefulguides\Webpages.txt" />
@@ -3187,9 +3192,13 @@
     <Folder Include="Models\AdministratorProducts_FieldLoader\" />
     <Folder Include="UploadedImages\" />
     <Folder Include="Views\AdminRules_ProductCTRL\" />
+    <Folder Include="Views\CustomerSide_BlogRule\" />
+    <Folder Include="Views\CustomerSide_Blog\" />
     <Folder Include="Views\CustomerSide_CustomerProfileRule\" />
+    <Folder Include="Views\CustomerSide_CustomerProfile\" />
     <Folder Include="Views\CustomerSide_CustomerRule\" />
     <Folder Include="Views\CustomerSide_Pages\" />
+    <Folder Include="Views\CustomerSide_Product\" />
     <Folder Include="WebConfigNotes\" />
   </ItemGroup>
   <ItemGroup>

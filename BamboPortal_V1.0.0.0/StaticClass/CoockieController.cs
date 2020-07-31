@@ -21,5 +21,6 @@ namespace BamboPortal_V1._0._0._0.StaticClass
             EncDec en = new EncDec();
             return en.EncryptText(JsonConvert.SerializeObject(CoockieOBJ));
         }
+        //====================================================End of adminside
     }
 }
