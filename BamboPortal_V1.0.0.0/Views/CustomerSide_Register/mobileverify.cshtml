@@ -4,6 +4,28 @@
     Layout = "~/Views/SharedViewPages/CustomerSide/CustomerMaster.cshtml";
 }
 
+
+<div class="modal fade" id="modal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" style="border: none!important;">
+            <div class="modal-header" style="background-color: #28a745;width: 100%;">
+                <h5 class="modal-title" id="modal-title" style="float: right;color:#fff;">title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float: left;color: white">
+                    <span style="color: white!important;" aria-hidden="true"><i style="color: white!important;" class="fa fa-times"></i></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                body
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" style="float:left;background-color: #000;color: #fff;" data-dismiss="modal">تایید</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="LoaderSpinner" class="loader">
+    <div class="spinner"></div>
+</div>
 <div class="theme-background-section full-screen fs-overlay pad-top-40">
     <div class="content-container">
         <div class="content-inner-container">
@@ -33,7 +55,7 @@
                                                 </div>
                                                 <form action="" method="post" autocomplete="off" id="verify-form">
                                                     <div class="form-group pad-bot-15">
-                                                        <label class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;text-align: center">کد ارسالی به شماره 09120000000 را وارد کنید</label>
+                                                        <label class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;text-align: center">کد ارسالی به شماره 09197386684 را وارد کنید</label>
                                                         <div class="tshdirltr" style="text-align: center;">
                                                             <input id="codeBox1" class="codebox" type="number" maxlength="1" onkeyup="onKeyUpEvent(1, event)" onfocus="onFocusEvent(1)" />
                                                             <input id="codeBox2" class="codebox" type="number" maxlength="1" onkeyup="onKeyUpEvent(2, event)" onfocus="onFocusEvent(2)" />
@@ -69,57 +91,62 @@
     </div>
 </div>
 
-<script>
+
+@section CS_Scripts {
     var revapi;
     jQuery(document).ready(function () {
-        setInterval(function () {
-            $('.owl-prev').trigger('click');
-        }, 3000);
+    setInterval(function () {
+    $('.owl-prev').trigger('click');
+    }, 3000);
 
 
-        revapi = jQuery("#rev_slider_1").revolution({
-            sliderType: "standard",
-            sliderLayout: "fullscreen",
-            fullScreenOffsetContainer: ".navigation",
-            delay: 9000,
-            navigation: {
-                keyboardNavigation: "off",
-                mouseScrollNavigation: "on",
-                onHoverStop: "off",
-                touch: {
-                    touchenabled: "on",
-                    swipe_threshold: 75,
-                    swipe_min_touches: 1,
-                    swipe_direction: "horizontal",
-                    drag_block_vertical: false
-                },
-                bullets: {
-                    enable: true,
-                    rtl: true,
-                    hide_onmobile: false,
-                    style: "hebe",
-                    hide_onleave: false,
-                    direction: "horizontal",
-                    h_align: "center",
-                    v_align: "bottom",
-                    h_offset: 0,
-                    v_offset: 10,
-                    space: 5,
-                    tmp: '<span class="tp-bullet-inner"></span>'
-                }
-            },
-            responsiveLevels: [4096, 1024, 767, 480],
-            gridwidth: 1230,
-            gridheight: 720
-        });
+    revapi = jQuery("#rev_slider_1").revolution({
+    sliderType: "standard",
+    sliderLayout: "fullscreen",
+    fullScreenOffsetContainer: ".navigation",
+    delay: 9000,
+    navigation: {
+    keyboardNavigation: "off",
+    mouseScrollNavigation: "on",
+    onHoverStop: "off",
+    touch: {
+    touchenabled: "on",
+    swipe_threshold: 75,
+    swipe_min_touches: 1,
+    swipe_direction: "horizontal",
+    drag_block_vertical: false
+    },
+    bullets: {
+    enable: true,
+    rtl: true,
+    hide_onmobile: false,
+    style: "hebe",
+    hide_onleave: false,
+    direction: "horizontal",
+    h_align: "center",
+    v_align: "bottom",
+    h_offset: 0,
+    v_offset: 10,
+    space: 5,
+    tmp: '<span class="tp-bullet-inner"></span>'
+    }
+    },
+    responsiveLevels: [4096, 1024, 767, 480],
+    gridwidth: 1230,
+    gridheight: 720
+    });
 
-        $("#LoaderSpinner").hide(0);
+    $("#LoaderSpinner").hide(0);
     }); /*ready*/
-</script>
-@Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/CustomerSideUserProfile.js")
-<script>
-    $(document).ready(function () {
-        //success("تایتل","بادی");
-    })
-</script>
+    </script>
 
+
+    @Scripts.Render("~/bundles/CustomerSideUserProfile.js")
+    @*@Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/CustomerSideUserProfile.js")*@
+    <script>
+        $(document).ready(function () {
+            //success("تایتل", "بادی");
+        })
+    </script>
+
+}

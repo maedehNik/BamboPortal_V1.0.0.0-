@@ -105,18 +105,18 @@
                             <div class="nav-holder">
                                 <div class="inner-content">
                                     <ul class="full-screen-nav">
-                                        <li><a href="@Url.Action("index","VelvetCustomers")">خانه</a></li>
-                                        <li><a href="@Url.Action("AboutUs","VelvetCustomers")">درباره ما</a></li>
+                                        <li><a href="@Url.Action("index","CustomerSide_Pages")">خانه</a></li>
+                                        <li><a href="@Url.Action("AboutUs","CustomerSide_Pages")">درباره ما</a></li>
                                         <li class="with-dropdown">
                                             <a href="#" class="menu-dropdown-link account-li">ناحیه کاربری<span class="dropdown-icon tshfatrtry3 tshfamr"></span></a>
                                             <ul class="menu-dropdown tshsubmneu">
-                                                <li><a href="@Url.Action("customerProfile","VelvetCustomers")">ناحیه کاربری</a></li>
-                                                <li><a href="@Url.Action("factor","VelvetCustomers")">فاکتورها</a></li>
-                                                <li><a href="@Url.Action("customershoppingCart","VelvetCustomers")">سبد خرید</a></li>
+                                                <li><a href="@Url.Action("customerProfile","CustomerSide_CustomerProfile")">ناحیه کاربری</a></li>
+                                                <li><a href="@Url.Action("factor","CustomerSide_Product")">فاکتورها</a></li>
+                                                <li><a href="@Url.Action("customershoppingCart","CustomerSide_Product")">سبد خرید</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="@Url.Action("search","VelvetCustomers",new {Type="همه",Id=1 })" style="letter-spacing: 0px;">محصولات</a></li>
-                                        <li><a href="@Url.Action("Rules","VelvetCustomers")" style="letter-spacing: 0px;">قوانین</a></li>
+                                        <li><a href="@Url.Action("search","CustomerSide_Product",new {Type="همه",Id=1 })" style="letter-spacing: 0px;">محصولات</a></li>
+                                        <li><a href="@Url.Action("Rules","CustomerSide_Pages")" style="letter-spacing: 0px;">قوانین</a></li>
                                         @*<li><a href="SiteMap.aspx" title="SiteMap" style="letter-spacing: 0px;">نقشه سایت</a></li>*@
                                     </ul>
                                 </div>
@@ -201,7 +201,7 @@
                         @foreach (var item in Model.NewProducts)
                         {
                             <div class="item pad-left-40 pad-right-40 no-padding-side-mobile">
-                                <a href="@Url.Action("productpage","VelvetCustomers",new { ProId=item.Id})" class="trailer trailer-inactive-mobile no-margin-top">
+                                <a href="@Url.Action("productpage","CustomerSide_Product",new { ProId=item.Id})" class="trailer trailer-inactive-mobile no-margin-top">
                                     <figure class="trailer-image">
                                         <img alt="image" src="@item.PicPath" />
                                         <figcaption>
@@ -236,7 +236,7 @@
                             <div class="product-image">
                                 <img alt="image" class="img-responsive" src="@item.PicPath">
                                 <div class="thumbnail-btns">
-                                    <a class="btn btn-lg btn-theme-inverse" href="@Url.Action("productpage","VelvetCustomers",new { ProId=item.Id})"><i class="pe-7s-glasses pe-2x"></i></a>
+                                    <a class="btn btn-lg btn-theme-inverse" href="@Url.Action("productpage","CustomerSide_Product",new { ProId=item.Id})"><i class="pe-7s-glasses pe-2x"></i></a>
                                     <a class="btn btn-lg btn-theme-inverse" href="#"><i class="icon-basket"></i></a>
                                 </div>
                             </div>
@@ -276,7 +276,7 @@
                                 @*<span class="label label-tags theme-background-light text-vertical-large special tshdirltr">-20 %</span>*@
                                 <img alt="image" class="img-responsive" src="@item.PicPath">
                                 <div class="thumbnail-btns">
-                                    <a class="btn btn-lg btn-theme" href="@Url.Action("productpage","VelvetCustomers",new { ProId=item.Id})">مشاهده محصول</a>
+                                    <a class="btn btn-lg btn-theme" href="@Url.Action("productpage","CustomerSide_Product",new { ProId=item.Id})">مشاهده محصول</a>
                                 </div>
                             </div>
                         </div>
@@ -302,7 +302,7 @@
                                 <img alt="image" class="img-responsive" src="@item.PicPath">
                                 <div class="thumbnail-btns">
                                     <a class="btn btn-lg btn-theme-inverse" href="product-single.html"><i class="pe-7s-glasses pe-2x"></i></a>
-                                    <a class="btn btn-lg btn-theme-inverse" href="@Url.Action("productpage","VelvetCustomers",new { ProId=item.Id})"><i class="icon-basket"></i></a>
+                                    <a class="btn btn-lg btn-theme-inverse" href="@Url.Action("productpage","CustomerSide_Product",new { ProId=item.Id})"><i class="icon-basket"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -410,7 +410,7 @@
                     <div class="col-md-6">
                         <div class="row" style="margin-bottom: 15px;">
                             <div class="col-md-3" style="float: right">
-                                <img alt="image" class="img-responsive" src="images/logo-dark-big.png">
+                                <img alt="image" class="img-responsive" src="~/CustomerSide_desinerResource/images/logo-dark-big.png">
                             </div>
                             <div class="col-md-9">
                                 <p class="tshabout">
@@ -443,13 +443,13 @@
                         <div class="row badges-div">
                             <h4 class="footer-title ftr-title-2">نماد ها</h4>
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 badges">
-                                <img alt="image" class="img-responsive" src="images/enamad.png">
+                                <img alt="image" class="img-responsive" src="~/CustomerSide_desinerResource/images/enamad.png">
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 badges">
-                                <img alt="image" class="img-responsive" src="images/samandehi.png">
+                                <img alt="image" class="img-responsive" src="~/CustomerSide_desinerResource/images/samandehi.png">
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 badges">
-                                <img alt="image" class="img-responsive" src="images/zarinpal.png">
+                                <img alt="image" class="img-responsive" src="~/CustomerSide_desinerResource/images/zarinpal.png">
                             </div>
                         </div>
                     </div>
@@ -470,9 +470,9 @@
                         </div>
                         <div class="col-md-4 col-xs-12 copyright-right">
                             <ul class="list-unstyled list-inline footer-inline-links">
-                                <li><a href="@Url.Action("Rules","VelvetCustomers")">قوانین و مقررات</a></li>
+                                <li><a href="@Url.Action("Rules","CustomerSide_Pages")">قوانین و مقررات</a></li>
                                 @*<li><a href="contact.html">ارتباط با ما</a></li>*@
-                                <li><a href="@Url.Action("AboutUs","VelvetCustomers")">درباره ما</a></li>
+                                <li><a href="@Url.Action("AboutUs","CustomerSide_Pages")">درباره ما</a></li>
                                 @*<li><a href="sitemap.html">نقشه سایت</a></li>*@
                             </ul>
                         </div>

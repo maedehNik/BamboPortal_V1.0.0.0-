@@ -2438,7 +2438,7 @@ if (typeof jQuery === 'undefined') {
 
         /**
          * Implement Luhn validation algorithm
-         * Credit to https://gist.github.com/ShirtlessK_Ik/2134376
+         * Credit to https://gist.github.com/ShirtlessKirk/2134376
          *
          * @see http://en.wikipedia.org/wiki/Luhn
          * @param {String} value

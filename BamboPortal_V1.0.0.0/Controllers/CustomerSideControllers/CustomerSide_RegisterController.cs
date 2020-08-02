@@ -6,10 +6,14 @@ using System.Web.Mvc;
 
 namespace BamboPortal_V1._0._0._0.Controllers
 {
-    public class CustomerSide_PagesController : CustomerSide_CustomerRuleController
+    public class CustomerSide_RegisterController : Controller
     {
-        // GET: CustomerSide_Pages
-        public ActionResult Index()
+        public ActionResult loginandregister()
+        {
+            return View();
+        }
+
+        public ActionResult mobileverify()
         {
             return View();
         }

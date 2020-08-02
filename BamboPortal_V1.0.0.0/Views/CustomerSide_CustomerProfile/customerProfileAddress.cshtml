@@ -9,7 +9,7 @@
         <h4>منو</h4>
         <ul>
             <li>
-                <a href="@Url.Action("customerProfile","VelvetCustomers")">
+                <a href="@Url.Action("customerProfile","CustomerSide_CustomerProfile")">
                     اطلاعات حساب
                 </a>
             </li>
@@ -19,17 +19,17 @@
                 </a>
             </li>
             <li>
-                <a href="@Url.Action("customerProfileHistory","VelvetCustomers")">
+                <a href="@Url.Action("customerProfileHistory","CustomerSide_CustomerProfile")">
                     تاریخچه خرید
                 </a>
             </li>
             <li>
-                <a href="@Url.Action("customerProfileReturn","VelvetCustomers")">
+                <a href="@Url.Action("customerProfileReturn","CustomerSide_CustomerProfile")">
                     درخواست های مرجوعی
                 </a>
             </li>
             <li>
-                <a href="@Url.Action("customerProfileSettings","VelvetCustomers")">
+                <a href="@Url.Action("customerProfileSettings","CustomerSide_CustomerProfile")">
                     تنظیمات
                 </a>
             </li>
@@ -51,7 +51,7 @@
                 </div>
                 <div class="form-group pad-bot-15 col-lg-8 col-md-8 col-sm-12 col-xs-12">
                     <label for="address" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">آدرس کامل</label>
-                    <label class="form-control" name="address" id="address">@item.FullAddress</label>
+                    <label class="form-control" >@item.FullAddress </label>
                 </div>
             </div>
         }
@@ -100,8 +100,10 @@
     </div>
 </div>
 
-<script>
-    var revapi;
+
+@section CS_Scripts {
+    <script>
+        var revapi;
     jQuery(document).ready(function () {
         setInterval(function () {
             $('.owl-prev').trigger('click');
@@ -146,6 +148,8 @@
 
         $("#LoaderSpinner").hide(0);
     }); /*ready*/
-</script>
 
-@Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/CustomerSideUserProfile.js")
+    </script>
+    @Scripts.Render("~/bundles/CustomerSideUserProfile.js")
+    @*@Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/CustomerSideUserProfile.js")*@
+}
