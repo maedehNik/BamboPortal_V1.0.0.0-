@@ -1536,7 +1536,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 };
                 paramss.Add(parameters);
                 db.Connect();
-                string result = db.Script("INSERT INTO [tbl_Product_SubCategoryOptionValue]VALUES(@data_SCK,@value)", paramss);
+                string result = db.Script("INSERT INTO [tbl_Product_SubCategoryOptionValue] ([id_SCOK] ,[SCOVValueName] ,[CreatedDate]) VALUES(@data_SCK,@value,getdate())", paramss);
                 db.DC();
 
                 if (result == "1")
