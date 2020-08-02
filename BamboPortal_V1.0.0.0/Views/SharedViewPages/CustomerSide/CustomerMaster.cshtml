@@ -5,73 +5,30 @@
 
 <!DOCTYPE html>
 <html itemscope="" itemtype="http://schema.org/WebPage" lang="fa-IR" dir="rtl">
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta name="description" content="">
     <meta name="keywords" content="">
+
+
+    <!-- Favicon -->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <!-- Loading Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
-    @Styles.Render( "~/Content/CustomerSide.css")
+
+    @Styles.Render("~/Content/CustomerSide.css")
     @Scripts.Render("~/bundles/CustomerSide.js")
 </head>
+
 <body class="header-left-side rtl">
-    <div class="shopping-cart-slide">
-        <div class="title">
-            سبد خرید شما
-            <br />
-            (5) کالا
-        </div>
-        <div class="cart-items">
-            <div class="cart-item">
-                <div class="cart-item-remove"><a href="#"><i class="fa fa-trash-o"></i></a></div>
-                <div class="cart-item-image">
-                    <img alt="image" src="~/CustomerSide_desinerResource/images/products/cart-thumbs/light-grey-jacket-transparent.png" />
-                </div>
-                <div class="cart-item-info">
-                    <div class="item-name"><a href="#">Grey Jacket</a></div>
-                    <div class="item-quantity">
-                        <form id='qtyform5' method='POST' action='#'>
-                            <input type='button' value='-' class='qtyminus btn' title='quantity5' />
-                            <input type='text' name='quantity5' value='1' class='qty' />
-                            <input type='button' value='+' class='qtyplus btn' title='quantity5' />
-                        </form>
-                    </div>
-                </div>
-                <div class="cart-item-price">1,560,000 ریال</div>
-            </div>
-
-            <div class="cart-item">
-                <button class="btn btn-info" style="width: 100%;">ابتدا وارد حساب کاربری خود شوید</button>
-            </div>
-
-            <!--=============================================================CART ITEMS END-->
-
-        </div>
-        <div class="cart-footer">
-
-
-
-            <div class="cart-sub grand-total">
-                <div class="cart-sub-amount">
-                    1000 ريال
-                </div>
-                <div class="text">
-                    مبلغ قابل پرداخت
-                </div>
-
-            </div>
-            <div class="cart-order-links">
-                <a class="btn shopping-cart-trigger">بستن</a>
-                <a class="btn btn-success">پرداخت</a>
-            </div>
-        </div>
-    </div>
     <div id="LoaderSpinner" class="loader">
         <div class="spinner"></div>
     </div>
+
     <div class="page-content">
 
         <header class="navigation transparent">
@@ -85,9 +42,6 @@
                         </div>
                         <div class="navbar-icons">
                             <ul class="nav navbar-nav navbar-left">
-                                <li class="nav-shop nav-shop-fullscreen">
-                                    <a href="#" class="shopping-cart-trigger"><i class="shop-icon icon-basket"></i></a>
-                                </li>
                                 <li class="menu-icon">
                                     <a class="full-screen-menu-trigger" href="#">
                                         <ul class="bar-icon-wrapper">
@@ -97,6 +51,9 @@
                                         </ul>
                                     </a>
                                 </li>
+                                <li class="nav-shop nav-shop-fullscreen">
+                                    <a href="#" class="shopping-cart-trigger"><i class="shop-icon icon-basket">سلام موسوی نیا ابرغویی</i></a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -105,79 +62,37 @@
                             <div class="nav-holder">
                                 <div class="inner-content">
                                     <ul class="full-screen-nav">
-                                        <li><a href="@Url.Action("index","VelvetCustomers")">خانه</a></li>
-                                        <li><a href="@Url.Action("AboutUs","VelvetCustomers")">درباره ما</a></li>
+                                        <li><a href="@Url.Action("index", "CustomerSide_Pages")" style="letter-spacing: 0px;">خانه</a></li>
+                                        <li><a href="@Url.Action("AboutUs", "CustomerSide_Pages")" style="letter-spacing: 0px;">درباره ما</a></li>
                                         <li class="with-dropdown">
-                                            <a href="#" class="menu-dropdown-link account-li">ناحیه کاربری<span class="dropdown-icon tshfatrtry3 tshfamr"></span></a>
-                                            <ul class="menu-dropdown tshsubmneu">
-                                                <li><a href="@Url.Action("customerProfile","VelvetCustomers")">ناحیه کاربری</a></li>
-                                                <li><a href="@Url.Action("factor","VelvetCustomers")">فاکتورها</a></li>
-                                                <li><a href="@Url.Action("customershoppingCart","VelvetCustomers")">سبد خرید</a></li>
+                                            <a href="#" class="menu-dropdown-link" data-toggle="collapse" aria-expanded="true" style="letter-spacing: 0px;">ناحیه کاربری <span class="dropdown-icon"></span></a>
+                                            <ul class="menu-dropdown collapse">
+                                                <li><a href="@Url.Action("customerProfile", "CustomerSide_CustomerProfile")" style="letter-spacing: 0px;">ناحیه کاربری</a></li>
+                                                <li><a href="#" style="letter-spacing: 0px;">تسویه حساب (2) مورد</a></li>
+                                                @*<li><a href="@Url.Action("customerProfile", "CustomerSide_CustomerProfile")" style="letter-spacing: 0px;">تغییر اطلاعات حساب کاربری</a></li>*@
+                                                <li><a href="@Url.Action("factor", "CustomerSide_Product")" style="letter-spacing: 0px;">فاکتورها</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="@Url.Action("search","VelvetCustomers",new {Type="همه",Id=1 })" style="letter-spacing: 0px;">محصولات</a></li>
-                                        <li><a href="@Url.Action("Rules","VelvetCustomers")" style="letter-spacing: 0px;">قوانین</a></li>
-                                        @*<li><a href="SiteMap.aspx" title="SiteMap" style="letter-spacing: 0px;">نقشه سایت</a></li>*@
+                                        <li><a href="@Url.Action("search", "CustomerSide_Product", new { Type = "همه", Id = 1 })" style="letter-spacing: 0px;">محصولات</a></li>
+                                        <li><a href="@Url.Action("Rules", "CustomerSide_Pages")" style="letter-spacing: 0px;">قوانین</a></li>
+                                        <li><a href="SiteMap.aspx" title="SiteMap" style="letter-spacing: 0px;">نقشه سایت</a></li>
                                     </ul>
                                 </div>
                             </div>
+                        </div>
+                        <div class="credits">
+                            <span>تمامی حقوق مادی و معنوی این سایت متعلق به <i class="fa fa-copyright"></i>گالری پارچه ولوت میباشد </span>
+                            <br />
+                            <span>طراحی شده توسط <i class="fa fa-cloud"></i>توسعه سیستم هوشمند پاندا</span>
                         </div>
                     </div>
                 </div>
             </div>
         </header>
 
-        <div class="shopping-cart-slide">
-            <div class="title">
-                سبد خرید شما
-                <br />
-                (5) کالا
-            </div>
-            <div class="cart-items">
-                <div class="cart-item">
-                    <div class="cart-item-remove"><a href="#"><i class="fa fa-trash-o"></i></a></div>
-                    <div class="cart-item-image">
-                        <img alt="image" src="~/CustomerSide_desinerResource/images/products/cart-thumbs/light-grey-jacket-transparent.png" />
-                    </div>
-                    <div class="cart-item-info">
-                        <div class="item-name"><a href="#">Grey Jacket</a></div>
-                        <div class="item-quantity">
-                            <form id='qtyform5' method='POST' action='#'>
-                                <input type='button' value='-' class='qtyminus btn' title='quantity5' />
-                                <input type='text' name='quantity5' value='1' class='qty' />
-                                <input type='button' value='+' class='qtyplus btn' title='quantity5' />
-                            </form>
-                        </div>
-                    </div>
-                    <div class="cart-item-price">1,560,000 ریال</div>
-                </div>
+       @{ Html.RenderAction("ShoppingCartSlide", "CustomerSide_Product"); }
 
-                <div class="cart-item">
-                    <button class="btn btn-info" style="width: 100%;">ابتدا وارد حساب کاربری خود شوید</button>
-                </div>
-            </div>
-            <div class="cart-footer">
-
-
-
-                <div class="cart-sub grand-total">
-                    <div class="cart-sub-amount">
-                        1000 ريال
-                    </div>
-                    <div class="text">
-                        مبلغ قابل پرداخت
-                    </div>
-
-                </div>
-                <div class="cart-order-links">
-                    <a class="btn shopping-cart-trigger">بستن</a>
-                    <a class="btn btn-success">پرداخت</a>
-                </div>
-            </div>
-        </div>
-
-        @RenderBody()
-
+           @RenderBody()
 
         <footer class="footer" style="margin-top: 0px !important;">
             <div class="container">
@@ -264,9 +179,9 @@
                         </div>
                         <div class="col-md-6 copyright-right">
                             <ul class="list-unstyled list-inline footer-inline-links">
-                                <li><a href="@Url.Action("Rules","VelvetCustomers")">قوانین و مقررات</a></li>
+                                <li><a href="@Url.Action("Rules","CustomerSide_Pages")">قوانین و مقررات</a></li>
                                 @*<li><a href="contact.html">ارتباط با ما</a></li>*@
-                                <li><a href="@Url.Action("AboutUs","VelvetCustomers")">درباره ما</a></li>
+                                <li><a href="@Url.Action("AboutUs","CustomerSide_Pages")">درباره ما</a></li>
                                 @*<li><a href="sitemap.html">نقشه سایت</a></li>*@
                             </ul>
                         </div>
@@ -274,11 +189,13 @@
                 </div>
             </div>
         </footer>
+
     </div>
-    
+
 
     @Scripts.Render("~/bundles/CustomerSide2.js")
-    
+
+    @RenderSection("CS_Scripts", required: false)
 </body>
 </html>
 

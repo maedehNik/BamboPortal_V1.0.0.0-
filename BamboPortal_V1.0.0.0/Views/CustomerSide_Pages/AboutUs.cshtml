@@ -6,7 +6,8 @@
 
 <section class="section-img with-overlay page-custom-header page-top-light custom-pd-mg-about" style="background-image:url('../../CustomerSide_desinerResource/images/mess.jpg');">
     <div class="section-overlay-light" style="background-color: rgba(255, 255, 255, 0.8);">
-        <div class="container" style="margin-top: 80px;">
+        <div class="container" style="        margin-top: 80px;
+">
             <div class="row">
                 <div class="col-md-12 header-inline">
                     <div class="header-inline-content">
@@ -15,9 +16,9 @@
                             لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
                         </h5>
                     </div>
-                    <div class="header-inline-content header-infline-breadcrumb custom-nav">
+                    <div class="header-inline-content header-inline-breadcrumb custom-nav">
                         <ul class="breadcrumb">
-                            <li><a href=".">ولوت</a></li>
+                            <li><a href="@Url.Action("index","CustomerSide_Pages")">ولوت</a></li>
                             <li class="active">درباره ما</li>
                         </ul>
                     </div>
@@ -46,7 +47,7 @@
     </div>
 </div>
 
-<section class="section-pattern with-overlay clearfix no-margin-bottom" style="background-image:url('images/patterns/brickwall_%402X.png'); margin-top: 0px;">
+<section class="section-pattern with-overlay clearfix no-margin-bottom" style="background-image:url('../../CustomerSide_desinerResource/images/patterns/brickwall_%402X.png'); margin-top: 0px;">
     <div class="section-overlay-light custom-commnet-res" style="background-color: rgba(255, 255, 255, 0.4);">
         <div class="container">
             <div class="row comment-row">
@@ -54,12 +55,13 @@
                     <h4 class="fancy-heading text-center mar-bot-25"><span class="blocked"> <strong>نظر کاربران عزیزی که تا کنون به ما اعتماد کرده اند</strong></span></h4>
                     <!--<h3 class="text-lighter fancy-heading text-tertiary">Velvet Textile Gallery</h3>-->
                     <div class="owl-carousel owl-theme owl-arrows owl-arrows-view testimonial-carousel text-darker tshcomments" data-items="1" data-items-desktop="1" data-items-tablet="1" data-items-mobile="1" data-navigation="true" data-pagination="false" data-auto-height="true">
+
                         @foreach (var item in Model.CustomerMessages)
                         {
                             <div class="item">
                                 <h4 class="no-margin text-main text-vertical-large">
                                     <small>
-                                  @item.Message
+                                        @item.Message
                                         <span class="weight-500 letter-spacing-1 tshdisblock tshmt">
                                             <i>
                                                 @item.Name
@@ -69,7 +71,6 @@
                                 </h4>
                             </div>
                         }
-
                     </div>
                 </div>
             </div>
@@ -77,7 +78,6 @@
                 <div class="col-md-12 pad-top-100 tshmt2">
                     <h4 class="fancy-heading text-center mar-bot-25"><span class="blocked"> <strong>همکاران ما</strong></span></h4>
                     <div class="owl-carousel owl-theme client-block" data-items="5" data-items-desktop="5" data-items-tablet="4" data-items-mobile="2" data-pagination="false" data-auto-play="true">
-
                         @foreach (var item in Model.TeamMembers)
                         {
                             <div class="item">
@@ -92,7 +92,9 @@
 </section>
 
 
-<script>
+
+@section CS_Scripts {
+    <script>
         var revapi;
         jQuery(document).ready(function () {
             setInterval(function () {
@@ -138,4 +140,5 @@
 
             $("#LoaderSpinner").hide(0);
         }); /*ready*/
-</script>
+    </script>
+}

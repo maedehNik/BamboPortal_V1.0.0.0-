@@ -151,6 +151,9 @@ $(document).ready(function(){
                 minlength: 8,
                 equalTo: "#supassword"
             },
+            ghinput: {
+                required: true,
+            }
         },
         messages: {
             firstname: {
@@ -174,6 +177,9 @@ $(document).ready(function(){
                 minlength: "کلمه عبور باید حداقل 8 کاراکتر باشد",
                 equalTo: "تکرار کلمه عبور اشتباه است"
             },
+            ghinput: {
+                required: "پذیرفتن قوانین الزامی است",
+            }
         }
     });
     $("#account-form").validate({
@@ -320,6 +326,9 @@ $(document).ready(function(){
         $("#mmodal").find(".number").text(thisNum);
     })
     $(".alert-inner .fa-times").on("click" , function () {
+        $(this).parent().parent().parent().fadeOut();
+    })
+    $(".alert-inner .conf-btn").on("click" , function () {
         $(this).parent().parent().parent().fadeOut();
     })
 })

@@ -125,6 +125,8 @@ namespace BamboPortal_V1._0._0._0
             //Bundles {END} : Page Scripts --> UploaderModules
             BundleTable.EnableOptimizations = false;
 
+
+
         }
     }
 }

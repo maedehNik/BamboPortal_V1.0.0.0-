@@ -14,22 +14,22 @@
                 </a>
             </li>
             <li>
-                <a href="@Url.Action("customerProfileAddress","VelvetCustomers")">
+                <a href="@Url.Action("customerProfileAddress","CustomerSide_CustomerProfile")">
                     آدرس
                 </a>
             </li>
             <li>
-                <a href="@Url.Action("customerProfileHistory","VelvetCustomers")">
+                <a href="@Url.Action("customerProfileHistory","CustomerSide_CustomerProfile")">
                     تاریخچه خرید
                 </a>
             </li>
             <li>
-                <a href="@Url.Action("customerProfileReturn","VelvetCustomers")">
+                <a href="@Url.Action("customerProfileReturn","CustomerSide_CustomerProfile")">
                     درخواست های مرجوعی
                 </a>
             </li>
             <li>
-                <a href="@Url.Action("customerProfileSettings","VelvetCustomers")">
+                <a href="@Url.Action("customerProfileSettings","CustomerSide_CustomerProfile")">
                     تنظیمات
                 </a>
             </li>
@@ -48,7 +48,7 @@
                     <input type="text" class="form-control" name="firstname" id="firstname" value="@Model.Name">
                 </div>
                 <div class="form-group pad-bot-15 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <label for="lastname" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">نام خانوادگی<i class="icon-profile-male text-right tsh-icon" style="float: left;" ></i></label>
+                    <label for="lastname" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">نام خانوادگی<i class="icon-profile-male text-right tsh-icon" style="float: left;"></i></label>
                     <input type="text" class="form-control" name="lastname" id="lastname" value="@Model.Familly">
                 </div>
                 <div class="form-group pad-bot-15 col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -86,53 +86,57 @@
     </div>
 </div>
 
-<script>
-    var revapi;
-    jQuery(document).ready(function () {
-        setInterval(function () {
-            $('.owl-prev').trigger('click');
-        }, 3000);
+
+@section CS_Scripts {
+    <script>
+        var revapi;
+        jQuery(document).ready(function () {
+            setInterval(function () {
+                $('.owl-prev').trigger('click');
+            }, 3000);
 
 
-        revapi = jQuery("#rev_slider_1").revolution({
-            sliderType: "standard",
-            sliderLayout: "fullscreen",
-            fullScreenOffsetContainer: ".navigation",
-            delay: 9000,
-            navigation: {
-                keyboardNavigation: "off",
-                mouseScrollNavigation: "on",
-                onHoverStop: "off",
-                touch: {
-                    touchenabled: "on",
-                    swipe_threshold: 75,
-                    swipe_min_touches: 1,
-                    swipe_direction: "horizontal",
-                    drag_block_vertical: false
+            revapi = jQuery("#rev_slider_1").revolution({
+                sliderType: "standard",
+                sliderLayout: "fullscreen",
+                fullScreenOffsetContainer: ".navigation",
+                delay: 9000,
+                navigation: {
+                    keyboardNavigation: "off",
+                    mouseScrollNavigation: "on",
+                    onHoverStop: "off",
+                    touch: {
+                        touchenabled: "on",
+                        swipe_threshold: 75,
+                        swipe_min_touches: 1,
+                        swipe_direction: "horizontal",
+                        drag_block_vertical: false
+                    },
+                    bullets: {
+                        enable: true,
+                        rtl: true,
+                        hide_onmobile: false,
+                        style: "hebe",
+                        hide_onleave: false,
+                        direction: "horizontal",
+                        h_align: "center",
+                        v_align: "bottom",
+                        h_offset: 0,
+                        v_offset: 10,
+                        space: 5,
+                        tmp: '<span class="tp-bullet-inner"></span>'
+                    }
                 },
-                bullets: {
-                    enable: true,
-                    rtl: true,
-                    hide_onmobile: false,
-                    style: "hebe",
-                    hide_onleave: false,
-                    direction: "horizontal",
-                    h_align: "center",
-                    v_align: "bottom",
-                    h_offset: 0,
-                    v_offset: 10,
-                    space: 5,
-                    tmp: '<span class="tp-bullet-inner"></span>'
-                }
-            },
-            responsiveLevels: [4096, 1024, 767, 480],
-            gridwidth: 1230,
-            gridheight: 720
-        });
+                responsiveLevels: [4096, 1024, 767, 480],
+                gridwidth: 1230,
+                gridheight: 720
+            });
 
-        $("#LoaderSpinner").hide(0);
-    }); /*ready*/
-</script>
+            $("#LoaderSpinner").hide(0);
+        }); /*ready*/
+    </script>
+    @Scripts.Render("~/bundles/CustomerSideUserProfile.js")
+    @*@Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/CustomerSideUserProfile.js")*@
+}
 
-@Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/CustomerSideUserProfile.js")
 

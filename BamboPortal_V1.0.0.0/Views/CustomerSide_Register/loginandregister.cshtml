@@ -3,7 +3,44 @@
     ViewBag.Title = "loginandregister";
     Layout = "~/Views/SharedViewPages/CustomerSide/CustomerMaster.cshtml";
 }
+<div class="alert-bg col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="alert-inner col-lg-4 col-md-4 col-sm-8 col-xs-12">
+        <span><i class="fa fa-times"></i></span>
+        <div style="text-align: center; margin: auto; height: 200px; padding: 35px; max-width:300px ">
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve" preserveAspectRatio="xMidYMid meet" width="100%" height="100%">
+            <g>
+            <circle class="circle" cx="50" cy="49.9999657" r="47.5" />
 
+            <circle class="circle-dash" cx="50" cy="49.9999657" r="47.5" />
+
+            <polyline class="check" points="28.6469955,52.0561066 42.2152748,65.6243896 71.3530045,36.4866562 	" />
+
+            <polyline class="check-dash" points="28.6469955,52.0561066 42.2152748,65.6243896 71.3530045,36.4866562 	" />
+
+                </g>
+            </svg>
+        </div>
+        <span class="alert-text">
+        </span>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: left;margin-bottom: 15px;padding-left: 0;padding-right: 0;">
+            <button class="btn btn-primary conf-btn">تایید</button>
+        </div>
+    </div>
+</div>
+<div class="alert-bg2 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="alert-inner col-lg-4 col-md-4 col-sm-8 col-xs-12">
+        <span><i class="fa fa-times"></i></span>
+        <div style="text-align: center; margin: auto; height: 200px; padding: 35px; max-width:300px ">
+            <img src="~/CustomerSide_desinerResource/images/close.png" alt="">
+        </div>
+        <span class="alert-text">
+        </span>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: left;margin-bottom: 15px;padding-left: 0;padding-right: 0;">
+            <button class="btn btn-primary conf-btn">تایید</button>
+        </div>
+    </div>
+</div>
 <div class="theme-background-section full-screen fs-overlay">
     <div class="content-container">
         <div class="content-inner-container log-reg-res">
@@ -62,23 +99,28 @@
                                                 <form action="" method="post" autocomplete="off" id="registration-form">
                                                     <div class="form-group pad-bot-15">
                                                         <label for="firstname" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">نام<i class="icon-profile-male text-right tsh-icon" style="float: left;"></i></label>
-                                                        <input type="text" class="form-control" name="firstname" id="firstname">
+                                                        <input type="text" class="form-control" name="firstname" id="firstname" />
                                                     </div>
                                                     <div class="form-group pad-bot-15">
                                                         <label for="lastname" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">نام خانوادگی<i class="icon-profile-male text-right tsh-icon" style="float: left;"></i></label>
-                                                        <input type="text" class="form-control" name="lastname" id="lastname">
+                                                        <input type="text" class="form-control" name="lastname" id="lastname" />
                                                     </div>
                                                     <div class="form-group pad-bot-15">
                                                         <label for="sumobile" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">شماره موبایل<i class="icon-phone text-right tsh-icon" style="float: left;"></i></label>
-                                                        <input type="number" class="form-control" name="sumobile" id="sumobile">
+                                                        <input type="number" class="form-control" name="sumobile" id="sumobile" />
                                                     </div>
                                                     <div class="form-group pad-bot-15">
                                                         <label for="supassword" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">کلمه عبور<i class="icon-lock text-right tsh-icon" style="float: left;"></i></label>
-                                                        <input type="password" class="form-control" name="supassword" id="supassword">
+                                                        <input type="password" class="form-control" name="supassword" id="supassword" />
                                                     </div>
                                                     <div class="form-group pad-bot-15">
                                                         <label for="surpassword" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">تکرار کلمه عبور<i class="icon-lock text-right tsh-icon" style="float: left;"></i></label>
-                                                        <input type="password" class="form-control" name="surpassword" id="surpassword">
+                                                        <input type="password" class="form-control" name="surpassword" id="surpassword" />
+                                                    </div>
+                                                    <div class="form-group pad-bot-15 custom-check-reg">
+                                                        <input type="checkbox" class="option-input form-control checkbox" name="ghinput" />
+                                                        <a href="#">قوانین</a>
+                                                        را قبول دارم
                                                     </div>
                                                     <input type="submit" class="btn btn-primary form-submit reg-submit" value="ثبت نام">
                                                 </form>
@@ -95,58 +137,61 @@
     </div>
 </div>
 
-<script>
-    var revapi;
-    jQuery(document).ready(function () {
-        setInterval(function () {
-            $('.owl-prev').trigger('click');
-        }, 3000);
+@section CS_Scripts {
+    <script>
+        var revapi;
+        jQuery(document).ready(function () {
+            setInterval(function () {
+                $('.owl-prev').trigger('click');
+            }, 3000);
 
 
-        revapi = jQuery("#rev_slider_1").revolution({
-            sliderType: "standard",
-            sliderLayout: "fullscreen",
-            fullScreenOffsetContainer: ".navigation",
-            delay: 9000,
-            navigation: {
-                keyboardNavigation: "off",
-                mouseScrollNavigation: "on",
-                onHoverStop: "off",
-                touch: {
-                    touchenabled: "on",
-                    swipe_threshold: 75,
-                    swipe_min_touches: 1,
-                    swipe_direction: "horizontal",
-                    drag_block_vertical: false
+            revapi = jQuery("#rev_slider_1").revolution({
+                sliderType: "standard",
+                sliderLayout: "fullscreen",
+                fullScreenOffsetContainer: ".navigation",
+                delay: 9000,
+                navigation: {
+                    keyboardNavigation: "off",
+                    mouseScrollNavigation: "on",
+                    onHoverStop: "off",
+                    touch: {
+                        touchenabled: "on",
+                        swipe_threshold: 75,
+                        swipe_min_touches: 1,
+                        swipe_direction: "horizontal",
+                        drag_block_vertical: false
+                    },
+                    bullets: {
+                        enable: true,
+                        rtl: true,
+                        hide_onmobile: false,
+                        style: "hebe",
+                        hide_onleave: false,
+                        direction: "horizontal",
+                        h_align: "center",
+                        v_align: "bottom",
+                        h_offset: 0,
+                        v_offset: 10,
+                        space: 5,
+                        tmp: '<span class="tp-bullet-inner"></span>'
+                    }
                 },
-                bullets: {
-                    enable: true,
-                    rtl: true,
-                    hide_onmobile: false,
-                    style: "hebe",
-                    hide_onleave: false,
-                    direction: "horizontal",
-                    h_align: "center",
-                    v_align: "bottom",
-                    h_offset: 0,
-                    v_offset: 10,
-                    space: 5,
-                    tmp: '<span class="tp-bullet-inner"></span>'
-                }
-            },
-            responsiveLevels: [4096, 1024, 767, 480],
-            gridwidth: 1230,
-            gridheight: 720
-        });
+                responsiveLevels: [4096, 1024, 767, 480],
+                gridwidth: 1230,
+                gridheight: 720
+            });
 
-        $("#LoaderSpinner").hide(0);
-    }); /*ready*/
-</script>
-@Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/CustomerSideUserProfile.js")
-<script>
-    $(document).ready(function () {
-        success("ثبت نام با موفقت انجام شد");
-        danger("ثبت نام با موفقت انجام نشد");
-    })
-</script>
+            $("#LoaderSpinner").hide(0);
+        }); /*ready*/
+    </script>
+    @Scripts.Render("~/bundles/CustomerSideUserProfile.js")
+    @*@Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/CustomerSideUserProfile.js")*@
+    <script>
+        $(document).ready(function () {
+           // success("ثبت نام با موفقت انجام شد");
+           // danger("ثبت نام با موفقت انجام نشد");
+        })
+    </script>
 
+}
