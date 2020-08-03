@@ -3156,6 +3156,9 @@
     <Content Include="CustomerSide_desinerResource\video\movie.mp4" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Khordad\Note\notedb.txt" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Khordad\Script\bambopoertalSqcScript.sql" />
+    <Content Include="DatabaseCenter\SQL Scripts\1399\Mordad\13\all.sql" />
+    <Content Include="DatabaseCenter\SQL Scripts\1399\Mordad\13\factors.sql" />
+    <Content Include="DatabaseCenter\SQL Scripts\1399\Mordad\13\Note.txt" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Mordad\first1.sql" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Tir\16\desktop - Copy.sql" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Tir\16\desktop.sql" />
