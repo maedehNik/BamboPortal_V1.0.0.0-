@@ -1,0 +1,3 @@
+HasMultyPrice - tinyint
+MultyPriceStartFromQ - int
+MultyPrice - bigint
