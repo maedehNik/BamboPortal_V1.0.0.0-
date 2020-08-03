@@ -10,7 +10,15 @@ namespace BamboPortal_V1._0._0._0
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            //Bundles {Start} : StockpileProductPage
+            bundles.Add(new ScriptBundle("~/bundles/StockpileProductPage.js").Include(
+                "~/AdminDesignResource/vendors/bootstrap-clockpicker.js",
+              "~/AdminDesignResource/vendors/persianDatepicker.js"));
 
+            bundles.Add(new StyleBundle("~/Content/StockpileProductPage.css").Include(
+                      "~/AdminDesignResource/vendors/bootstrap-clockpicker.css",
+                      "~/AdminDesignResource/vendors/persianDatepicker-default.css"));
+            //Bundles {End} : StockpileProductPage
 
             //Bundles {Start} : Global Theme Bundle
             bundles.Add(new ScriptBundle("~/bundles/MetronicGlobalThemeBundle.js").Include(

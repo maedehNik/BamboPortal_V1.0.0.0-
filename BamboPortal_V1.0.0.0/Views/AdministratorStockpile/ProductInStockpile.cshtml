@@ -1,0 +1,591 @@
+﻿@model BamboPortal_V1._0._0._0.ModelViews.AdministratorStockpile.ProductInStockpileModelView
+@{
+    ViewBag.Title = "ProductInStockpile";
+    Layout = "~/Views/SharedViewPages/Administrator/MasterView.cshtml";
+}
+
+<!-- BEGIN: Subheader -->
+<div class="m-subheader">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
+                <span class="m-subheader__daterange-label">
+                    <h3 class="m-subheader__title" style="padding-left: 0!important;margin: 0 0 0 2px!important;">
+                        پیشخوان
+                        <i class="fa fa-chevron-left tshfontsize2" style="transform: translateY(3px);color: #aaaeb8;margin-right: 2px;"></i>
+                        <a href="@Url.Action("Index","AdministratorStockpile")" class="m-subheader__daterange-title tshfontsize2" style="margin-right: 2px;margin-left: 2px;">انبار داری</a>
+                        <i class="fa fa-chevron-left tshfontsize2" style="transform: translateY(3px);color: #aaaeb8;margin-right: 2px;"></i>
+                        <span class="m-subheader__daterange-title tshfontsize2" style="margin-right: 2px;margin-left: 2px;">@Model.ShowPSIDs.ProductName</span>
+                    </h3>
+                </span>
+            </span>
+        </div>
+    </div>
+</div>
+
+
+<div class="m-content">
+    <div class="row">
+        <div class="col-lg-4 rr-right" style="position: relative">
+            <div class="custom-chevron"><i class="fa fa-chevron-right"></i></div>
+            <div class="m-portlet m-portlet--full-height  ">
+                <div class="m-portlet__body">
+                    <div class="m-card-profile">
+                        <div class="slideshow-container">
+                            @foreach (var item in Model.ShowPSIDs.PicList)
+                            {
+                                <div class="mySlides" style="display: none;position: relative">
+                                    <img src="@item" style="width:100%">
+                                </div>
+                            }
+                            <a class="prev" onclick="plusSlides(-1)">&#10095;</a>
+                            <a class="next" onclick="plusSlides(1)">&#10094;</a>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <div class="m-dropdown m-dropdown--inline  m-dropdown--arrow col-lg-12 col-xs-12" m-dropdown-toggle="click" style="height: 45px;padding-right: 0!important;">
+                            <a href="#" class="custom-after-2 m-dropdown__toggle btn tshcolorblack dropdown-toggle tshnofa tshaafter col-12 tshtextright" style="border: none!important;padding-left: 0;padding-right: 0;">
+                                @foreach (var item in Model.ShowPSIDs.socKandSockvlList)
+                                {
+                                    if (Model.ShowPSIDs.id_MPC == item.id_MPC)
+                                    {
+                                        <span style="float: right;display: block;margin-bottom: 10px;">
+                                            <i class="fa fa-chevron-left"></i>
+                                            @Model.ShowPSIDs.ProductName
+                                        </span>
+                                        <div class="tshinline col-lg-10" style="overflow: hidden;transform: translate(-5px,-5px);padding: 0!important;">
+                                            @foreach (var Badges in item.ProductSOCKSOCKVList)
+                                            {
+                                                <span class="m-badge m-badge--@Badges.BootstrapColor tshcolorwhite m-badge--wide tshbadge" style="float: right;">@Badges.ToString()</span>
+
+                                            }
+                                        </div>
+                                    }
+                                }
+                            </a>
+
+
+                            <div class="m-dropdown__wrapper tshcustomwidth" style="width: auto;">
+                                <span class="m-dropdown__arrow m-dropdown__arrow--left"></span>
+                                <div class="m-dropdown__inner">
+                                    <div class="m-dropdown__body">
+                                        <div class="m-dropdown__content">
+                                            <ul class="m-nav">
+                                                @foreach (var item in Model.ShowPSIDs.socKandSockvlList)
+                                                {
+                                                    if (Model.ShowPSIDs.id_MPC == item.id_MPC)
+                                                    {
+                                                        <li class="m-nav__item active-inner">
+                                                            <a href="" class="m-nav__link tshcolorblack">
+                                                                <i class="m-nav__link-icon fa fa-chevron-left tshfatransform"></i>
+                                                                <span class="tshflr">@Model.ShowPSIDs.ProductName</span>
+                                                                @foreach (var badge in item.ProductSOCKSOCKVList)
+                                                                {
+                                                                    <span class="m-badge m-badge--@badge.BootstrapColor tshcolorwhite m-badge--wide tshbadge">@badge.ToString()</span>
+                                                                }
+
+                                                            </a>
+                                                        </li>
+                                                    }
+                                                    else
+                                                    {
+                                                        <li class="m-nav__item">
+                                                            <a href="@Url.Action("ProductInStockpile","AdministratorStockpile")?PSID=@item.id_MPC" class="m-nav__link tshcolorblack">
+                                                                <i class="m-nav__link-icon fa fa-chevron-left tshfatransform"></i>
+                                                                <span class="tshflr">@Model.ShowPSIDs.ProductName</span>
+                                                                @foreach (var badge in item.ProductSOCKSOCKVList)
+                                                                {
+                                                                    <span class="m-badge m-badge--@badge.BootstrapColor tshcolorwhite m-badge--wide tshbadge">@badge.ToString()</span>
+                                                                }
+                                                            </a>
+                                                        </li>
+                                                    }
+                                                }
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-5">
+                            <span>
+                                <i class="fa fa-hashtag tshfa tshfaml0"></i>
+                                کد محصول:
+                                @Model.ShowPSIDs.ProductCode
+                            </span>
+                        </div>
+                        <div class="mt-3">
+                            <span>
+                                <i class="fa fa-money-bill tshfa tshfaml0"></i>
+                                قیمت تک فروشی:
+                                <span class=" tshaftermarginright">@Model.ShowPSIDs.ProductPurePrice</span>
+                            </span>
+                        </div>
+                        <div class="mt-3">
+                            <span>
+                                <i class="fa fa-money-bill tshfa tshfaml0"></i>
+                                قیمت عمده فروشی:
+                                <span class=" tshaftermarginright">@Model.ShowPSIDs.ProductMultyPrice</span>
+                            </span>
+                        </div>
+                        <div class="mt-3">
+                            <span>
+                                <i class="fa fa-money-bill tshfa tshfaml0"></i>
+                                اعلام قیمت عمده به ازای
+                                <span>@Model.ShowPSIDs.MultyPriceStartFromQ</span>
+                                متر
+                            </span>
+                        </div>
+                        <div class="mt-3">
+                            <h5 style="border-bottom: 1px solid black;padding-bottom: 2px;width: auto;display: inline-block">توضیحات</h5>
+                            <p style="text-align: justify">
+                                @Model.ShowPSIDs.ProductDescription
+                            </p>
+                        </div>
+                        @*<div class="mt-3 store-btn col-12">
+                                <div class="col-6">
+                                    <button class="btn btn-brand">ویرایش</button>
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn btn-success tshdeacprod" data-target="#deactivemodal2" data-toggle="modal" data-name="بیلبیلک">فعال</button>
+                                </div>
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8 rr-left">
+            <div class="m-portlet m-portlet--full-height m-portlet--tabs  ">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-tools">
+                        <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
+                            <li class="nav-item m-tabs__item">
+                                <a class="nav-link m-tabs__link active" data-toggle="tab" href="#tb1" role="tab">
+                                    <i class="flaticon-share m--hide"></i>
+                                    موجودی
+                                </a>
+                            </li>
+                            <li class="nav-item m-tabs__item">
+                                <a class="nav-link m-tabs__link" data-toggle="tab" href="#tb2" role="tab">
+                                    ثبت وارده
+                                </a>
+                            </li>
+                            <li class="nav-item m-tabs__item">
+                                <a class="nav-link m-tabs__link" data-toggle="tab" href="#tb3" role="tab">
+                                    ثبت صادره
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tb1">
+                        <div class="m-portlet__body">
+                            <div class="m-section">
+                                <div class="m-section__content">
+                                    <table class="cust-table table table-striped table-hover m-table m-table--head-separator-primary">
+                                        <thead>
+                                            <tr>
+                                                <th>فروشگاه</th>
+                                                <th>موجودی</th>
+                                                <th>عملیات</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.ShowPSIDs.ShopList)
+                                            {
+
+                                                <tr class="tshbg-@item.BootstrapColor">
+                                                    <td style="padding-top: 15px!important;">@item.ShopName</td>
+                                                    <td style="padding-top: 15px!important;">
+                                                        @item.ProductAvailableCount
+                                                    </td>
+                                                    <td>
+                                                        @if (item.ISActivate)
+                                                        {
+
+                                                            <span class="btn btn-success tshpcustom deactivate-btn"><i class="fa fa-check tshfa"></i>فعال</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="btn btn-danger tshpcustom deactivate-btn"><i class="fa fa- times"></i>غیر فعال</span>
+                                                        }
+                                                        @if (item.CalCulatingFromShop)
+                                                        {
+
+                                                            <button class="btn btn-success tshpcustom" style="margin: 3px;"><i class="fa fa-check tshfa"></i>محاسبه فروش از انبار</button>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="btn btn-danger tshpcustom" style="margin: 3px;"><i class="fa fa-times tshfa"></i>عدم محاسبه فروش از انبار</span>
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+
+                                    @*ResponsiveDatatable
+                                        <table style="display: none;" class="cust-table cust-table-2 table table-striped table-hover m-table m-table--head-separator-primary">
+                                            <tr class="tshbgsuccess">
+                                                <th>فروشگاه</th>
+                                                <td>تجریش</td>
+                                            </tr>
+                                            <tr>
+                                                <th>موجودی</th>
+                                                <td>50</td>
+                                            </tr>
+                                            <tr>
+                                                <th>عملیات</th>
+                                                <td>
+                                                    <button class="btn btn-success tshpcustom deactivate-btn" data-target="#deactivemodal" data-toggle="modal" data-name="تجریش"><i class="fa fa-check tshfa"></i>فعال</button>
+                                                    <button class="btn btn-danger tshpcustom" style="margin: 3px;"><i class="fa fa-times tshfa"></i>عدم محاسبه از انبار</button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        ResponsiveDatatable*@
+
+
+                                </div>
+                                <div class="m-section__content">
+                                    <table class="cust-table table table-striped table-hover m-table m-table--head-separator-primary">
+                                        <thead>
+                                            <tr>
+                                                <th>واحد شمارش</th>
+                                                <th>حجم وارده</th>
+                                                @*<th>میانگین قیمت واحد وارده</th>*@
+                                                <th>قیمت کل وارده</th>
+                                                <th>حجم صادره</th>
+                                                @*<th>میانگین قیمت واحد صادره</th>*@
+                                                <th>قیمت کل صادره</th>
+                                                @*<th>موجودی</th>*@
+                                                <th>انبار</th>
+                                                <th>تاریخ</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.ShowPSIDs.STHList)
+                                            {
+
+
+                                                <tr class="tshbg-@item.BootstrapColor">
+                                                    <td>
+                                                        @item.Dimension
+                                                    </td>
+                                                    <td>
+                                                        @item.HajmVarede
+                                                    </td>
+                                                    @*<td class=" tshaftermarginright">
+                                                            @item.MiyanginGheymateVarede
+                                                        </td>*@
+                                                    <td class="tshaftermarginright">
+                                                        @item.TotalPriceOfVarede
+                                                    </td>
+                                                    <td>
+                                                        @item.HajmSadere
+                                                    </td>
+                                                    @*<td class=" tshaftermarginright">
+                                                           @item.MiyanginGheymateSadere
+                                                        </td>*@
+                                                    <td class=" tshaftermarginright">
+                                                        @item.TotalPriceOfsadere
+                                                    </td>
+                                                    <td>
+                                                        @item.Mojoodi
+                                                    </td>
+                                                    <td>
+                                                        @item.ShopName
+                                                    </td>
+                                                    <td>
+                                                        @item.TransActionDate
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                    @*responsiveTable
+                                                        <table style="display: none;" class="cust-table cust-table-2 table table-striped table-hover m-table m-table--head-separator-primary">
+                                                            <tr>
+                                                                <th>واحد شمارش</th>
+                                                                <td>متر</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>حجم وارده</th>
+                                                                <td>100</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>میانگین قیمت واحد وارده</th>
+                                                                <td class=" tshaftermarginright">500,000</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>قیمت کل وارده</th>
+                                                                <td class=" tshaftermarginright">50</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>حجم صادره</th>
+                                                                <td>50</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>میانگین قیمت واحد صادره</th>
+                                                                <td class=" tshaftermarginright">50</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>قیمت کل صادره</th>
+                                                                <td class=" tshaftermarginright">50</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>موجودی</th>
+                                                                <td>100</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>انبار</th>
+                                                                <td>تجریش</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>تاریخ</th>
+                                                                <td>1399/09/09</td>
+                                                            </tr>
+                                                        </table>
+                                        responsiveTable*@
+                                    <div class="col-lg-12 mt-4 mb-4">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane " id="tb2">
+                        @*<div class="not-access" style="display: none">
+                                <div class="swal2-icon swal2-error swal2-animate-error-icon" style="display: flex;">
+                                    <span class="swal2-x-mark">
+                                        <span class="swal2-x-mark-line-left"></span>
+                                        <span class="swal2-x-mark-line-right"></span>
+                                    </span>
+                                </div>
+                                <h5 style="display: block;text-align: center" class="text-danger">شما به این صفحه دسترسی ندارید!</h5>
+                            </div>*@
+
+                        @*=======================================================FormVarede*@
+                        @using (@Html.BeginForm("AddMainTag", "AdministratorProducts", FormMethod.Post, new { @id = "AddMainTagSubmiter", @class = "m-form m-form--fit m-form--label-align-right" }))
+                        {
+
+
+
+                        }
+                        <form class="m-form m-form--fit m-form--label-align-right" id="sv-form" method="post" action="" onsubmit="return false;">
+                            <div class="row">
+                                <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                    <label for="pdpDefault" class="col-12 col-form-label tshtextright">تاریخ</label>
+                                    <div style="position: relative" class="col-12">
+                                        <input class="form-control" type="text" name="sv1" id="pdpDefault" />
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                    <label for="time" class="col-12 tshtextright col-form-label">ساعت</label>
+                                    <div class="clockpicker col-12">
+                                        <input type="text" class="form-control ttime" name="sv2" id="time">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                    <label for="sv5" class="col-12 tshtextright col-form-label">میزان وارده</label>
+                                    <div class="col-12" style="position: relative">
+                                        <input class="form-control m-input" id="sv5" name="sv5" type="number" value="">
+                                        <div class="input-group-append" style="position: absolute;top: 0;left: 15px;">
+                                            <span class="input-group-text">گرم</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                    <label for="sv6" class="col-12 tshtextright col-form-label">قیمت وارده</label>
+                                    <div class="col-12" style="position: relative">
+                                        <input class="form-control m-input" id="sv6" name="sv6" type="number" value="">
+                                        <div class="input-group-append" style="position: absolute;top: 0;left: 15px;">
+                                            <span class="input-group-text">تومان</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group m-form__group col-lg-12 col-xs-12">
+                                    <label for="sv7" class="col-12 tshtextright col-form-label">انبار</label>
+                                    <div class="col-12">
+                                        <select style="width:100%!important" class="form-control m-bootstrap-select m_selectpicker Select2Tshp" name="PRDCTDemansion" id="PRDCTDemansion" title="انتخاب کنید...">
+                                            <option value=0 selected disabled hidden>یک مورد را انتخاب نمایید</option>
+                                            @foreach (var item in Model.ShowPSIDs.ShopAvailable4Transaction)
+                                            {
+                                                <option value=@item.Id>@item.Value</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group col-lg-12 col-xs-12" style="padding-top: 0;">
+                                    <label for="sv8" class="col-12 tshtextright col-form-label">جزئیات محصول</label>
+                                    <div class="col-12">
+                                        <textarea name="sv8" id="sv8" class="form-control" style="height: 150px;padding-top: 15px;padding-bottom: 15px;"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-portlet__foot m-portlet__foot--fit mt-4">
+                                <div class="m-form__actions">
+                                    <div class="row">
+                                        <div class="col-2">
+                                        </div>
+                                        <div class="col-12 tshtextleft">
+                                            <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom sv-form-btn">ثبت</button>&nbsp;&nbsp;
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane" id="tb3">
+                        <div class="not-access" style="display: none">
+                            <div class="swal2-icon swal2-error swal2-animate-error-icon" style="display: flex;">
+                                <span class="swal2-x-mark">
+                                    <span class="swal2-x-mark-line-left"></span>
+                                    <span class="swal2-x-mark-line-right"></span>
+                                </span>
+                            </div>
+                            <h5 style="display: block;text-align: center" class="text-danger">شما به این صفحه دسترسی ندارید!</h5>
+                        </div>
+                        @*===================================================================FormSadere*@
+                        <form class="m-form m-form--fit m-form--label-align-right" id="sv-form2" method="post" action="" onsubmit="return false;">
+                            <div class="row">
+                                <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                    <label for="pdpDefault2" class="col-12 col-form-label tshtextright">تاریخ</label>
+                                    <div style="position: relative" class="col-12">
+                                        <input class="form-control" type="text" name="sv1" id="pdpDefault2" />
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                    <label for="time2" class="col-12 tshtextright col-form-label">ساعت</label>
+                                    <div class="clockpicker col-12">
+                                        <input type="text" class="form-control ttime" name="sv2" id="time2">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                    <label for="sv3" class="col-12 tshtextright col-form-label">کد محصول</label>
+                                    <div class="col-12" style="position: relative">
+                                        <div class="input-group-append" style="position: absolute;top: 0;right: 15px;">
+                                            <span class="input-group-text">#</span>
+                                        </div>
+                                        <input class="form-control m-input" style="padding-right: 50px!important;" id="sv33" name="sv3" type="number" value="">
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                    <label for="sv4" class="col-12 tshtextright col-form-label">نام محصول</label>
+                                    <div class="col-12">
+                                        <input class="form-control m-input" id="sv44" name="sv4" type="text" value="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                    <label for="sv5" class="col-12 tshtextright col-form-label">میزان صادره</label>
+                                    <div class="col-12" style="position: relative">
+                                        <input class="form-control m-input" id="sv55" name="sv5" type="number" value="">
+                                        <div class="input-group-append" style="position: absolute;top: 0;left: 15px;">
+                                            <span class="input-group-text">گرم</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                    <label for="sv6" class="col-12 tshtextright col-form-label">قیمت صادره</label>
+                                    <div class="col-12" style="position: relative">
+                                        <input class="form-control m-input" id="sv66" name="sv6" type="number" value="">
+                                        <div class="input-group-append" style="position: absolute;top: 0;left: 15px;">
+                                            <span class="input-group-text">تومان</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group m-form__group col-lg-12 col-xs-12">
+                                    <label for="sv77" class="col-12 tshtextright col-form-label">انبار</label>
+                                    <div class="col-12">
+                                        <select style="width:100%!important" class="form-control m-bootstrap-select m_selectpicker Select2Tshp" name="PRDCTDemansion" id="PRDCTDemansion" title="انتخاب کنید...">
+                                            <option value=0 selected disabled hidden>یک مورد را انتخاب نمایید</option>
+                                            @foreach (var item in Model.ShowPSIDs.ShopAvailable4Transaction)
+                                            {
+                                                <option value=@item.Id>@item.Value</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group col-lg-12 col-xs-12" style="padding-top: 0;">
+                                    <label for="sv8" class="col-12 tshtextright col-form-label">جزئیات محصول</label>
+                                    <div class="col-12">
+                                        <textarea name="sv8" id="sv8" class="form-control" style="height: 150px;padding-top: 15px;padding-bottom: 15px;"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-portlet__foot m-portlet__foot--fit mt-4">
+                                <div class="m-form__actions">
+                                    <div class="row">
+                                        <div class="col-2">
+                                        </div>
+                                        <div class="col-12 tshtextleft">
+                                            <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom sv-form-btn2">ثبت</button>&nbsp;&nbsp;
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/StockpileProductPage.js")
+    <script>
+
+
+        $(document).ready(function () {
+
+
+            $('.clockpicker').clockpicker();
+            $("#pdpDefault").persianDatepicker({ alwaysShow: false, });
+            $("#pdpDefault2").persianDatepicker({ alwaysShow: false, });
+            showSlides(slideIndex);
+
+
+
+        });
+
+        //========================================================SliderBegins
+        var slideIndex = 1;
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+        function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("dot");
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            //dots[slideIndex - 1].className += " active";
+        }
+                                                                                        //===========================================
+    </script>
+
+}
+@section Styles {
+    @Styles.Render("~/Content/StockpileProductPage.css")
+}

@@ -171,6 +171,9 @@
     <Compile Include="Models\AdministratorProductsModels\ReturnInputsOfSubCategorykeyValues.cs" />
     <Compile Include="Models\AdministratorProductsModels\ReturnInputsOfSubCategorykeyValuesGetSubmiter.cs" />
     <Compile Include="Models\AdministratorProductsModels\SaveDataToStockpileStep5.cs" />
+    <Compile Include="Models\AdministratorStockpile\Shops.cs" />
+    <Compile Include="Models\AdministratorStockpile\ShowPSID.cs" />
+    <Compile Include="Models\AdministratorStockpile\StockpileTransactionHistoryModel.cs" />
     <Compile Include="Models\AdministratorUploader\DatabaseImageUploadStructure.cs" />
     <Compile Include="Models\AdministratorUploader\ImageGalleryModel.cs" />
     <Compile Include="Models\AdministratorUploader\ImageInGalleryModel.cs" />
@@ -222,6 +225,7 @@
     <Compile Include="ModelViews\AdministratorProducts\ProductViewDetailsModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\ReturnInputsOfSubCategorykeyValuesModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts_FieldLoader\GetSubCateGoryForSelect2FromPTypeIDModelView.cs" />
+    <Compile Include="ModelViews\AdministratorStockpile\ProductInStockpileModelView.cs" />
     <Compile Include="ModelViews\AdministratorUploader\ImageGalleryModelView.cs" />
     <Compile Include="ModelViews\AdministratorUploader\UploaderAlertModelView.cs" />
     <Compile Include="ModelViews\CustomerSide\AboutUsModelView.cs" />
@@ -3220,6 +3224,7 @@
     <Content Include="Views\CustomerSide_CustomerProfile\customerProfileSettings.cshtml" />
     <Content Include="Views\CustomerSide_Product\test.cshtml" />
     <Content Include="Views\CustomerSide_Product\ShoppingCartSlide.cshtml" />
+    <Content Include="Views\AdministratorStockpile\ProductInStockpile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

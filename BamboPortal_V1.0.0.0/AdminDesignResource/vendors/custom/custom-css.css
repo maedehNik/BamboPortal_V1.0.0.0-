@@ -708,15 +708,15 @@ input[type=number] {
     width: 100%;
 }
 
-.tshbgsuccess td, .tshbgsuccess th {
+.tshbg-success td, .tshbg-success th {
     background-color: rgba(52,191,163,0.2);
 }
 
-.tshbgwarning td, .tshbgwarning th {
+.tshbg-warning td, .tshbg-warning th {
     background-color: rgba(255,184,34,0.2);
 }
 
-.tshbgq0 td, .tshbgq0 th {
+.tshbg-danger td, .tshbg-danger th {
     background-color: rgba(244, 81, 108,0.2);
 }
 
