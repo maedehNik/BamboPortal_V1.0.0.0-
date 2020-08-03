@@ -133,7 +133,6 @@
     <Compile Include="Controllers\AdministratorProductsController.cs" />
     <Compile Include="Controllers\AdministratorProducts_FactorsController.cs" />
     <Compile Include="Controllers\AdministratorProducts_FieldLoaderController.cs" />
-    <Compile Include="Controllers\AdministratorProduct_StockpileController.cs" />
     <Compile Include="Controllers\AdministratorStockpileController.cs" />
     <Compile Include="Controllers\AdministratorUploaderController.cs" />
     <Compile Include="Controllers\AdministratorWorkplaceController.cs" />
@@ -3419,8 +3418,6 @@
     <Content Include="Views\AdministratorProducts_Factors\ProductFactorWaitingForMoney.cshtml" />
     <Content Include="Views\AdministratorProducts_Factors\AllFactorTable.cshtml" />
     <Content Include="Views\AdministratorGeneral\AdminsProfile.cshtml" />
-    <Content Include="Views\AdministratorProduct_Stockpile\Index.cshtml" />
-    <Content Include="Views\AdministratorProduct_Stockpile\ProductStockpile.cshtml" />
     <Content Include="Views\AdministratorProducts\ProductList.cshtml" />
     <Content Include="Views\AdminLoginAuth\Logs.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
