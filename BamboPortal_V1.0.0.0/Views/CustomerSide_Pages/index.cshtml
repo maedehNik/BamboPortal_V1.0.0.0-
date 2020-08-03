@@ -243,14 +243,31 @@
                         </div>
                         <div class="product-info">
                             <h3 class="text-darker"><a href="#"><small>@item.Title</small></a></h3>
-                            @if (item.Price == item.OffPrice)
+                            @if (item.offType == 1)
                             {
-                                <h6 class="price">@item.OffPrice</h6>
+                                if (item.PriceShowType == 1)
+                                {
+                                    <h6 class="price">@item.PricePerQ</h6>
+                                }
+                                else
+                                {
+                                    <h6 class="price">@item.PriceXQ</h6>
+                                }
+
                             }
                             else
                             {
-                                <h6 class="price tshtdlt">@item.Price</h6>
-                                <h6 class="price">@item.OffPrice</h6>
+                                if (item.PriceShowType == 1)
+                                {
+                                    <h6 class="price tshtdlt">@item.PricePerQ</h6>
+                                    <h6 class="price">@item.OffPrice</h6>
+                                }
+                                else
+                                {
+                                    <h6 class="price tshtdlt">@item.PriceXQ</h6>
+                                    <h6 class="price">@item.OffPrice</h6>
+                                }
+
                             }
                         </div>
                     </div>
@@ -273,7 +290,15 @@
                     <div class="col-sm-4 no-padding">
                         <div class="product-thumbnail no-margin">
                             <div class="product-image prd-img">
-                                @*<span class="label label-tags theme-background-light text-vertical-large special tshdirltr">-20 %</span>*@
+                                @if (item.offType == 2)
+                                {
+                                    <span class="label label-tags theme-background-light text-vertical-large special tshdirltr">-@item.OffValue %</span>
+                                }
+                                else if (item.offType == 3)
+                                {
+                                    <span class="label label-tags theme-background-light text-vertical-large special tshdirltr">-@item.OffValue</span>
+                                }
+
                                 <img alt="image" class="img-responsive" src="@item.PicPath">
                                 <div class="thumbnail-btns">
                                     <a class="btn btn-lg btn-theme" href="@Url.Action("productpage","CustomerSide_Product",new { ProId=item.Id})">مشاهده محصول</a>
@@ -308,14 +333,31 @@
                         </div>
                         <div class="product-info">
                             <h3 class="text-darker"><a href="#"><small>@item.Title</small></a></h3>
-                            @if (item.Price == item.OffPrice)
+                            @if (item.offType == 1)
                             {
-                                <h6 class="price">@item.OffPrice</h6>
+                                if (item.PriceShowType == 1)
+                                {
+                                    <h6 class="price">@item.PricePerQ</h6>
+                                }
+                                else
+                                {
+                                    <h6 class="price">@item.PriceXQ</h6>
+                                }
+
                             }
                             else
                             {
-                                <h6 class="price tshtdlt">@item.Price</h6>
-                                <h6 class="price">@item.OffPrice</h6>
+                                if (item.PriceShowType == 1)
+                                {
+                                    <h6 class="price tshtdlt">@item.PricePerQ</h6>
+                                    <h6 class="price">@item.OffPrice</h6>
+                                }
+                                else
+                                {
+                                    <h6 class="price tshtdlt">@item.PriceXQ</h6>
+                                    <h6 class="price">@item.OffPrice</h6>
+                                }
+
                             }
                         </div>
                     </div>
@@ -481,9 +523,9 @@
             </div>
         </footer>
     </div>
-
-    @Scripts.Render( "~/bundles/CustomerSideIndex.js")
-    @Scripts.Render( "~/bundles/CustomerSide2.js")
-
-</body>
+    @section CS_Scripts {
+        @Scripts.Render("~/bundles/CustomerSideIndex.js")
+        @Scripts.Render("~/bundles/CustomerSide2.js")
+    }
+    </body>
 </html>

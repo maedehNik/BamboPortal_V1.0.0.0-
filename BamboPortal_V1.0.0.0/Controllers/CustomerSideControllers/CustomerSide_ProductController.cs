@@ -83,11 +83,11 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 model.Products = modelFiller.ChosenProducts("MainTag", 12, "Ago", 1);
                 model.Pages = 1;
             }
-            else if (Type == "علاقه مندی ها")
-            {
-                model.Products = modelFiller.FavoriteProducts(12, Type, Id, Page, Search, "Date", CustomerId);
-                model.Pages = modelFiller.ProList_Pages(Type, 12, Id, Search, CustomerId);
-            }
+            //else if (Type == "علاقه مندی ها")
+            //{
+            //    model.Products = modelFiller.FavoriteProducts(12, Type, Id, Page, Search, "Date", CustomerId);
+            //    model.Pages = modelFiller.ProList_Pages(Type, 12, Id, Search, CustomerId);
+            //}
             else
             {
                 model.Products = modelFiller.ProductList(12, Type, Id, Page, Search, "Date");
