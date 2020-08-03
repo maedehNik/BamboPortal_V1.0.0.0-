@@ -15,6 +15,7 @@ namespace BamboPortal_V1._0._0._0.ModelFiller.CustomerSide
     {
 
         private int Top = 0;
+        private string NoPicPath = "/AdminDesignResource/app/media/img/users/user4.jpg";
         public CustomerModelFiller()
         {
 
@@ -406,15 +407,15 @@ namespace BamboPortal_V1._0._0._0.ModelFiller.CustomerSide
 
             if (Type == "Sale")
             {
-                query = "SELECT distinct top " + numbers + " main.[id_MProduct],[Description],[Title], main.DateCreated,(SELECT top 1 [PicID] FROM [v_tblProduct_Image] where [id_MProduct] =main.id_MProduct) as pic ,MPC.[PriceXquantity],MPC.[PricePerquantity],MPC.[PriceOff],MPC.[OffType],Sum(factor.[number]) OVER (PARTITION BY main.[id_MProduct]) as SS ,(SELECT top 1 [MoneyTypeName]FROM [tbl_Product_MoneyType] as A inner join [tlb_Product_MainProductConnector] as B on A.MoneyId=B.PriceModule WHERE B.id_MProduct=main.id_MProduct) as priceQ FROM [tbl_Product] as main inner join [tlb_Product_MainProductConnector] as MPC on main.id_MProduct=MPC.id_MProduct inner join [tbl_FACTOR_Items] as factor on MPC.id_MPC=factor.Pro_Id where main.IS_AVAILABEL=1 AND main.ISDELETE=0 order by(SS)DESC";
+                query = "SELECT distinct top " + numbers + " [id_MProduct],[OffType],[PricePerquantity],[PriceXquantity],[PriceOff],[offTypeValue],[id_MainStarTag],[IS_AVAILABEL],[Title],[DateCreated],[Description],[ISDELETE],[MoneyTypeName],[SS],[Pic],[PriceShow] FROM [v_ChosenProduct] where IS_AVAILABEL=1 AND ISDELETE=0 order by(SS)DESC";
             }
             else if (Type == "New")
             {
-                query = "SELECT distinct top " + numbers + " main.[id_MProduct],[Description],[Title],main.DateCreated,(SELECT top 1 [PicID] FROM [v_tblProduct_Image] where [id_MProduct] = main.id_MProduct) as pic ,MPC.[PriceXquantity],MPC.[PricePerquantity],MPC.[PriceOff],MPC.[OffType],(SELECT top 1 [MoneyTypeName]FROM [tbl_Product_MoneyType] as A inner join [tlb_Product_MainProductConnector] as B on A.MoneyId=B.PriceModule WHERE B.id_MProduct=main.id_MProduct) as priceQ FROM [tbl_Product] as main inner join [tlb_Product_MainProductConnector] as MPC on main.id_MProduct=MPC.id_MProduct where main.IS_AVAILABEL=1 AND main.ISDELETE=0 order by(DateCreated)DESC ";
+                query = "SELECT distinct top " + numbers + " [id_MProduct],[OffType],[PricePerquantity],[PriceXquantity],[PriceOff],[offTypeValue],[id_MainStarTag],[IS_AVAILABEL],[Title],[DateCreated],[Description],[ISDELETE],[MoneyTypeName],[SS],[Pic],[PriceShow] FROM [v_ChosenProduct] where IS_AVAILABEL=1 AND ISDELETE=0 order by(DateCreated)DESC ";
             }
             else if (Type == "MainTag")
             {
-                query = "SELECT distinct top " + numbers + " main.[id_MProduct],[Description],[Title],main.DateCreated,(SELECT top 1 [PicID] FROM [v_tblProduct_Image] where [id_MProduct] = main.id_MProduct) as pic ,MPC.[PriceXquantity],MPC.[PricePerquantity],MPC.[PriceOff],MPC.[OffType],(SELECT top 1 [MoneyTypeName]FROM [tbl_Product_MoneyType] as A inner join [tlb_Product_MainProductConnector] as B on A.MoneyId=B.PriceModule WHERE B.id_MProduct=main.id_MProduct) as priceQ FROM [tbl_Product] as main inner join [tlb_Product_MainProductConnector] as MPC on main.id_MProduct=MPC.id_MProduct where main.IS_AVAILABEL=1 AND main.ISDELETE=0 AND MPC.id_MainStarTag=" + MainTagId + " order by(DateCreated)DESC ";
+                query = "SELECT distinct top " + numbers + " [id_MProduct],[OffType],[PricePerquantity],[PriceXquantity],[PriceOff],[offTypeValue],[id_MainStarTag],[IS_AVAILABEL],[Title],[DateCreated],[Description],[ISDELETE],[MoneyTypeName],[SS],[Pic],[PriceShow] FROM [v_ChosenProduct] where IS_AVAILABEL=1 AND ISDELETE=0 AND id_MainStarTag=" + MainTagId + " order by(DateCreated)DESC ";
             }
             db.Connect();
             DataTable dt = db.Select(query);
@@ -428,21 +429,23 @@ namespace BamboPortal_V1._0._0._0.ModelFiller.CustomerSide
                     Id = Convert.ToInt32(dt.Rows[i]["id_MProduct"]),
                     Title = dt.Rows[i]["Title"].ToString(),
                     Discription = dt.Rows[i]["Description"].ToString(),
-                    PicPath = UploaderGeneral.imageFinder(dt.Rows[i]["pic"].ToString()),
+                    PicPath = UploaderGeneral.imageFinder(dt.Rows[i]["Pic"].ToString()),
                     OffPrice = dt.Rows[i]["PriceOff"].ToString(),
                     date = DateReturner(dt.Rows[i]["DateCreated"].ToString(), DateType),
-                    MoneyQ = dt.Rows[i]["priceQ"].ToString(),
-                    PricePerQ = dt.Rows[i]["PricePerquantity"].ToString()
+                    MoneyQ = dt.Rows[i]["MoneyTypeName"].ToString(),
+                    PricePerQ = dt.Rows[i]["PricePerquantity"].ToString(),
+                    offType= Convert.ToInt32(dt.Rows[i]["OffType"]),
+                    PriceShowType= Convert.ToInt32(dt.Rows[i]["PriceShow"]),
+                    PriceXQ= dt.Rows[i]["PriceXquantity"].ToString(),
+                    OffValue= dt.Rows[i]["offTypeValue"].ToString()
                 };
 
-                if (dt.Rows[i]["PriceOff"].ToString() == "1")
+                if(string.IsNullOrEmpty(model.PicPath))
                 {
-                    model.Price = "";
+                    model.PicPath = NoPicPath;
                 }
-                else
-                {
-                    model.Price = dt.Rows[i]["PriceXquantity"].ToString();
-                }
+
+              
 
                 res.Add(model);
 
@@ -490,20 +493,20 @@ namespace BamboPortal_V1._0._0._0.ModelFiller.CustomerSide
                     Id = Convert.ToInt32(dt.Rows[i]["id_MProduct"]),
                     Title = dt.Rows[i]["Title"].ToString(),
                     Discription = dt.Rows[i]["Description"].ToString(),
-                    PicPath = UploaderGeneral.imageFinder(dt.Rows[i]["pic"].ToString()),
+                    PicPath = UploaderGeneral.imageFinder(dt.Rows[i]["Pic"].ToString()),
                     OffPrice = dt.Rows[i]["PriceOff"].ToString(),
                     date = DateReturner(dt.Rows[i]["DateCreated"].ToString(), DateType),
-                    MoneyQ = dt.Rows[i]["priceQ"].ToString(),
-                    PricePerQ = dt.Rows[i]["PricePerquantity"].ToString()
+                    MoneyQ = dt.Rows[i]["MoneyTypeName"].ToString(),
+                    PricePerQ = dt.Rows[i]["PricePerquantity"].ToString(),
+                    offType = Convert.ToInt32(dt.Rows[i]["OffType"]),
+                    PriceShowType = Convert.ToInt32(dt.Rows[i]["PriceShow"]),
+                    PriceXQ = dt.Rows[i]["PriceXquantity"].ToString(),
+                    OffValue = dt.Rows[i]["offTypeValue"].ToString()
                 };
 
-                if (dt.Rows[i]["PriceOff"].ToString() == "1")
+                if (string.IsNullOrEmpty( model.PicPath))
                 {
-                    model.Price = "";
-                }
-                else
-                {
-                    model.Price = dt.Rows[i]["PriceXquantity"].ToString();
+                    model.PicPath = NoPicPath;
                 }
 
                 res.Add(model);
@@ -532,7 +535,7 @@ namespace BamboPortal_V1._0._0._0.ModelFiller.CustomerSide
             }
 
             query.Append(num);
-            query.Append(")over(order by(main.DateCreated)DESC)as tile,main.Search_Gravity,main.[id_MProduct],[Description],[Title],main.DateCreated,(SELECT top 1 [PicID] FROM [v_tblProduct_Image] where [id_MProduct] =main.id_MProduct) as pic ,(SELECT top 1 [PriceXquantity] FROM [tlb_Product_MainProductConnector] where id_MProduct= main.id_MProduct) as [PriceXquantity],(SELECT top 1 [PricePerquantity] FROM [tlb_Product_MainProductConnector] where id_MProduct= main.id_MProduct) as [PricePerquantity],(SELECT top 1 [PriceOff] FROM [tlb_Product_MainProductConnector] where id_MProduct=main.id_MProduct) as [PriceOff],(SELECT top 1 [OffType] FROM [tlb_Product_MainProductConnector] where id_MProduct=main.id_MProduct) as [OffType] ,(SELECT top 1 [MoneyTypeName]FROM [tbl_Product_MoneyType] as A inner join [tlb_Product_MainProductConnector] as B on A.MoneyId=B.PriceModule WHERE B.id_MProduct=main.id_MProduct) as priceQ FROM [tbl_Product] as main inner join [tlb_Product_MainProductConnector] as MPC on main.id_MProduct=MPC.id_MProduct where main.IS_AVAILABEL=1 AND main.ISDELETE=0 ");
+            query.Append(")over(order by(main.DateCreated)DESC)as tile,[id_MProduct],[PricePerquantity],[PriceXquantity],[OffType],[PriceOff],[offTypeValue],[IS_AVAILABEL],[Title],[DateCreated],[Description],[ISDELETE],[MoneyTypeName],[Pic],[PriceShow],[id_Type],[id_MainCategory],[id_SubCategory],[Search_Gravity]FROM [v_Products_search] where IS_AVAILABEL=1 AND ISDELETE=0 ");
             if (Type == "همه")
             {
                 query.Append(")b where b.tile=");
@@ -540,28 +543,28 @@ namespace BamboPortal_V1._0._0._0.ModelFiller.CustomerSide
             }
             else if (Type == "سردسته")
             {
-                query.Append("AND main.id_Type=");
+                query.Append("AND id_Type=");
                 query.Append(Id);
                 query.Append(" )b where b.tile=");
                 query.Append(page);
             }
             else if (Type == "دسته بندی اصلی")
             {
-                query.Append("AND main.id_MainCategory=");
+                query.Append("AND id_MainCategory=");
                 query.Append(Id);
                 query.Append(" )b where b.tile=");
                 query.Append(page);
             }
             else if (Type == "گروه اصلی")
             {
-                query.Append("AND main.id_SubCategory=");
+                query.Append("AND id_SubCategory=");
                 query.Append(Id);
                 query.Append(" )b where b.tile=");
                 query.Append(page);
             }
             else if (Type == "برچسب")
             {
-                query.Append(" AND main.id_MProduct IN(SELECT distinct B.id_MProduct FROM [tbl_Product_tagConnector] as A inner join [tlb_Product_MainProductConnector] as B on A.id_MPC=B.id_MPC where A.id_TE=");
+                query.Append(" AND id_MProduct IN(SELECT distinct B.id_MProduct FROM [tbl_Product_tagConnector] as A inner join [tlb_Product_MainProductConnector] as B on A.id_MPC=B.id_MPC where A.id_TE=");
                 query.Append(Id);
                 query.Append("))b where b.tile=");
                 query.Append(page);
@@ -1094,44 +1097,44 @@ namespace BamboPortal_V1._0._0._0.ModelFiller.CustomerSide
             return MPCList;
         }
 
-        public List<MiniProductModel> FavoriteProducts(int ProductsInAPage, string Type, int Id, int page, string search, string DateType, int CustomerId)
-        {
-            var res = new List<MiniProductModel>();
-            PDBC db = new PDBC();
-            int num = ProList_Pages(Type, ProductsInAPage, Id, search, CustomerId);
-            var Query = "select distinct * from(SELECT NTILE(" + num + ")over(order by(main.DateCreated)DESC)as tile,main.Search_Gravity,main.[id_MProduct],[Description],[Title],main.DateCreated,(SELECT top 1 PicID FROM [tbl_Product_PicConnector] where id_MProduct=main.id_MProduct) as pic ,(SELECT top 1 [PriceXquantity] FROM [tlb_Product_MainProductConnector] where id_MProduct= main.id_MProduct) as [PriceXquantity],(SELECT top 1 [PriceOff] FROM [tlb_Product_MainProductConnector] where id_MProduct=main.id_MProduct) as [PriceOff],(SELECT top 1 [OffType] FROM [tlb_Product_MainProductConnector] where id_MProduct=main.id_MProduct) as [OffType] ,(SELECT top 1 [MoneyTypeName]FROM [tbl_Product_MoneyType] as A inner join [tlb_Product_MainProductConnector] as B on A.MoneyId=B.PriceModule WHERE B.id_MProduct=main.id_MProduct) as priceQ FROM [tbl_Product] as main inner join [tlb_Product_MainProductConnector] as MPC on main.id_MProduct=MPC.id_MProduct where main.IS_AVAILABEL=1 AND main.ISDELETE=0 AND main.id_MProduct In(SELECT [ProductId] FROM [tbl_Customer_Favorites]where CustomerId=" + CustomerId + "))b where b.tile=" + page;
-            db.Connect();
-            DataTable dt = db.Select(Query);
-            db.DC();
-            for (int i = 0; i < dt.Rows.Count; i++)
-            {
-                var model = new MiniProductModel()
-                {
-                    Id = Convert.ToInt32(dt.Rows[i]["id_MProduct"]),
-                    Title = dt.Rows[i]["Title"].ToString(),
-                    Discription = dt.Rows[i]["Description"].ToString(),
-                    PicPath = UploaderGeneral.imageFinder( dt.Rows[i]["pic"].ToString()),
-                    OffPrice = dt.Rows[i]["PriceOff"].ToString(),
-                    date = DateReturner(dt.Rows[i]["DateCreated"].ToString(), DateType),
-                    MoneyQ = dt.Rows[i]["priceQ"].ToString()
-                };
+        //public List<MiniProductModel> FavoriteProducts(int ProductsInAPage, string Type, int Id, int page, string search, string DateType, int CustomerId)
+        //{
+        //    var res = new List<MiniProductModel>();
+        //    PDBC db = new PDBC();
+        //    int num = ProList_Pages(Type, ProductsInAPage, Id, search, CustomerId);
+        //    var Query = "select distinct * from(SELECT NTILE(" + num + ")over(order by(main.DateCreated)DESC)as tile,main.Search_Gravity,main.[id_MProduct],[Description],[Title],main.DateCreated,(SELECT top 1 PicID FROM [tbl_Product_PicConnector] where id_MProduct=main.id_MProduct) as pic ,(SELECT top 1 [PriceXquantity] FROM [tlb_Product_MainProductConnector] where id_MProduct= main.id_MProduct) as [PriceXquantity],(SELECT top 1 [PriceOff] FROM [tlb_Product_MainProductConnector] where id_MProduct=main.id_MProduct) as [PriceOff],(SELECT top 1 [OffType] FROM [tlb_Product_MainProductConnector] where id_MProduct=main.id_MProduct) as [OffType] ,(SELECT top 1 [MoneyTypeName]FROM [tbl_Product_MoneyType] as A inner join [tlb_Product_MainProductConnector] as B on A.MoneyId=B.PriceModule WHERE B.id_MProduct=main.id_MProduct) as priceQ FROM [tbl_Product] as main inner join [tlb_Product_MainProductConnector] as MPC on main.id_MProduct=MPC.id_MProduct where main.IS_AVAILABEL=1 AND main.ISDELETE=0 AND main.id_MProduct In(SELECT [ProductId] FROM [tbl_Customer_Favorites]where CustomerId=" + CustomerId + "))b where b.tile=" + page;
+        //    db.Connect();
+        //    DataTable dt = db.Select(Query);
+        //    db.DC();
+        //    for (int i = 0; i < dt.Rows.Count; i++)
+        //    {
+        //        var model = new MiniProductModel()
+        //        {
+        //            Id = Convert.ToInt32(dt.Rows[i]["id_MProduct"]),
+        //            Title = dt.Rows[i]["Title"].ToString(),
+        //            Discription = dt.Rows[i]["Description"].ToString(),
+        //            PicPath = UploaderGeneral.imageFinder( dt.Rows[i]["pic"].ToString()),
+        //            OffPrice = dt.Rows[i]["PriceOff"].ToString(),
+        //            date = DateReturner(dt.Rows[i]["DateCreated"].ToString(), DateType),
+        //            MoneyQ = dt.Rows[i]["priceQ"].ToString()
+        //        };
 
-                if (dt.Rows[i]["PriceOff"].ToString() == "1")
-                {
-                    model.Price = "";
-                }
-                else
-                {
-                    model.Price = dt.Rows[i]["PriceXquantity"].ToString();
-                }
+        //        if (dt.Rows[i]["PriceOff"].ToString() == "1")
+        //        {
+        //            model.Price = "";
+        //        }
+        //        else
+        //        {
+        //            model.Price = dt.Rows[i]["PriceXquantity"].ToString();
+        //        }
 
-                res.Add(model);
+        //        res.Add(model);
 
 
-            }
-            return res;
+        //    }
+        //    return res;
 
-        }
+        //}
 
 
         public List<ShoppingCart_item_CustomerPortal> CustomerShops(int C_id, int done, string DateType = "Date")

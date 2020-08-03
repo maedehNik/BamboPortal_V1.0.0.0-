@@ -245,6 +245,7 @@
     <Compile Include="StaticClass\BugReporter\BugTypeFrom.cs" />
     <Compile Include="StaticClass\BugReporter\PPBugReporter.cs" />
     <Compile Include="StaticClass\CoockieController.cs" />
+    <Compile Include="StaticClass\DateConvert.cs" />
     <Compile Include="StaticClass\ProjectProperies.cs" />
     <Compile Include="StaticClass\SiteKeys.cs" />
     <Compile Include="StaticClass\TitleFounder.cs" />

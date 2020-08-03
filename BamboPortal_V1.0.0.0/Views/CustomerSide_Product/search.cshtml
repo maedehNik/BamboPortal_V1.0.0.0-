@@ -33,7 +33,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading" data-toggle="collapse" data-target="#collapse9One">
                             <h4 class="panel-title plus accordion-toggle">
-                               @item.NameSub
+                                @item.NameSub
                             </h4>
                         </div>
                         <div id="collapse9One" class="panel-collapse collapse in">
@@ -41,7 +41,7 @@
 
                                 <h6>
                                     @*<input type="checkbox" class="option-input checkbox" checked />*@
-                                    <a href="@Url.Action("search","VelvetCustomers",new {Type="دسته بندی اصلی",Id=item.Id })">
+                                    <a href="@Url.Action("search","CustomerSide_Product",new {Type="دسته بندی اصلی",Id=item.Id })">
                                         همه
                                     </a>
                                 </h6>
@@ -49,7 +49,7 @@
                                 {
                                     <h6>
                                         @*<input type="checkbox" class="option-input checkbox" checked />*@
-                                        <a href="@Url.Action("search","VelvetCustomers",new {Type="گروه اصلی",Id=item2.Id })">
+                                        <a href="@Url.Action("search","CustomerSide_Product",new {Type="گروه اصلی",Id=item2.Id })">
                                             @item2.NameSub
                                         </a>
                                     </h6>
@@ -62,6 +62,7 @@
                 @*<div class="btn-curtain btn-full-width mar-top-10"><a href="#" class="btn btn-full-width btn-lg">پاک کردن فیلترها</a></div>*@
             </div>
         </div>
+
         <div class="col-sm-8 col-sm-offset-1" style="float: left;">
             <div class="row">
                 <div class="col-md-12">
@@ -69,69 +70,115 @@
 
                         @foreach (var item in Model.Products)
                         {
-                            if (item.OffPrice == item.Price)
+                            if (item.offType == 1)
                             {
                                 <div class="col-sm-4">
                                     <div class="product-thumbnail">
                                         <div class="product-image">
                                             <img alt="image" class="img-responsive" src="@item.PicPath">
                                             <div class="thumbnail-btns">
-                                                <a class="btn btn-theme-inverse" href="@Url.Action("productpage","VelvetCustomers",new { ProId=item.Id})"><i class="pe-7s-glasses pe-2x"></i></a>
+                                                <a class="btn btn-theme-inverse" href="product-single.html"><i class="pe-7s-glasses pe-2x"></i></a>
                                                 <a class="btn btn-theme-inverse" href="#"><i class="icon-basket"></i></a>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="product-info">
-                                        <h3 class="text-darker"><a href="@Url.Action("productpage","VelvetCustomers",new { ProId=item.Id})"><small>@item.Title</small></a></h3>
-                                        <h6 class="price">@item.OffPrice</h6>
+                                        <h3 class="text-darker"><a href="@Url.Action("productpage","CustomerSide_Product",new { ProId=item.Id})"><small>@item.Title</small></a></h3>
+                                        if (item.PriceShowType == 1)
+                                        {
+                                        <h6 class="price">@item.PricePerQ</h6>
+                                        }
+                                        else
+                                        {
+                                        <h6 class="price">@item.PriceXQ</h6>
+                                        }
                                     </div>
                                 </div>
                             }
-                            else
+                            else if (item.offType == 2)
                             {
                                 <div class="col-sm-4">
                                     <div class="product-thumbnail">
                                         <div class="product-image">
-                                            <span class="label label-tags OffsellingObject tshdirltr">off</span>
+                                            <span class="label label-tags OffsellingObject tshdirltr">-@item.OffValue %</span>
                                             <img alt="image" class="img-responsive" src="@item.PicPath">
                                             <div class="thumbnail-btns">
-                                                <a class="btn btn-theme-inverse" href="@Url.Action("productpage","VelvetCustomers",new { ProId=item.Id})"><i class="pe-7s-glasses pe-2x"></i></a>
+                                                <a class="btn btn-theme-inverse" href="product-single.html"><i class="pe-7s-glasses pe-2x"></i></a>
                                                 <a class="btn btn-theme-inverse" href="#"><i class="icon-basket"></i></a>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="product-info">
-                                        <h3 class="text-darker"><a href="@Url.Action("productpage","VelvetCustomers",new { ProId=item.Id})"><small>@item.Title</small></a></h3>
-                                        <h6 class="price tshtdlt">@item.Price</h6>
+                                        <h3 class="text-darker"><a href="@Url.Action("productpage","CustomerSide_Product",new { ProId=item.Id})"><small>@item.Title</small></a></h3>
+
+                                        if (item.PriceShowType == 1)
+                                        {
+                                        <h6 class="price tshtdlt">@item.PricePerQ</h6>
                                         <h6 class="price">@item.OffPrice</h6>
+                                        }
+                                        else
+                                        {
+                                        <h6 class="price tshtdlt">@item.PriceXQ</h6>
+                                        <h6 class="price">@item.OffPrice</h6>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                            else if (item.offType == 3)
+                            {
+                                <div class="col-sm-4">
+                                    <div class="product-thumbnail">
+                                        <div class="product-image">
+                                            <span class="label label-tags OffsellingObject tshdirltr">-@item.OffValue </span>
+                                            <img alt="image" class="img-responsive" src="@item.PicPath">
+                                            <div class="thumbnail-btns">
+                                                <a class="btn btn-theme-inverse" href="product-single.html"><i class="pe-7s-glasses pe-2x"></i></a>
+                                                <a class="btn btn-theme-inverse" href="#"><i class="icon-basket"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-info">
+                                        <h3 class="text-darker"><a href="@Url.Action("productpage","CustomerSide_Product",new { ProId=item.Id})"><small>@item.Title</small></a></h3>
+
+                                        if (item.PriceShowType == 1)
+                                        {
+                                        <h6 class="price tshtdlt">@item.PricePerQ</h6>
+                                        <h6 class="price">@item.OffPrice</h6>
+                                        }
+                                        else
+                                        {
+                                        <h6 class="price tshtdlt">@item.PriceXQ</h6>
+                                        <h6 class="price">@item.OffPrice</h6>
+                                        }
+
+
                                     </div>
                                 </div>
                             }
 
+
+
+                            <!--نا موجود ها-->
                             @*<div class="col-sm-4">
-                <div class="product-thumbnail">
-                    <div class="product-image">
-                        <span class="label label-tags theme-background-light NAsellingObject">نا موجود</span>
-                        <img alt="image" class="img-responsive out-of-stock" src="~/CustomerSide_desinerResource/images/shop/bags/3-person.jpg">
-                    </div>
-                </div>
-                <div class="product-info">
-                    <h3 class="text-darker"><a href="@Url.Action("productpage","VelvetCustomers",new { ProId=item.Id})"><small>نام محصول</small></a></h3>
-                    <h6 class="price">4,500,000</h6>
-                </div>
-            </div>*@
+                                    <div class="product-thumbnail">
+                                        <div class="product-image">
+                                            <span class="label label-tags theme-background-light NAsellingObject">نا موجود</span>
+                                            <img alt="image" class="img-responsive out-of-stock" src="images/shop/bags/3-person.jpg">
+                                        </div>
+                                    </div>
+                                    <div class="product-info">
+                                        <h3 class="text-darker"><a href="#"><small>نام محصول</small></a></h3>
+                                        <h6 class="price">4,500,000</h6>
+                                    </div>
+                                </div>*@
+
 
                         }
 
 
-
-
-
-
                     </div>
-                    <div class="text-center">
 
-                        
+                    <div class="text-center">
                         <ul class="pagination">
                             @if (Model.thisPage == 1)
                             {
@@ -140,7 +187,7 @@
                             }
                             else
                             {
-                                <li class="disabled"><a href="@Url.Action("search","VelvetCustomers",new {Type=Model.Cat,Id=Model.CatId,Page=Model.thisPage-1,Search=Model.Search})"><i class="fa fa-chevron-left"></i></a></li>
+                                <li class="disabled"><a href="@Url.Action("search","CustomerSide_Product",new {Type=Model.Cat,Id=Model.CatId,Page=Model.thisPage-1,Search=Model.Search})"><i class="fa fa-chevron-left"></i></a></li>
                             }
 
 
@@ -155,11 +202,11 @@
                                     {
                                         if (i == Model.thisPage)
                                         {
-                                            <li class="active"><a href="@Url.Action("search","VelvetCustomers",new {Type=Model.Cat,Id=Model.CatId,Page=i,Search=Model.Search})">@i</a></li>
+                                            <li class="active"><a href="@Url.Action("search","CustomerSide_Product",new {Type=Model.Cat,Id=Model.CatId,Page=i,Search=Model.Search})">@i</a></li>
                                         }
                                         else
                                         {
-                                            <li><a href="@Url.Action("search","VelvetCustomers",new {Type=Model.Cat,Id=Model.CatId,Page=i,Search=Model.Search})">@i</a></li>
+                                            <li><a href="@Url.Action("search","CustomerSide_Product",new {Type=Model.Cat,Id=Model.CatId,Page=i,Search=Model.Search})">@i</a></li>
                                         }
                                     }
                                 }
@@ -169,11 +216,11 @@
                                     {
                                         if (i == Model.thisPage)
                                         {
-                                            <li class="active"><a href="@Url.Action("search","VelvetCustomers",new {Type=Model.Cat,Id=Model.CatId,Page=i,Search=Model.Search})">@i </a></li>
+                                            <li class="active"><a href="@Url.Action("search","CustomerSide_Product",new {Type=Model.Cat,Id=Model.CatId,Page=i,Search=Model.Search})">@i </a></li>
                                         }
                                         else
                                         {
-                                            <li><a href="@Url.Action("search","VelvetCustomers",new {Type=Model.Cat,Id=Model.CatId,Page=i,Search=Model.Search})">@i</a></li>
+                                            <li><a href="@Url.Action("search","CustomerSide_Product",new {Type=Model.Cat,Id=Model.CatId,Page=i,Search=Model.Search})">@i</a></li>
                                         }
                                     }
 
@@ -186,11 +233,11 @@
                                 {
                                     if (i == Model.thisPage)
                                     {
-                                        <li class="active"><a href="@Url.Action("search","VelvetCustomers",new {Type=Model.Cat,Id=Model.CatId,Page=i,Search=Model.Search})">@i </a></li>
+                                        <li class="active"><a href="@Url.Action("search","CustomerSide_Product",new {Type=Model.Cat,Id=Model.CatId,Page=i,Search=Model.Search})">@i </a></li>
                                     }
                                     else
                                     {
-                                        <li><a href="@Url.Action("search","VelvetCustomers",new {Type=Model.Cat,Id=Model.CatId,Page=i,Search=Model.Search})">@i</a></li>
+                                        <li><a href="@Url.Action("search","CustomerSide_Product",new {Type=Model.Cat,Id=Model.CatId,Page=i,Search=Model.Search})">@i</a></li>
                                     }
                                 }
                             }
@@ -198,85 +245,91 @@
 
                             @if (Model.thisPage == Model.Pages)
                             {
-                                
+
                                 <li class="disabled"><a href="#"><i class="fa fa-chevron-right"></i></a></li>
                             }
                             else
                             {
 
-                                <li><a href="@Url.Action("search","VelvetCustomers",new {Type=Model.Cat,Id=Model.CatId,Page=Model.thisPage+1,Search=Model.Search})"><i class="fa fa-chevron-right"></i></a></li>
+                                <li><a href="@Url.Action("search","CustomerSide_Product",new {Type=Model.Cat,Id=Model.CatId,Page=Model.thisPage+1,Search=Model.Search})"><i class="fa fa-chevron-right"></i></a></li>
                             }
 
 
                         </ul>
-                     
+
                     </div>
+
+
+
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-@Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/CustomerSideUI.js")
-
-<script>
-    var revapi;
-    jQuery(document).ready(function () {
-        setInterval(function () {
-            $('.owl-prev').trigger('click');
-        }, 3000);
+@section CS_Scripts {
+    @Scripts.Render("~/bundles/CustomerSideUI.js")
 
 
-        revapi = jQuery("#rev_slider_1").revolution({
-            sliderType: "standard",
-            sliderLayout: "fullscreen",
-            fullScreenOffsetContainer: ".navigation",
-            delay: 9000,
-            navigation: {
-                keyboardNavigation: "off",
-                mouseScrollNavigation: "on",
-                onHoverStop: "off",
-                touch: {
-                    touchenabled: "on",
-                    swipe_threshold: 75,
-                    swipe_min_touches: 1,
-                    swipe_direction: "horizontal",
-                    drag_block_vertical: false
+    @*@Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/CustomerSideUI.js")*@
+
+    <script>
+        var revapi;
+        jQuery(document).ready(function () {
+            setInterval(function () {
+                $('.owl-prev').trigger('click');
+            }, 3000);
+
+
+            revapi = jQuery("#rev_slider_1").revolution({
+                sliderType: "standard",
+                sliderLayout: "fullscreen",
+                fullScreenOffsetContainer: ".navigation",
+                delay: 9000,
+                navigation: {
+                    keyboardNavigation: "off",
+                    mouseScrollNavigation: "on",
+                    onHoverStop: "off",
+                    touch: {
+                        touchenabled: "on",
+                        swipe_threshold: 75,
+                        swipe_min_touches: 1,
+                        swipe_direction: "horizontal",
+                        drag_block_vertical: false
+                    },
+                    bullets: {
+                        enable: true,
+                        rtl: true,
+                        hide_onmobile: false,
+                        style: "hebe",
+                        hide_onleave: false,
+                        direction: "horizontal",
+                        h_align: "center",
+                        v_align: "bottom",
+                        h_offset: 0,
+                        v_offset: 10,
+                        space: 5,
+                        tmp: '<span class="tp-bullet-inner"></span>'
+                    }
                 },
-                bullets: {
-                    enable: true,
-                    rtl: true,
-                    hide_onmobile: false,
-                    style: "hebe",
-                    hide_onleave: false,
-                    direction: "horizontal",
-                    h_align: "center",
-                    v_align: "bottom",
-                    h_offset: 0,
-                    v_offset: 10,
-                    space: 5,
-                    tmp: '<span class="tp-bullet-inner"></span>'
+                responsiveLevels: [4096, 1024, 767, 480],
+                gridwidth: 1230,
+                gridheight: 720
+            });
+
+            $("#LoaderSpinner").hide(0);
+        }); /*ready*/
+        $(function () {
+            $("#slider-range").slider({
+                range: true,
+                min: 100000,
+                max: 9000000,
+                values: [100000, 9000000],
+                slide: function (event, ui) {
+                    $("#amount").val("از " + ui.values[0] + "تومان" + " تا " + ui.values[1] + "تومان");
                 }
-            },
-            responsiveLevels: [4096, 1024, 767, 480],
-            gridwidth: 1230,
-            gridheight: 720
+            });
+            $("#amount").val("از " + $("#slider-range").slider("values", 0) + "تومان" + " تا " + $("#slider-range").slider("values", 1) + "تومان");
         });
-
-        $("#LoaderSpinner").hide(0);
-    }); /*ready*/
-    $(function () {
-        $("#slider-range").slider({
-            range: true,
-            min: 100000,
-            max: 9000000,
-            values: [100000, 9000000],
-            slide: function (event, ui) {
-                $("#amount").val("از " + ui.values[0] + "تومان" + " تا " + ui.values[1] + "تومان");
-            }
-        });
-        $("#amount").val("از " + $("#slider-range").slider("values", 0) + "تومان" + " تا " + $("#slider-range").slider("values", 1) + "تومان");
-    });
-</script>
-
+    </script>
+}
 
