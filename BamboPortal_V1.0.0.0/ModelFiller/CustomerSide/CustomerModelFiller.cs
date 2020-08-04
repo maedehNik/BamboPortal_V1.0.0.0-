@@ -45,6 +45,7 @@ namespace BamboPortal_V1._0._0._0.ModelFiller.CustomerSide
         {
             DateTime date = Convert.ToDateTime(date_);
             PersianDateTime persianDateTime = new PersianDateTime(date);
+           
 
             if (DateType == "Date")
             {
@@ -535,7 +536,7 @@ namespace BamboPortal_V1._0._0._0.ModelFiller.CustomerSide
             }
 
             query.Append(num);
-            query.Append(")over(order by(main.DateCreated)DESC)as tile,[id_MProduct],[PricePerquantity],[PriceXquantity],[OffType],[PriceOff],[offTypeValue],[IS_AVAILABEL],[Title],[DateCreated],[Description],[ISDELETE],[MoneyTypeName],[Pic],[PriceShow],[id_Type],[id_MainCategory],[id_SubCategory],[Search_Gravity]FROM [v_Products_search] where IS_AVAILABEL=1 AND ISDELETE=0 ");
+            query.Append(")over(order by(DateCreated)DESC)as tile,[id_MProduct],[PricePerquantity],[PriceXquantity],[OffType],[PriceOff],[offTypeValue],[IS_AVAILABEL],[Title],[DateCreated],[Description],[ISDELETE],[MoneyTypeName],[Pic],[PriceShow],[id_Type],[id_MainCategory],[id_SubCategory],[Search_Gravity]FROM [v_Products_search] where IS_AVAILABEL=1 AND ISDELETE=0 ");
             if (Type == "همه")
             {
                 query.Append(")b where b.tile=");
@@ -896,13 +897,19 @@ namespace BamboPortal_V1._0._0._0.ModelFiller.CustomerSide
                 res.Title = dt.Rows[0]["Title"].ToString();
                 res.Discription = dt.Rows[0]["Description"].ToString();
                 res.SubCatId = Convert.ToInt32(dt.Rows[0]["id_SubCategory"]);
-                DataTable Pictures = db.Select("SELECT distinct PicID FROM [tbl_Product_PicConnector] where id_MProduct=" + res.Id);
-                var pic = new List<string>();
+                DataTable Pictures = db.Select("SELECT DISTINCT [orgUploadAddress],[thumUploadAddress] FROM [v_tblProduct_Image] where ISDELETE=0 AND id_MProduct=" + res.Id);
+                var TH_pic = new List<string>();
+                var ORG_pic = new List<string>();
                 for (int i = 0; i < Pictures.Rows.Count; i++)
                 {
-                    pic.Add(Pictures.Rows[i]["PicID"].ToString());
+
+                    TH_pic.Add(Pictures.Rows[i]["thumUploadAddress"].ToString());
+                    ORG_pic.Add(Pictures.Rows[i]["orgUploadAddress"].ToString());
                 }
-                res.Pictures = UploaderGeneral.imageFinder(pic, res.Id.ToString());
+
+                res.org_Pictures = ORG_pic;
+                res.Thumpnamil_Pictures = TH_pic;
+
                 DataTable opt = db.Select("SELECT [KeyName],[Value] FROM [tbl_Product_tblOptions] where id_MProduct=" + res.Id);
                 var options = new List<OptionModel>();
                 for (int i = 0; i < opt.Rows.Count; i++)
@@ -947,15 +954,17 @@ namespace BamboPortal_V1._0._0._0.ModelFiller.CustomerSide
                 }
                 res.MPC_Options = MPC_options;
 
-                DataTable Money = db.Select("SELECT Top 1 [id_MPC],(SELECT [PQT_Demansion] FROM [tbl_Product_ProductQuantityType] where id_PQT=[Quantity]) as Quantity,[PriceXquantity],[PriceOff],(SELECT [MoneyTypeName]FROM [tbl_Product_MoneyType]where [MoneyId]=[PriceModule])as PriceQuantity FROM [tlb_Product_MainProductConnector] where id_MProduct=" + res.Id);
+                DataTable Money = db.Select("SELECT Top 1 [id_MPC],[PricePerquantity],[PriceShow],(SELECT [PQT_Demansion] FROM [tbl_Product_ProductQuantityType] where id_PQT=[Quantity]) as Quantity,[PriceXquantity],[PriceOff],(SELECT [MoneyTypeName]FROM [tbl_Product_MoneyType]where [MoneyId]=[PriceModule])as PriceQuantity FROM [tlb_Product_MainProductConnector] where id_MProduct=" + res.Id);
 
                 if (Money.Rows.Count != 0)
                 {
-                    res.Price = Money.Rows[0]["PriceXquantity"].ToString();
+                    res.PriceXQ= Money.Rows[0]["PriceXquantity"].ToString();
                     res.PriceOff = Money.Rows[0]["PriceOff"].ToString();
                     res.PriceQuantity = Money.Rows[0]["PriceQuantity"].ToString();
                     res.Quantity = Money.Rows[0]["Quantity"].ToString();
                     res.Tags = MPC_Tags(Convert.ToInt32(Money.Rows[0]["id_MPC"]));
+                    res.PricePerQ = Money.Rows[0]["PricePerquantity"].ToString();
+                    res.PriceShowType =Convert.ToInt32(Money.Rows[0]["PriceShow"]);
                 }
                 db.DC();
                 db.Connect();
@@ -996,7 +1005,7 @@ namespace BamboPortal_V1._0._0._0.ModelFiller.CustomerSide
 
 
                 var MPCList = new List<MPCModel>();
-                DataTable MPC = db.Select("SELECT [id_MPC],[PriceXquantity],[PricePerquantity],[PriceOff],[offTypeValue],[OffType]FROM [tlb_Product_MainProductConnector]where id_MProduct=" + res.Id);
+                DataTable MPC = db.Select("SELECT [id_MPC],[PriceXquantity],[PricePerquantity],[PriceOff],[offTypeValue],[OffType],[HasMultyPrice],[MultyPriceStartFromQ],[MultyPrice],[MultyPriceXQ],[PriceShow] FROM [tlb_Product_MainProductConnector]where id_MProduct=" + res.Id);
                 for (int i = 0; i < MPC.Rows.Count; i++)
                 {
                     var model = new MPCModel()
@@ -1006,7 +1015,12 @@ namespace BamboPortal_V1._0._0._0.ModelFiller.CustomerSide
                         PriceXQ = MPC.Rows[i]["PriceXquantity"].ToString(),
                         PriceOff = MPC.Rows[i]["PriceOff"].ToString(),
                         OffValue = MPC.Rows[i]["offTypeValue"].ToString(),
-                        OffType = Convert.ToInt32(MPC.Rows[i]["OffType"])
+                        OffType = Convert.ToInt32(MPC.Rows[i]["OffType"]),
+                        PriceShowType= Convert.ToInt32(MPC.Rows[i]["PriceShow"]),
+                        HAsMultiPrice= Convert.ToInt32(MPC.Rows[i]["HasMultyPrice"]),
+                        MultyPriceStartFromQ= Convert.ToInt32(MPC.Rows[i]["MultyPriceStartFromQ"]),
+                        MultyPrice = MPC.Rows[i]["MultyPrice"].ToString(),
+                        MultyPriceXQ = MPC.Rows[i]["MultyPriceXQ"].ToString()
                     };
                     DataTable props = db.Select("SELECT distinct B.id_SCOK,B.id_SCOV,B.SCOVValueName FROM [tbl_Product_connectorToMPC_SCOV] as A inner join [tbl_Product_SubCategoryOptionValue] as B on A.id_SCOV=B.id_SCOV where A.id_MPC=" + model.Id + " order by(id_SCOK)ASC");
                     model.JsonProperty = "{";
@@ -1062,7 +1076,7 @@ namespace BamboPortal_V1._0._0._0.ModelFiller.CustomerSide
             var MPCList = new List<MPCModel>();
             PDBC db = new PDBC();
             db.Connect();
-            DataTable MPC = db.Select("SELECT [id_MPC],[PriceXquantity],[PricePerquantity],[PriceOff],[offTypeValue],[OffType]FROM [tlb_Product_MainProductConnector]where id_MProduct=" + Id);
+            DataTable MPC = db.Select("SELECT [id_MPC],[PriceXquantity],[PricePerquantity],[PriceOff],[offTypeValue],[OffType],[HasMultyPrice],[MultyPriceStartFromQ],[MultyPrice],[MultyPriceXQ],[PriceShow] FROM [tlb_Product_MainProductConnector]where id_MProduct=" + Id);
             for (int i = 0; i < MPC.Rows.Count; i++)
             {
                 var model = new MPCModel()
@@ -1072,7 +1086,12 @@ namespace BamboPortal_V1._0._0._0.ModelFiller.CustomerSide
                     PriceXQ = MPC.Rows[i]["PriceXquantity"].ToString(),
                     PriceOff = MPC.Rows[i]["PriceOff"].ToString(),
                     OffValue = MPC.Rows[i]["offTypeValue"].ToString(),
-                    OffType = Convert.ToInt32(MPC.Rows[i]["OffType"])
+                    OffType = Convert.ToInt32(MPC.Rows[i]["OffType"]),
+                    PriceShowType = Convert.ToInt32(MPC.Rows[i]["PriceShow"]),
+                    HAsMultiPrice = Convert.ToInt32(MPC.Rows[i]["HasMultyPrice"]),
+                    MultyPriceStartFromQ = Convert.ToInt32(MPC.Rows[i]["MultyPriceStartFromQ"]),
+                    MultyPrice = MPC.Rows[i]["MultyPrice"].ToString(),
+                    MultyPriceXQ = MPC.Rows[i]["MultyPriceXQ"].ToString()
                 };
                 DataTable props = db.Select("SELECT distinct B.id_SCOK,B.id_SCOV,B.SCOVValueName FROM [tbl_Product_connectorToMPC_SCOV] as A inner join [tbl_Product_SubCategoryOptionValue] as B on A.id_SCOV=B.id_SCOV where A.id_MPC=" + model.Id + " order by(id_SCOK)ASC");
                 model.JsonProperty = "{";

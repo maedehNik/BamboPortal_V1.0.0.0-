@@ -20,7 +20,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 NewProducts = modelFiller.ChosenProducts("New", 10, "Ago"),
                 Sale_Products = modelFiller.ChosenProducts("Sale", 4, "Ago"),
                 ProductsG3 = modelFiller.ChosenProducts("MainTag", 3, "Ago", 1),
-                SelectedProducts = modelFiller.ProductList(4, "همه", 0, 1, "", "Date")
+                SelectedProducts = modelFiller.ProductList(20, "همه", 0, 1, "", "Date")
             };
 
 

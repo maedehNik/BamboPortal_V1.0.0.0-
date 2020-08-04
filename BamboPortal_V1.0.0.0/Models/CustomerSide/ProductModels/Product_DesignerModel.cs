@@ -15,11 +15,14 @@ namespace BamboPortal_V1._0._0._0.Models.CustomerSide
         public string Type { get; set; }
         public string MainCat { get; set; }
         public string SubCat { get; set; }
-        public List<string> Pictures { get; set; }
+        public List<string> Thumpnamil_Pictures { get; set; }
+        public List<string> org_Pictures { get; set; }
         public List<TreeModel> MPC_Options { get; set; }
         public List<OptionModel> Options { get; set; }
         public List<CommentsModel> Comments { get; set; }
-        public string Price { get; set; }
+        public string PricePerQ { get; set; }
+        public string PriceXQ { get; set; }
+        public int PriceShowType { get; set; }
         public string PriceOff { get; set; }
         public int SubCatId { get; set; }
         public string SEO_Keyword { get; set; }
