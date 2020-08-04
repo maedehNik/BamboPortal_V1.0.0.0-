@@ -171,6 +171,7 @@
     <Compile Include="Models\AdministratorProductsModels\ReturnInputsOfSubCategorykeyValues.cs" />
     <Compile Include="Models\AdministratorProductsModels\ReturnInputsOfSubCategorykeyValuesGetSubmiter.cs" />
     <Compile Include="Models\AdministratorProductsModels\SaveDataToStockpileStep5.cs" />
+    <Compile Include="Models\AdministratorStockpile\indexTableModel.cs" />
     <Compile Include="Models\AdministratorStockpile\InOutStructure.cs" />
     <Compile Include="Models\AdministratorStockpile\Shops.cs" />
     <Compile Include="Models\AdministratorStockpile\ShowPSID.cs" />
@@ -226,6 +227,7 @@
     <Compile Include="ModelViews\AdministratorProducts\ProductViewDetailsModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\ReturnInputsOfSubCategorykeyValuesModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts_FieldLoader\GetSubCateGoryForSelect2FromPTypeIDModelView.cs" />
+    <Compile Include="ModelViews\AdministratorStockpile\indexModelView.cs" />
     <Compile Include="ModelViews\AdministratorStockpile\ProductInStockpileModelView.cs" />
     <Compile Include="ModelViews\AdministratorUploader\ImageGalleryModelView.cs" />
     <Compile Include="ModelViews\AdministratorUploader\UploaderAlertModelView.cs" />

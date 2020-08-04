@@ -21,17 +21,15 @@ namespace BamboPortal_V1._0._0._0.Controllers
         // GET: AdministratorStockpile
         public ActionResult Index()
         {
+
+
             return View();
         }
         [HttpGet]
         public ActionResult ProductInStockpile(int PSID)
         {
-
-
             ProductInStockpileModelView model = new ProductInStockpileModelView();
-
             PDBC db = new PDBC();
-           
             ExcParameters par = new ExcParameters()
             {
                 _KEY = "@id_MPC",
@@ -41,7 +39,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
             pars.Add(par);
             string id_MProductReal = "";
             db.Connect();
-            using (DataTable dtproduct = db.Select("SELECT [id_MProduct],[id_MPC],[id_PQT],[IS_AVAILABEL],[id_DraftLevel],[id_Type],[id_MainCategory],[id_SubCategory],[idMPC_WhichTomainPrice],[Description],[DateCreated],[Title],[Seo_Description],[Seo_KeyWords],[IS_AD],[Search_Gravity],[Is_IntheDraft],[ISDELETE],[PTname],[ISDESABLED],[tbl_Product_Type_ISDelete],[MCName],[SCName],[Quantity],[PriceXquantity],[PricePerquantity],[PriceOff],[offTypeValue],[OffType],[tlb_Product_MainProductConnector_ISDELETE],[OutOfStock],[DateToRelease],[PriceShow],[PriceShowformat],[id_CreatedByAdmin],[ad_NickName],[ad_firstname],[ad_lastname],[id_MainStarTag],[PQT_Description],[PQT_Demansion],[PQT_Quantom],[code_Stockpile],[MoneyTypeName],[MultyPrice] ,[MultyPriceStartFromQ]  FROM [v_Connector_MainProductConnectorToProduct] WHERE [id_MPC] = @id_MPC", pars))
+            using (DataTable dtproduct = db.Select("SELECT [id_MProduct],[MultyPriceStartFromQ],[code_Stockpile],[Description],[MultyPrice],[Title],[PricePerquantity] FROM [v_Connector_MainProductConnectorToProduct] WHERE [id_MPC] = @id_MPC", pars))
             {
                 db.DC();
                 if (dtproduct.Rows.Count > 0)
@@ -58,12 +56,11 @@ namespace BamboPortal_V1._0._0._0.Controllers
                         ProductMultyPrice = dtproduct.Rows[0]["MultyPrice"].ToString(),
                         ProductName = dtproduct.Rows[0]["Title"].ToString(),
                         ProductPurePrice = dtproduct.Rows[0]["PricePerquantity"].ToString(),
-                        ShopAvailable4Transaction = new List<Key_ValueModel>(),
+                        ShopAvailable4Transaction = new List<Key_ValueModel>(),//check
                         ShopList = new List<Shops>(),//check
                         socKandSockvlList = new List<ProductViewDetails_ProductSOCKandSOCKVLList>(),//check
                         STHList = new List<StockpileTransactionHistoryModel>()//check
                     };
-
                 }
                 else
                 {
@@ -256,7 +253,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                             historyModel.TotalPriceOfsadere = "0";
                             historyModel.HajmVarede = String.Format("{0:n0}", dt.Rows[i]["PQTValueOf_Transaction"].ToString());
                             historyModel.MiyanginGheymateVarede = "0";
-                            historyModel.TotalPriceOfVarede = String.Format("{0:n0}", dt.Rows[i]["PriceOf_Transaction"].ToString())+" "+ dt.Rows[i]["PQT_Demansion"].ToString();
+                            historyModel.TotalPriceOfVarede = String.Format("{0:n0}", dt.Rows[i]["PriceOf_Transaction"].ToString()) + " " + dt.Rows[i]["PQT_Demansion"].ToString();
                         }
                         else
                         {
@@ -296,7 +293,23 @@ namespace BamboPortal_V1._0._0._0.Controllers
                     model.ShowPSIDs.STHList.Add(historyModel);
                 }
             }
-
+            //================================================ ShopAvailable4Transaction
+            //=================>MRMNeedsEdit
+            db.Connect();
+            using (DataTable shops = db.Select("SELECT   [shop_id] ,[shop_name]  FROM [tbl_Modules_StockpileShopsMainTable]"))
+            {
+                db.DC();
+                Key_ValueModel kvm;
+                for (int i = 0; i < shops.Rows.Count; i++)
+                {
+                    kvm = new Key_ValueModel()
+                    {
+                        Id = Convert.ToInt32(shops.Rows[i]["shop_id"].ToString()),
+                        Value = shops.Rows[i]["shop_name"].ToString()
+                    };
+                    model.ShowPSIDs.ShopAvailable4Transaction.Add(kvm);
+                }
+            }
 
             return View(model);
         }
