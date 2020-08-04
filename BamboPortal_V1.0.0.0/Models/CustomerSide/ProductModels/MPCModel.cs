@@ -11,9 +11,14 @@ namespace BamboPortal_V1._0._0._0.Models.CustomerSide
         public string PricePerQ { get; set; }
         public string PriceXQ { get; set; }
         public string PriceOff { get; set; }
+        public int PriceShowType { get; set; }
         public int OffType { get; set; }
         public string OffValue { get; set; }
         public string Properties { get; set; }
         public string JsonProperty { get; set; }
+        public int HAsMultiPrice { get; set; }
+        public int MultyPriceStartFromQ { get; set; }
+        public string MultyPrice { get; set; }
+        public string MultyPriceXQ { get; set; }
     }
 }

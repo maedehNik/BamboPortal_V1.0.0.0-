@@ -70,21 +70,21 @@
 
                         @foreach (var item in Model.Products)
                         {
-                            if (item.offType == 1)
+                            if (item.offType == 1|| item.offType==0)
                             {
                                 <div class="col-sm-4">
                                     <div class="product-thumbnail">
                                         <div class="product-image">
                                             <img alt="image" class="img-responsive" src="@item.PicPath">
                                             <div class="thumbnail-btns">
-                                                <a class="btn btn-theme-inverse" href="product-single.html"><i class="pe-7s-glasses pe-2x"></i></a>
+                                                <a class="btn btn-theme-inverse" href="@Url.Action("productpage","CustomerSide_Product",new { ProId=item.Id})"><i class="pe-7s-glasses pe-2x"></i></a>
                                                 <a class="btn btn-theme-inverse" href="#"><i class="icon-basket"></i></a>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="product-info">
                                         <h3 class="text-darker"><a href="@Url.Action("productpage","CustomerSide_Product",new { ProId=item.Id})"><small>@item.Title</small></a></h3>
-                                        if (item.PriceShowType == 1)
+                                        @if (item.PriceShowType == 1)
                                         {
                                         <h6 class="price">@item.PricePerQ</h6>
                                         }
@@ -103,7 +103,7 @@
                                             <span class="label label-tags OffsellingObject tshdirltr">-@item.OffValue %</span>
                                             <img alt="image" class="img-responsive" src="@item.PicPath">
                                             <div class="thumbnail-btns">
-                                                <a class="btn btn-theme-inverse" href="product-single.html"><i class="pe-7s-glasses pe-2x"></i></a>
+                                                <a class="btn btn-theme-inverse" href="@Url.Action("productpage","CustomerSide_Product",new { ProId=item.Id})"><i class="pe-7s-glasses pe-2x"></i></a>
                                                 <a class="btn btn-theme-inverse" href="#"><i class="icon-basket"></i></a>
                                             </div>
                                         </div>
@@ -111,7 +111,7 @@
                                     <div class="product-info">
                                         <h3 class="text-darker"><a href="@Url.Action("productpage","CustomerSide_Product",new { ProId=item.Id})"><small>@item.Title</small></a></h3>
 
-                                        if (item.PriceShowType == 1)
+                                        @if (item.PriceShowType == 1)
                                         {
                                         <h6 class="price tshtdlt">@item.PricePerQ</h6>
                                         <h6 class="price">@item.OffPrice</h6>
@@ -132,7 +132,7 @@
                                             <span class="label label-tags OffsellingObject tshdirltr">-@item.OffValue </span>
                                             <img alt="image" class="img-responsive" src="@item.PicPath">
                                             <div class="thumbnail-btns">
-                                                <a class="btn btn-theme-inverse" href="product-single.html"><i class="pe-7s-glasses pe-2x"></i></a>
+                                                <a class="btn btn-theme-inverse" href="@Url.Action("productpage","CustomerSide_Product",new { ProId=item.Id})"><i class="pe-7s-glasses pe-2x"></i></a>
                                                 <a class="btn btn-theme-inverse" href="#"><i class="icon-basket"></i></a>
                                             </div>
                                         </div>
@@ -140,7 +140,7 @@
                                     <div class="product-info">
                                         <h3 class="text-darker"><a href="@Url.Action("productpage","CustomerSide_Product",new { ProId=item.Id})"><small>@item.Title</small></a></h3>
 
-                                        if (item.PriceShowType == 1)
+                                        @if (item.PriceShowType == 1)
                                         {
                                         <h6 class="price tshtdlt">@item.PricePerQ</h6>
                                         <h6 class="price">@item.OffPrice</h6>

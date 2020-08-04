@@ -102,5 +102,12 @@ namespace BamboPortal_V1._0._0._0.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult GetMPCs(int id)
+        {
+            CustomerModelFiller DMF = new CustomerModelFiller();
+            return Json(DMF.MPCs(id));
+        }
     }
 }

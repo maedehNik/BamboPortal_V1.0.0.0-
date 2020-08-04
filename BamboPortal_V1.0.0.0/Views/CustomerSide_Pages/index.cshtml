@@ -243,7 +243,7 @@
                         </div>
                         <div class="product-info">
                             <h3 class="text-darker"><a href="#"><small>@item.Title</small></a></h3>
-                            @if (item.offType == 1)
+                            @if (item.offType == 1 || item.offType==0)
                             {
                                 if (item.PriceShowType == 1)
                                 {
@@ -333,7 +333,7 @@
                         </div>
                         <div class="product-info">
                             <h3 class="text-darker"><a href="#"><small>@item.Title</small></a></h3>
-                            @if (item.offType == 1)
+                            @if (item.offType == 1|| item.offType==0)
                             {
                                 if (item.PriceShowType == 1)
                                 {
@@ -523,9 +523,9 @@
             </div>
         </footer>
     </div>
-    @section CS_Scripts {
+    
         @Scripts.Render("~/bundles/CustomerSideIndex.js")
         @Scripts.Render("~/bundles/CustomerSide2.js")
-    }
+    
     </body>
 </html>
