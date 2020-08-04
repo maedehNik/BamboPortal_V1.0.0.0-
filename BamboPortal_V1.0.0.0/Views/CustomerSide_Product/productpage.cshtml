@@ -268,104 +268,20 @@
 
 
 @section CS_Scripts {
-    @*<script>
-            var MPCs;
-         $(document).ready(function () {
-             PostJson = {
-                    'id': @Model.ProductModel.Id
-                };
 
-
-                $.ajax({
-                    url: '/CustomerSide_Product/GetMPCs',
-                    type: "post",
-                    data: JSON.stringify(PostJson),
-                    contentType: "application/json; charset=utf-8",
-                    success: function (response) {
-                       MPCs = response;
-                        CheckChanges();
-                        alert("done");
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        alert(textStatus);
-                    }
-                });
-        });
-
-            function CheckChangesSS() {
-                alert("change");
-            }
-
-            function CheckChanges() {
-
-            var json = '{';
-            var otArr = [];
-            $('.PandaSelect123').each(function (e, obj) {
-
-                var idSelected = obj.id.replace("exampleSelect2-", "");
-                var ids = $('#exampleSelect2-' + idSelected+' option:selected').val();
-
-                if (idSelected != "") {
-                    otArr.push('"' + idSelected + '":' + ids);
-                }
-
-            });
-
-            json += otArr.join(",") + '}';
-
-            $(MPCs).each(function (e, obj) {
-
-
-                if (obj.JsonProperty == json) {
-
-                    //if (obj.PriceXQ != obj.PriceOff) {
-                    //    $('#off_price_div').text(obj.PriceXQ);
-                    //} else {
-                    //    $('#off_price_div').text("");
-                    //}
-
-
-                    if ($('#Number_inp').val() >= obj.MultyPriceStartFromQ && obj.HAsMultiPrice == 1) {
-
-                        $('OffVal').show();
-                        $('OffVal').text("قیمت عمده");
-                        if (obj.PriceShowType == 1) {
-                            $('#PriceShow1').text(obj.MultyPrice);
-                            $('#PriceShow2').text(obj.MultyPrice);
-                        } else {
-                            $('#PriceShow1').text(obj.MultyPriceXQ);
-                            $('#PriceShow2').text(obj.MultyPriceXQ);
-                        }
-
-                    } else {
-                        $('OffVal').hide();
-                         if (obj.PriceShowType == 1) {
-                            $('#PriceShow1').text(obj.PricePerQ);
-                            $('#PriceShow2').text(obj.PricePerQ);
-                        } else {
-                            $('#PriceShow1').text(obj.PriceXQ);
-                            $('#PriceShow2').text(obj.PriceXQ);
-                        }
-                    }
-                }
-
-            });
-
-
-        }
-        </script>*@
 
 
 
 
     <script>
-        var revapi;
+        $(document).ready(function () {
+            alert("Hello");
+        });
         var MPCs;
 
-        jQuery(document).ready(function () {
-            alert("Hello");
 
-            PostJson = {
+
+         PostJson = {
                 'id': @Model.ProductModel.Id
             };
 
@@ -393,47 +309,6 @@
             }, 3000);
 
 
-            revapi = jQuery("#rev_slider_1").revolution({
-                sliderType: "standard",
-                sliderLayout: "fullscreen",
-                fullScreenOffsetContainer: ".navigation",
-                delay: 9000,
-                navigation: {
-                    keyboardNavigation: "off",
-                    mouseScrollNavigation: "on",
-                    onHoverStop: "off",
-                    touch: {
-                        touchenabled: "on",
-                        swipe_threshold: 75,
-                        swipe_min_touches: 1,
-                        swipe_direction: "horizontal",
-                        drag_block_vertical: false
-                    },
-                    bullets: {
-                        enable: true,
-                        rtl: true,
-                        hide_onmobile: false,
-                        style: "hebe",
-                        hide_onleave: false,
-                        direction: "horizontal",
-                        h_align: "center",
-                        v_align: "bottom",
-                        h_offset: 0,
-                        v_offset: 10,
-                        space: 5,
-                        tmp: '<span class="tp-bullet-inner"></span>'
-                    }
-                },
-                responsiveLevels: [4096, 1024, 767, 480],
-                gridwidth: 1230,
-                gridheight: 720
-            });
-
-            $("#LoaderSpinner").hide(0);
-        }); /*ready*/
-    </script>
-
-    <script>
         var x, i, j, selElmnt, a, b, c;
         x = document.getElementsByClassName("custom-select");
         for (i = 0; i < x.length; i++) {
