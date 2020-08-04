@@ -6,7 +6,7 @@ using System.Web;
 
 namespace BamboPortal_V1._0._0._0.StaticClass
 {
-    public class DateConvert
+    public static class DateConvert
     {
         /// <summary>
         ///  زمان را به صورت رشته دریافت میکند و به صورت های مختلف تاریخ شمسی تبدیل میکند
@@ -19,7 +19,7 @@ namespace BamboPortal_V1._0._0._0.StaticClass
         /// Ago : چند دقیقه ، ساعت یا روز پیش
         /// </param>
         /// <returns>تاریخ تبدیل شده به صورت رشته</returns>
-        public string DateReturner(string date_, string DateType)
+        public static string DateReturner(string date_, string DateType)
         {
             DateTime date = Convert.ToDateTime(date_);
             PersianDateTime persianDateTime = new PersianDateTime(date);
@@ -59,6 +59,9 @@ namespace BamboPortal_V1._0._0._0.StaticClass
                 }
                 return LastSeen;
 
+            }else if(DateType=="ShortDate")
+            {
+                return persianDateTime.ToShortDateString();
             }
             else
             {
@@ -76,7 +79,7 @@ namespace BamboPortal_V1._0._0._0.StaticClass
         /// Ago : چند دقیقه ، ساعت یا روز پیش
         /// </param>
         /// <returns>تاریخ تبدیل شده به صورت رشته</returns>
-        public string DateReturner(DateTime date_, string DateType)
+        public static string DateReturner(DateTime date_, string DateType)
         {
 
             PersianDateTime persianDateTime = new PersianDateTime(date_);
@@ -116,6 +119,10 @@ namespace BamboPortal_V1._0._0._0.StaticClass
                 }
                 return LastSeen;
 
+            }
+            else if (DateType == "ShortDate")
+            {
+                return persianDateTime.ToShortDateString();
             }
             else
             {
