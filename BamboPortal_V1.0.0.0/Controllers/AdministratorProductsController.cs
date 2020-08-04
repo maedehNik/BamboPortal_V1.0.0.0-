@@ -2406,14 +2406,16 @@ namespace BamboPortal_V1._0._0._0.Controllers
         [HttpPost]
         public JsonResult AddProduct_SeimiFinalStepToGenerateProductAndFinalSubmit(AddProductSemiFinalSubmitToCreateProducts Senderobj)
         {
-            string id_CreatedByAdmin = "1";
-            if (Session[""] != null)
+            string id_CreatedByAdmin = "0";
+            if (Session["AdministratorRegistery"] != null)
             {
-
+                id_CreatedByAdmin = ((Administrator)Session["AdministratorRegistery"]).id_Admin;
             }
             else
             {
-
+                var coockie = HttpContext.Request.Cookies.Get(ProjectProperies.AuthCoockieCode());
+                Administrator administratorobj = CoockieController.SayMyName(coockie.Value);
+                id_CreatedByAdmin = administratorobj.id_Admin;
             }
             List<ExcParameters> paramss = new List<ExcParameters>();
             PDBC db = new PDBC();

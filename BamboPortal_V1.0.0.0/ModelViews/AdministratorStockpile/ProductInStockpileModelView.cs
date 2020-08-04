@@ -12,6 +12,7 @@ namespace BamboPortal_V1._0._0._0.ModelViews.AdministratorStockpile
     {
         public ShowPSID ShowPSIDs { get; set; }
 
+        public InOutStructure InOutStructures { get; set; }
 
     }
 }
