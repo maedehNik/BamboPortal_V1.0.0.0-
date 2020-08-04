@@ -86,208 +86,209 @@ $(document).ready(function(){
             $(".no-item").show();
         }
     })
-    $("#login-form").validate({
-        rules: {
-            mobile: {
-                required: true,
-                digits: true,
-                minlength: 11,
-                maxlength: 11
-            },
-            password: {
-                required: true
-            }
-        },
-        messages: {
-            mobile: {
-                required: "شماره موبایل را وارد کنید",
-                digits: "شماره موبایل معتبر وارد کنید",
-                minlength: "شماره موبایل معتبر وارد کنید",
-                maxlength: "شماره موبایل معتبر وارد کنید"
-            },
-            password: {
-                required: "کلمه عبور را وارد کنید"
-            }
-        }
-    });
-    $("#reset-pw-form").validate({
-        rules: {
-            resetmobile: {
-                required: true,
-                digits: true,
-                minlength: 11,
-                maxlength: 11
-            }
-        },
-        messages: {
-            resetmobile: {
-                required: "شماره موبایل را وارد کنید",
-                digits: "شماره موبایل معتبر وارد کنید",
-                minlength: "شماره موبایل معتبر وارد کنید",
-                maxlength: "شماره موبایل معتبر وارد کنید"
-            }
-        }
-    });
-    $("#registration-form").validate({
-        rules: {
-            firstname: {
-                required: true
-            },
-            lastname: {
-                required: true
-            },
-            sumobile: {
-                required: true,
-                digits: true,
-                minlength: 11,
-                maxlength: 11
-            },
-            supassword: {
-                required: true,
-                minlength: 8
-            },
-            surpassword: {
-                required: true,
-                minlength: 8,
-                equalTo: "#supassword"
-            },
-            ghinput: {
-                required: true,
-            }
-        },
-        messages: {
-            firstname: {
-                required: "نام را وارد کنید"
-            },
-            lastname: {
-                required: "نام خانوادگی را وارد کنید"
-            },
-            sumobile: {
-                required: "شماره موبایل را وارد کنید",
-                digits: "شماره موبایل معتبر وارد کنید",
-                minlength: "شماره موبایل معتبر وارد کنید",
-                maxlength: "شماره موبایل معتبر وارد کنید"
-            },
-            supassword: {
-                required: "کلمه عبور را وارد کنید",
-                minlength: "کلمه عبور باید حداقل 8 کاراکتر باشد"
-            },
-            surpassword: {
-                required: "تکرار کلمه عبور را وارد کنید",
-                minlength: "کلمه عبور باید حداقل 8 کاراکتر باشد",
-                equalTo: "تکرار کلمه عبور اشتباه است"
-            },
-            ghinput: {
-                required: "پذیرفتن قوانین الزامی است",
-            }
-        }
-    });
-    $("#account-form").validate({
-        rules: {
-            firstname: {
-                required: true
-            },
-            lastname: {
-                required: true
-            },
-            mobile: {
-                required: true,
-                digits: true,
-                minlength: 11,
-                maxlength: 11
-            },
-            email: {
-                required: true,
-                email: true
-            }
-        },
-        messages: {
-            firstname: {
-                required: "نام را وارد کنید"
-            },
-            lastname: {
-                required: "نام خانوادگی را وارد کنید"
-            },
-            mobile: {
-                required: "شماره موبایل را وارد کنید",
-                digits: "شماره موبایل معتبر وارد کنید",
-                minlength: "شماره موبایل معتبر وارد کنید",
-                maxlength: "شماره موبایل معتبر وارد کنید"
-            },
-            email: {
-                required: "ایمیل را وارد کنید",
-                email: "ایمیل معتبر وارد کنید"
-            }
-        }
-    });
-    $("#account-form2").validate({
-        rules: {
-            password: {
-                required: true,
-                minlength: 8
-            },
-            rpassword: {
-                required: true,
-                minlength: 8,
-                equalTo: "#password"
-            },
-        },
-        messages: {
-            password: {
-                required: "کلمه عبور را وارد کنید",
-                minlength: "کلمه عبور باید حداقل 8 کاراکتر باشد"
-            },
-            rpassword: {
-                required: "تکرار کلمه عبور را وارد کنید",
-                minlength: "کلمه عبور باید حداقل 8 کاراکتر باشد",
-                equalTo: "تکرار کلمه عبور اشتباه است"
-            },
-        }
-    });
-    $("#account-form3").validate({
-        rules: {
-            province: {
-                required: true,
-            },
-            city: {
-                required: true,
-            },
-            area: {
-                required: true,
-            },
-            pcode: {
-                required: true,
-                digits: true,
-                minlength: 10,
-                maxlength: 10
-            },
-            address: {
-                required: true,
-                maxlength: 150
-            }
-        },
-        messages: {
-            province: {
-                required: "استان را انتخاب کنید",
-            },
-            city: {
-                required: "شهر را انتخاب کنید",
-            },
-            area: {
-                required: "منطقه را وارد کنید",
-            },
-            pcode: {
-                required: "کد پستی را وارد کنید",
-                digits: "کد پستی معتبر وارد کنید",
-                minlength: "کد پستی معتبر وارد کنید",
-                maxlength: "کد پستی معتبر وارد کنید"
-            },
-            address: {
-                required: "ادرس را وارد کنید",
-                maxlength: "آدرس معتبر وارد کنید"
-            }
-        }
-    });
+    //$("#login-form").validate({
+    //    rules: {
+    //        mobile: {
+    //            required: true,
+    //            digits: true,
+    //            minlength: 11,
+    //            maxlength: 11
+    //        },
+    //        password: {
+    //            required: true
+    //        }
+    //    },
+    //    messages: {
+    //        mobile: {
+    //            required: "شماره موبایل را وارد کنید",
+    //            digits: "شماره موبایل معتبر وارد کنید",
+    //            minlength: "شماره موبایل معتبر وارد کنید",
+    //            maxlength: "شماره موبایل معتبر وارد کنید"
+    //        },
+    //        password: {
+    //            required: "کلمه عبور را وارد کنید"
+    //        }
+    //    }
+    //});
+    //$("#reset-pw-form").validate({
+    //    rules: {
+    //        resetmobile: {
+    //            required: true,
+    //            digits: true,
+    //            minlength: 11,
+    //            maxlength: 11
+    //        }
+    //    },
+    //    messages: {
+    //        resetmobile: {
+    //            required: "شماره موبایل را وارد کنید",
+    //            digits: "شماره موبایل معتبر وارد کنید",
+    //            minlength: "شماره موبایل معتبر وارد کنید",
+    //            maxlength: "شماره موبایل معتبر وارد کنید"
+    //        }
+    //    }
+    //});
+    //$("#registration-form").validate({
+    //    rules: {
+    //        firstname: {
+    //            required: true
+    //        },
+    //        lastname: {
+    //            required: true
+    //        },
+    //        sumobile: {
+    //            required: true,
+    //            digits: true,
+    //            minlength: 11,
+    //            maxlength: 11
+    //        },
+    //        supassword: {
+    //            required: true,
+    //            minlength: 8
+    //        },
+    //        surpassword: {
+    //            required: true,
+    //            minlength: 8,
+    //            equalTo: "#supassword"
+    //        },
+    //        ghinput: {
+    //            required: true,
+    //        }
+    //    },
+    //    messages: {
+    //        firstname: {
+    //            required: "نام را وارد کنید"
+    //        },
+    //        lastname: {
+    //            required: "نام خانوادگی را وارد کنید"
+    //        },
+    //        sumobile: {
+    //            required: "شماره موبایل را وارد کنید",
+    //            digits: "شماره موبایل معتبر وارد کنید",
+    //            minlength: "شماره موبایل معتبر وارد کنید",
+    //            maxlength: "شماره موبایل معتبر وارد کنید"
+    //        },
+    //        supassword: {
+    //            required: "کلمه عبور را وارد کنید",
+    //            minlength: "کلمه عبور باید حداقل 8 کاراکتر باشد"
+    //        },
+    //        surpassword: {
+    //            required: "تکرار کلمه عبور را وارد کنید",
+    //            minlength: "کلمه عبور باید حداقل 8 کاراکتر باشد",
+    //            equalTo: "تکرار کلمه عبور اشتباه است"
+    //        },
+    //        ghinput: {
+    //            required: "پذیرفتن قوانین الزامی است",
+    //        }
+    //    }
+    //});
+    //$("#account-form").validate({
+    //    rules: {
+    //        firstname: {
+    //            required: true
+    //        },
+    //        lastname: {
+    //            required: true
+    //        },
+    //        mobile: {
+    //            required: true,
+    //            digits: true,
+    //            minlength: 11,
+    //            maxlength: 11
+    //        },
+    //        email: {
+    //            required: true,
+    //            email: true
+    //        }
+    //    },
+    //    messages: {
+    //        firstname: {
+    //            required: "نام را وارد کنید"
+    //        },
+    //        lastname: {
+    //            required: "نام خانوادگی را وارد کنید"
+    //        },
+    //        mobile: {
+    //            required: "شماره موبایل را وارد کنید",
+    //            digits: "شماره موبایل معتبر وارد کنید",
+    //            minlength: "شماره موبایل معتبر وارد کنید",
+    //            maxlength: "شماره موبایل معتبر وارد کنید"
+    //        },
+    //        email: {
+    //            required: "ایمیل را وارد کنید",
+    //            email: "ایمیل معتبر وارد کنید"
+    //        }
+    //    }
+    //});
+    //$("#account-form2").validate({
+    //    rules: {
+    //        password: {
+    //            required: true,
+    //            minlength: 8
+    //        },
+    //        rpassword: {
+    //            required: true,
+    //            minlength: 8,
+    //            equalTo: "#password"
+    //        },
+    //    },
+    //    messages: {
+    //        password: {
+    //            required: "کلمه عبور را وارد کنید",
+    //            minlength: "کلمه عبور باید حداقل 8 کاراکتر باشد"
+    //        },
+    //        rpassword: {
+    //            required: "تکرار کلمه عبور را وارد کنید",
+    //            minlength: "کلمه عبور باید حداقل 8 کاراکتر باشد",
+    //            equalTo: "تکرار کلمه عبور اشتباه است"
+    //        },
+    //    }
+    //});
+    //$("#account-form3").validate({
+    //    rules: {
+    //        province: {
+    //            required: true,
+    //        },
+    //        city: {
+    //            required: true,
+    //        },
+    //        area: {
+    //            required: true,
+    //        },
+    //        pcode: {
+    //            required: true,
+    //            digits: true,
+    //            minlength: 10,
+    //            maxlength: 10
+    //        },
+    //        address: {
+    //            required: true,
+    //            maxlength: 150
+    //        }
+    //    },
+    //    messages: {
+    //        province: {
+    //            required: "استان را انتخاب کنید",
+    //        },
+    //        city: {
+    //            required: "شهر را انتخاب کنید",
+    //        },
+    //        area: {
+    //            required: "منطقه را وارد کنید",
+    //        },
+    //        pcode: {
+    //            required: "کد پستی را وارد کنید",
+    //            digits: "کد پستی معتبر وارد کنید",
+    //            minlength: "کد پستی معتبر وارد کنید",
+    //            maxlength: "کد پستی معتبر وارد کنید"
+    //        },
+    //        address: {
+    //            required: "ادرس را وارد کنید",
+    //            maxlength: "آدرس معتبر وارد کنید"
+    //        }
+    //    }
+    //});
+
     $("header").on("click" , function () {
         $(".forgot-password-bg").fadeOut();
     })

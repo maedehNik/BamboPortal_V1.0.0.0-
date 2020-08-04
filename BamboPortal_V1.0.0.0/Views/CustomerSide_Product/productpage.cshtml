@@ -4,261 +4,261 @@
     Layout = "~/Views/SharedViewPages/CustomerSide/CustomerMaster.cshtml";
 }
 
-    <div class="container ppres" style="padding-top: 80px;">
+<div class="container ppres" style="padding-top: 80px;">
 
-        <div class="row vertical-center-box">
-            <div class="col-md-12 no-padding">
-                <div id="shop-carousel" class="carousel slide no-margin col-md-6" data-ride="carousel" style="float: right">
-                    <div class="carousel-inner text-light">
-                        <span id="OffVal" class="label label-tags OffsellingObject tshdirltr" style="display:none"></span>
-                        @foreach (var item in Model.ProductModel.org_Pictures)
-                        {
-                            <div class="item active">
-                                <a href="@item" data-lightbox-gallery="gallery-shop">
-                                    <img alt="image" class="img-responsive center-block" src="@item">
-                                </a>
-                            </div>
-                        }
-                       
-                        <!--<a class="left carousel-control single-prd-btn" href="#shop-carousel" role="button" data-slide="next">
-        <i class="fa fa-angle-left"></i>
-    </a>
-    <a class="right carousel-control single-prd-btn" href="#shop-carousel" role="button" data-slide="prev">
-        <i class="fa fa-angle-right"></i>
-    </a>-->
-                    </div>
-                    <ul class="shop-thumbnails mar-bot-30">
-                        @foreach (var item in Model.ProductModel.Thumpnamil_Pictures)
-                        {
-                            if (item == Model.ProductModel.Thumpnamil_Pictures.First())
-                            {
-                                <li>
-                                    <div data-target="#shop-carousel" data-slide-to="0">
-                                        <a href="#" class="thumb thumb-active">
-                                            <img alt="image" class="img-responsive" src="@item">
-                                        </a>
-                                    </div>
-                                </li>
-                            }
-                            else
-                            {
-                                <li>
-                                    <div data-target="#shop-carousel" data-slide-to="1">
-                                        <a href="#" class="thumb">
-                                            <img alt="image" class="img-responsive" src="@item">
-                                        </a>
-                                    </div>
-                                </li>
-                            }
+    <div class="row vertical-center-box">
+        <div class="col-md-12 no-padding">
+            <div id="shop-carousel" class="carousel slide no-margin col-md-6" data-ride="carousel" style="float: right">
+                <div class="carousel-inner text-light">
+                    <span id="OffVal" class="label label-tags OffsellingObject tshdirltr" style="display:none"></span>
+                    @foreach (var item in Model.ProductModel.org_Pictures)
+                    {
+                        <div class="item active">
+                            <a href="@item" data-lightbox-gallery="gallery-shop">
+                                <img alt="image" class="img-responsive center-block" src="@item">
+                            </a>
+                        </div>
+                    }
 
-
-
-
-                        }
-
-                    </ul>
+                    <!--<a class="left carousel-control single-prd-btn" href="#shop-carousel" role="button" data-slide="next">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a class="right carousel-control single-prd-btn" href="#shop-carousel" role="button" data-slide="prev">
+                        <i class="fa fa-angle-right"></i>
+                    </a>-->
                 </div>
-                <section class="section-colored theme-background-light clearfix no-margin col-md-6" style="padding-bottom: 0px; padding-top: 40px;float: left;">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h4 class="text-uppercase no-margin pad-bot-30 letter-spacing-1">
-                                    <strong>
-                                        -
-                                        @Model.ProductModel.Title
-                                    </strong>
-                                </h4>
-                                <span class="desc-title pad-right-15 pad-left-15">
-                                    <i class="fa fa-chevron-left tshfatrtry3"></i>
-                                    توضیحات
-                                </span>
-                                <div class="tab-theme">
-                                    <div class="tab-content">
-                                        <div id="tab1" class="tab-pane active no-padding-bottom prd-dtl-p0">
-                                            <p class="pad-right-15 pad-left-15 mar-bot-30 text-justify">
-                                                <small>
-                                                    @Model.ProductModel.Discription
-                                                </small>
-                                            </p>
-                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">
-
-                                                @foreach (var item in Model.ProductModel.MPC_Options)
-                                                {
-
-
-                                                    <div class="select-option col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                        <span class="desc-title title-no-border">
-                                                            <i class="fa fa-chevron-left tshfatrtry3"></i>
-                                                            @item.NameSub
-                                                        </span>
-                                                        <div class="custom-select" style="width:200px;">
-                                                            <select id="exampleSelect2-@item.Id" class="PandaSelect123" onchange="return CheckChangesSS()">
-                                                                <option value="0">انتخاب @item.NameSub</option>
-
-                                                                @foreach (var item2 in item.Subs)
-                                                                {
-                                                                    <option value="@item2.Id">@item2.NameSub</option>
-                                                                }
-
-                                                            </select>
-                                                        </div>
-                                                    </div>
-
-                                                }
-
-                                            </div>
-                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                <input type='button' value='-' class='qtyminus btn shcqm' title='quantity1' />
-                                                <input id="Number_inp" type='text' name='quantity1' value='1' class='qty' readonly="" onchange="return CheckChangesSS()"/>
-                                                <input type='button' value='+' class='qtyplus btn shcqp' title='quantity1' />
-                                                <p>متر</p>
-                                            </div>
+                <ul class="shop-thumbnails mar-bot-30">
+                    @foreach (var item in Model.ProductModel.Thumpnamil_Pictures)
+                    {
+                        if (item == Model.ProductModel.Thumpnamil_Pictures.First())
+                        {
+                            <li>
+                                <div data-target="#shop-carousel" data-slide-to="0">
+                                    <a href="#" class="thumb thumb-active">
+                                        <img alt="image" class="img-responsive" src="@item">
+                                    </a>
+                                </div>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <div data-target="#shop-carousel" data-slide-to="1">
+                                    <a href="#" class="thumb">
+                                        <img alt="image" class="img-responsive" src="@item">
+                                    </a>
+                                </div>
+                            </li>
+                        }
 
 
 
-                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                <div class="select-shop pad-right-15 pad-left-15 col-lg-6 col-md-6 col-sm-12 col-xs-6">
+
+                    }
+
+                </ul>
+            </div>
+            <section class="section-colored theme-background-light clearfix no-margin col-md-6" style="padding-bottom: 0px; padding-top: 40px;float: left;">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4 class="text-uppercase no-margin pad-bot-30 letter-spacing-1">
+                                <strong>
+                                    -
+                                    @Model.ProductModel.Title
+                                </strong>
+                            </h4>
+                            <span class="desc-title pad-right-15 pad-left-15">
+                                <i class="fa fa-chevron-left tshfatrtry3"></i>
+                                توضیحات
+                            </span>
+                            <div class="tab-theme">
+                                <div class="tab-content">
+                                    <div id="tab1" class="tab-pane active no-padding-bottom prd-dtl-p0">
+                                        <p class="pad-right-15 pad-left-15 mar-bot-30 text-justify">
+                                            <small>
+                                                @Model.ProductModel.Discription
+                                            </small>
+                                        </p>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">
+
+                                            @foreach (var item in Model.ProductModel.MPC_Options)
+                                            {
+
+
+                                                <div class="select-option col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                     <span class="desc-title title-no-border">
                                                         <i class="fa fa-chevron-left tshfatrtry3"></i>
-                                                        فروشگاه
+                                                        @item.NameSub
                                                     </span>
-                                                    <div class="radio-custom">
-                                                        <label>
-                                                            <input type="radio" class="option-input radio" name="shops" checked />
-                                                            <b>تجریش</b>
-                                                        </label>
-                                                        <label>
-                                                            <input type="radio" class="option-input radio" name="shops" />
-                                                            <b>میدان انقلاب</b>
-                                                        </label>
-                                                        <label>
-                                                            <input type="radio" class="option-input radio" name="shops" />
-                                                            <b>سعادت آباد</b>
-                                                        </label>
+                                                    <div class="custom-select" style="width:200px;">
+                                                        <select id="exampleSelect2-@item.Id" class="PandaSelect123" onchange="return CheckChangesSS()">
+                                                            <option value="0">انتخاب @item.NameSub</option>
+
+                                                            @foreach (var item2 in item.Subs)
+                                                            {
+                                                                <option value="@item2.Id">@item2.NameSub</option>
+                                                            }
+
+                                                        </select>
                                                     </div>
                                                 </div>
-                                                
-                                            </div>
-                                            <div class="col-lg-12 col-md-2 col-sm-12 col-xs-12">
 
-                                                @if (Model.ProductModel.PriceShowType == 1)
-                                                {
-                                                    <div class="text-left tshspbb col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                       
-                                                        <span id="PriceShow1" class="price price-title" style="margin-top: 6px!important;">@Model.ProductModel.PricePerQ</span>
-                                                    </div>
-                                                    <div class="tshspbb-right tshspbb-right-off col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                        @*<span class="price tshtdlt price-title mar-top-15" style="margin: 0!important;">5,000,000</span>*@
-                                                        <span id="PriceShow2" class="price price-title" style="margin: 0!important;">@Model.ProductModel.PricePerQ</span>
-                                                    </div>
-                                                }
-                                                else
-                                                { 
-                                                    <div class="text-left tshspbb col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                       
-                                                        <span id="PriceShow1" class="price price-title" style="margin-top: 6px!important;">@Model.ProductModel.PriceXQ</span>
-                                                    </div>
-                                                    <div class="tshspbb-right tshspbb-right-off col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                        @*<span class="price tshtdlt price-title mar-top-15" style="margin: 0!important;">5,000,000</span>*@
-                                                        <span id="PriceShow2" class="price price-title" style="margin: 0!important;">@Model.ProductModel.PriceXQ</span>
-                                                    </div>
-                                                }
+                                            }
 
-                                                <div class="tshspbb-left add-cart-btn col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                    <a href="#" class="btn btn-success btn-lg">
-                                                        <i class="fa fa-shopping-cart" style="margin-left: 2px;"></i>
-                                                        افزودن به سبد خرید
-                                                    </a>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <input type='button' value='-' class='qtyminus btn shcqm' title='quantity1' />
+                                            <input id="Number_inp" type='text' name='quantity1' value='1' class='qty' readonly="" onchange="return CheckChangesSS()" />
+                                            <input type='button' value='+' class='qtyplus btn shcqp' title='quantity1' />
+                                            <p>متر</p>
+                                        </div>
+
+
+
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="select-shop pad-right-15 pad-left-15 col-lg-6 col-md-6 col-sm-12 col-xs-6">
+                                                <span class="desc-title title-no-border">
+                                                    <i class="fa fa-chevron-left tshfatrtry3"></i>
+                                                    فروشگاه
+                                                </span>
+                                                <div class="radio-custom">
+                                                    <label>
+                                                        <input type="radio" class="option-input radio" name="shops" checked />
+                                                        <b>تجریش</b>
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" class="option-input radio" name="shops" />
+                                                        <b>میدان انقلاب</b>
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" class="option-input radio" name="shops" />
+                                                        <b>سعادت آباد</b>
+                                                    </label>
                                                 </div>
                                             </div>
+
+                                        </div>
+                                        <div class="col-lg-12 col-md-2 col-sm-12 col-xs-12">
+
+                                            @if (Model.ProductModel.PriceShowType == 1)
+                                            {
+                                                <div class="text-left tshspbb col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                                                    <span id="PriceShow1" class="price price-title" style="margin-top: 6px!important;">@Model.ProductModel.PricePerQ</span>
+                                                </div>
+                                                <div class="tshspbb-right tshspbb-right-off col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                    @*<span class="price tshtdlt price-title mar-top-15" style="margin: 0!important;">5,000,000</span>*@
+                                                    <span id="PriceShow2" class="price price-title" style="margin: 0!important;">@Model.ProductModel.PricePerQ</span>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="text-left tshspbb col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                                                    <span id="PriceShow1" class="price price-title" style="margin-top: 6px!important;">@Model.ProductModel.PriceXQ</span>
+                                                </div>
+                                                <div class="tshspbb-right tshspbb-right-off col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                    @*<span class="price tshtdlt price-title mar-top-15" style="margin: 0!important;">5,000,000</span>*@
+                                                    <span id="PriceShow2" class="price price-title" style="margin: 0!important;">@Model.ProductModel.PriceXQ</span>
+                                                </div>
+                                            }
+
+                                            <div class="tshspbb-left add-cart-btn col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <a href="#" class="btn btn-success btn-lg">
+                                                    <i class="fa fa-shopping-cart" style="margin-left: 2px;"></i>
+                                                    افزودن به سبد خرید
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    
-                </section>
-            </div>
-        </div>
-
-        <div class="row" style="margin-top: 30px;">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h4 class="text-uppercase letter-spacing-1 no-margin col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <strong>
-                        <i class="fa fa-chevron-left tshfatrtry3"></i>
-                        مشخصات محصول
-                    </strong>
-                </h4>
-                <table class="table table-hover prod-det shop-table text-uppercase letter-spacing-1 mar-top-30 mar-bot-30 weight-400">
-                    @foreach (var item in Model.ProductModel.Options)
-                    {
-                        <tr class="shop-first-row">
-                            <td><small>@item.Key</small></td>
-                            <td><small>@item.Value</small></td>
-                        </tr>
-                    }
-                    
-                </table>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="row pad-top-100 cupt50">
-                <div class="col-md-12 text-center" style="margin-bottom: 25px;">
-                    <h2 class="no-margin tshbb pad-bot-15 text-uppercase tshbb1b">پرفروش ترین محصولات</h2>
-                    <!--<h5 class="no-margin text-lighter"><i>Velvet Textile Gallery</i></h5>-->
+                    </div>
                 </div>
-            </div>
-            <div class="row product pad-bot-50">
-                @foreach (var item in Model.Sale_Products)
+
+            </section>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 30px;">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h4 class="text-uppercase letter-spacing-1 no-margin col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <strong>
+                    <i class="fa fa-chevron-left tshfatrtry3"></i>
+                    مشخصات محصول
+                </strong>
+            </h4>
+            <table class="table table-hover prod-det shop-table text-uppercase letter-spacing-1 mar-top-30 mar-bot-30 weight-400">
+                @foreach (var item in Model.ProductModel.Options)
                 {
-                    <div class="col-sm-3">
-                        <div class="product-thumbnail">
-                            <div class="product-image">
-                                <img alt="image" class="img-responsive" src="@item.PicPath">
-                                <div class="thumbnail-btns">
-                                    <a class="btn btn-lg btn-theme-inverse" href="product-single.html"><i class="pe-7s-glasses pe-2x"></i></a>
-                                    <a class="btn btn-lg btn-theme-inverse" href="@Url.Action("productpage","CustomerSide_Product",new { ProId=item.Id})"><i class="icon-basket"></i></a>
-                                </div>
+                    <tr class="shop-first-row">
+                        <td><small>@item.Key</small></td>
+                        <td><small>@item.Value</small></td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row pad-top-100 cupt50">
+            <div class="col-md-12 text-center" style="margin-bottom: 25px;">
+                <h2 class="no-margin tshbb pad-bot-15 text-uppercase tshbb1b">پرفروش ترین محصولات</h2>
+                <!--<h5 class="no-margin text-lighter"><i>Velvet Textile Gallery</i></h5>-->
+            </div>
+        </div>
+        <div class="row product pad-bot-50">
+            @foreach (var item in Model.Sale_Products)
+            {
+                <div class="col-sm-3">
+                    <div class="product-thumbnail">
+                        <div class="product-image">
+                            <img alt="image" class="img-responsive" src="@item.PicPath">
+                            <div class="thumbnail-btns">
+                                <a class="btn btn-lg btn-theme-inverse" href="product-single.html"><i class="pe-7s-glasses pe-2x"></i></a>
+                                <a class="btn btn-lg btn-theme-inverse" href="@Url.Action("productpage","CustomerSide_Product",new { ProId=item.Id})"><i class="icon-basket"></i></a>
                             </div>
                         </div>
-                        <div class="product-info">
-                            <h3 class="text-darker"><a href="#"><small>@item.Title</small></a></h3>
-                            @if (item.offType == 1 || item.offType == 0)
+                    </div>
+                    <div class="product-info">
+                        <h3 class="text-darker"><a href="#"><small>@item.Title</small></a></h3>
+                        @if (item.offType == 1 || item.offType == 0)
+                        {
+                            if (item.PriceShowType == 1)
                             {
-                                if (item.PriceShowType == 1)
-                                {
-                                    <h6 class="price">@item.PricePerQ</h6>
-                                }
-                                else
-                                {
-                                    <h6 class="price">@item.PriceXQ</h6>
-                                }
-
+                                <h6 class="price">@item.PricePerQ</h6>
                             }
                             else
                             {
-                                if (item.PriceShowType == 1)
-                                {
-                                    <h6 class="price tshtdlt">@item.PricePerQ</h6>
-                                    <h6 class="price">@item.OffPrice</h6>
-                                }
-                                else
-                                {
-                                    <h6 class="price tshtdlt">@item.PriceXQ</h6>
-                                    <h6 class="price">@item.OffPrice</h6>
-                                }
-
+                                <h6 class="price">@item.PriceXQ</h6>
                             }
-                        </div>
+
+                        }
+                        else
+                        {
+                            if (item.PriceShowType == 1)
+                            {
+                                <h6 class="price tshtdlt">@item.PricePerQ</h6>
+                                <h6 class="price">@item.OffPrice</h6>
+                            }
+                            else
+                            {
+                                <h6 class="price tshtdlt">@item.PriceXQ</h6>
+                                <h6 class="price">@item.OffPrice</h6>
+                            }
+
+                        }
                     </div>
-                }
+                </div>
+            }
 
-            </div>
         </div>
-
     </div>
+
+</div>
 
 
 
@@ -268,110 +268,18 @@
 
 
 @section CS_Scripts {
-    @*<script>
-        var MPCs;
-     $(document).ready(function () {
-         PostJson = {
-                'id': @Model.ProductModel.Id
-            };
 
-
-            $.ajax({
-                url: '/CustomerSide_Product/GetMPCs',
-                type: "post",
-                data: JSON.stringify(PostJson),
-                contentType: "application/json; charset=utf-8",
-                success: function (response) {
-                   MPCs = response;
-                    CheckChanges();
-                    alert("done");
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert(textStatus);
-                }
-            });
-    });
-
-        function CheckChangesSS() {
-            alert("change");
-        }
-
-        function CheckChanges() {
-        
-        var json = '{';
-        var otArr = [];
-        $('.PandaSelect123').each(function (e, obj) {
-
-            var idSelected = obj.id.replace("exampleSelect2-", "");
-            var ids = $('#exampleSelect2-' + idSelected+' option:selected').val();
-
-            if (idSelected != "") {
-                otArr.push('"' + idSelected + '":' + ids);
-            }
-
-        });
-
-        json += otArr.join(",") + '}';
-
-        $(MPCs).each(function (e, obj) {
-            
-             
-            if (obj.JsonProperty == json) {
-               
-                //if (obj.PriceXQ != obj.PriceOff) {
-                //    $('#off_price_div').text(obj.PriceXQ);
-                //} else {
-                //    $('#off_price_div').text("");
-                //}
-
-
-                if ($('#Number_inp').val() >= obj.MultyPriceStartFromQ && obj.HAsMultiPrice == 1) {
-
-                    $('OffVal').show();
-                    $('OffVal').text("قیمت عمده");
-                    if (obj.PriceShowType == 1) {
-                        $('#PriceShow1').text(obj.MultyPrice);
-                        $('#PriceShow2').text(obj.MultyPrice);
-                    } else {
-                        $('#PriceShow1').text(obj.MultyPriceXQ);
-                        $('#PriceShow2').text(obj.MultyPriceXQ);
-                    }
-
-                } else {
-                    $('OffVal').hide();
-                     if (obj.PriceShowType == 1) {
-                        $('#PriceShow1').text(obj.PricePerQ);
-                        $('#PriceShow2').text(obj.PricePerQ);
-                    } else {
-                        $('#PriceShow1').text(obj.PriceXQ);
-                        $('#PriceShow2').text(obj.PriceXQ);
-                    }
-                }
-            }
-            
-        });
-
-
-    }
-    </script>*@
 
 
 
 
     <script>
-        var revapi;
-        var MPCs;
-
         $(document).ready(function () {
             alert("Hello");
         });
+        var MPCs;
 
 
-
-
-
-        jQuery(document).ready(function () {
-            alert("Hello");
 
          PostJson = {
                 'id': @Model.ProductModel.Id
@@ -401,47 +309,6 @@
             }, 3000);
 
 
-            revapi = jQuery("#rev_slider_1").revolution({
-                sliderType: "standard",
-                sliderLayout: "fullscreen",
-                fullScreenOffsetContainer: ".navigation",
-                delay: 9000,
-                navigation: {
-                    keyboardNavigation: "off",
-                    mouseScrollNavigation: "on",
-                    onHoverStop: "off",
-                    touch: {
-                        touchenabled: "on",
-                        swipe_threshold: 75,
-                        swipe_min_touches: 1,
-                        swipe_direction: "horizontal",
-                        drag_block_vertical: false
-                    },
-                    bullets: {
-                        enable: true,
-                        rtl: true,
-                        hide_onmobile: false,
-                        style: "hebe",
-                        hide_onleave: false,
-                        direction: "horizontal",
-                        h_align: "center",
-                        v_align: "bottom",
-                        h_offset: 0,
-                        v_offset: 10,
-                        space: 5,
-                        tmp: '<span class="tp-bullet-inner"></span>'
-                    }
-                },
-                responsiveLevels: [4096, 1024, 767, 480],
-                gridwidth: 1230,
-                gridheight: 720
-            });
-
-            $("#LoaderSpinner").hide(0);
-        }); /*ready*/
-    </script>
-
-    <script>
         var x, i, j, selElmnt, a, b, c;
         x = document.getElementsByClassName("custom-select");
         for (i = 0; i < x.length; i++) {
@@ -503,4 +370,4 @@
         document.addEventListener("click", closeAllSelect);
     </script>
 
-    }
+}
