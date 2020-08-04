@@ -92,7 +92,7 @@
                                                         @item.NameSub
                                                     </span>
                                                     <div class="custom-select" style="width:200px;">
-                                                        <select id="exampleSelect2-@item.Id" class="PandaSelect123" onchange="return CheckChangesSS()">
+                                                        <select id="exampleSelect2-@item.Id" class="PandaSelect123" onchange="return CheckChanges()">
                                                             <option value="0">انتخاب @item.NameSub</option>
 
                                                             @foreach (var item2 in item.Subs)
@@ -108,9 +108,9 @@
 
                                         </div>
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                            <input type='button' value='-' class='qtyminus btn shcqm' title='quantity1' />
-                                            <input id="Number_inp" type='text' name='quantity1' value='1' class='qty' readonly="" onchange="return CheckChangesSS()" />
-                                            <input type='button' value='+' class='qtyplus btn shcqp' title='quantity1' />
+                                            <input type='button' value='-' class='qtyminus btn shcqm' title='quantity1' onclick="return CheckChanges()"/>
+                                            <input id="Number_inp" type='text' name='quantity1' value='1' class='qty' readonly=""  />
+                                            <input type='button' value='+' class='qtyplus btn shcqp' title='quantity1' onclick="return CheckChanges()"/>
                                             <p>متر</p>
                                         </div>
 
@@ -273,15 +273,13 @@
 
 
 
-    <script>
+    <script> 
+        var MPCs;
         $(document).ready(function () {
             alert("Hello");
-        });
-        var MPCs;
 
 
-
-         PostJson = {
+             PostJson = {
                 'id': @Model.ProductModel.Id
             };
 
@@ -300,6 +298,81 @@
                     alert(textStatus);
                 }
             });
+        });
+
+        function Changeee() {
+            alert("Helloooooo");
+            return false;
+        }
+
+        function CheckChangesSS() {
+            alert("change");
+            return false;
+        }
+
+        
+
+
+         
+
+        function CheckChanges() {
+        
+        var json = '{';
+        var otArr = [];
+        $('.PandaSelect123').each(function (e, obj) {
+
+            var idSelected = obj.id.replace("exampleSelect2-", "");
+            var ids = $('#exampleSelect2-' + idSelected+' option:selected').val();
+
+            if (idSelected != "") {
+                otArr.push('"' + idSelected + '":' + ids);
+            }
+
+        });
+
+        json += otArr.join(",") + '}';
+
+        $(MPCs).each(function (e, obj) {
+            
+             
+            if (obj.JsonProperty == json) {
+               
+                //if (obj.PriceXQ != obj.PriceOff) {
+                //    $('#off_price_div').text(obj.PriceXQ);
+                //} else {
+                //    $('#off_price_div').text("");
+                //}
+
+
+                if ($('#Number_inp').val() >= obj.MultyPriceStartFromQ && obj.HAsMultiPrice == 1) {
+
+                    $('OffVal').show();
+                    $('OffVal').text("قیمت عمده");
+                    if (obj.PriceShowType == 1) {
+                        $('#PriceShow1').text(obj.MultyPrice);
+                        $('#PriceShow2').text(obj.MultyPrice);
+                    } else {
+                        $('#PriceShow1').text(obj.MultyPriceXQ);
+                        $('#PriceShow2').text(obj.MultyPriceXQ);
+                    }
+
+                } else {
+                    $('OffVal').hide();
+                     if (obj.PriceShowType == 1) {
+                        $('#PriceShow1').text(obj.PricePerQ);
+                        $('#PriceShow2').text(obj.PricePerQ);
+                    } else {
+                        $('#PriceShow1').text(obj.PriceXQ);
+                        $('#PriceShow2').text(obj.PriceXQ);
+                    }
+                }
+            }
+            
+        });
+
+
+    }
+
             ///////////////////////////
 
 

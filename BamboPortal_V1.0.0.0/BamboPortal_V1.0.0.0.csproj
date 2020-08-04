@@ -171,6 +171,7 @@
     <Compile Include="Models\AdministratorProductsModels\ReturnInputsOfSubCategorykeyValues.cs" />
     <Compile Include="Models\AdministratorProductsModels\ReturnInputsOfSubCategorykeyValuesGetSubmiter.cs" />
     <Compile Include="Models\AdministratorProductsModels\SaveDataToStockpileStep5.cs" />
+    <Compile Include="Models\AdministratorStockpile\InOutStructure.cs" />
     <Compile Include="Models\AdministratorStockpile\Shops.cs" />
     <Compile Include="Models\AdministratorStockpile\ShowPSID.cs" />
     <Compile Include="Models\AdministratorStockpile\StockpileTransactionHistoryModel.cs" />

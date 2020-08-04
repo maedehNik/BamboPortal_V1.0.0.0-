@@ -878,7 +878,7 @@ namespace BamboPortal_V1._0._0._0.ModelFiller.CustomerSide
             }
             return res;
         }
-
+        //String.Format("{0:n0}", dt.Rows[i]["PriceOf_Transaction"].ToString())
         public Product_DesignerModel SingleProduct(int Id, string DateType)
         {
             var res = new Product_DesignerModel();
