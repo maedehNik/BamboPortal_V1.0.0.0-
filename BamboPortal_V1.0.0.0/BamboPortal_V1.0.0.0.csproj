@@ -154,6 +154,9 @@
     </Compile>
     <Compile Include="ModelFiller\CustomerSide\CustomerModelFiller.cs" />
     <Compile Include="Models\Administrator.cs" />
+    <Compile Include="Models\AdministratorCustomers\AddressModel.cs" />
+    <Compile Include="Models\AdministratorCustomers\CustomerDetail.cs" />
+    <Compile Include="Models\AdministratorCustomers\CustomerModel.cs" />
     <Compile Include="Models\AdministratorGeneralModels\changeAuthInformation.cs" />
     <Compile Include="Models\AdministratorGeneralModels\ChangeProfileModel.cs" />
     <Compile Include="Models\AdministratorProductsModels\AddProductSemiFinalSubmitToCreateProducts.cs" />
@@ -258,6 +261,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AdminDesignResource\app\js\adminPanelMainControllerJS.js" />
+    <Content Include="AdminDesignResource\app\js\Admin_Customers.js" />
     <Content Include="AdminDesignResource\app\js\dashboard.js" />
     <Content Include="AdminDesignResource\app\js\jqueryvalidate.js" />
     <Content Include="AdminDesignResource\app\js\layout-builder.js" />
@@ -3229,6 +3233,8 @@
     <Content Include="Views\CustomerSide_Product\test.cshtml" />
     <Content Include="Views\CustomerSide_Product\ShoppingCartSlide.cshtml" />
     <Content Include="Views\AdministratorStockpile\ProductInStockpile.cshtml" />
+    <Content Include="Views\AdministratorCustomers\Customers.cshtml" />
+    <Content Include="Views\AdministratorCustomers\CustomerProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
