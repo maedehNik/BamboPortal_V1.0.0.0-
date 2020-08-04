@@ -4,6 +4,7 @@ using BamboPortal_V1._0._0._0.Models.AdministratorProductsModels;
 using BamboPortal_V1._0._0._0.Models.AdministratorStockpile;
 using BamboPortal_V1._0._0._0.Models.UsefulModels;
 using BamboPortal_V1._0._0._0.ModelViews.AdministratorStockpile;
+using BamboPortal_V1._0._0._0.nonStaticUsefulClass.Stockpile;
 using BamboPortal_V1._0._0._0.StaticClass;
 using BamboPortal_V1._0._0._0.StaticClass.BugReporter;
 using MD.PersianDateTime;
@@ -21,9 +22,65 @@ namespace BamboPortal_V1._0._0._0.Controllers
         // GET: AdministratorStockpile
         public ActionResult Index()
         {
+            PDBC db = new PDBC();
+            db.Connect();
+            indexModelView model = new indexModelView()
+            {
+                Table = new List<indexTableModel>()
+            };
 
+            using (DataTable dt = db.Select("SELECT [id_MPC] ,[code_Stockpile] ,[Title] ,[shop_name] ,[shop_IsAvailable]  ,[shop_IsDelete] ,[MoneyTypeName] ,[PQT_Demansion] FROM [v_Stockpile_MainView]"))
+            {
+                int dtrowscount = dt.Rows.Count;
+                indexTableModel tableModel;
+                for (int i = 0; i < dtrowscount; i++)
+                {
+                    tableModel = new indexTableModel();
+                    using (DataTable dtSadere = db.Select("SELECT  SUM([PriceOf_Transaction]) AS [SaderePriceOf_Transaction] ,SUM([PQTValueOf_Transaction]) AS [SaderePQTValueOf_Transaction] FROM [v_Stockpile_Transactions] WHERE [id_MPC] = " + dt.Rows[i]["id_MPC"].ToString() + " AND [id_TransactionType] =2"))
+                    {
+                        using (DataTable dtVarede = db.Select("SELECT  SUM([PriceOf_Transaction]) AS [VaredePriceOf_Transaction] ,SUM([PQTValueOf_Transaction]) AS [VaredePQTValueOf_Transaction] FROM [v_Stockpile_Transactions] WHERE [id_MPC] = " + dt.Rows[i]["id_MPC"].ToString() + " AND [id_TransactionType] =1"))
+                        {
+                            if (dtVarede.Rows[0]["VaredePriceOf_Transaction"] != null && !string.IsNullOrEmpty(dtVarede.Rows[0]["VaredePriceOf_Transaction"].ToString()) && !string.IsNullOrEmpty(dtVarede.Rows[0]["VaredePQTValueOf_Transaction"].ToString()) && dtVarede.Rows[0]["VaredePQTValueOf_Transaction"] != null)
+                            {
+                                tableModel.AllEnteredPrice = String.Format("{0:n0}", dtVarede.Rows[0]["VaredePriceOf_Transaction"].ToString());
+                                tableModel.AllEnteredValue = String.Format("{0:n0}", dtVarede.Rows[0]["VaredePQTValueOf_Transaction"].ToString());
+                            }
+                            else
+                            {
+                                tableModel.AllEnteredPrice = "0 " + dt.Rows[i]["MoneyTypeName"].ToString();
+                                tableModel.AllEnteredValue = "0 " + dt.Rows[i]["PQT_Demansion"].ToString();
 
-            return View();
+                            }
+                            if (!string.IsNullOrEmpty(dtSadere.Rows[0]["SaderePriceOf_Transaction"].ToString()) && !string.IsNullOrEmpty(dtSadere.Rows[0]["SaderePQTValueOf_Transaction"].ToString()) && dtSadere.Rows[0]["SaderePriceOf_Transaction"] != null && dtSadere.Rows[0]["SaderePQTValueOf_Transaction"] != null)
+                            {
+                                tableModel.AllOutPriece = String.Format("{0:n0}", dtSadere.Rows[0]["SaderePriceOf_Transaction"].ToString());
+                                tableModel.AllOutValue = String.Format("{0:n0}", dtSadere.Rows[0]["SaderePQTValueOf_Transaction"].ToString());
+                            }
+                            else
+                            {
+                                tableModel.AllOutPriece = "0 " + dt.Rows[i]["MoneyTypeName"].ToString();
+                                tableModel.AllOutValue = "0 " + dt.Rows[i]["PQT_Demansion"].ToString();
+                            }
+
+                        }
+                    }
+                    if (i != 0 && i % 15 == 0)
+                    {
+                        db.DC();
+                        db.Connect();
+                    }
+                    tableModel.ProductName = dt.Rows[i]["Title"].ToString();
+                    tableModel.rowNumber = i + 1;
+                    tableModel.Shopname = dt.Rows[i]["shop_name"].ToString();
+                    tableModel.ProductDimension = dt.Rows[i]["PQT_Demansion"].ToString();
+                    tableModel.ProductCode = dt.Rows[i]["code_Stockpile"].ToString();
+                    tableModel.id_MPC = dt.Rows[i]["id_MPC"].ToString();
+                    model.Table.Add(tableModel);
+                }
+                db.DC();
+            }
+
+            return View(model);
         }
         [HttpGet]
         public ActionResult ProductInStockpile(int PSID)
@@ -39,7 +96,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
             pars.Add(par);
             string id_MProductReal = "";
             db.Connect();
-            using (DataTable dtproduct = db.Select("SELECT [id_MProduct],[MultyPriceStartFromQ],[code_Stockpile],[Description],[MultyPrice],[Title],[PricePerquantity] FROM [v_Connector_MainProductConnectorToProduct] WHERE [id_MPC] = @id_MPC", pars))
+            using (DataTable dtproduct = db.Select("SELECT [MoneyTypeName],[PQT_Demansion], [id_MProduct],[MultyPriceStartFromQ],[code_Stockpile],[Description],[MultyPrice],[Title],[PricePerquantity] FROM [v_Connector_MainProductConnectorToProduct] WHERE [id_MPC] = @id_MPC", pars))
             {
                 db.DC();
                 if (dtproduct.Rows.Count > 0)
@@ -48,18 +105,21 @@ namespace BamboPortal_V1._0._0._0.Controllers
 
                     model.ShowPSIDs = new ShowPSID()
                     {
-                        id_MPC = PSID.ToString(),//check
+                        id_MPC = PSID.ToString(),
                         MultyPriceStartFromQ = dtproduct.Rows[0]["MultyPriceStartFromQ"].ToString(),
-                        PicList = new List<string>(),//check
+                        PicList = new List<string>(),
                         ProductCode = dtproduct.Rows[0]["code_Stockpile"].ToString(),
                         ProductDescription = dtproduct.Rows[0]["Description"].ToString(),
                         ProductMultyPrice = dtproduct.Rows[0]["MultyPrice"].ToString(),
                         ProductName = dtproduct.Rows[0]["Title"].ToString(),
                         ProductPurePrice = dtproduct.Rows[0]["PricePerquantity"].ToString(),
-                        ShopAvailable4Transaction = new List<Key_ValueModel>(),//check
-                        ShopList = new List<Shops>(),//check
-                        socKandSockvlList = new List<ProductViewDetails_ProductSOCKandSOCKVLList>(),//check
-                        STHList = new List<StockpileTransactionHistoryModel>()//check
+                        ShopAvailable4Transaction = new List<Key_ValueModel>(),
+                        ShopList = new List<Shops>(),
+                        socKandSockvlList = new List<ProductViewDetails_ProductSOCKandSOCKVLList>(),
+                        STHList = new List<StockpileTransactionHistoryModel>()
+                        ,
+                        MoneyType = dtproduct.Rows[0]["MoneyTypeName"].ToString(),
+                        demansion = dtproduct.Rows[0]["PQT_Demansion"].ToString(),
                     };
                 }
                 else
@@ -88,6 +148,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
             using (DataTable dtstock = db.Select("SELECT  [id_Stockpile]  ,[id_Stockpile_AllowType] ,[shop_id] ,[shop_name] ,[shop_IsAvailable] ,[shop_IsDelete]  FROM [v_Stockpile_MainView] WHERE [id_MPC] = " + PSID))
             {
                 db.DC();
+                AmountOfProductsLeft AOPL = new AmountOfProductsLeft();
                 for (int i = 0; i < dtstock.Rows.Count; i++)
                 {
                     bool CalCulatingFromShops = false;
@@ -101,7 +162,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                         ISActivate = true;
                     }
                     //ProductCALCULATOR
-                    Int64 ProductAvailableCount = 0;
+                    Int64 ProductAvailableCount = AOPL.CanBuyThisProductFromThisShop(PSID.ToString(), dtstock.Rows[i]["shop_id"].ToString(), -1);
                     string BootstrapColor = "";
                     if (ProductAvailableCount > 200)
                     {
@@ -242,7 +303,8 @@ namespace BamboPortal_V1._0._0._0.Controllers
                         historyModel.ShopID = dt.Rows[i]["shop_id"].ToString();
                         historyModel.ShopName = dt.Rows[i]["shop_name"].ToString();
                         historyModel.Mojoodi = "0";
-                        historyModel.TransActionDate = dt.Rows[i]["StockpileDate_Transaction"].ToString() + " " + dt.Rows[i]["StockpileTime_Transaction"].ToString();
+                        PersianDateTime pdt = new PersianDateTime(DateTime.Parse(dt.Rows[i]["StockpileDate_Transaction"].ToString()));
+                        historyModel.TransActionDate = pdt.ToLongDateString() + " " + dt.Rows[i]["StockpileTime_Transaction"].ToString();
                         historyModel.Dimension = dt.Rows[i]["PQT_Demansion"].ToString();
 
                         if (dt.Rows[i]["id_TransactionType"].ToString() == "1")
@@ -360,14 +422,28 @@ namespace BamboPortal_V1._0._0._0.Controllers
                                             _VALUE = dtStockpile.Rows[0]["id_Stockpile"].ToString()
                                         };
                                         allpars.Add(par);
-                                        par = new ExcParameters()
+                                        if (SenderObj.InOutStructures.Whichone == "1")
                                         {
-                                            _KEY = "@shop_id",
-                                            _VALUE = SenderObj.InOutStructures.Shopid
-                                        };
-                                        allpars.Add(par);
-                                        DateTime dateTime = DateTime.Parse(SenderObj.InOutStructures.ActionDate);
-                                        PersianDateTime persianDateTime = new PersianDateTime(dateTime);
+                                            par = new ExcParameters()
+                                            {
+                                                _KEY = "@shop_id",
+                                                _VALUE = SenderObj.InOutStructures.Shopid1
+                                            };
+                                            allpars.Add(par);
+                                        }
+                                        else
+                                        {
+                                            par = new ExcParameters()
+                                            {
+                                                _KEY = "@shop_id",
+                                                _VALUE = SenderObj.InOutStructures.shopid2
+                                            };
+                                            allpars.Add(par);
+                                        }
+                                        string[] dates = SenderObj.InOutStructures.ActionDate.Split('/');
+                                        string[] times = SenderObj.InOutStructures.Time.Split(':');
+                                        PersianDateTime persianDateTime = new PersianDateTime(Convert.ToInt32(dates[0]), Convert.ToInt32(dates[1]), Convert.ToInt32(dates[2]), Convert.ToInt32(times[0]), Convert.ToInt32(times[1]), 0);
+
 
                                         par = new ExcParameters()
                                         {

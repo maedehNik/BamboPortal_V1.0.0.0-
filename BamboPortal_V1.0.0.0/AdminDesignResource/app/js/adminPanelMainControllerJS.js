@@ -312,8 +312,64 @@
     }
     //{END}For administrator MultipartUploaderSubmiter
     //=================================================================================================
-
-
+    //=================================================================================================
+    //{Start}For AdministratorStockpile GetVaredeAndSadere - Varede
+    if ($("#AddVaredeSubmiter").length == 1) {
+        $(function () {
+            $("#AddVaredeSubmiter").on("submit", function (e) {
+                e.preventDefault();
+                DisableBTN("AddVaredeSubmiter");
+                $.ajax({
+                    url: this.action,
+                    type: this.method,
+                    data: $(this).serialize(),
+                    success: function (data) {
+                        console.log(data)
+                        const jsondata = data;
+                        console.log(jsondata.Errortype)
+                        if (jsondata.Errortype == "Success") {
+                            AlertToUser("AddVaredeSubmiter", data);
+                        } else if (jsondata.Errortype == "ErrorWithList") {
+                            AlertToUser("AddVaredeSubmiter", data);
+                        } else {
+                            AlertToUser("AddVaredeSubmiter", data);
+                        }
+                    }
+                });
+            });
+        });
+    }
+    //{END}For AdministratorStockpile GetVaredeAndSadere - Varede
+    //=================================================================================================
+    //=================================================================================================
+    //{Start}For AdministratorStockpile GetVaredeAndSadere - Sadere
+    if ($("#AddSadereSubmiter").length == 1) {
+        $(function () {
+            $("#AddSadereSubmiter").on("submit", function (e) {
+                e.preventDefault();
+                DisableBTN("AddSadereSubmiter");
+                $.ajax({
+                    url: this.action,
+                    type: this.method,
+                    data: $(this).serialize(),
+                    success: function (data) {
+                        console.log(data)
+                        const jsondata = data;
+                        console.log(jsondata.Errortype)
+                        if (jsondata.Errortype == "Success") {
+                            AlertToUser("AddSadereSubmiter", data);
+                        } else if (jsondata.Errortype == "ErrorWithList") {
+                            AlertToUser("AddSadereSubmiter", data);
+                        } else {
+                            AlertToUser("AddVaredeSubmiter", data);
+                        }
+                    }
+                });
+            });
+        });
+    }
+    //{END}For AdministratorStockpile GetVaredeAndSadere - Sadere
+    //=================================================================================================
 
 
 

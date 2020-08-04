@@ -290,9 +290,9 @@
                                                     <td class=" tshaftermarginright">
                                                         @item.TotalPriceOfsadere
                                                     </td>
-                                                    <td>
-                                                        @item.Mojoodi
-                                                    </td>
+                                                    @*<td>
+                                                            @item.Mojoodi
+                                                        </td>*@
                                                     <td>
                                                         @item.ShopName
                                                     </td>
@@ -377,15 +377,15 @@
                                     @Html.LabelFor(m => m.InOutStructures.ActionDate, "تاریخ", new { @class = "col-12 col-form-label tshtextright" })
                                     <div style="position: relative" class="col-12">
                                         @*<input class="form-control" type="text" name="sv1" id="pdpDefault" />*@
-                                        @Html.TextBoxFor(m => m.InOutStructures.ActionDate, new { @class = "form-control", @placeholder = "تاریخ" })
+                                        @Html.TextBoxFor(m => m.InOutStructures.ActionDate, new { @class = "form-control DatePicker", @placeholder = "تاریخ", @readonly = "realonly" })
                                     </div>
                                     @Html.ValidationMessageFor(m => m.InOutStructures.ActionDate)
                                 </div>
                                 <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
-                                    @Html.LabelFor(m => m.InOutStructures.Time, "ساعت", new { @class = "col-12 tshtextright col-form-label" })
+                                    @Html.LabelFor(m => m.InOutStructures.Time, "ساعت", new { @class = " col-12 tshtextright col-form-label" })
                                     <div class="clockpicker col-12">
                                         @*<input type="text" class="form-control ttime" name="sv2" id="time">*@
-                                        @Html.TextBoxFor(m => m.InOutStructures.Time, new { @class = "form-control ttime", @placeholder = "ساعت" })
+                                        @Html.TextBoxFor(m => m.InOutStructures.Time, new { @class = "TimePicker form-control ttime", @placeholder = "ساعت", @readonly = "realonly" })
                                     </div>
                                     @Html.ValidationMessageFor(m => m.InOutStructures.Time)
                                 </div>
@@ -395,9 +395,9 @@
                                     @Html.LabelFor(m => m.InOutStructures.INOUTValue, "میزان وارده", new { @class = "col-12 tshtextright col-form-label" })
                                     <div class="col-12" style="position: relative">
                                         @*<input class="form-control m-input" id="sv5" name="sv5" type="number" value="">*@
-                                        @Html.TextBoxFor(m => m.InOutStructures.INOUTValue, new { @class = "form-control m-input", @placeholder = "میزان وارده" })
+                                        @Html.TextBoxFor(m => m.InOutStructures.INOUTValue, new { @class = "onlynum form-control m-input", @placeholder = "میزان وارده" })
                                         <div class="input-group-append" style="position: absolute;top: 0;left: 15px;">
-                                            <span class="input-group-text">گرم</span>
+                                            <span class="input-group-text">@Model.ShowPSIDs.demansion</span>
                                         </div>
                                         @Html.ValidationMessageFor(m => m.InOutStructures.INOUTValue)
                                     </div>
@@ -407,9 +407,9 @@
                                     @Html.LabelFor(m => m.InOutStructures.INOUTPrice, "قیمت وارده", new { @class = "col-12 tshtextright col-form-label" })
                                     <div class="col-12" style="position: relative">
                                         @*<input class="form-control m-input" id="sv6" name="sv6" type="number" value="">*@
-                                        @Html.TextBoxFor(m => m.InOutStructures.INOUTPrice, new { @class = "form-control m-input", @placeholder = "قیمت وارده" })
+                                        @Html.TextBoxFor(m => m.InOutStructures.INOUTPrice, new { @class = "onlynum form-control m-input", @placeholder = "قیمت وارده" })
                                         <div class="input-group-append" style="position: absolute;top: 0;left: 15px;">
-                                            <span class="input-group-text">تومان</span>
+                                            <span class="input-group-text">@Model.ShowPSIDs.MoneyType</span>
                                         </div>
                                         @Html.ValidationMessageFor(m => m.InOutStructures.INOUTPrice)
                                     </div>
@@ -418,24 +418,24 @@
                             <div class="row">
                                 <div class="form-group m-form__group col-lg-12 col-xs-12">
                                     @*<label for="sv7" class="col-12 tshtextright col-form-label">انبار</label>*@
-                                    @Html.LabelFor(m => m.InOutStructures.Shopid, "انبار", new { @class = "col-12 tshtextright col-form-label" })
+                                    @Html.LabelFor(m => m.InOutStructures.Shopid1, "انبار", new { @class = "col-12 tshtextright col-form-label" })
                                     <div class="col-12">
-                                        <select style="width:100%!important" class="form-control m-bootstrap-select m_selectpicker Select2Tshp" name="InOutStructures.Shopid" id="InOutStructures_Shopid" title="انتخاب کنید...">
+                                        <select style="width:100%!important" class="form-control m-bootstrap-select m_selectpicker Select2Tshp1" name="InOutStructures.Shopid1" id="InOutStructures_Shopid1" title="انتخاب کنید...">
                                             <option value=0 selected disabled hidden>یک مورد را انتخاب نمایید</option>
                                             @foreach (var item in Model.ShowPSIDs.ShopAvailable4Transaction)
                                             {
                                                 <option value=@item.Id>@item.Value</option>
                                             }
                                         </select>
-                                        @Html.ValidationMessageFor(m => m.InOutStructures.Shopid)
+                                        @Html.ValidationMessageFor(m => m.InOutStructures.Shopid1)
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group col-lg-12 col-xs-12" style="padding-top: 0;">
                                     @*<label for="sv8" class="col-12 tshtextright col-form-label">جزئیات محصول</label>*@
-                                    @Html.LabelFor(m => m.InOutStructures.Description, "جزئیات محصول", new { @class = "col-12 tshtextright col-form-label" })
+                                    @Html.LabelFor(m => m.InOutStructures.Description, "جزئیات", new { @class = "col-12 tshtextright col-form-label" })
                                     <div class="col-12">
                                         @*<textarea name="sv8" id="sv8" class="form-control" style="height: 150px;padding-top: 15px;padding-bottom: 15px;"></textarea>*@
-                                        @Html.TextAreaFor(m => m.InOutStructures.Description, new { @class = "form-control", @style = "height: 150px;padding-top: 15px;padding-bottom: 15px;", @placeholder = "جزئیات محصول" })
+                                        @Html.TextAreaFor(m => m.InOutStructures.Description, new { @class = "form-control", @style = "height: 150px;padding-top: 15px;padding-bottom: 15px;", @placeholder = "جزئیات" })
                                     </div>
                                     @Html.ValidationMessageFor(m => m.InOutStructures.Description)
                                 </div>
@@ -446,7 +446,7 @@
                                         <div class="col-2">
                                         </div>
                                         <div class="col-12 tshtextleft">
-                                            <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom sv-form-btn">ثبت</button>&nbsp;&nbsp;
+                                            <button id="AddVaredeSubmiter_SubmitBTN" type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom sv-form-btn">ثبت</button>&nbsp;&nbsp;
                                         </div>
                                     </div>
                                 </div>
@@ -476,15 +476,15 @@
                                     @Html.LabelFor(m => m.InOutStructures.ActionDate, "تاریخ", new { @class = "col-12 col-form-label tshtextright" })
                                     <div style="position: relative" class="col-12">
                                         @*<input class="form-control" type="text" name="sv1" id="pdpDefault" />*@
-                                        @Html.TextBoxFor(m => m.InOutStructures.ActionDate, new { @class = "form-control", @placeholder = "تاریخ" })
+                                        @Html.TextBoxFor(m => m.InOutStructures.ActionDate, new { @class = "form-control DatePicker", @placeholder = "تاریخ", @readonly = "realonly" })
                                     </div>
                                     @Html.ValidationMessageFor(m => m.InOutStructures.ActionDate)
                                 </div>
                                 <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
-                                    @Html.LabelFor(m => m.InOutStructures.Time, "ساعت", new { @class = "col-12 tshtextright col-form-label" })
+                                    @Html.LabelFor(m => m.InOutStructures.Time, "ساعت", new { @class = " col-12 tshtextright col-form-label" })
                                     <div class="clockpicker col-12">
                                         @*<input type="text" class="form-control ttime" name="sv2" id="time">*@
-                                        @Html.TextBoxFor(m => m.InOutStructures.Time, new { @class = "form-control ttime", @placeholder = "ساعت" })
+                                        @Html.TextBoxFor(m => m.InOutStructures.Time, new { @class = "TimePicker form-control ttime", @placeholder = "ساعت", @readonly = "realonly" })
                                     </div>
                                     @Html.ValidationMessageFor(m => m.InOutStructures.Time)
                                 </div>
@@ -494,9 +494,9 @@
                                     @Html.LabelFor(m => m.InOutStructures.INOUTValue, "میزان صادره", new { @class = "col-12 tshtextright col-form-label" })
                                     <div class="col-12" style="position: relative">
                                         @*<input class="form-control m-input" id="sv5" name="sv5" type="number" value="">*@
-                                        @Html.TextBoxFor(m => m.InOutStructures.INOUTValue, new { @class = "form-control m-input", @placeholder = "میزان صادره" })
+                                        @Html.TextBoxFor(m => m.InOutStructures.INOUTValue, new { @class = "onlynum form-control m-input", @placeholder = "میزان صادره" })
                                         <div class="input-group-append" style="position: absolute;top: 0;left: 15px;">
-                                            <span class="input-group-text">گرم</span>
+                                            <span class="input-group-text">@Model.ShowPSIDs.demansion</span>
                                         </div>
                                         @Html.ValidationMessageFor(m => m.InOutStructures.INOUTValue)
                                     </div>
@@ -506,9 +506,9 @@
                                     @Html.LabelFor(m => m.InOutStructures.INOUTPrice, "قیمت صادره", new { @class = "col-12 tshtextright col-form-label" })
                                     <div class="col-12" style="position: relative">
                                         @*<input class="form-control m-input" id="sv6" name="sv6" type="number" value="">*@
-                                        @Html.TextBoxFor(m => m.InOutStructures.INOUTPrice, new { @class = "form-control m-input", @placeholder = "قیمت صادره" })
+                                        @Html.TextBoxFor(m => m.InOutStructures.INOUTPrice, new { @class = "onlynum form-control m-input", @placeholder = "قیمت صادره" })
                                         <div class="input-group-append" style="position: absolute;top: 0;left: 15px;">
-                                            <span class="input-group-text">تومان</span>
+                                            <span class="input-group-text">@Model.ShowPSIDs.MoneyType</span>
                                         </div>
                                         @Html.ValidationMessageFor(m => m.InOutStructures.INOUTPrice)
                                     </div>
@@ -517,24 +517,24 @@
                             <div class="row">
                                 <div class="form-group m-form__group col-lg-12 col-xs-12">
                                     @*<label for="sv7" class="col-12 tshtextright col-form-label">انبار</label>*@
-                                    @Html.LabelFor(m => m.InOutStructures.Shopid, "انبار", new { @class = "col-12 tshtextright col-form-label" })
+                                    @Html.LabelFor(m => m.InOutStructures.shopid2, "انبار", new { @class = "col-12 tshtextright col-form-label" })
                                     <div class="col-12">
-                                        <select style="width:100%!important" class="form-control m-bootstrap-select m_selectpicker Select2Tshp" name="InOutStructures.Shopid" id="InOutStructures_Shopid" title="انتخاب کنید...">
+                                        <select style="width:100%!important" class="form-control m-bootstrap-select m_selectpicker Select2Tshp" name="InOutStructures.shopid2" id="InOutStructures_shopid2" title="انتخاب کنید...">
                                             <option value=0 selected disabled hidden>یک مورد را انتخاب نمایید</option>
                                             @foreach (var item in Model.ShowPSIDs.ShopAvailable4Transaction)
                                             {
                                                 <option value=@item.Id>@item.Value</option>
                                             }
                                         </select>
-                                        @Html.ValidationMessageFor(m => m.InOutStructures.Shopid)
+                                        @Html.ValidationMessageFor(m => m.InOutStructures.shopid2)
                                     </div>
                                 </div>
                                 <div class="form-group m-form__group col-lg-12 col-xs-12" style="padding-top: 0;">
                                     @*<label for="sv8" class="col-12 tshtextright col-form-label">جزئیات محصول</label>*@
-                                    @Html.LabelFor(m => m.InOutStructures.Description, "جزئیات محصول", new { @class = "col-12 tshtextright col-form-label" })
+                                    @Html.LabelFor(m => m.InOutStructures.Description, "جزئیات", new { @class = "col-12 tshtextright col-form-label" })
                                     <div class="col-12">
                                         @*<textarea name="sv8" id="sv8" class="form-control" style="height: 150px;padding-top: 15px;padding-bottom: 15px;"></textarea>*@
-                                        @Html.TextAreaFor(m => m.InOutStructures.Description, new { @class = "form-control", @style = "height: 150px;padding-top: 15px;padding-bottom: 15px;", @placeholder = "جزئیات محصول" })
+                                        @Html.TextAreaFor(m => m.InOutStructures.Description, new { @class = "form-control", @style = "height: 150px;padding-top: 15px;padding-bottom: 15px;", @placeholder = "جزئیات" })
                                     </div>
                                     @Html.ValidationMessageFor(m => m.InOutStructures.Description)
                                 </div>
@@ -545,7 +545,7 @@
                                         <div class="col-2">
                                         </div>
                                         <div class="col-12 tshtextleft">
-                                            <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom sv-form-btn">ثبت</button>&nbsp;&nbsp;
+                                            <button id="AddSadereSubmiter_SubmitBTN" type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom sv-form-btn">ثبت</button>&nbsp;&nbsp;
                                         </div>
                                     </div>
                                 </div>
@@ -559,16 +559,27 @@
     </div>
 </div>
 @section Scripts {
+    @Scripts.Render("~/bundles/Select2.js")
     @Scripts.Render("~/bundles/StockpileProductPage.js")
     <script>
 
-
+        //onlynum
         $(document).ready(function () {
-
-
-            $('.clockpicker').clockpicker();
-            $("#pdpDefault").persianDatepicker({ alwaysShow: false, });
-            $("#pdpDefault2").persianDatepicker({ alwaysShow: false, });
+            $("#InOutStructures_shopid2").select2({
+                minimumResultsForSearch: -1
+            });
+            $("#InOutStructures_Shopid1").select2({
+                minimumResultsForSearch: -1
+            });
+            $('.TimePicker').each(function (index, element) {
+                $('.TimePicker').clockpicker();
+            });
+            $('.DatePicker').each(function (index, element) {
+                $(".DatePicker").persianDatepicker({ alwaysShow: false, });
+            });
+            $('.onlynum').each(function (index, element) {
+                $(this).inputmask({ mask: "9", repeat: 16, greedy: !1 });
+            });
             showSlides(slideIndex);
             $(".today").click();
             var now = new Date().toLocaleTimeString('en-US', {
@@ -577,118 +588,7 @@
                 minute: "numeric"
             });
             $(".ttime").val(now);
-            $("#sv-form").validate({
-                rules: {
-                    sv1: {
-                        required: true
-                    },
-                    sv2: {
-                        required: true
-                    },
-                    sv3: {
-                        required: true
-                    },
-                    sv4: {
-                        required: true
-                    },
-                    sv5: {
-                        required: true
-                    },
-                    sv6: {
-                        required: true
-                    },
-                    sv7: {
-                        required: true
-                    },
-                    sv8: {
-                        required: true
-                    },
-                },
-                messages: {
-                    sv1: {
-                        required: "تاریخ را انتخاب کنید"
-                    },
-                    sv2: {
-                        required: "ساعت را انتخاب کنید"
-                    },
-                    sv3: {
-                        required: "کد محصول را وارد کنید"
-                    },
-                    sv4: {
-                        required: "نام محصول را وارد کنید"
-                    },
-                    sv5: {
-                        required: "میزان وارده را وارد کنید"
-                    },
-                    sv6: {
-                        required: "قیمت وارده را وارد کنید"
-                    },
-                    sv7: {
-                        required: "انبار را انتخاب کنید"
-                    },
-                    sv8: {
-                        required: "جزئیات محصول را وارد کنید"
-                    },
-                }
-            });
-            $("#sv-form2").validate({
-                rules: {
-                    sv1: {
-                        required: true
-                    },
-                    sv2: {
-                        required: true
-                    },
-                    sv3: {
-                        required: true
-                    },
-                    sv4: {
-                        required: true
-                    },
-                    sv5: {
-                        required: true
-                    },
-                    sv6: {
-                        required: true
-                    },
-                    sv7: {
-                        required: true
-                    },
-                    sv8: {
-                        required: true
-                    },
-                },
-                messages: {
-                    sv1: {
-                        required: "تاریخ را انتخاب کنید"
-                    },
-                    sv2: {
-                        required: "ساعت را انتخاب کنید"
-                    },
-                    sv3: {
-                        required: "کد محصول را وارد کنید"
-                    },
-                    sv4: {
-                        required: "نام محصول را وارد کنید"
-                    },
-                    sv5: {
-                        required: "میزان صادره را وارد کنید"
-                    },
-                    sv6: {
-                        required: "قیمت صادره را وارد کنید"
-                    },
-                    sv7: {
-                        required: "انبار را انتخاب کنید"
-                    },
-                    sv8: {
-                        required: "جزئیات محصول را وارد کنید"
-                    },
-                }
-            });
-            //$(".tshdeacprod").on("click", function () {
-            //    var thisName = $(this).data("name");
-            //    $("#deactivemodal2").find("#data-name2").text(thisName);
-            //})
+
             $(".custom-chevron").on("click", function () {
                 if ($(this).hasClass("custom-chevron-active")) {
                     $(".rr-right").addClass("col-lg-4");
@@ -730,7 +630,7 @@
             slides[slideIndex - 1].style.display = "block";
             //dots[slideIndex - 1].className += " active";
         }
-                                                                                                                //===========================================
+                                                                                                                                //===========================================
     </script>
 
 }

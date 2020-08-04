@@ -1,4 +1,4 @@
-﻿
+﻿@model BamboPortal_V1._0._0._0.ModelViews.AdministratorStockpile.indexModelView
 @{
     Layout = "~/Views/SharedViewPages/Administrator/MasterView.cshtml";
 }
@@ -72,17 +72,15 @@
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3 mt-5" style="padding: 0;text-align: center">
                             <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 custom-padding-search" style="margin: 0 auto;">
 
-
                                 <div class="input-group input-group-lg m-input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1"><i class="fa fa-hashtag"></i></span>
                                     </div>
                                     <input id="search" type="text" class="form-control m-input" placeholder="" aria-describedby="basic-addon1">
-                                    <div class="input-group-append">
+                                    @*<div class="input-group-append">
                                         <button class="btn m-btn--square  btn-info m-btn m-btn--custom m-btn--bolder m-btn--uppercase" type="button">ثبت وارده / صادره</button>
-                                    </div>
+                                    </div>*@
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -100,140 +98,55 @@
                                                 <th>کد محصول</th>
                                                 <th>واحد شمارش</th>
                                                 <th>حجم وارده</th>
-                                                <th>میانگین قیمت واحد وارده</th>
                                                 <th>قیمت کل وارده</th>
                                                 <th>حجم صادره</th>
-                                                <th>میانگین قیمت واحد صادره</th>
                                                 <th>قیمت کل صادره</th>
-                                                <th>موجودی</th>
+                                                @*<th>موجودی</th>*@
                                                 <th>انبار</th>
-                                                <th>وضعیت</th>
+                                                @*<th>وضعیت</th>*@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr class='clickable-row' data-href='url://@Url.Action("ProductInStockpile","AdministratorStockpile")?PSID='>
-                                                <td>
-                                                    1
-                                                </td>
-                                                <td>
-                                                    بیلبیلک
-                                                </td>
-                                                <td class="tshbeforeht ProductCode " id="">
-                                                    MRM1
-                                                </td>
-                                                <td>
-                                                    متر
-                                                </td>
-                                                <td>
-                                                    100
-                                                </td>
-                                                <td class="tshaftertoman tshaftermarginright">
-                                                    500,000
-                                                </td>
-                                                <td class="tshaftertoman tshaftermarginright">
-                                                    500,000
-                                                </td>
-                                                <td>
-                                                    123123
-                                                </td>
-                                                <td class="tshaftertoman tshaftermarginright">
-                                                    123123
-                                                </td>
-                                                <td class="tshaftertoman tshaftermarginright">
-                                                    123123
-                                                </td>
-                                                <td>
-                                                    100
-                                                </td>
-                                                <td>
-                                                    تجریش
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-success tshpcustom deactivate-btn" data-target="#deactivemodal" data-toggle="modal" data-name="بیلبیلگ"><i class="fa fa-check tshfa"></i>فعال</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    3323
-                                                </td>
-                                                <td>
-                                                    بیلبیلک
-                                                </td>
-                                                <td class="tshbeforeht ProductCode " id="">
-                                                    ABC4
-                                                </td>
-                                                <td>
-                                                    متر
-                                                </td>
-                                                <td>
-                                                    100
-                                                </td>
-                                                <td class="tshaftertoman tshaftermarginright">
-                                                    500,007
-                                                </td>
-                                                <td class="tshaftertoman tshaftermarginright">
-                                                    500,006
-                                                </td>
-                                                <td>
-                                                    123123
-                                                </td>
-                                                <td class="tshaftertoman tshaftermarginright">
-                                                    123123
-                                                </td>
-                                                <td class="tshaftertoman tshaftermarginright">
-                                                    123123
-                                                </td>
-                                                <td>
-                                                    100
-                                                </td>
-                                                <td>
-                                                    تجریش
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-success tshpcustom deactivate-btn" data-target="#deactivemodal" data-toggle="modal" data-name="بیلبیلگ"><i class="fa fa-check tshfa"></i>فعال</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    4
-                                                </td>
-                                                <td>
-                                                    بیلبیلک
-                                                </td>
-                                                <td class="tshbeforeht ProductCode" id="">
-                                                    KLy6
-                                                </td>
-                                                <td>
-                                                    متر
-                                                </td>
-                                                <td>
-                                                    100
-                                                </td>
-                                                <td class="tshaftertoman tshaftermarginright">
-                                                    500,005
-                                                </td>
-                                                <td class="tshaftertoman tshaftermarginright">
-                                                    500,001
-                                                </td>
-                                                <td>
-                                                    123123
-                                                </td>
-                                                <td class="tshaftertoman tshaftermarginright">
-                                                    123123
-                                                </td>
-                                                <td class="tshaftertoman tshaftermarginright">
-                                                    123123
-                                                </td>
-                                                <td>
-                                                    100
-                                                </td>
-                                                <td>
-                                                    تجریش
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-success tshpcustom deactivate-btn" data-target="#deactivemodal" data-toggle="modal" data-name="بیلبیلگ"><i class="fa fa-check tshfa"></i>فعال</button>
-                                                </td>
-                                            </tr>
+                                            @foreach (var item in Model.Table)
+                                            {
+
+
+                                                <tr class='LinkedRow' data-href='@Url.Action("ProductInStockpile","AdministratorStockpile")?PSID=@item.id_MPC'>
+                                                    <td>
+                                                        @item.rowNumber
+                                                    </td>
+                                                    <td>
+                                                        @item.ProductName
+                                                    </td>
+                                                    <td class="tshbeforeht ProductCode " id="">
+                                                        @item.ProductCode
+                                                    </td>
+                                                    <td>
+                                                        @item.ProductDimension
+                                                    </td>
+                                                    <td>
+                                                        @item.AllEnteredValue
+                                                    </td>
+                                                    <td class=" tshaftermarginright">
+                                                        @item.AllEnteredPrice
+                                                    </td>
+                                                    <td class=" tshaftermarginright">
+                                                        @item.AllOutValue
+                                                    </td>
+                                                    <td>
+                                                        @item.AllOutPriece
+                                                    </td>
+                                                    @*<td>
+                                                            @item.Mojoodi
+                                                        </td>*@
+                                                    <td>
+                                                        @item.Shopname
+                                                    </td>
+                                                    @*<td>
+                                                            <button class="btn btn-success tshpcustom deactivate-btn" data-target="#deactivemodal" data-toggle="modal" data-name="بیلبیلگ"><i class="fa fa-check tshfa"></i>فعال</button>
+                                                        </td>*@
+                                                </tr>
+                                            }
                                         </tbody>
                                     </table>
 
@@ -498,6 +411,15 @@
 
 @section Scripts {
     <script>
+        jQuery(document).ready(function ($) {
+            $(".LinkedRow").click(function () {
+                window.location = $(this).data("href");
+            });
+
+        });
+
+
+
         $("#search").on("keyup", function () {
             var value = $(this).val().toLowerCase();
             $("tbody tr").filter(function () {

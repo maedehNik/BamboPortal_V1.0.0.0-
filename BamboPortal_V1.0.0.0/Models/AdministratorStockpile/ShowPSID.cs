@@ -21,5 +21,7 @@ namespace BamboPortal_V1._0._0._0.Models.AdministratorStockpile
         public List<string> PicList { get; set; }
         public string MultyPriceStartFromQ { get; set; }
         public List<Key_ValueModel> ShopAvailable4Transaction { get; set; }
+        public string demansion { get; set; }
+        public string MoneyType { get; set; }
     }
 }
