@@ -1,4 +1,5 @@
-﻿using BamboPortal_V1._0._0._0.DatabaseCenter.Class;
+﻿using BamboPortal_V1._0._0._0.BamboPortalSecurity.EncDec;
+using BamboPortal_V1._0._0._0.DatabaseCenter.Class;
 using BamboPortal_V1._0._0._0.ModelFiller.CustomerSide;
 using BamboPortal_V1._0._0._0.Models.CustomerSide;
 using BamboPortal_V1._0._0._0.ModelViews.CustomerSide;
@@ -13,29 +14,48 @@ namespace BamboPortal_V1._0._0._0.Controllers
 {
     public class CustomerSide_CustomerProfileController : CustomerSide_CustomerProfileRuleController
     {
-     
+
         public ActionResult customerProfile()
         {
             CustomerModelFiller modelFiller = new CustomerModelFiller();
-            ///این متغیر پر بشه
-            int CustomerId = 1009;
-            return View(modelFiller.customerDetail(CustomerId));
+            tbl_Customer_Main tcm = new tbl_Customer_Main();
+            var coockie = HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerCode());
+            if (coockie != null)
+            {
+                tcm = CoockieController.SayWhoIsHE(coockie.Value);
+                var Id = tcm.id_Customer;
+                return View(modelFiller.customerDetail(Convert.ToInt32(Id)));
+            }
+            else
+            {
+                return Content("Error");
+            }
         }
 
         public ActionResult customerProfileAddress()
         {
             CustomerModelFiller modelFiller = new CustomerModelFiller();
-            ///این متغیر پر بشه
-            int CustomerId = 1009;
-            var model = new customerAddressModelView()
+            tbl_Customer_Main tcm = new tbl_Customer_Main();
+            var coockie = HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerCode());
+            if (coockie != null)
             {
-                City = modelFiller.Ostanha(),
-                Addresses = modelFiller.CustomerAddresses(CustomerId)
+                tcm = CoockieController.SayWhoIsHE(coockie.Value);
+                var Id = tcm.id_Customer;
+                var model = new customerAddressModelView()
+                {
+                    City = modelFiller.Ostanha(),
+                    Addresses = modelFiller.CustomerAddresses(Convert.ToInt32(Id))
 
-            };
+                };
 
 
-            return View(model);
+                return View(model);
+
+            }
+            else
+            {
+                return Content("Error");
+            }
         }
 
         public ActionResult customerProfileHistory()
@@ -61,11 +81,12 @@ namespace BamboPortal_V1._0._0._0.Controllers
             return View();
         }
 
+        [HttpPost]
         public ActionResult AddCustomerAddress(string CityId, string FullAddress, string CodePosti)
         {
             tbl_Customer_Main tcm = new tbl_Customer_Main();
             var coockie = HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerCode());
-            if(coockie!=null)
+            if (coockie != null)
             {
                 tcm = CoockieController.SayWhoIsHE(coockie.Value);
                 var Id = tcm.id_Customer;
@@ -102,7 +123,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
 
                 db.Connect();
                 string result = db.Script("INSERT INTO [tbl_Customer_Address]([id_Customer],[ID_Shahr],[C_AddressHint],[C_FullAddress])VALUES(@Id,@CityId,@CodePosti,@FullAddress)", parss);
-                
+
 
                 db.DC();
 
@@ -115,11 +136,151 @@ namespace BamboPortal_V1._0._0._0.Controllers
                     return Content("Error");
                 }
 
-            }else
+            }
+            else
             {
                 return Content("Error");
             }
 
+        }
+
+        [HttpPost]
+        public ActionResult UpdateCustomerData(string name, string last, string phone, string email)
+        {
+
+            tbl_Customer_Main tcm = new tbl_Customer_Main();
+            var coockie = HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerCode());
+            if (coockie != null)
+            {
+                tcm = CoockieController.SayWhoIsHE(coockie.Value);
+                var Id = tcm.id_Customer;
+
+
+                PDBC db = new PDBC();
+                List<ExcParameters> parss = new List<ExcParameters>();
+                ExcParameters par = new ExcParameters()
+                {
+                    _KEY = "@Id",
+                    _VALUE = Id
+                };
+                parss.Add(par);
+
+                par = new ExcParameters()
+                {
+                    _KEY = "@name",
+                    _VALUE = name
+                };
+                parss.Add(par);
+
+                par = new ExcParameters()
+                {
+                    _KEY = "@last",
+                    _VALUE = last
+                };
+                parss.Add(par);
+
+                par = new ExcParameters()
+                {
+                    _KEY = "@phone",
+                    _VALUE = phone
+                };
+                parss.Add(par);
+
+                par = new ExcParameters()
+                {
+                    _KEY = "@email",
+                    _VALUE = email
+                };
+                parss.Add(par);
+
+
+                db.Connect();
+                string result = db.Script("UPDATE [tbl_Customer_Main] SET [C_Mobile] = @phone ,[C_FirstName] =@name ,[C_LastNAme] = @last ,[C_Email] =@email WHERE [id_Customer]=@Id", parss);
+
+                db.DC();
+
+                if (result == "1")
+                {
+                    return Content("Success");
+                }
+                else
+                {
+                    return Content("Error");
+                }
+
+            }
+            else
+            {
+                return Content("Error");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult UpdateCustomerPass(string PrePass, string Pass)
+        {
+            EncDec enc = new EncDec();
+            tbl_Customer_Main tcm = new tbl_Customer_Main();
+            var coockie = HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerCode());
+            if (coockie != null)
+            {
+                tcm = CoockieController.SayWhoIsHE(coockie.Value);
+                var Id = tcm.id_Customer;
+
+
+                PDBC db = new PDBC();
+                List<ExcParameters> parss = new List<ExcParameters>();
+                ExcParameters par = new ExcParameters()
+                {
+                    _KEY = "@Id",
+                    _VALUE = Id
+                };
+                parss.Add(par);
+
+                par = new ExcParameters()
+                {
+                    _KEY = "@PrePass",
+                    _VALUE =enc.HMACMD5Generator(PrePass)
+                };
+                parss.Add(par);
+
+                par = new ExcParameters()
+                {
+                    _KEY = "@Pass",
+                    _VALUE = enc.HMACMD5Generator(Pass)
+                };
+                parss.Add(par);
+
+
+                db.Connect();
+
+                int Count = Convert.ToInt32(db.Select("SELECT COUNT(*) FROM [tbl_Customer_Main] WHERE id_Customer=@Id AND C_Password LIKE @PrePass", parss).Rows[0][0]);
+
+                if (Count > 0)
+                {
+                    string result = db.Script("UPDATE [tbl_Customer_Main] SET [C_Password]=@Pass WHERE [id_Customer]=@Id", parss);
+                   db.DC();
+                    if (result == "1")
+                    {
+                        return Content("Success");
+                    }
+                    else
+                    {
+                        return Content("ErrorSQL");
+                    }
+                    
+                }
+                else
+                {
+                    db.DC();
+                    return Content("pre_Pass");
+                   
+                }
+
+            }
+            else
+            {
+                return Content("Error");
+            }
         }
 
     }
