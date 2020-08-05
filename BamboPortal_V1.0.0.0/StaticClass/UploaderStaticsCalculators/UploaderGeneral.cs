@@ -101,7 +101,7 @@ namespace BamboPortal_V1._0._0._0.StaticClass.UploaderStaticsCalculators
                 {
                     if (dt1.Rows.Count > 0)
                     {
-                        using (DataTable dt = db.Select("SELECT [thumUploadAddress],[orgUploadAddress] FROM [v_tblProduct_Image] WHERE [PicID] = " + id))
+                        using (DataTable dt = db.Select("SELECT [thumUploadAddress],[orgUploadAddress] FROM [v_tblProduct_Image] WHERE [PicID] = " + idMPC))
                         {
                             db.DC();
                             if (dt.Rows.Count > 0)
