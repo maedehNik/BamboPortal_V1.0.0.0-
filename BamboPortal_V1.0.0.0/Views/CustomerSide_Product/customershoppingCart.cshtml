@@ -35,21 +35,21 @@
                                     </div>
                                 </td>
                                 <td class="cart-item-price tblWhite first-price">
-                                    <span class="price" data-price="@item.PriceXQ" id="pricecalc-@item.Id">@item.PriceXQ</span>
+                                    <span  class="price" data-price="@item.PriceXQ" id="pricecalc-@item.Id">@item.PriceXQ</span>
                                 </td>
                                 <td class="cart-item-quantity tableGray">
                                     <div>
-                                        <input type='button' value='-' class='qtyminus btn shcqm' title='quantity1' />
-                                        <input type='text' name='quantity1' value='@item.number' class='qty' readonly="" onchange="return CalculatePriceCSC('@item.Id', this)" />
-                                        <input type='button' value='+' class='qtyplus btn shcqp' title='quantity1' />
+                                        <input type='button' id="L-@item.Id" value='-' class='qtyminus btn shcqm' title='quantity1' />
+                                        <input type='text' id="QT-@item.Id" name='quantity1' value='@item.number' class='qty' readonly=""   />
+                                        <input type='button' id="R-@item.Id" value='+' class='qtyplus btn shcqp' title='quantity1' />
                                         <p>متر</p>
                                     </div>
                                 </td>
                                 <td class="cart-item-price tblWhite last-price">
-                                    <span class="price total-items" >@item.total</span>
+                                    <span class="price total-items" id="last-price-@item.Id">@item.total</span>
                                 </td>
                                 <td class="tableGray">
-                                    <button class="btn btn-danger remove-cart-item" href="#"><i class="fa fa-trash-o"></i></button>
+                                    <button class="btn btn-danger remove-cart-item" href="#" id="Rremove-cart-item-@item.Id"><i class="fa fa-trash-o"></i></button>
                                 </td>
                             </tr>
                         }
@@ -90,7 +90,7 @@
                             <span class="coupon-error">کد تخفیف نامعتبر است</span><br>
                             <span class="coupon-success">کد تخفیف اعمال شد</span>
                         </div>
-                        <button class="btn btn-success btn-cart" onclick="return CSCFinishShopping(this)" >پرداخت</button>
+                        <button class="btn btn-success btn-cart" onclick="return CSCFinishShopping(this)">پرداخت</button>
                     </div>
                 </div>
             </div>

@@ -11,6 +11,8 @@ using Newtonsoft.Json;
 using BamboPortal_V1._0._0._0.DatabaseCenter.Class;
 using System.Data;
 using BamboPortal_V1._0._0._0.Models;
+using BamboPortal_V1._0._0._0.StaticClass.UploaderStaticsCalculators;
+using BamboPortal_V1._0._0._0.nonStaticUsefulClass.Stockpile;
 
 namespace BamboPortal_V1._0._0._0.Controllers
 {
@@ -128,14 +130,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
         public ActionResult ShoppingCartSlide()
         {
             ShoppingBasket model = new ShoppingBasket();
-            if (HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerCode()) != null)
-            {
-                model.islogin = true;
-            }
-            else
-            {
-                model.islogin = false;
-            }
+
 
 
             if (HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerShoppingBasket()) != null)
@@ -148,6 +143,14 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 {
                     Items = new List<ShoppingBasketItems>()
                 };
+            }
+            if (HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerCode()) != null)
+            {
+                model.islogin = true;
+            }
+            else
+            {
+                model.islogin = false;
             }
             return View(model);
         }
@@ -250,7 +253,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
         [HttpPost]
         public JsonResult SubmitFactor(string ABC)
         {
-            // kollan bazbini mikhad
+
             var ModelSender = new ErrorReporterModel();
             PDBC db = new PDBC();
             List<ExcParameters> pas = new List<ExcParameters>();
@@ -258,7 +261,38 @@ namespace BamboPortal_V1._0._0._0.Controllers
             var coockie = HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerCode());
             tcm = CoockieController.SayWhoIsHE(coockie.Value);
             FactorPopUpModel fpm = CoockieController.GetCustomerShopFactorCookie(HttpContext.Request.Cookies.Get(ProjectProperies.CustomerShoppingFactor()).Value);
-
+            string DeleteAns = "خرید با موفقیت انجام شد!";
+            var c = new HttpCookie(ProjectProperies.CustomerShoppingFactor());
+            c.Expires = DateTime.Now.AddDays(-1);
+            Response.Cookies.Add(c);
+            var d = new HttpCookie(ProjectProperies.AuthCustomerShoppingBasket());
+            d.Expires = DateTime.Now.AddDays(-1);
+            Response.Cookies.Add(d);
+            AmountOfProductsLeft itemRemains = new AmountOfProductsLeft();
+            for (int i = 0; i < fpm.items.Count; i++)
+            {
+                if (itemRemains.CanBuyThisProductFromThisShop(fpm.items[i].Id.ToString(), "1", fpm.items[i].number) <= 0)
+                {
+                    DeleteAns = "متاسفانه موجودی برخی کالا ها برای خرید شما کافی نمیباشد ";
+                    fpm.items.RemoveAt(i);
+                }
+            }
+            if(fpm.items.Count == 0)
+            {
+                ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "SX-fa3432",
+                    Errormessage = DeleteAns,
+                    Errortype = "Success"
+                };
+                return Json(ModelSender);
+            }
+            Int64 totals = 0;
+            for (int i = 0; i < fpm.items.Count; i++)
+            {
+                totals += fpm.items[i].total;
+            }
+            fpm.totality = totals.ToString();
             ExcParameters pa = new ExcParameters()
             {
                 _KEY = "@id_Customer",
@@ -304,6 +338,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 string flag = "";
                 pas = new List<ExcParameters>();
                 string res = "";
+                db.Connect();
                 for (int i = 0; i < fpm.items.Count; i++)
                 {
                     pa = new ExcParameters()
@@ -342,15 +377,21 @@ namespace BamboPortal_V1._0._0._0.Controllers
                         _VALUE = fpm.items[i].number
                     };
                     pas.Add(pa);
-                    res += db.Script("INSERT INTO [tbl_Factor_ChildFactor]([id_MainFactor],[ChildFactor_DeleteTypeID],[ChildFactor_DeletedByAdminID],[ChildFactor_ISDELETED],[ChildFactor_CreateDate],[ChildFactor_CreatedByUserTypeID],[ChildFactor_CreatorID],[ChildFactor_ProductModuleType],[ChildFactor_ProductID],[ChildFactor_PastProductHistoryID],[ChildFactor_HasOff],[ChildFactor_OffID],[ChildFactor_OffCode],[ChildFactor_OffPrice],[ChildFactor_PurePrice],[ChildFactor_PriceAfterOff],[ChildFactor_ProductReturnTypeID],[ChildFactor_ISCERTIFIED],[ChildFactor_ISEDITED],[ChildFactor_EditedByAdminID],[ChildFactor_EditedTo_id_ChildFactor],[ChildFactor_QBuy]) VALUES(@id_MainFactor,0,0,0,GETDATE(),2,@ChildFactor_CreatorID ,1,@ChildFactor_ProductID ,0,0,0,N' ',0,@ChildFactor_PurePrice ,@ChildFactor_PurePricee,0,1,0,0,@ChildFactor_QBuy )", pas);
+
+                    string idd = db.Script("INSERT INTO [tbl_Factor_ChildFactor]([id_MainFactor],[ChildFactor_DeleteTypeID],[ChildFactor_DeletedByAdminID],[ChildFactor_ISDELETED],[ChildFactor_CreateDate],[ChildFactor_CreatedByUserTypeID],[ChildFactor_CreatorID],[ChildFactor_ProductModuleType],[ChildFactor_ProductID],[ChildFactor_PastProductHistoryID],[ChildFactor_HasOff],[ChildFactor_OffID],[ChildFactor_OffCode],[ChildFactor_OffPrice],[ChildFactor_PurePrice],[ChildFactor_PriceAfterOff],[ChildFactor_ProductReturnTypeID],[ChildFactor_ISCERTIFIED],[ChildFactor_ISEDITED],[ChildFactor_EditedByAdminID],[ChildFactor_EditedTo_id_ChildFactor],[ChildFactor_QBuy]) OUTPUT inserted.[id_ChildFactor] VALUES(@id_MainFactor,0,0,0,GETDATE(),2,@ChildFactor_CreatorID ,1,@ChildFactor_ProductID ,0,0,0,N' ',0,@ChildFactor_PurePrice ,@ChildFactor_PurePricee,0,1,0,0,0,@ChildFactor_QBuy )", pas);
+
+                    res += db.Script("INSERT INTO  [tbl_Factor_FactorInStock]([id_ChildFactor],[FactorInStock_FirstShopID],[FactorInStock_SecondShopID],[FactorInStock_CreatedDate],[FactorInStock_TransActionByAdminID],[FactorInStock_HasTransAction]) VALUES(" + idd + " ,1 ,0,GETDATE(),0,0)");
                     flag += "1";
+
+
                 }
+                db.DC();
                 if (flag == res)
                 {
                     ModelSender = new ErrorReporterModel
                     {
                         ErrorID = "SX-fa3432",
-                        Errormessage = $"",
+                        Errormessage = DeleteAns,
                         Errortype = "Success"
                     };
                     return Json(ModelSender);
@@ -385,6 +426,18 @@ namespace BamboPortal_V1._0._0._0.Controllers
         public JsonResult AddproductToBasket(string idp, string Number_inp)
         {
             var ModelSender = new ErrorReporterModel();
+            if (string.IsNullOrEmpty(Number_inp) || Convert.ToInt32(Number_inp) < 1)
+            {
+                ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX186763",
+                    Errormessage = $"تعداد محصول خریداری شده معتبر نمیباشد!",
+                    Errortype = "Error"
+                };
+                return Json(ModelSender);
+            }
+            PDBC db = new PDBC();
+
             tbl_Customer_Main tcm = new tbl_Customer_Main();
             var coockie = HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerCode());
             if (coockie != null)
@@ -406,17 +459,63 @@ namespace BamboPortal_V1._0._0._0.Controllers
             {
                 var coockie3 = JsonConvert.DeserializeObject<ShoppingBasket>(HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerShoppingBasket()).Value);
                 var KK = coockie3.Items.Find(x => x.idmpc == idp);
-                if(KK != null)
+                if (KK != null)
                 {
-
+                    coockie3.Items.Remove(KK);
                 }
-                else
+                List<ExcParameters> pars = new List<ExcParameters>();
+                ExcParameters par = new ExcParameters()
                 {
-
+                    _KEY = "@id_MPC",
+                    _VALUE = idp
+                };
+                pars.Add(par);
+                db.Connect();
+                using (DataTable dt = db.Select("SELECT [Quantity],[Title] ,[PriceXquantity] ,[PricePerquantity] ,[MultyPriceStartFromQ] ,[MultyPrice] FROM [v_Connector_MainProductConnectorToProduct] WHERE [id_MPC] = @id_MPC AND [tlb_Product_MainProductConnector_ISDELETE] = 0 ", pars))
+                {
+                    db.DC();
+                    if (dt.Rows.Count > 0)
+                    {
+                        ShoppingBasketItems ssd = new ShoppingBasketItems()
+                        {
+                            idmpc = idp,
+                            CountOf = Convert.ToInt32(Number_inp),
+                            ImagePath = UploaderGeneral.imageFinderfromIDMPC(idp, ImageSizeEnums.Thumbnail),
+                            Title = dt.Rows[0]["Title"].ToString()
+                        };
+                        int assd = Convert.ToInt32(dt.Rows[0]["MultyPriceStartFromQ"].ToString());
+                        if (Convert.ToInt32(dt.Rows[0]["MultyPriceStartFromQ"].ToString()) < Convert.ToInt32(Number_inp))
+                        {
+                            ssd.PriceXQ = Convert.ToInt64(dt.Rows[0]["MultyPrice"].ToString());
+                        }
+                        else
+                        {
+                            ssd.PriceXQ = Convert.ToInt64(dt.Rows[0]["PriceXquantity"].ToString());
+                        }
+                        ssd.Totals = ssd.PriceXQ * ssd.CountOf;
+                        coockie3.Items.Add(ssd);
+                    }
+                    else
+                    {
+                        ModelSender = new ErrorReporterModel
+                        {
+                            ErrorID = "EX567763",
+                            Errormessage = $"محصول یافت نشد!",
+                            Errortype = "Error"
+                        };
+                        return Json(ModelSender);
+                    }
                 }
 
 
 
+
+
+
+                var userCookieIDV = new HttpCookie(ProjectProperies.AuthCustomerShoppingBasket());
+                userCookieIDV.Value = JsonConvert.SerializeObject(coockie3);
+                userCookieIDV.Expires = DateTime.Now.AddDays(2);
+                Response.SetCookie(userCookieIDV);
                 ModelSender = new ErrorReporterModel
                 {
                     ErrorID = "SX106",
@@ -431,8 +530,53 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 {
                     Items = new List<ShoppingBasketItems>()
                 };
+                List<ExcParameters> pars = new List<ExcParameters>();
+                ExcParameters par = new ExcParameters()
+                {
+                    _KEY = "@id_MPC",
+                    _VALUE = idp
+                };
+                pars.Add(par);
+                db.Connect();
+                using (DataTable dt = db.Select("SELECT [Quantity] ,[Title],[PriceXquantity] ,[PricePerquantity]   ,[MultyPriceStartFromQ] ,[MultyPrice] FROM [v_Connector_MainProductConnectorToProduct] WHERE [id_MPC] = @id_MPC AND [tlb_Product_MainProductConnector_ISDELETE] = 0 ", pars))
+                {
+                    db.DC();
+                    if (dt.Rows.Count > 0)
+                    {
+                        ShoppingBasketItems ssd = new ShoppingBasketItems()
+                        {
+                            idmpc = idp,
+                            CountOf = Convert.ToInt32(Number_inp),
+                            ImagePath = UploaderGeneral.imageFinderfromIDMPC(idp, ImageSizeEnums.Thumbnail),
+                            Title = dt.Rows[0]["Title"].ToString()
 
-
+                        };
+                        if (Convert.ToInt32(dt.Rows[0]["MultyPriceStartFromQ"].ToString()) < Convert.ToInt32(Number_inp))
+                        {
+                            ssd.PriceXQ = Convert.ToInt64(dt.Rows[0]["MultyPrice"].ToString());
+                        }
+                        else
+                        {
+                            ssd.PriceXQ = Convert.ToInt64(dt.Rows[0]["PriceXquantity"].ToString());
+                        }
+                        ssd.Totals = ssd.PriceXQ * ssd.CountOf;
+                        SB.Items.Add(ssd);
+                    }
+                    else
+                    {
+                        ModelSender = new ErrorReporterModel
+                        {
+                            ErrorID = "EX567763",
+                            Errormessage = $"محصول یافت نشد!",
+                            Errortype = "Error"
+                        };
+                        return Json(ModelSender);
+                    }
+                }
+                var userCookieIDV = new HttpCookie(ProjectProperies.AuthCustomerShoppingBasket());
+                userCookieIDV.Value = JsonConvert.SerializeObject(SB);
+                userCookieIDV.Expires = DateTime.Now.AddDays(2);
+                Response.SetCookie(userCookieIDV);
                 ModelSender = new ErrorReporterModel
                 {
                     ErrorID = "SX106",
@@ -441,6 +585,56 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 };
                 return Json(ModelSender);
             }
+        }
+
+        [HttpPost]
+        public JsonResult DeleteFromBasket(string idp)
+        {
+            var ModelSender = new ErrorReporterModel();
+            var coockie2 = HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerShoppingBasket());
+            if (coockie2 != null)
+            {
+                var coockie3 = JsonConvert.DeserializeObject<ShoppingBasket>(HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerShoppingBasket()).Value);
+                var KK = coockie3.Items.Find(x => x.idmpc == idp);
+                if (KK != null)
+                {
+                    coockie3.Items.Remove(KK);
+                    var userCookieIDV = new HttpCookie(ProjectProperies.AuthCustomerShoppingBasket());
+                    userCookieIDV.Value = JsonConvert.SerializeObject(coockie3);
+                    userCookieIDV.Expires = DateTime.Now.AddDays(2);
+                    Response.SetCookie(userCookieIDV);
+                    ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "SX106",
+                        Errormessage = $"با موفقیت حذف شد!",
+                        Errortype = "Success"
+                    };
+                    return Json(ModelSender);
+
+                }
+                else
+                {
+                    ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "EX567313",
+                        Errormessage = $"این کالا در سبد خرید موجود نمیباشد!",
+                        Errortype = "Error"
+                    };
+                    return Json(ModelSender);
+                }
+
+            }
+            else
+            {
+                ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX567313",
+                    Errormessage = $"سبد خرید خالیست!",
+                    Errortype = "Error"
+                };
+                return Json(ModelSender);
+            }
+
         }
     }
 }

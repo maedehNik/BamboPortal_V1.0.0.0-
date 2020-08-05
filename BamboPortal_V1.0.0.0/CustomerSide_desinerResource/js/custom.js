@@ -60,22 +60,22 @@ $(document).ready(function () {
             thisVal--;
         }
         $(this).next().val(thisVal)
-        var FirstPrice = $(this).parent().parent().parent().find(".first-price").find("span").data("price");
-        var LastPrice = FirstPrice * thisVal;
-        $(this).parent().parent().parent().find(".last-price").find("span").text(formatMoney(LastPrice));
-        updateCart();
+        CalculatePriceCSC($(this).attr('id').replace("L-", ""), $(this).parent().find(".qty"));
+
     })
     $(".shcqp").on("click", function () {
         var thisVal = parseInt($(this).parent().find(".qty").val());
         var newVal = thisVal + 1;
         $(this).parent().find(".qty").val(newVal)
-        var FirstPrice = $(this).parent().parent().parent().find(".first-price").find("span").data("price");
-        var LastPrice = FirstPrice * newVal;
-        $(this).parent().parent().parent().find(".last-price").find("span").text(formatMoney(LastPrice));
-        updateCart();
+        CalculatePriceCSC($(this).attr('id').replace("R-", ""), $(this).parent().find(".qty"));
+        //var FirstPrice = $(this).parent().parent().parent().find(".first-price").find("span").data("price");
+        //var LastPrice = FirstPrice * newVal;
+        //$(this).parent().parent().parent().find(".last-price").find("span").text(formatMoney(LastPrice));
+        //updateCart();
     })
     $(".remove-cart-item").on("click", function () {
         $(this).parent().parent().remove();
+        DeleteFromBasket($(this).attr("id").replace("Rremove-cart-item-", ""));
         updateCart();
         checkCart();
     })
@@ -85,7 +85,45 @@ $(document).ready(function () {
         if (sideCart == 0) {
             $(".no-item").show();
         }
-    })
+        DeleteFromBasket($(this).attr("id").replace("R-", ""));
+
+    });
+    function DeleteFromBasket(id) {
+        var PostJ = {
+            "idp": id
+        };
+        $("#LoaderSpinner").show(300);
+        $.ajax({
+            url: '/CustomerSide_Product/DeleteFromBasket',
+            type: "post",
+            data: JSON.stringify(PostJ),
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                if (data.Errortype == "Success") {
+                    $('#ShoppingCartSlide').load('/CustomerSide_Product/ShoppingCartSlide');
+                    $(".cart-item-remove").on("click", function () {
+                        $(this).parent().remove();
+                        var sideCart = $(".side-cart").children().length;
+                        if (sideCart == 0) {
+                            $(".no-item").show();
+                        }
+                        DeleteFromBasket($(this).attr("id").replace("R-", ""));
+
+                    });
+                    success("حذف کالا با موفقیت انجام شد!");
+                    $("#LoaderSpinner").hide(300);
+                } else {
+                    danger(data.Errormessage);
+                    $("#LoaderSpinner").hide(300);
+
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                danger("مشکل در برقراری ارتباط با سرور");
+                $("#LoaderSpinner").hide(300);
+            }
+        });
+    }
     //$("#login-form").validate({
     //    rules: {
     //        mobile: {
@@ -420,9 +458,11 @@ function danger(title) {
 }
 
 function CalculatePriceCSC(idmpc, input) {
-    var PostJ = {//pricecalc-
+    console.log("#QT-" + idmpc);
+    console.log(input);
+    var PostJ = {
         "QCount": $(input).val(),
-        "idmpc": $("#idmpc").val()
+        "idmpc": idmpc
     };
     $.ajax({
         url: '/CustomerSide_Product/ProductCountCalc',
@@ -431,8 +471,21 @@ function CalculatePriceCSC(idmpc, input) {
         contentType: "application/json; charset=utf-8",
         success: function (data) {
             if (data.Errortype == "Success") {
-                $("#pricecalc-" + idmpc).val(data.ErrorID);
+                $("#pricecalc-" + idmpc).text(data.ErrorID);
                 $("#pricecalc-" + idmpc).attr('data-price', data.ErrorID);
+                console.log("===========================");
+                console.log($("#pricecalc-" + idmpc).attr('data-price'));
+                console.log($("#pricecalc-" + idmpc));
+                console.log("================*******************************===========");
+                var FirstPrice = $("#pricecalc-" + idmpc).text();
+                var LastPrice = FirstPrice * $(input).val();
+                $("#last-price-" + idmpc).text(formatMoney(LastPrice));
+                console.log(FirstPrice + " * " + $(input).val());
+                console.log(LastPrice);
+                console.log("================***************-0-----****************===========");
+
+                updateCart();
+
             } else {
                 danger(data.Errormessage);
                 $(input).val(0);
@@ -454,7 +507,6 @@ function AddToBasket(btns) {
 
     $("#LoaderSpinner").show(300);
     $(btns).prop("disabled", true);
-
     $.ajax({
         url: '/CustomerSide_Product/AddproductToBasket',
         type: "post",
@@ -464,10 +516,10 @@ function AddToBasket(btns) {
             if (data.Errortype == "Success") {
                 success("خرید با موفقیت انجام شد!");
                 $("#LoaderSpinner").hide(300);
-
+                $('#ShoppingCartSlide').load('/CustomerSide_Product/ShoppingCartSlide');
             } else {
                 danger(data.Errormessage);
-                $(input).val(0);
+                $("#Number_inp").val(0);
                 $(btns).prop("disabled", false);
                 $("#LoaderSpinner").hide(300);
             }
@@ -498,12 +550,12 @@ function CSCFinishShopping(btns) {
         contentType: "application/json; charset=utf-8",
         success: function (data) {
             if (data.Errortype == "Success") {
-                success("خرید با موفقیت انجام شد!");
+                success(data.Errormessage);
                 $("#LoaderSpinner").hide(300);
 
                 setTimeout(function () {
                     window.location.replace(window.location.origin);
-                }, 1000);
+                }, 3000);
             } else {
                 danger(data.Errormessage);
                 $(input).val(0);

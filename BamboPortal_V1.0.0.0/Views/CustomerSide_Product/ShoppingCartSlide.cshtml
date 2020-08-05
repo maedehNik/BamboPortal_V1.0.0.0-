@@ -23,9 +23,9 @@
         {
             <div class="cart-items">
                 <div class="cart-item">
-                    <div class="cart-item-remove"><a href="#"><i class="fa fa-trash-o"></i></a></div>
+                    <div class="cart-item-remove" id="R-@item.idmpc" ><a href="#"><i class="fa fa-trash-o"></i></a></div>
                     <div class="cart-item-image">
-                        <img alt="image" src="@item.ImagePath" />
+                        <img alt="image" src="@item.ImagePath" onerror="this.onerror=null;this.src='/CustomerSide_desinerResource/images/shop/imgNotFount.jpg'" />
                     </div>
                     <div class="cart-item-info">
                         <div class="item-name"><a href="#">@item.Title</a></div>

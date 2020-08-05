@@ -272,14 +272,9 @@
 
         var MPCs;
         $(document).ready(function () {
-            alert("Hello");
-
-
              PostJson = {
                 'id': @Model.ProductModel.Id
             };
-
-
             $.ajax({
                 url: '/CustomerSide_Product/GetMPCs',
                 type: "post",
@@ -289,7 +284,6 @@
                     MPCs = response;
                     console.log(MPCs);
                     CheckChanges();
-                    alert("done");
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     alert(textStatus);
