@@ -97,11 +97,11 @@ namespace BamboPortal_V1._0._0._0.StaticClass.UploaderStaticsCalculators
             {
                 PDBC db = new PDBC();
                 db.Connect();
-                using (DataTable dt1 = db.Select("SELECT [id_MProduct] FROM  [tlb_Product_MainProductConnector]WHERE[id_MPC] =" + idMPC))
+                using (DataTable dt1 = db.Select("SELECT [id_MProduct] FROM  [tlb_Product_MainProductConnector] WHERE [id_MPC] =" + idMPC))
                 {
                     if (dt1.Rows.Count > 0)
                     {
-                        using (DataTable dt = db.Select("SELECT [thumUploadAddress],[orgUploadAddress] FROM [v_tblProduct_Image] WHERE [PicID] = " + id))
+                        using (DataTable dt = db.Select("SELECT [thumUploadAddress],[orgUploadAddress] FROM [v_tblProduct_Image] WHERE [id_MProduct] = " + dt1.Rows[0]["id_MProduct"].ToString()))
                         {
                             db.DC();
                             if (dt.Rows.Count > 0)
