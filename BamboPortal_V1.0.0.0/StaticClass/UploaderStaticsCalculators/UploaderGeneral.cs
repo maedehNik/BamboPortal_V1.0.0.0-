@@ -45,7 +45,7 @@ namespace BamboPortal_V1._0._0._0.StaticClass.UploaderStaticsCalculators
             if (string.IsNullOrEmpty(id))
             {
 
-                return "/AdminDesignResource/app/media/img/users/user4.jpg";
+                return "/CustomerSide_desinerResource/images/shop/imgNotFount.jpg";
             }
             else
             {
@@ -61,7 +61,7 @@ namespace BamboPortal_V1._0._0._0.StaticClass.UploaderStaticsCalculators
                     }
                     else
                     {
-                        return "/AdminDesignResource/app/media/img/users/user4.jpg";
+                        return "/CustomerSide_desinerResource/images/shop/imgNotFount.jpg";
                     }
 
                 }
@@ -85,6 +85,55 @@ namespace BamboPortal_V1._0._0._0.StaticClass.UploaderStaticsCalculators
             db.DC();
             return newids;
         }
+        public static string imageFinderfromIDMPC(string idMPC, ImageSizeEnums imageSize = ImageSizeEnums.OriginalSize)
+        {
+
+            if (string.IsNullOrEmpty(idMPC))
+            {
+
+                return "/CustomerSide_desinerResource/images/shop/imgNotFount.jpg";
+            }
+            else
+            {
+                PDBC db = new PDBC();
+                db.Connect();
+                using (DataTable dt1 = db.Select("SELECT [id_MProduct] FROM  [tlb_Product_MainProductConnector]WHERE[id_MPC] =" + idMPC))
+                {
+                    if (dt1.Rows.Count > 0)
+                    {
+                        using (DataTable dt = db.Select("SELECT [thumUploadAddress],[orgUploadAddress] FROM [v_tblProduct_Image] WHERE [PicID] = " + id))
+                        {
+                            db.DC();
+                            if (dt.Rows.Count > 0)
+                            {
+                                if (imageSize == ImageSizeEnums.OriginalSize)
+                                {
+
+                                    return (dt.Rows[0]["orgUploadAddress"].ToString());
+                                }
+                                else
+                                {
+                                    return (dt.Rows[0]["thumUploadAddress"].ToString());
+
+                                }
+                            }
+                            else
+                            {
+                                return "/CustomerSide_desinerResource/images/shop/imgNotFount.jpg";
+                            }
+
+                        }
+                    }
+                    else
+                    {
+                        db.DC();
+                        return "/CustomerSide_desinerResource/images/shop/imgNotFount.jpg";
+                    }
+                }
+
+            }
+        }
+
 
     }
 }

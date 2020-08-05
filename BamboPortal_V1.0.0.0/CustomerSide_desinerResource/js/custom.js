@@ -1,5 +1,5 @@
-$(document).ready(function(){
-    $(".account-li").on("click" , function(){
+$(document).ready(function () {
+    $(".account-li").on("click", function () {
         $(".tshsubmneu").slideToggle();
     })
     var revapi;
@@ -45,18 +45,18 @@ $(document).ready(function(){
         $("#LoaderSpinner").delay(200).hide(0);
     });
     var cartChild = $(".cart-items").children().length;
-    if(cartChild == 0){
+    if (cartChild == 0) {
         $(".no-item").show();
     }
-    $(".full-screen-menu-trigger").on("click" , function(){
+    $(".full-screen-menu-trigger").on("click", function () {
         $(".shopping-cart-slide.active").removeClass("active")
     })
-    $(".filters-size a").on("click" , function(){
+    $(".filters-size a").on("click", function () {
         $(this).toggleClass("selection-active");
     })
-    $(".shcqm").on("click" , function () {
+    $(".shcqm").on("click", function () {
         var thisVal = parseInt($(this).next().val());
-        if(thisVal > 1){
+        if (thisVal > 1) {
             thisVal--;
         }
         $(this).next().val(thisVal)
@@ -65,7 +65,7 @@ $(document).ready(function(){
         $(this).parent().parent().parent().find(".last-price").find("span").text(formatMoney(LastPrice));
         updateCart();
     })
-    $(".shcqp").on("click" , function () {
+    $(".shcqp").on("click", function () {
         var thisVal = parseInt($(this).parent().find(".qty").val());
         var newVal = thisVal + 1;
         $(this).parent().find(".qty").val(newVal)
@@ -74,15 +74,15 @@ $(document).ready(function(){
         $(this).parent().parent().parent().find(".last-price").find("span").text(formatMoney(LastPrice));
         updateCart();
     })
-    $(".remove-cart-item").on("click" , function(){
+    $(".remove-cart-item").on("click", function () {
         $(this).parent().parent().remove();
         updateCart();
         checkCart();
     })
-    $(".cart-item-remove").on("click" , function () {
+    $(".cart-item-remove").on("click", function () {
         $(this).parent().remove();
         var sideCart = $(".side-cart").children().length;
-        if(sideCart == 0){
+        if (sideCart == 0) {
             $(".no-item").show();
         }
     })
@@ -289,59 +289,59 @@ $(document).ready(function(){
     //    }
     //});
 
-    $("header").on("click" , function () {
+    $("header").on("click", function () {
         $(".forgot-password-bg").fadeOut();
     })
-    $(".forgot-password").on("click" , function () {
+    $(".forgot-password").on("click", function () {
         $(".forgot-password-bg").fadeIn();
     })
-    $(".forgot-password-inner h5 i").on("click" , function () {
+    $(".forgot-password-inner h5 i").on("click", function () {
         $(this).parent().parent().parent().fadeOut();
     })
-    $(".change-mobile-inner h5 i").on("click" , function () {
+    $(".change-mobile-inner h5 i").on("click", function () {
         $(this).parent().parent().parent().fadeOut();
     })
-    $(".codebox").keyup(function(){
-        if($(this).val().length > 1){
+    $(".codebox").keyup(function () {
+        if ($(this).val().length > 1) {
             $(this).val("");
         }
     })
-    $(".change-phone").on("click" , function () {
+    $(".change-phone").on("click", function () {
         $(".change-mobile-bg").fadeIn();
     })
-    $(".verify-submit").on("click" , function () {
+    $(".verify-submit").on("click", function () {
         var code1 = $("#codeBox1").val();
         var code2 = $("#codeBox2").val();
         var code3 = $("#codeBox3").val();
         var code4 = $("#codeBox4").val();
-        if(code1 == "" || code2 == "" || code3 == "" || code4 == ""){
+        if (code1 == "" || code2 == "" || code3 == "" || code4 == "") {
             $(".verify-error").addClass("verify-error-show");
             return false;
         }
     })
-    $(".show-more").on("click" , function(){
+    $(".show-more").on("click", function () {
         $(this).parent().next().next().slideToggle(500);
     })
-    $(".dmbutton").on("click" , function(){
+    $(".dmbutton").on("click", function () {
         var thisNum = $(this).data("number");
         $("#mmodal").find(".number").text(thisNum);
     })
-    $(".alert-inner .fa-times").on("click" , function () {
+    $(".alert-inner .fa-times").on("click", function () {
         $(this).parent().parent().parent().fadeOut();
     })
-    $(".alert-inner .conf-btn").on("click" , function () {
+    $(".alert-inner .conf-btn").on("click", function () {
         $(this).parent().parent().parent().fadeOut();
     })
 })
 checkCart();
 function checkCart() {
     var childLen = $(".tbdy").children().length
-    if(childLen == 0){
+    if (childLen == 0) {
         $(".cart-no-item").addClass("show-no-item");
     }
 }
 function disableCoupon() {
-    $(".coupon-input").addClass("disabled").attr("disabled","disabled");
+    $(".coupon-input").addClass("disabled").attr("disabled", "disabled");
     $(".coupon-fa i").removeClass("fa-check");
     $(".coupon-fa i").addClass("fa-times");
     $(".coupon-fa").addClass("coupon-remove");
@@ -355,17 +355,17 @@ function enableCoupon() {
 function updateCart() {
     var items = $('.total-items'),
         sum = 0;
-    $.each(items, function(value) {
-        var itemValue = items[value].innerHTML.replace(/\D/g,'');
+    $.each(items, function (value) {
+        var itemValue = items[value].innerHTML.replace(/\D/g, '');
         sum += !isNaN(itemValue) ? parseInt(itemValue) : 0;
     });
     $(".total-price-bottom").text(formatMoney(sum));
-    var shippingPRC = $(".shipping-price-bottom").text().replace(/\D/g,'');
-    var off = $(".off-price-bottom").text().replace(/\D/g,'');
+    var shippingPRC = $(".shipping-price-bottom").text().replace(/\D/g, '');
+    var off = $(".off-price-bottom").text().replace(/\D/g, '');
     var last = parseInt(sum) + parseInt(shippingPRC) - parseInt(off);
     var total = $(".cart-total").text(formatMoney(last));
 }
-function addToCart(){
+function addToCart() {
     var cartNum = $(".menu-basket span").text();
     cartNum++;
     $(".menu-basket span").text(cartNum);
@@ -390,7 +390,7 @@ function onKeyUpEvent(index, event) {
     const eventCode = event.which || event.keyCode;
     if (getCodeBoxElement(index).value.length === 1) {
         if (index !== 4) {
-            getCodeBoxElement(index+ 1).focus();
+            getCodeBoxElement(index + 1).focus();
         } else {
             getCodeBoxElement(index).blur();
             console.log('submit code ');
@@ -409,12 +409,74 @@ function onFocusEvent(index) {
         }
     }
 }
-function success(title){
+function success(title) {
     $(".alert-bg").fadeIn();
     $(".alert-bg").find(".alert-text").text(title);
 }
-function danger(title){
+function danger(title) {
     $(".alert-bg2").fadeIn();
     $(".alert-bg2").find(".alert-text").text(title);
     $(".alert-bg2").find(".alert-text").addClass("danger-color");
+}
+
+function CalculatePriceCSC(idmpc, input) {
+    var PostJ = {//pricecalc-
+        "QCount": $(input).val(),
+        "idmpc": $("#idmpc").val()
+    };
+    $.ajax({
+        url: '/CustomerSide_Product/ProductCountCalc',
+        type: "post",
+        data: JSON.stringify(PostJ),
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            if (data.Errortype == "Success") {
+                $("#pricecalc-" + idmpc).val(data.ErrorID);
+                $("#pricecalc-" + idmpc).attr('data-price', data.ErrorID);
+            } else {
+                danger(data.Errormessage);
+                $(input).val(0);
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            danger("مشکل در برقراری ارتباط با سرور");
+        }
+    });
+    updateCart();
+}
+function CSCFinishShopping(btns) {
+    var PostJ = {
+        "ABC": "1"
+    };
+    $("#LoaderSpinner").show(300);
+    $(btns).prop("disabled", true);
+    $.ajax({
+        url: '/CustomerSide_Product/SubmitFactor',
+        type: "post",
+        data: JSON.stringify(PostJ),
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            if (data.Errortype == "Success") {
+                success("خرید با موفقیت انجام شد!");
+                $("#LoaderSpinner").hide(300);
+
+                setTimeout(function () {
+                    window.location.replace(window.location.origin);
+                }, 1000);
+            } else {
+                danger(data.Errormessage);
+                $(input).val(0);
+                $(btns).prop("disabled", false);
+                $("#LoaderSpinner").hide(300);
+
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            danger("مشکل در برقراری ارتباط با سرور");
+            $(btns).prop("disabled", false);
+            $("#LoaderSpinner").hide(300);
+
+
+        }
+    });
 }

@@ -240,6 +240,7 @@
     <Compile Include="ModelViews\CustomerSide\IndexPageModelView.cs" />
     <Compile Include="ModelViews\CustomerSide\ProductDetail_ModelView.cs" />
     <Compile Include="ModelViews\CustomerSide\SearchPageModelView.cs" />
+    <Compile Include="ModelViews\CustomerSide\ShoppingBasket.cs" />
     <Compile Include="ModelViews\CustomerSide\ShoppingCartModelView.cs" />
     <Compile Include="nonStaticUsefulClass\ImageUploader\ImageSizeConvertor.cs" />
     <Compile Include="nonStaticUsefulClass\ImageUploader\ImageUploader.cs" />

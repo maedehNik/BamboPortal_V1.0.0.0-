@@ -12,11 +12,11 @@ namespace BamboPortal_V1._0._0._0.Models.CustomerSide
         public int number { get; set; }
         public string Title { get; set; }
         public string ImagePath { get; set; }
-        public long total { get; set; }
+        public Int64 total { get; set; }
         public string property { get; set; }
         public int Quantity { get; set; }
         public long PricePerQ { get; set; }
-        public long PriceXQ { get; set; }
+        public Int64 PriceXQ { get; set; }
         public long PriceOff { get; set; }
 
     }
