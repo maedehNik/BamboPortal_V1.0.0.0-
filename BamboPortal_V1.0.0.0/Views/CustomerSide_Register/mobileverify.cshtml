@@ -93,60 +93,60 @@
 
 
 @section CS_Scripts {
-    var revapi;
-    jQuery(document).ready(function () {
-    setInterval(function () {
-    $('.owl-prev').trigger('click');
-    }, 3000);
-
-
-    revapi = jQuery("#rev_slider_1").revolution({
-    sliderType: "standard",
-    sliderLayout: "fullscreen",
-    fullScreenOffsetContainer: ".navigation",
-    delay: 9000,
-    navigation: {
-    keyboardNavigation: "off",
-    mouseScrollNavigation: "on",
-    onHoverStop: "off",
-    touch: {
-    touchenabled: "on",
-    swipe_threshold: 75,
-    swipe_min_touches: 1,
-    swipe_direction: "horizontal",
-    drag_block_vertical: false
-    },
-    bullets: {
-    enable: true,
-    rtl: true,
-    hide_onmobile: false,
-    style: "hebe",
-    hide_onleave: false,
-    direction: "horizontal",
-    h_align: "center",
-    v_align: "bottom",
-    h_offset: 0,
-    v_offset: 10,
-    space: 5,
-    tmp: '<span class="tp-bullet-inner"></span>'
-    }
-    },
-    responsiveLevels: [4096, 1024, 767, 480],
-    gridwidth: 1230,
-    gridheight: 720
-    });
-
-    $("#LoaderSpinner").hide(0);
-    }); /*ready*/
-    </script>
-
-
     @Scripts.Render("~/bundles/CustomerSideUserProfile.js")
     @*@Scripts.RenderFormat(SiteKeys.ScriptVersion, "~/bundles/CustomerSideUserProfile.js")*@
     <script>
         $(document).ready(function () {
-            //success("تایتل", "بادی");
+            success("تایتل", "بادی");
+            console.log("sadad");
         })
+        //var revapi;
+        //jQuery(document).ready(function () {
+        //    setInterval(function () {
+        //        $('.owl-prev').trigger('click');
+        //    }, 3000);
+        //    revapi = jQuery("#rev_slider_1").revolution({
+        //        sliderType: "standard",
+        //        sliderLayout: "fullscreen",
+        //        fullScreenOffsetContainer: ".navigation",
+        //        delay: 9000,
+        //        navigation: {
+        //            keyboardNavigation: "off",
+        //            mouseScrollNavigation: "on",
+        //            onHoverStop: "off",
+        //            touch: {
+        //                touchenabled: "on",
+        //                swipe_threshold: 75,
+        //                swipe_min_touches: 1,
+        //                swipe_direction: "horizontal",
+        //                drag_block_vertical: false
+        //            },
+        //            bullets: {
+        //                enable: true,
+        //                rtl: true,
+        //                hide_onmobile: false,
+        //                style: "hebe",
+        //                hide_onleave: false,
+        //                direction: "horizontal",
+        //                h_align: "center",
+        //                v_align: "bottom",
+        //                h_offset: 0,
+        //                v_offset: 10,
+        //                space: 5,
+        //                tmp: '<span class="tp-bullet-inner"></span>'
+        //            }
+        //        },
+        //        responsiveLevels: [4096, 1024, 767, 480],
+        //        gridwidth: 1230,
+        //        gridheight: 720
+        //    });
+
+        //    $("#LoaderSpinner").hide(0);
+        //}); /*ready*/
     </script>
+
+
+
+
 
 }

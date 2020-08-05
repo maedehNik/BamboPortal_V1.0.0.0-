@@ -14,5 +14,9 @@ namespace BamboPortal_V1._0._0._0.Models.AdministratorProductsModels
         public string productPricePerQT { get; set; }
         public string MoneyType { get; set; }
         public string QTDemansion { get; set; }
+
+
+        public string MultyproductQT { get; set; }
+        public string MultyproductPricePerQT { get; set; }
     }
 }

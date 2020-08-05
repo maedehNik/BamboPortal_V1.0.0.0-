@@ -23,6 +23,8 @@ namespace BamboPortal_V1._0._0._0.Models.AdministratorProductsModels
         public string PRDCTTagSectionOfProduct { get; set; }
         public List<AllSubcategory_Keys_Vals_class> AllSubcategory_Keys_Vals { get; set; }
         public List<TagTargetAdded_class> TagTargetAdded { get; set; }
+        public string PRDCTMultyPricePer1Demansion { get; set; }
+        public string PRDCTMultyDemansionValue { get; set; }
     }
 
     public class AllSubcategory_Keys_Vals_class

@@ -2591,6 +2591,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
             //==================================================================
             //Step4
             Int64 PriceXquantity = Convert.ToInt64(Senderobj.PRDCTPricePer1Demansion) * Convert.ToInt64(Senderobj.PRDCTDemansionValue);
+            Int64 MultyPriceXquantity = Convert.ToInt64(Senderobj.PRDCTMultyPricePer1Demansion) * Convert.ToInt64(Senderobj.PRDCTDemansionValue);
             JaygashtCalculator calculator = new JaygashtCalculator();
             var jaygashts = calculator.Result(Senderobj.AllSubcategory_Keys_Vals);
             string itemid = "0";
@@ -2598,7 +2599,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
             db.Connect();
             foreach (var item in jaygashts)
             {
-                itemid = SJOP.MainProduct_Actions("insert", id_MProductOUT, Senderobj.PRDCTDemansionValue, Senderobj.PRDCTDemansion, PriceXquantity.ToString(), Senderobj.PRDCTPricePer1Demansion, "0", "0", "0", Senderobj.PRDCTTagSectionOfProduct, Senderobj.PRDCTPriceDemansion, Senderobj.PRDCTPriceShowType);
+                itemid = SJOP.MainProduct_Actions("insert", id_MProductOUT, Senderobj.PRDCTDemansionValue, Senderobj.PRDCTDemansion, PriceXquantity.ToString(), Senderobj.PRDCTPricePer1Demansion, "0", "0", "0", Senderobj.PRDCTTagSectionOfProduct, Senderobj.PRDCTPriceDemansion, Senderobj.PRDCTPriceShowType, MultyPriceXquantity.ToString(),Senderobj.PRDCTMultyDemansionValue);
                 foreach (var itm in item)
                 {
                     string resultstiem = db.Script("INSERT INTO[tbl_Product_connectorToMPC_SCOV] VALUES(" + itemid + "," + itm.SubCategoryKeyValue + ")");
@@ -2814,7 +2815,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
             List<ExcParameters> pars = new List<ExcParameters>();
             pars.Add(par);
             db.Connect();
-            using (DataTable dt = db.Select("SELECT [Quantity] ,[PricePerquantity] ,[Title] ,[PQT_Demansion] ,[MoneyTypeName] ,[id_MPC] FROM [v_Connector_MainProductConnectorToProduct] WHERE [id_MProduct] =@id_MProduct", pars))
+            using (DataTable dt = db.Select("SELECT [MultyPriceStartFromQ] ,[MultyPrice], [Quantity] ,[PricePerquantity] ,[Title] ,[PQT_Demansion] ,[MoneyTypeName] ,[id_MPC] FROM [v_Connector_MainProductConnectorToProduct] WHERE [id_MProduct] =@id_MProduct", pars))
             {
 
                 for (int i = 0; i < dt.Rows.Count; i++)
@@ -2826,7 +2827,9 @@ namespace BamboPortal_V1._0._0._0.Controllers
                         ProductName = dt.Rows[i]["Title"].ToString(),
                         productPricePerQT = dt.Rows[i]["PricePerquantity"].ToString(),
                         productQT = dt.Rows[i]["Quantity"].ToString(),
-                        QTDemansion = dt.Rows[i]["PQT_Demansion"].ToString()
+                        QTDemansion = dt.Rows[i]["PQT_Demansion"].ToString(),
+                        MultyproductPricePerQT = dt.Rows[i]["MultyPrice"].ToString(),
+                        MultyproductQT = dt.Rows[i]["MultyPriceStartFromQ"].ToString(),
                     };
                     stockpile.ProductsJaygashtList = new List<ProductViewDetails_ProductSOCKandSOCKVL>();
                     using (DataTable dtJ = db.Select("SELECT  [SCOKName] ,[SCOVValueName] FROM [v_ConnectorTheProductConnectorViewToSCOVandSCOKV_s] WHERE [id_MPC] = " + stockpile.id_MPC))
@@ -2862,30 +2865,42 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 pars = new List<ExcParameters>();
                 par = new ExcParameters()
                 {
-                    _KEY = "Quantity",
+                    _KEY = "@Quantity",
                     _VALUE = ArryTosend[i].QTnumeric
                 };
                 pars.Add(par);
                 par = new ExcParameters()
                 {
-                    _KEY = "PricePerquantity",
+                    _KEY = "@PricePerquantity",
                     _VALUE = ArryTosend[i].PriceNumeric
                 };
                 pars.Add(par);
 
                 par = new ExcParameters()
                 {
-                    _KEY = "PriceXquantity",
+                    _KEY = "@PriceXquantity",
                     _VALUE = Convert.ToInt64(ArryTosend[i].PriceNumeric) * Convert.ToInt64(ArryTosend[i].QTnumeric)
                 };
                 pars.Add(par);
                 par = new ExcParameters()
                 {
-                    _KEY = "id_MPC",
+                    _KEY = "@id_MPC",
                     _VALUE = ArryTosend[i].idMPC
                 };
                 pars.Add(par);
-                string aa = db.Script("UPDATE [tlb_Product_MainProductConnector] SET  [Quantity] = @Quantity ,[PriceXquantity] = @PriceXquantity ,[PricePerquantity] = @PricePerquantity WHERE [id_MPC] = @id_MPC", pars);
+                par = new ExcParameters()
+                {
+                    _KEY = "@MultyPrice",
+                    _VALUE = ArryTosend[i].MultyproductPricePerQT
+                };
+                pars.Add(par);
+                par = new ExcParameters()
+                {
+                    _KEY = "@MultyPriceStartFromQ",
+                    _VALUE = ArryTosend[i].MultyproductQT
+                };
+                pars.Add(par);
+                string aa = db.Script("UPDATE [tlb_Product_MainProductConnector] SET  [Quantity] = @Quantity ,[PriceXquantity] = @PriceXquantity ,[PricePerquantity] = @PricePerquantity,[MultyPriceStartFromQ] = @MultyPriceStartFromQ  ,[MultyPrice] = @MultyPrice  WHERE [id_MPC] = @id_MPC", pars);
                 pars = new List<ExcParameters>();
                 if (aa != "1")
                 {

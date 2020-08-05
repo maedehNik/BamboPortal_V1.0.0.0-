@@ -13,6 +13,10 @@ namespace BamboPortal_V1._0._0._0.Controllers
             string actionName = filterContext.RouteData.Values["action"].ToString();
             string controllerName = filterContext.RouteData.Values["controller"].ToString();
 
+
+
+
+
             base.OnActionExecuting(filterContext);
         }
     }

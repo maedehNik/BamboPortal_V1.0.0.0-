@@ -898,7 +898,9 @@
                         'PRDCTPricePer1Demansion': $("#PRDCTPricePer1Demansion").val(),
                         'PRDCTDemansionValue': $("#PRDCTDemansionValue").val(),
                         'PRDCTPriceShowType': $("#PRDCTPriceShowType").val(),
-                        'PRDCTTagSectionOfProduct': $("#PRDCTTagSectionOfProduct").val()
+                        'PRDCTTagSectionOfProduct': $("#PRDCTTagSectionOfProduct").val(),
+                        'PRDCTMultyPricePer1Demansion': $("#PRDCTMultyPricePer1Demansion").val(),
+                        'PRDCTMultyDemansionValue':$("#PRDCTMultyDemansionValue").val()
                     };
                     console.log(JSON.stringify(PostJson));
                     $.ajax({
@@ -995,6 +997,8 @@
                             "PriceNumeric": $("#PriceNumeric-" + $(this).val()).val(),
                             "QTnumeric": $("#QTnumeric-" + $(this).val()).val(),
                             "ProductCode": $("#ProductCode-" + $(this).val()).val(),
+                            "MultyproductQT": $("MultyproductQT-" + $(this).val()).val(),
+                            "MultyproductPricePerQT":$("#MultyproductPricePerQT-"+ $(this).val()).val(),
                             "idMPC": $(this).val()
                         };
                         ArryTosend.push(PostJ);

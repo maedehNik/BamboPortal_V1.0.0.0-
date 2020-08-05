@@ -2762,6 +2762,7 @@
     <Content Include="CustomerSide_desinerResource\images\shop\accessories\ring-1.png" />
     <Content Include="CustomerSide_desinerResource\images\shop\accessories\ring-2.png" />
     <Content Include="CustomerSide_desinerResource\images\shop\accessories\ring-3.png" />
+    <Content Include="CustomerSide_desinerResource\images\shop\imgNotFount.jpg" />
     <Content Include="CustomerSide_desinerResource\images\shop\bags\1-person.jpg" />
     <Content Include="CustomerSide_desinerResource\images\shop\bags\1.jpg" />
     <Content Include="CustomerSide_desinerResource\images\shop\bags\11.jpg" />

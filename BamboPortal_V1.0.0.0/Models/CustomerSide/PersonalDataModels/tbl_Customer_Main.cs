@@ -19,5 +19,6 @@ namespace BamboPortal_V1._0._0._0.Models.CustomerSide
         public string C_Password { set; get; }
         /////////////////////////////////
         public bool remember_me { set; get; }
+        public DateTime SayMyTime { get; set; }
     }
 }

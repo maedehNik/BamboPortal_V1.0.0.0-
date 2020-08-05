@@ -9,7 +9,8 @@ namespace BamboPortal_V1._0._0._0.nonStaticUsefulClass.Products
 {
     public class SaveJaygashtOfProducts
     {
-        public string MainProduct_Actions(string action, int id_MProduct, string Quantity, string QuantityModule, string PriceXquantity, string PricePerquantity, string PriceOff, string offTypeValue, string OffType, string id_MainStarTag, string PriceModule, string PriceShow, string describtion = " ")
+        public string MainProduct_Actions(string action, int id_MProduct, string Quantity, string QuantityModule, string PriceXquantity, string PricePerquantity, string PriceOff, string offTypeValue, string OffType, string id_MainStarTag, string PriceModule, string PriceShow,
+string MultyPriceXquantity, string CalculateMultyPriceFromQ,string describtion = " ")
         {
 
             List<ExcParameters> paramss = new List<ExcParameters>();
@@ -30,7 +31,7 @@ namespace BamboPortal_V1._0._0._0.nonStaticUsefulClass.Products
 
             parameters = new ExcParameters()
             {
-                _KEY = "@QuantityModule",
+                _KEY = "@id_PQT",
                 _VALUE = QuantityModule
             };
             paramss.Add(parameters);
@@ -49,26 +50,26 @@ namespace BamboPortal_V1._0._0._0.nonStaticUsefulClass.Products
             };
             paramss.Add(parameters);
 
-            parameters = new ExcParameters()
-            {
-                _KEY = "@PriceOff",
-                _VALUE = PriceOff
-            };
-            paramss.Add(parameters);
+            //parameters = new ExcParameters()
+            //{
+            //    _KEY = "@PriceOff",
+            //    _VALUE = PriceOff
+            //};
+            //paramss.Add(parameters);
 
-            parameters = new ExcParameters()
-            {
-                _KEY = "@offTypeValue",
-                _VALUE = offTypeValue
-            };
-            paramss.Add(parameters);
+            //parameters = new ExcParameters()
+            //{
+            //    _KEY = "@offTypeValue",
+            //    _VALUE = offTypeValue
+            //};
+            //paramss.Add(parameters);
 
-            parameters = new ExcParameters()
-            {
-                _KEY = "@OffType",
-                _VALUE = OffType
-            };
-            paramss.Add(parameters);
+            //parameters = new ExcParameters()
+            //{
+            //    _KEY = "@OffType",
+            //    _VALUE = OffType
+            //};
+            //paramss.Add(parameters);
 
             parameters = new ExcParameters()
             {
@@ -98,11 +99,24 @@ namespace BamboPortal_V1._0._0._0.nonStaticUsefulClass.Products
             };
             paramss.Add(parameters);
 
+            parameters = new ExcParameters()
+            {
+                _KEY = "@MultyPriceStartFromQ",
+                _VALUE = describtion
+            };
+            paramss.Add(parameters);
+            parameters = new ExcParameters()
+            {
+                _KEY = "@MultyPrice",
+                _VALUE = describtion
+            };
+            paramss.Add(parameters);
+
             string query = "";
 
             if (action == "insert")
             {
-                query = "INSERT INTO [tlb_Product_MainProductConnector] Output Inserted.id_MPC VALUES(@id_MProduct, @Quantity, @PriceXquantity, @PricePerquantity, @PriceOff, @offTypeValue, @OffType, @id_MainStarTag , 0 , 0 ,  @QuantityModule ,GetDate(), @PriceModule, @PriceShow,@describtion,0)";
+                query = "INSERT INTO [tlb_Product_MainProductConnector]  ([id_MProduct]  ,[Quantity]  ,[PriceXquantity]  ,[PricePerquantity]  ,[PriceOff]  ,[offTypeValue]  ,[OffType]  ,[id_MainStarTag]  ,[ISDELETE]  ,[OutOfStock]  ,[id_PQT]  ,[DateToRelease]  ,[PriceModule]  ,[PriceShow]  ,[describtion]  ,[id_Stockpile]  ,[HasMultyPrice]  ,[MultyPriceStartFromQ]  ,[MultyPrice])      VALUES (@id_MProduct  ,@Quantity  ,@PriceXquantity  ,@PricePerquantity  ,0  ,0  ,0 ,@id_MainStarTag  ,0 ,0  ,@id_PQT  ,GETDATE()   ,@PriceModule  ,@PriceShow  ,@describtion   ,0,1  ,@MultyPriceStartFromQ  ,@MultyPrice)";
             }
             else if (action == "update")
             {
