@@ -5,7 +5,7 @@ using System.Web;
 
 namespace BamboPortal_V1._0._0._0.Models.AdministratorCustomers
 {
-    public class CustomerDetail
+    public class Admin_CustomerDetail
     {
         public int Id { get; set; }
         public string Name { get; set; }
