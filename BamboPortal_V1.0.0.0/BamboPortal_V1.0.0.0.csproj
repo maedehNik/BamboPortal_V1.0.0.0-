@@ -3174,6 +3174,7 @@
     <Content Include="DatabaseCenter\SQL Scripts\1399\Mordad\13\all.sql" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Mordad\13\factors.sql" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Mordad\13\Note.txt" />
+    <Content Include="DatabaseCenter\SQL Scripts\1399\Mordad\15\Secound.sql" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Mordad\first1.sql" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Tir\16\desktop - Copy.sql" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Tir\16\desktop.sql" />
