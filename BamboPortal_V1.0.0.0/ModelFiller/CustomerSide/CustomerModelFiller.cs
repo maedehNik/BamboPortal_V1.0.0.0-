@@ -1035,7 +1035,7 @@ namespace BamboPortal_V1._0._0._0.ModelFiller.CustomerSide
             var MPCList = new List<MPCModel>();
             PDBC db = new PDBC();
             db.Connect();
-            DataTable MPC = db.Select("SELECT [id_MPC],[PriceXquantity],[PricePerquantity],[PriceOff],[offTypeValue],[OffType],[HasMultyPrice],[MultyPriceStartFromQ],[MultyPrice],[MultyPriceXQ],[PriceShow] FROM [tlb_Product_MainProductConnector]where id_MProduct=" + Id);
+            DataTable MPC = db.Select("SELECT [id_MPC],[PriceXquantity],[PricePerquantity],[PriceOff],[offTypeValue],[OffType],[HasMultyPrice],[MultyPriceStartFromQ],[MultyPrice],[MultyPriceStartFromQ],[PriceShow] FROM [tlb_Product_MainProductConnector] where id_MProduct=" + Id);
             for (int i = 0; i < MPC.Rows.Count; i++)
             {
                 var model = new MPCModel()
@@ -1050,7 +1050,7 @@ namespace BamboPortal_V1._0._0._0.ModelFiller.CustomerSide
                     HAsMultiPrice = Convert.ToInt32(MPC.Rows[i]["HasMultyPrice"]),
                     MultyPriceStartFromQ = Convert.ToInt32(MPC.Rows[i]["MultyPriceStartFromQ"]),
                     MultyPrice = MPC.Rows[i]["MultyPrice"].ToString(),
-                    MultyPriceXQ = MPC.Rows[i]["MultyPriceXQ"].ToString()
+                    MultyPriceXQ = MPC.Rows[i]["MultyPrice"].ToString()
                 };
                 DataTable props = db.Select("SELECT distinct B.id_SCOK,B.id_SCOV,B.SCOVValueName FROM [tbl_Product_connectorToMPC_SCOV] as A inner join [tbl_Product_SubCategoryOptionValue] as B on A.id_SCOV=B.id_SCOV where A.id_MPC=" + model.Id + " order by(id_SCOK)ASC");
                 model.JsonProperty = "{";

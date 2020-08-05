@@ -75,6 +75,7 @@
 
                 </ul>
             </div>
+            <input style="display:none" id="idp" value="0" />
             <section class="section-colored theme-background-light clearfix no-margin col-md-6" style="padding-bottom: 0px; padding-top: 40px;float: left;">
                 <div class="container-fluid">
                     <div class="row">
@@ -133,29 +134,6 @@
 
 
 
-                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                            <div class="select-shop pad-right-15 pad-left-15 col-lg-6 col-md-6 col-sm-12 col-xs-6">
-                                                <span class="desc-title title-no-border">
-                                                    <i class="fa fa-chevron-left tshfatrtry3"></i>
-                                                    فروشگاه
-                                                </span>
-                                                <div class="radio-custom">
-                                                    <label>
-                                                        <input type="radio" class="option-input radio" name="shops" checked />
-                                                        <b>تجریش</b>
-                                                    </label>
-                                                    <label>
-                                                        <input type="radio" class="option-input radio" name="shops" />
-                                                        <b>میدان انقلاب</b>
-                                                    </label>
-                                                    <label>
-                                                        <input type="radio" class="option-input radio" name="shops" />
-                                                        <b>سعادت آباد</b>
-                                                    </label>
-                                                </div>
-                                            </div>
-
-                                        </div>
                                         <div class="col-lg-12 col-md-2 col-sm-12 col-xs-12">
 
                                             @if (Model.ProductModel.PriceShowType == 1)
@@ -182,10 +160,10 @@
                                             }
 
                                             <div class="tshspbb-left add-cart-btn col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                <a href="#" class="btn btn-success btn-lg">
+                                                <button onclick="return AddToBasket(this)" class="btn btn-success btn-lg">
                                                     <i class="fa fa-shopping-cart" style="margin-left: 2px;"></i>
                                                     افزودن به سبد خرید
-                                                </a>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -294,7 +272,7 @@
 
         var MPCs;
         $(document).ready(function () {
-            //alert("Hello");
+            alert("Hello");
 
 
              PostJson = {
@@ -308,7 +286,8 @@
                 data: JSON.stringify(PostJson),
                 contentType: "application/json; charset=utf-8",
                 success: function (response) {
-                   MPCs = response;
+                    MPCs = response;
+                    console.log(MPCs);
                     CheckChanges();
                     alert("done");
                 },
@@ -318,7 +297,21 @@
             });
         });
 
-      
+        function Changeee() {
+            alert("Helloooooo");
+            return false;
+        }
+
+        function CheckChangesSS() {
+            alert("change");
+            return false;
+        }
+
+
+        //H love programming
+
+
+
         function CheckChanges() {
             console.log("hellow");
         var json = '{';
@@ -343,7 +336,7 @@
 
 
                 if ($('#Number_inp').val() >= obj.MultyPriceStartFromQ && obj.HAsMultiPrice == 1) {
-
+                    $("#idp").val(obj.Id);
                     $('OffVal').show();
                     $('OffVal').text("قیمت عمده");
                     if (obj.PriceShowType == 1) {
@@ -355,6 +348,7 @@
                     }
 
                 } else {
+                    $("#idp").val(obj.Id);
                     $('OffVal').hide();
                      if (obj.PriceShowType == 1) {
                         $('#PriceShow1').text(obj.PricePerQ);

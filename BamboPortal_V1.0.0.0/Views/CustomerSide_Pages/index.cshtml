@@ -18,57 +18,11 @@
     @Scripts.Render( "~/bundles/CustomerSide.js")
 </head>
 <body class="header-left-side rtl">
-    <div class="shopping-cart-slide">
-        <div class="title">
-            سبد خرید شما
-            <br />
-            (5) کالا
-        </div>
-        <div class="cart-items">
-            <div class="cart-item">
-                <div class="cart-item-remove"><a href="#"><i class="fa fa-trash-o"></i></a></div>
-                <div class="cart-item-image">
-                    <img alt="image" src="~/CustomerSide_desinerResource/images/products/cart-thumbs/light-grey-jacket-transparent.png" />
-                </div>
-                <div class="cart-item-info">
-                    <div class="item-name"><a href="#">Grey Jacket</a></div>
-                    <div class="item-quantity">
-                        <form id='qtyform5' method='POST' action='#'>
-                            <input type='button' value='-' class='qtyminus btn' title='quantity5' />
-                            <input type='text' name='quantity5' value='1' class='qty' />
-                            <input type='button' value='+' class='qtyplus btn' title='quantity5' />
-                        </form>
-                    </div>
-                </div>
-                <div class="cart-item-price">1,560,000 ریال</div>
-            </div>
+    <div id="ShoppingCartSlide">
 
-            <div class="cart-item">
-                <button class="btn btn-info" style="width: 100%;">ابتدا وارد حساب کاربری خود شوید</button>
-            </div>
-
-            <!--=============================================================CART ITEMS END-->
-
-        </div>
-        <div class="cart-footer">
-
-
-
-            <div class="cart-sub grand-total">
-                <div class="cart-sub-amount">
-                    1000 ريال
-                </div>
-                <div class="text">
-                    مبلغ قابل پرداخت
-                </div>
-
-            </div>
-            <div class="cart-order-links">
-                <a class="btn shopping-cart-trigger">بستن</a>
-                <a class="btn btn-success">پرداخت</a>
-            </div>
-        </div>
+        @{ Html.RenderAction("ShoppingCartSlide", "CustomerSide_Product"); }
     </div>
+
     <div id="LoaderSpinner" class="loader" style="display:none;">
         <div class="spinner"></div>
     </div>
@@ -243,7 +197,7 @@
                         </div>
                         <div class="product-info">
                             <h3 class="text-darker"><a href="#"><small>@item.Title</small></a></h3>
-                            @if (item.offType == 1 || item.offType==0)
+                            @if (item.offType == 1 || item.offType == 0)
                             {
                                 if (item.PriceShowType == 1)
                                 {
@@ -333,7 +287,7 @@
                         </div>
                         <div class="product-info">
                             <h3 class="text-darker"><a href="#"><small>@item.Title</small></a></h3>
-                            @if (item.offType == 1|| item.offType==0)
+                            @if (item.offType == 1 || item.offType == 0)
                             {
                                 if (item.PriceShowType == 1)
                                 {
@@ -523,13 +477,13 @@
             </div>
         </footer>
     </div>
-    
-        @Scripts.Render("~/bundles/CustomerSideIndex.js")
-        @Scripts.Render("~/bundles/CustomerSide2.js")
+
+    @Scripts.Render("~/bundles/CustomerSideIndex.js")
+    @Scripts.Render("~/bundles/CustomerSide2.js")
     <script>
         $(document).ready(function () {
             alert("salam");
         });
     </script>
-    </body>
+</body>
 </html>

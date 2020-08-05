@@ -444,6 +444,50 @@ function CalculatePriceCSC(idmpc, input) {
     });
     updateCart();
 }
+
+function AddToBasket(btns) {
+
+    var PostJ = {
+        "idp": $("#idp").val(),
+        "Number_inp": $("#Number_inp").val()
+    };
+    $("#LoaderSpinner").show(300);
+    $(btns).prop("disabled", true);
+    $.ajax({
+        url: '/CustomerSide_Product/AddproductToBasket',
+        type: "post",
+        data: JSON.stringify(PostJ),
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            if (data.Errortype == "Success") {
+                success("خرید با موفقیت انجام شد!");
+                $("#LoaderSpinner").hide(300);
+
+                setTimeout(function () {
+                    window.location.replace(window.location.origin);
+                }, 1000);
+            } else {
+                danger(data.Errormessage);
+                $(input).val(0);
+                $(btns).prop("disabled", false);
+                $("#LoaderSpinner").hide(300);
+
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            danger("مشکل در برقراری ارتباط با سرور");
+            $(btns).prop("disabled", false);
+            $("#LoaderSpinner").hide(300);
+
+
+        }
+    });
+
+    return false;
+}
+
+
+
 function CSCFinishShopping(btns) {
     var PostJ = {
         "ABC": "1"
