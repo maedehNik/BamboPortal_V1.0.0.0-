@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BamboPortal_V1._0._0._0.ModelViews.CustomerSide;
+using BamboPortal_V1._0._0._0.StaticClass;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,7 +16,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
             string actionName = filterContext.RouteData.Values["action"].ToString();
             string controllerName = filterContext.RouteData.Values["controller"].ToString();
 
-
+            
 
 
 

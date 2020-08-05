@@ -1,4 +1,5 @@
-﻿using BamboPortal_V1._0._0._0.DatabaseCenter.Class;
+﻿using BamboPortal_V1._0._0._0.BamboPortalSecurity.EncDec;
+using BamboPortal_V1._0._0._0.DatabaseCenter.Class;
 using BamboPortal_V1._0._0._0.Models;
 using BamboPortal_V1._0._0._0.Models.CustomerSide;
 using BamboPortal_V1._0._0._0.StaticClass;
@@ -47,6 +48,8 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 };
                 return Json(ModelSender);
             }
+            EncDec dn = new EncDec();
+            password = dn.HMACMD5Generator(password);
             PDBC db = new PDBC();
             List<ExcParameters> pars = new List<ExcParameters>();
             ExcParameters par = new ExcParameters()
@@ -62,7 +65,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
             };
             pars.Add(par);
             db.Connect();
-            DataTable dt = db.Select("SELECT [id_Customer] ,[C_Mobile] ,[C_FirstName] ,[C_LastNAme] FROM [tbl_Customer_Main] WHERE [C_Mobile] LIKE @Mobile AND [C_Password] LIKE PASS AND [C_ISActivate] = 1");
+            DataTable dt = db.Select("SELECT [id_Customer] ,[C_Mobile] ,[C_FirstName] ,[C_LastNAme] FROM [tbl_Customer_Main] WHERE [C_Mobile] LIKE @Mobile AND [C_Password] LIKE @PASS AND [C_ISActivate] = 1");
             db.DC();
             if (dt.Rows.Count > 1)
             {

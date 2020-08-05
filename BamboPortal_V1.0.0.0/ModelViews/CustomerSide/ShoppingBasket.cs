@@ -8,6 +8,7 @@ namespace BamboPortal_V1._0._0._0.ModelViews.CustomerSide
     public class ShoppingBasket
     {
         public List<ShoppingBasketItems> Items { get; set; }
+        public bool islogin { get; set; }
     }
 
     public class ShoppingBasketItems
@@ -19,5 +20,6 @@ namespace BamboPortal_V1._0._0._0.ModelViews.CustomerSide
         public int CountOf { get; set; }
         public Int64 Totals { get; set; }
         public Int64 PriceXQ { get; set; }
+  
     }
 }

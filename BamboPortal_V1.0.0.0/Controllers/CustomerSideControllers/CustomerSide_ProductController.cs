@@ -47,9 +47,6 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 userCookieIDV.Value = CoockieController.SetCustomerShopFactorCookie(fpm);
                 userCookieIDV.Expires = DateTime.Now.AddDays(2);
                 Response.SetCookie(userCookieIDV);
-
-
-
                 return View(model);
             }
             else
@@ -130,7 +127,29 @@ namespace BamboPortal_V1._0._0._0.Controllers
 
         public ActionResult ShoppingCartSlide()
         {
-            return View();
+            ShoppingBasket model = new ShoppingBasket();
+            if (HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerCode()) != null)
+            {
+                model.islogin = true;
+            }
+            else
+            {
+                model.islogin = false;
+            }
+
+
+            if (HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerShoppingBasket()) != null)
+            {
+                model = JsonConvert.DeserializeObject<ShoppingBasket>(HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerShoppingBasket()).Value);
+            }
+            else
+            {
+                model = new ShoppingBasket()
+                {
+                    Items = new List<ShoppingBasketItems>()
+                };
+            }
+            return View(model);
         }
 
         [HttpPost]
