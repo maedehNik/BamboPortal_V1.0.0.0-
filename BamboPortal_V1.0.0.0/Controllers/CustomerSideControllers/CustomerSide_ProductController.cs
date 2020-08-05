@@ -384,6 +384,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
         [HttpPost]
         public JsonResult AddproductToBasket(string idp, string Number_inp)
         {
+            var ModelSender = new ErrorReporterModel();
             tbl_Customer_Main tcm = new tbl_Customer_Main();
             var coockie = HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerCode());
             if (coockie != null)
@@ -392,22 +393,54 @@ namespace BamboPortal_V1._0._0._0.Controllers
             }
             else
             {
-
+                ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX186763",
+                    Errormessage = $"ابتدا وارد اکانت کاربری خود شوید!",
+                    Errortype = "Error"
+                };
+                return Json(ModelSender);
             }
-            var coockie2 = (HttpContext.Request.Cookies.Get(ProjectProperies.CustomerShoppingFactor()));
+            var coockie2 = HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerShoppingBasket());
             if (coockie2 != null)
             {
-                FactorPopUpModel fpm = CoockieController.GetCustomerShopFactorCookie(HttpContext.Request.Cookies.Get(ProjectProperies.CustomerShoppingFactor()).Value);
+                var coockie3 = JsonConvert.DeserializeObject<ShoppingBasket>(HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerShoppingBasket()).Value);
+                var KK = coockie3.Items.Find(x => x.idmpc == idp);
+                if(KK != null)
+                {
+
+                }
+                else
+                {
+
+                }
 
 
+
+                ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "SX106",
+                    Errormessage = $"با موفقیت افزوده شد!",
+                    Errortype = "Success"
+                };
+                return Json(ModelSender);
             }
             else
             {
+                ShoppingBasket SB = new ShoppingBasket()
+                {
+                    Items = new List<ShoppingBasketItems>()
+                };
 
+
+                ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "SX106",
+                    Errormessage = $"با موفقیت افزوده شد!",
+                    Errortype = "Success"
+                };
+                return Json(ModelSender);
             }
-
-
-            return Json("");
         }
     }
 }
