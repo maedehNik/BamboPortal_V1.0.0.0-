@@ -61,7 +61,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
             return View();
         }
 
-        public ActionResult AddCustomerAddress( string CityId, string FullAddress, string CodePosti)
+        public ActionResult AddCustomerAddress(string CityId, string FullAddress, string CodePosti)
         {
             tbl_Customer_Main tcm = new tbl_Customer_Main();
             var coockie = HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerCode());
