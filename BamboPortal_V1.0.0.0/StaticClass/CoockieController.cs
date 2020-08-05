@@ -35,5 +35,18 @@ namespace BamboPortal_V1._0._0._0.StaticClass
             EncDec en = new EncDec();
             return JsonConvert.DeserializeObject<tbl_Customer_Main>(en.DecryptText(CoockieJson));
         }
+
+
+        public static string SetCustomerShopFactorCookie(FactorPopUpModel senderobj)
+        {
+            senderobj.SayMyTime = DateTime.Now;
+            EncDec en = new EncDec();
+            return en.EncryptText(JsonConvert.SerializeObject(senderobj));
+        }
+        public static FactorPopUpModel GetCustomerShopFactorCookie(string CoockieJson)
+        {
+            EncDec en = new EncDec();
+            return JsonConvert.DeserializeObject<FactorPopUpModel>(en.DecryptText(CoockieJson));
+        }
     }
 }

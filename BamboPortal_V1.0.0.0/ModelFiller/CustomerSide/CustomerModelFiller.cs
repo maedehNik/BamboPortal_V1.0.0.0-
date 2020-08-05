@@ -1,5 +1,6 @@
 ﻿using BamboPortal_V1._0._0._0.DatabaseCenter.Class;
 using BamboPortal_V1._0._0._0.Models.CustomerSide;
+using BamboPortal_V1._0._0._0.ModelViews.CustomerSide;
 using BamboPortal_V1._0._0._0.StaticClass.UploaderStaticsCalculators;
 using MD.PersianDateTime;
 using System;
@@ -45,7 +46,7 @@ namespace BamboPortal_V1._0._0._0.ModelFiller.CustomerSide
         {
             DateTime date = Convert.ToDateTime(date_);
             PersianDateTime persianDateTime = new PersianDateTime(date);
-           
+
 
             if (DateType == "Date")
             {
@@ -435,18 +436,18 @@ namespace BamboPortal_V1._0._0._0.ModelFiller.CustomerSide
                     date = DateReturner(dt.Rows[i]["DateCreated"].ToString(), DateType),
                     MoneyQ = dt.Rows[i]["MoneyTypeName"].ToString(),
                     PricePerQ = dt.Rows[i]["PricePerquantity"].ToString(),
-                    offType= Convert.ToInt32(dt.Rows[i]["OffType"]),
-                    PriceShowType= Convert.ToInt32(dt.Rows[i]["PriceShow"]),
-                    PriceXQ= dt.Rows[i]["PriceXquantity"].ToString(),
-                    OffValue= dt.Rows[i]["offTypeValue"].ToString()
+                    offType = Convert.ToInt32(dt.Rows[i]["OffType"]),
+                    PriceShowType = Convert.ToInt32(dt.Rows[i]["PriceShow"]),
+                    PriceXQ = dt.Rows[i]["PriceXquantity"].ToString(),
+                    OffValue = dt.Rows[i]["offTypeValue"].ToString()
                 };
 
-                if(string.IsNullOrEmpty(model.PicPath))
+                if (string.IsNullOrEmpty(model.PicPath))
                 {
                     model.PicPath = NoPicPath;
                 }
 
-              
+
 
                 res.Add(model);
 
@@ -505,7 +506,7 @@ namespace BamboPortal_V1._0._0._0.ModelFiller.CustomerSide
                     OffValue = dt.Rows[i]["offTypeValue"].ToString()
                 };
 
-                if (string.IsNullOrEmpty( model.PicPath))
+                if (string.IsNullOrEmpty(model.PicPath))
                 {
                     model.PicPath = NoPicPath;
                 }
@@ -520,9 +521,9 @@ namespace BamboPortal_V1._0._0._0.ModelFiller.CustomerSide
 
         public string ProList_QueryMaker(string Type, int ProductsInAPage, int Id, string search, int page)
         {
-            
+
             StringBuilder query = new StringBuilder();
-           
+
             int num = ProList_Pages(Type, ProductsInAPage, Id, search);
             if (Top != 0)
             {
@@ -638,98 +639,56 @@ namespace BamboPortal_V1._0._0._0.ModelFiller.CustomerSide
 
         }
 
-        public FactorPopUpModel shoppingCart(int id, string DateType = "DateTime")
+        public FactorPopUpModel shoppingCart(ShoppingBasket basket)
         {
+            FactorPopUpModel res = new FactorPopUpModel();
+            res.items = new List<ShoppingCart_item>();
             PDBC db = new PDBC();
-            var items = new List<ShoppingCart_item>();
             db.Connect();
-            DataTable dt = db.Select("SELECT B.id_MPC,[ItemId],B.PricePerquantity,B.PriceXquantity,B.Quantity,B.PriceOff,(B.PriceOff*A.number) as total,[number],C.Title ,(SELECT top 1 PicID FROM [v_tblProduct_Image] where [id_MProduct]=C.id_MProduct) as Pic FROM [tbl_FACTOR_Items] as A inner join [tlb_Product_MainProductConnector] as B on A.Pro_Id=B.id_MPC inner join [tbl_Product] as C on B.id_MProduct=C.id_MProduct where A.FactorId=" + id);
-            for (int i = 0; i < dt.Rows.Count; i++)
+            int BasketitemCount = basket.Items.Count;
+            for (int i = 0; i < BasketitemCount; i++)
             {
-                DataTable SCOV = db.Select("SELECT B.SCOVValueName FROM [tbl_Product_connectorToMPC_SCOV] as A inner join [tbl_Product_SubCategoryOptionValue] as B on A.id_SCOV=B.id_SCOV where A.id_MPC=" + dt.Rows[i]["id_MPC"]);
-                if (i != dt.Rows.Count - 1)
+                using (DataTable dt = db.Select("SELECT [Title],[MCName] ,[SCName],[PriceXquantity],[MultyPrice],[MultyPriceStartFromQ]  FROM [v_Connector_MainProductConnectorToProduct] WHERE [id_MPC] = " + basket.Items[i].idmpc))
                 {
-                    if (i % 6 == 0)
+                    ShoppingCart_item cart_item = new ShoppingCart_item();
+                    cart_item.Id = Convert.ToInt32(basket.Items[i].idmpc);
+                    cart_item.Num = i + 1;
+                    cart_item.number = basket.Items[i].CountOf;
+                    cart_item.Title = basket.Items[i].Title;
+                    if (cart_item.number > Convert.ToInt32(dt.Rows[0]["MultyPriceStartFromQ"].ToString()))
                     {
-                        db.DC();
-                        db.Connect();
-                    }
-                }
-                else
-                {
-                    db.DC();
-                }
-
-                var s = "(";
-                for (int j = 0; j < SCOV.Rows.Count; j++)
-                {
-                    s += SCOV.Rows[j]["SCOVValueName"];
-                    if (j == SCOV.Rows.Count - 1)
-                    {
-                        s += ")";
+                        cart_item.PriceXQ = Convert.ToInt64(dt.Rows[0]["MultyPrice"].ToString());
                     }
                     else
                     {
-                        s += ",";
+                        cart_item.PriceXQ = Convert.ToInt64(dt.Rows[0]["PriceXquantity"].ToString());
                     }
+                    cart_item.total = cart_item.PriceXQ * cart_item.number;
+                    res.items.Add(cart_item);
                 }
-
-                var model = new ShoppingCart_item()
-                {
-                    Num = i + 1,
-                    Id = Convert.ToInt32(dt.Rows[i]["ItemId"]),
-                    number = Convert.ToInt32(dt.Rows[i]["number"]),
-                    ImagePath = UploaderGeneral.imageFinder(dt.Rows[i]["Pic"].ToString()),
-                    total = long.Parse(dt.Rows[i]["total"].ToString()),
-                    property = s,
-                    Title = dt.Rows[i]["Title"].ToString(),
-                    PriceOff = long.Parse(dt.Rows[i]["PriceOff"].ToString()),
-                    PricePerQ = long.Parse(dt.Rows[i]["PricePerquantity"].ToString()),
-                    PriceXQ = long.Parse(dt.Rows[i]["PriceXquantity"].ToString()),
-                    Quantity = Convert.ToInt32(dt.Rows[i]["Quantity"])
-                };
-                items.Add(model);
-            }
-            db.Connect();
-            DataTable Factor = db.Select("SELECT [Factor_Id],[AddressId],[date],[Off_Code],[toality],[deposit_price],[IsDeleted],[Done],[PaymentSerial],[PaymentToken],[Customer_Id],(SELECT top 1 [MoneyTypeName] FROM [tbl_Product_MoneyType] as D inner join [tlb_Product_MainProductConnector]as E on D.MoneyId=E.[PriceModule] inner join [tbl_FACTOR_Items] as F on E.id_MPC=F.Pro_Id WHERE F.FactorId=[Factor_Id])AS priceQuantity FROM [tbl_FACTOR_Main] where Factor_Id=" + id);
-            var res = new FactorPopUpModel();
-            if (Factor.Rows.Count != 0)
-            {
-                var Address = new AddressModel();
-                DataTable dt1 = db.Select("SELECT DISTINCT  B.Ostan_name +' , '+B.Shahr_Name as city ,[C_AddressHint],[C_FullAddress] FROM [tbl_Customer_Address] as A inner join [tbl_Enum_Shahr] as B on A.ID_Shahr=B.ID_Shahr where A.id_CAddress=" + Factor.Rows[0]["AddressId"]);
-                db.DC();
-                if (dt1.Rows.Count != 0)
-                {
-
-                    Address.City = dt1.Rows[0]["city"].ToString();
-                    Address.FullAddress = dt1.Rows[0]["C_FullAddress"].ToString();
-                    Address.HintAddress = dt1.Rows[0]["C_AddressHint"].ToString();
-                }
-
-
-                res.Id = Convert.ToInt32(Factor.Rows[0]["Factor_Id"]);
-                res.CustomerId = Convert.ToInt32(Factor.Rows[0]["Customer_Id"]);
-                res.Date = DateReturner(Factor.Rows[0]["date"].ToString(), DateType);
-                res.PaymentSerial = Factor.Rows[0]["PaymentSerial"].ToString();
-                res.PaymentToken = Factor.Rows[0]["PaymentToken"].ToString();
-                res.totality = Factor.Rows[0]["toality"].ToString();
-                res.Deposit = Factor.Rows[0]["deposit_price"].ToString();
-                res.Address = Address;
-                res.deleted = Convert.ToInt32(Factor.Rows[0]["IsDeleted"]);
-                res.Done = Convert.ToInt32(Factor.Rows[0]["Done"]);
-                res.Off_Code = Factor.Rows[0]["Off_Code"].ToString();
-                res.MoneyQuantity = Factor.Rows[0]["priceQuantity"].ToString();
-                res.items = items;
-                res.itemNumbers = items.Count();
-
-                if (res.Deposit == "0")
-                {
-                    long totality = long.Parse(res.totality);
-                    res.Deposit = (totality * 1.09).ToString();
-                }
-
             }
             db.DC();
+            db.Connect();
+            for (int i = 0; i < res.items.Count; i++)
+            {
+                res.items[i].property = "";
+                using (DataTable dt = db.Select("SELECT [SCOKName] ,[SCOVValueName]  FROM [v_ConnectorTheProductConnectorViewToSCOVandSCOKV_s] WHERE  [id_MPC]  =" + res.items[i].Id))
+                {
+                    for (int j = 0; j < dt.Rows.Count; j++)
+                    {
+                        res.items[i].property += $"{dt.Rows[j]["SCOKName"].ToString()}:{dt.Rows[j]["SCOVValueName"].ToString()}";
+                    }
+                }
+            }
+            db.DC();
+            Int64 totality = 0;
+            for (int i = 0; i < res.items.Count; i++)
+            {
+                res.items[i].ImagePath = UploaderGeneral.imageFinderfromIDMPC(res.items[i].Id.ToString(), ImageSizeEnums.Thumbnail);
+                totality += res.items[i].total;
+            }
+            res.totality = totality.ToString();
+            res.Deposit = res.totality;
             return res;
         }
 
@@ -958,13 +917,13 @@ namespace BamboPortal_V1._0._0._0.ModelFiller.CustomerSide
 
                 if (Money.Rows.Count != 0)
                 {
-                    res.PriceXQ= Money.Rows[0]["PriceXquantity"].ToString();
+                    res.PriceXQ = Money.Rows[0]["PriceXquantity"].ToString();
                     res.PriceOff = Money.Rows[0]["PriceOff"].ToString();
                     res.PriceQuantity = Money.Rows[0]["PriceQuantity"].ToString();
                     res.Quantity = Money.Rows[0]["Quantity"].ToString();
                     res.Tags = MPC_Tags(Convert.ToInt32(Money.Rows[0]["id_MPC"]));
                     res.PricePerQ = Money.Rows[0]["PricePerquantity"].ToString();
-                    res.PriceShowType =Convert.ToInt32(Money.Rows[0]["PriceShow"]);
+                    res.PriceShowType = Convert.ToInt32(Money.Rows[0]["PriceShow"]);
                 }
                 db.DC();
                 db.Connect();
@@ -1016,9 +975,9 @@ namespace BamboPortal_V1._0._0._0.ModelFiller.CustomerSide
                         PriceOff = MPC.Rows[i]["PriceOff"].ToString(),
                         OffValue = MPC.Rows[i]["offTypeValue"].ToString(),
                         OffType = Convert.ToInt32(MPC.Rows[i]["OffType"]),
-                        PriceShowType= Convert.ToInt32(MPC.Rows[i]["PriceShow"]),
-                        HAsMultiPrice= Convert.ToInt32(MPC.Rows[i]["HasMultyPrice"]),
-                        MultyPriceStartFromQ= Convert.ToInt32(MPC.Rows[i]["MultyPriceStartFromQ"]),
+                        PriceShowType = Convert.ToInt32(MPC.Rows[i]["PriceShow"]),
+                        HAsMultiPrice = Convert.ToInt32(MPC.Rows[i]["HasMultyPrice"]),
+                        MultyPriceStartFromQ = Convert.ToInt32(MPC.Rows[i]["MultyPriceStartFromQ"]),
                         MultyPrice = MPC.Rows[i]["MultyPrice"].ToString(),
                         MultyPriceXQ = MPC.Rows[i]["MultyPriceXQ"].ToString()
                     };
