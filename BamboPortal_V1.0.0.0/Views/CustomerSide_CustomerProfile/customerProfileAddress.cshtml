@@ -75,7 +75,7 @@
                 </div>
                 <div class="form-group pad-bot-15 col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <label for="city" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">شهر</label>
-                    <select class="custom-select-profile" name="city" id="city">
+                    <select disabled class="custom-select-profile" name="city" id="city">
                         <option value="">انتخاب کنید</option>
                         <option value="1">تهران</option>
                         <option value="2">تهران</option>
@@ -93,7 +93,7 @@
                     <textarea class="form-control" name="address" id="address"></textarea>
                 </div>
                 <div class="form-group pad-bot-15 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <input type="submit" class="btn btn-success form-submit reg-submit" value="ذخیره">
+                    <input class="btn btn-success" value="ذخیره" onclick="return SaveData()">
                 </div>
             </form>
         </div>
@@ -104,18 +104,79 @@
 @section CS_Scripts {
     <script>
         var revapi;
-    jQuery(document).ready(function () {
-        setInterval(function () {
-            $('.owl-prev').trigger('click');
-        }, 3000);
 
         function CityChange() {
-            alert("Heloo");
+            var Id = $('#province').val();
+            alert(Id);
+            $('#city').prop("disabled", false);
+            const PostJson = {
+                    'OstanId': Id
+                };
+
+                $.ajax({
+                    url: '/AdministratorCustomers/City',
+                    type: "post",
+                    data: JSON.stringify(PostJson),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                        alert("done");
+                         var token = response;
+                    var s = "<option value=0 selected >انتخاب کنید</option>";
+                    for (var i = 0; i < token.length; i++) {
+                        s += "<option value=" + token[i].Id + ">" + token[i].Value + "</option>";
+                    }
+
+                    document.getElementById('city').innerHTML = s;
+                         
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert("مشکل در برقراری ارتباط با سرور");
+                    }
+                });
+            return false;
+
+        }
+
+        function SaveData() {
+
+            var CityId = $('#city').val();
+            var FullAddress = $('#address').val();
+            var CodePosti = $('#pcode').val();
+
+            if (FullAddress != '' && CodePosti = !'')
+            {
+                const PostJson = {
+                'CityId': Id,
+                'FullAddress': FullAddress,
+                'CodePosti': CodePosti
+                };
+
+                $.ajax({
+                    url: '/CustomerSide_CustomerProfile/AddCustomerAddress',
+                    type: "post",
+                    data: JSON.stringify(PostJson),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                        alert("done");
+                        location.reload(true); 
+ 
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert("مشکل در برقراری ارتباط با سرور");
+                    }
+                });
+
+
+            }
+
             return false;
         }
 
 
-
+    jQuery(document).ready(function () {
+        setInterval(function () {
+            $('.owl-prev').trigger('click');
+        }, 3000);
 
         revapi = jQuery("#rev_slider_1").revolution({
             sliderType: "standard",
