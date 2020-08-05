@@ -451,8 +451,10 @@ function AddToBasket(btns) {
         "idp": $("#idp").val(),
         "Number_inp": $("#Number_inp").val()
     };
+
     $("#LoaderSpinner").show(300);
     $(btns).prop("disabled", true);
+
     $.ajax({
         url: '/CustomerSide_Product/AddproductToBasket',
         type: "post",
@@ -463,25 +465,20 @@ function AddToBasket(btns) {
                 success("خرید با موفقیت انجام شد!");
                 $("#LoaderSpinner").hide(300);
 
-                setTimeout(function () {
-                    window.location.replace(window.location.origin);
-                }, 1000);
             } else {
                 danger(data.Errormessage);
                 $(input).val(0);
                 $(btns).prop("disabled", false);
                 $("#LoaderSpinner").hide(300);
-
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
             danger("مشکل در برقراری ارتباط با سرور");
             $(btns).prop("disabled", false);
             $("#LoaderSpinner").hide(300);
-
-
         }
     });
+
 
     return false;
 }

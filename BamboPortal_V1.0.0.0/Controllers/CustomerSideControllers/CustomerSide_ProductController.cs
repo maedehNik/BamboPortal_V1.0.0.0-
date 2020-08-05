@@ -230,7 +230,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                             totality += fpm.items[i].total;
                         }
                         fpm.totality = totality.ToString();
-    
+
                         var userCookieIDV = new HttpCookie(ProjectProperies.CustomerShoppingFactor());
                         userCookieIDV.Value = CoockieController.SetCustomerShopFactorCookie(fpm);
                         userCookieIDV.Expires = DateTime.Now.AddDays(2);
@@ -268,7 +268,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
             pa = new ExcParameters()
             {
                 _KEY = "@MainFactor_Code",
-                _VALUE = "FM-"+DateTime.Now.Ticks
+                _VALUE = "FM-" + DateTime.Now.Ticks
             };
             pas.Add(pa);
             pa = new ExcParameters()
@@ -299,12 +299,12 @@ namespace BamboPortal_V1._0._0._0.Controllers
             string ReturnedID = db.Script("INSERT INTO [tbl_Factor_Main]([id_Customer],[MainFactor_Code],[MainFactor_Price],[MainFactor_IsPay],[MainFactor_PayMessage],[MainFactor_PaymentCode],[MainFactor_Tax],[MainFactor_TotalOff],[MainFactor_CreatedByUserType],[MainFactor_CreatorID],[MainFactor_ISEDITED],[MainFactor_EditedByAdminID],[MainFactor_EditedTo_id_MainFactor],[MainFactor_IsDeleted],[MainFactor_IsReturnedMoney],[MainFactor_PayType],[ChildFactor_DeleteTypeID],[id_CAddress]) output inserted.[id_MainFactor]     VALUES(@id_Customer ,@MainFactor_Code ,@MainFactor_Price ,1,N'NOMessage',@MainFactor_PaymentCode,0,0,2,@MainFactor_CreatorID ,0,0,0,0,0,1,0,@id_CAddress )", pas);
             db.DC();
             int idmf = 0;
-            if(Int32.TryParse(ReturnedID,out idmf))
+            if (Int32.TryParse(ReturnedID, out idmf))
             {
                 string flag = "";
                 pas = new List<ExcParameters>();
                 string res = "";
-                for(int i = 0; i < fpm.items.Count; i++)
+                for (int i = 0; i < fpm.items.Count; i++)
                 {
                     pa = new ExcParameters()
                     {
@@ -345,7 +345,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                     res += db.Script("INSERT INTO [tbl_Factor_ChildFactor]([id_MainFactor],[ChildFactor_DeleteTypeID],[ChildFactor_DeletedByAdminID],[ChildFactor_ISDELETED],[ChildFactor_CreateDate],[ChildFactor_CreatedByUserTypeID],[ChildFactor_CreatorID],[ChildFactor_ProductModuleType],[ChildFactor_ProductID],[ChildFactor_PastProductHistoryID],[ChildFactor_HasOff],[ChildFactor_OffID],[ChildFactor_OffCode],[ChildFactor_OffPrice],[ChildFactor_PurePrice],[ChildFactor_PriceAfterOff],[ChildFactor_ProductReturnTypeID],[ChildFactor_ISCERTIFIED],[ChildFactor_ISEDITED],[ChildFactor_EditedByAdminID],[ChildFactor_EditedTo_id_ChildFactor],[ChildFactor_QBuy]) VALUES(@id_MainFactor,0,0,0,GETDATE(),2,@ChildFactor_CreatorID ,1,@ChildFactor_ProductID ,0,0,0,N' ',0,@ChildFactor_PurePrice ,@ChildFactor_PurePricee,0,1,0,0,@ChildFactor_QBuy )", pas);
                     flag += "1";
                 }
-                if(flag == res)
+                if (flag == res)
                 {
                     ModelSender = new ErrorReporterModel
                     {
@@ -382,10 +382,31 @@ namespace BamboPortal_V1._0._0._0.Controllers
         }
 
         [HttpPost]
-        public JsonResult AddproductToBasket()
+        public JsonResult AddproductToBasket(string idp, string Number_inp)
         {
-            //    "idp": $("#idp").val(),
-            //"Number_inp": $("#Number_inp").val()
+            tbl_Customer_Main tcm = new tbl_Customer_Main();
+            var coockie = HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerCode());
+            if (coockie != null)
+            {
+                tcm = CoockieController.SayWhoIsHE(coockie.Value);
+            }
+            else
+            {
+
+            }
+            var coockie2 = (HttpContext.Request.Cookies.Get(ProjectProperies.CustomerShoppingFactor()));
+            if (coockie2 != null)
+            {
+                FactorPopUpModel fpm = CoockieController.GetCustomerShopFactorCookie(HttpContext.Request.Cookies.Get(ProjectProperies.CustomerShoppingFactor()).Value);
+
+
+            }
+            else
+            {
+
+            }
+
+
             return Json("");
         }
     }
