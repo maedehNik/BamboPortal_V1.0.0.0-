@@ -117,7 +117,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-shop nav-shop-fullscreen">
-                                    <a href="#" class="shopping-cart-trigger"><i class="shop-icon icon-basket">سلام موسوی نیا ابرغویی</i></a>
+                                    <a href="#" class="shopping-cart-trigger"><i class="shop-icon icon-basket"></i></a>
                                 </li>
                             </ul>
                         </div>
@@ -154,8 +154,10 @@
                 </div>
             </div>
         </header>
+        <div id="ShoppingCartSlide">
 
         @{ Html.RenderAction("ShoppingCartSlide", "CustomerSide_Product"); }
+        </div>
 
         @RenderBody()
 

@@ -59,7 +59,7 @@
             </div>
             <div class="cart-order-links">
                 <a class="btn shopping-cart-trigger">بستن</a>
-                <a class="btn btn-success" href="@Url.Action("","")">پرداخت</a>
+                <a class="btn btn-success" href="@Url.Action("customershoppingCart","CustomerSide_Product")">پرداخت</a>
             </div>
         </div>
     </div>
@@ -74,7 +74,7 @@ else
         </div>
         <div class="cart-items">
             <div class="cart-item">
-                <button class="btn btn-info" style="width: 100%;">ابتدا وارد حساب کاربری خود شوید</button>
+                <a href="@Url.Action("loginandregister","CustomerSide_Register")" class="btn btn-info" style="width: 100%;">ابتدا وارد حساب کاربری خود شوید</a>
             </div>
 
             <!--=============================================================CART ITEMS END-->

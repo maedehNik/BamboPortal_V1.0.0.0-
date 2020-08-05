@@ -380,5 +380,12 @@ namespace BamboPortal_V1._0._0._0.Controllers
 
 
         }
+
+        [HttpPost]
+        public JsonResult AddproductToBasket()
+        {
+        //    "idp": $("#idp").val(),
+        //"Number_inp": $("#Number_inp").val()
+        }
     }
 }
