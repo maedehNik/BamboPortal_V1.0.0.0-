@@ -1,4 +1,4 @@
-﻿@model BamboPortal_V1._0._0._0.Models.AdministratorCustomers.CustomerDetail
+﻿@model BamboPortal_V1._0._0._0.ModelViews.CustomerProfileModelView
 @{
     ViewBag.Title = "CustomerProfile";
     Layout = "~/Views/SharedViewPages/Administrator/MasterView.cshtml";
@@ -47,11 +47,11 @@
                             </div>
                             <div class="m-card-profile__details">
                                 <span class="m-card-profile__name">
-                                    @Model.Name @Model.Familly
+                                    @Model.CustomerModel.Name @Model.CustomerModel.Familly
                                 </span>
                                 @*<span class="tshcurpoi m-card-profile__email m-link ts">شماره مشتری : 97776543</span>*@
                                 <div></div>
-                                <span class="tshcurpoi m-card-profile__email m-link ts">تاریخ ثبت نام : @Model.registerDate</span>
+                                <span class="tshcurpoi m-card-profile__email m-link ts">تاریخ ثبت نام : @Model.CustomerModel.registerDate</span>
                             </div>
                         </div>
                         <ul class="m-nav m-nav--hover-bg m-portlet-fit--sides mt-2 cus-prof-menu">
@@ -95,31 +95,31 @@
                                         <div class="form-group m-form__group row">
                                             <label for="firstname_cus" class="col-2 col-form-label">نام</label>
                                             <div class="col-9">
-                                                <input class="form-control m-input" id="firstname_cus" name="firstname_cus" type="text" value="@Model.Name">
+                                                <input class="form-control m-input" id="firstname_cus" name="firstname_cus" type="text" value="@Model.CustomerModel.Name">
                                             </div>
                                         </div>
                                         <div class="form-group m-form__group row">
                                             <label for="lastname_cus" class="col-2 col-form-label">نام خانوادگی</label>
                                             <div class="col-9">
-                                                <input class="form-control m-input" id="lastname_cus" name="lastname_cus" type="text" value="@Model.Familly">
+                                                <input class="form-control m-input" id="lastname_cus" name="lastname_cus" type="text" value="@Model.CustomerModel.Familly">
                                             </div>
                                         </div>
                                         <div class="form-group m-form__group row">
                                             <label for="email_cus" class="col-2 col-form-label">ایمیل</label>
                                             <div class="col-9">
-                                                <input class="form-control m-input" id="email_cus" name="email_cus" type="text" value="@Model.Email">
+                                                <input class="form-control m-input" id="email_cus" name="email_cus" type="text" value="@Model.CustomerModel.Email">
                                             </div>
                                         </div>
                                         <div class="form-group m-form__group row">
                                             <label for="phone_cus" class="col-2 col-form-label">شماره تلفن</label>
                                             <div class="col-9">
-                                                <input class="form-control m-input" id="phone_cus" name="phone_cus" type="number" value="@Model.PhoneNum">
+                                                <input class="form-control m-input" id="phone_cus" name="phone_cus" type="number" value="@Model.CustomerModel.PhoneNum">
                                             </div>
                                         </div>
                                         <div class="form-group m-form__group row">
                                             <label for="des_cus" class="col-2 col-form-label">توضیحات</label>
                                             <div class="col-9">
-                                                <input class="form-control m-input" id="des_cus" name="des_cus" type="text" value="@Model.Discription">
+                                                <input class="form-control m-input" id="des_cus" name="des_cus" type="text" value="@Model.CustomerModel.Discription">
                                             </div>
                                         </div>
                                     </div>
@@ -127,18 +127,19 @@
                                         <div class="form-group m-form__group row">
                                             <label class="col-form-label col-lg-2 col-sm-12">استان</label>
                                             <div class="col-lg-9 col-md-8 col-sm-12">
-                                                <select class="form-control m-bootstrap-select m_selectpicker" name="prov_cust" data-live-search="true">
-                                                    @*<option>تهران</option>
-                                                        <option>اصفهان</option>
-                                                        <option>مشهد</option>
-                                                        <option>مشهد</option>*@
+                                                <select class="form-control m-bootstrap-select m_selectpicker" name="prov_cust" data-live-search="true" id="Ostan">
+
+                                                    @foreach (var item in Model.OstanHa)
+                                                    {
+                                                        <option value="@item.Id">@item.Value</option>
+                                                    }
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="form-group m-form__group row">
                                             <label class="col-form-label col-lg-2 col-sm-12">شهر</label>
                                             <div class="col-lg-9 col-md-8 col-sm-12">
-                                                <select class="form-control m-bootstrap-select m_selectpicker" name="city_cust" data-live-search="true">
+                                                <select disabled class="form-control m-bootstrap-select m_selectpicker" name="city_cust" data-live-search="true" id="CitySelect" onchange="return CityChange()">
                                                     @*<option>تهران</option>
                                                         <option>تورقوزآباد</option>
                                                         <option>همون جایی که آهو ناز داره آی بله</option>*@
@@ -171,7 +172,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach (var item in Model.Addresses)
+                                                        @foreach (var item in Model.CustomerModel.Addresses)
                                                         {
                                                             <tr>
                                                                 <th scope="row">@item.Num</th>
@@ -253,7 +254,7 @@
                                             <div class="col-2">
                                             </div>
                                             <div class="col-12 tshtextleft">
-                                                <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom">ذخیره</button>&nbsp;&nbsp;
+                                                <button  onclick="return SaveData()" class="btn btn-accent m-btn m-btn--air m-btn--custom">ذخیره</button>&nbsp;&nbsp;
                                             </div>
                                         </div>
                                     </div>
@@ -272,4 +273,99 @@
 <!-- end:: Body -->
 @section Scripts{
     @Scripts.Render("~/bundles/AdminCustomerProf.js")
+    <script>
+
+    //    $(document).ready(function () {
+       
+    //    $("#Ostan").select2();
+    //    $("#CitySelect").select2();
+    //});
+
+        function SaveData() {
+            var Id=@Model.CustomerModel.Id;
+            var name = document.getElementById("firstname_cus").value;
+            var last = document.getElementById("lastname_cus").value;
+            var phone = document.getElementById("phone_cus").value;
+            var email = document.getElementById("email_cus").value;
+            var description = document.getElementById("des_cus").value;
+            var FullAddress = document.getElementById("add_cust").value;
+            var CodePosti = document.getElementById("pc_cust").value;
+           // var CityId = $('#CitySelect').val();
+
+            if (name != '' && last != '' && phone != '' && email != '') {
+                const PostJson = {
+                    'Id': Id,
+                    'name': name,
+                    'last': last,
+                    'phone': phone,
+                    'email': email,
+                    'description': description,
+                    'FullAddress': FullAddress,
+                    'CodePosti': CodePosti,
+                    'CityId': '12'
+                };
+
+                $.ajax({
+                    url: '/AdministratorCustomers/UpdateCustomerData',
+                    type: "post",
+                    data: JSON.stringify(PostJson),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+
+                        if (data == "Success") {
+                            //AlertToUser("deleteCus", data);
+                            //$('#act').hide();
+                            //$('#deAct').show();
+                            alert("Okkkk");
+                           // location.reload(true);
+                        } else {
+                            alert("مشکلی در ذخیره ی داده رخ داده");
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert("مشکل در برقراری ارتباط با سرور");
+                    }
+                });
+            } else {
+                alert("لطفا همه ی مقادیر را پر کنید .")
+            }
+
+        }
+
+        function CityChange() {
+            var Id = $('#Ostan').val();
+            alert(Id);
+            $('#CitySelect').prop("disabled", false);
+            const PostJson = {
+                    'OstanId': Id
+                };
+
+                $.ajax({
+                    url: '/AdministratorCustomers/City',
+                    type: "post",
+                    data: JSON.stringify(PostJson),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                        alert("done");
+                         var token = response;
+                    var s = "<option value=0 selected >انتخاب کنید</option>";
+                    for (var i = 0; i < token.length; i++) {
+                        s += "<option value=" + token[i].Id + ">" + token[i].Value + "</option>";
+                    }
+
+                    document.getElementById('CitySelect').innerHTML = s;
+                         $("#CitySelect").select2();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert("مشکل در برقراری ارتباط با سرور");
+                    }
+                });
+            return false;
+
+        }
+
+
+
+
+    </script>
 }

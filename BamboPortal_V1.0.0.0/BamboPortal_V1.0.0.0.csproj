@@ -155,7 +155,7 @@
     <Compile Include="ModelFiller\CustomerSide\CustomerModelFiller.cs" />
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\AdministratorCustomers\AddressModel.cs" />
-    <Compile Include="Models\AdministratorCustomers\CustomerDetail.cs" />
+    <Compile Include="Models\AdministratorCustomers\Admin_CustomerDetail.cs" />
     <Compile Include="Models\AdministratorCustomers\CustomerModel.cs" />
     <Compile Include="Models\AdministratorGeneralModels\changeAuthInformation.cs" />
     <Compile Include="Models\AdministratorGeneralModels\ChangeProfileModel.cs" />
@@ -234,6 +234,7 @@
     <Compile Include="ModelViews\AdministratorStockpile\ProductInStockpileModelView.cs" />
     <Compile Include="ModelViews\AdministratorUploader\ImageGalleryModelView.cs" />
     <Compile Include="ModelViews\AdministratorUploader\UploaderAlertModelView.cs" />
+    <Compile Include="ModelViews\CustomerProfileModelView.cs" />
     <Compile Include="ModelViews\CustomerSide\AboutUsModelView.cs" />
     <Compile Include="ModelViews\CustomerSide\customerAddressModelView.cs" />
     <Compile Include="ModelViews\CustomerSide\IndexPageModelView.cs" />

@@ -1,6 +1,8 @@
 ﻿using BamboPortal_V1._0._0._0.DatabaseCenter.Class;
+using BamboPortal_V1._0._0._0.ModelFiller.CustomerSide;
 using BamboPortal_V1._0._0._0.Models;
 using BamboPortal_V1._0._0._0.Models.AdministratorCustomers;
+using BamboPortal_V1._0._0._0.ModelViews;
 using BamboPortal_V1._0._0._0.StaticClass;
 using BamboPortal_V1._0._0._0.StaticClass.BugReporter;
 using System;
@@ -68,7 +70,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
 
             DataTable dt = db.Select("SELECT [id_Customer],[C_regDate],[C_Mobile],[C_FirstName],[C_LastNAme],[C_Description],[C_Email] FROM [tbl_Customer_Main]where id_Customer=" + id);
             db.DC();
-            var res = new CustomerDetail();
+            var res = new Admin_CustomerDetail();
 
             if (dt.Rows.Count != 0)
             {
@@ -83,11 +85,17 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 res.Addresses = AddresList;
             }
 
+            CustomerModelFiller modelFiller = new CustomerModelFiller();
+
+            CustomerProfileModelView Model = new CustomerProfileModelView()
+            {
+                CustomerModel = res,
+                OstanHa=modelFiller.Ostanha()
+            };
 
 
 
-
-            return View(res);
+            return View(Model);
         }
 
 
@@ -200,5 +208,104 @@ namespace BamboPortal_V1._0._0._0.Controllers
             }
 
         }
+
+
+        //////////////////ماست مالی شده از اینجا
+
+        public ActionResult UpdateCustomerData(int Id,string name,string last,string phone, string email,string description,string CityId,string FullAddress,string CodePosti)
+        {
+            PDBC db = new PDBC();
+            List<ExcParameters> parss = new List<ExcParameters>();
+            ExcParameters par = new ExcParameters()
+            {
+                _KEY = "@Id",
+                _VALUE = Id
+            };
+            parss.Add(par);
+
+            par = new ExcParameters()
+            {
+                _KEY = "@name",
+                _VALUE = name
+            };
+            parss.Add(par);
+
+            par = new ExcParameters()
+            {
+                _KEY = "@last",
+                _VALUE = last
+            };
+            parss.Add(par);
+
+            par = new ExcParameters()
+            {
+                _KEY = "@phone",
+                _VALUE = phone
+            };
+            parss.Add(par);
+
+            par = new ExcParameters()
+            {
+                _KEY = "@email",
+                _VALUE = email
+            };
+            parss.Add(par);
+
+            par = new ExcParameters()
+            {
+                _KEY = "@description",
+                _VALUE = description
+            };
+            parss.Add(par);
+
+            par = new ExcParameters()
+            {
+                _KEY = "@CityId",
+                _VALUE = CityId
+            };
+            parss.Add(par);
+
+            par = new ExcParameters()
+            {
+                _KEY = "@FullAddress",
+                _VALUE = FullAddress
+            };
+            parss.Add(par);
+
+            par = new ExcParameters()
+            {
+                _KEY = "@CodePosti",
+                _VALUE = CodePosti
+            };
+            parss.Add(par);
+
+            db.Connect();
+            string result = db.Script("UPDATE [tbl_Customer_Main] SET [C_Mobile] = @phone ,[C_FirstName] =@name ,[C_LastNAme] = @last ,[C_Description] = @description ,[C_Email] =@email WHERE [id_Customer]=@Id", parss);
+            if(FullAddress!="")
+            {
+               result+= db.Script("INSERT INTO [tbl_Customer_Address]([id_Customer],[ID_Shahr],[C_AddressHint],[C_FullAddress])VALUES(@Id,@CityId,@CodePosti,@FullAddress)", parss);
+            }
+
+            db.DC();
+
+            if(result=="1"||result=="11")
+            {
+                return Content("Success");
+            }else
+            {
+                return Content("Error");
+            }
+
+            
+        }
+
+        [HttpPost]
+        public ActionResult City(int OstanId)
+        {
+            CustomerModelFiller modelFiller = new CustomerModelFiller();
+
+            return Json(modelFiller.City(OstanId));
+        }
+
     }
 }
