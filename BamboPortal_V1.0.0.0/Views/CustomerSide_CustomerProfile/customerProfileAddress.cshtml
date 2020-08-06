@@ -51,7 +51,7 @@
                 </div>
                 <div class="form-group pad-bot-15 col-lg-8 col-md-8 col-sm-12 col-xs-12">
                     <label for="address" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">آدرس کامل</label>
-                    <label class="form-control" >@item.FullAddress </label>
+                    <label class="form-control"><font size="-20" class="text-muted">@item.City - </font> @item.FullAddress </label>
                 </div>
             </div>
         }
@@ -86,14 +86,14 @@
 
                 <div class="form-group pad-bot-15 col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <label for="pcode" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">کد پستی</label>
-                    <input type="number" class="form-control" name="pcode" id="pcode">
+                    <input type="number" class="form-control" name="pcode" id="CodePosti">
                 </div>
                 <div class="form-group pad-bot-15 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <label for="address" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">آدرس کامل</label>
                     <textarea class="form-control" name="address" id="address"></textarea>
                 </div>
                 <div class="form-group pad-bot-15 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <input class="btn btn-success" value="ذخیره" onclick="return SaveData()">
+                    <input type="button" class="btn btn-success form-submit reg-submit" value="ذخیره" onclick="return SaveData_CustomerAddress()">
                 </div>
             </form>
         </div>
@@ -103,52 +103,55 @@
 
 @section CS_Scripts {
     <script>
-        var revapi;
+
 
         function CityChange() {
+           // console.log("dasdsad");
             var Id = $('#province').val();
-            alert(Id);
+            //alert(Id);
             $('#city').prop("disabled", false);
             const PostJson = {
-                    'OstanId': Id
-                };
+                'OstanId': Id
+            };
 
-                $.ajax({
-                    url: '/AdministratorCustomers/City',
-                    type: "post",
-                    data: JSON.stringify(PostJson),
-                    contentType: "application/json; charset=utf-8",
-                    success: function (response) {
-                        alert("done");
-                         var token = response;
+            $.ajax({
+                url: '/AdministratorCustomers/City',
+                type: "post",
+                data: JSON.stringify(PostJson),
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                   // alert("done");
+                    var token = response;
                     var s = "<option value=0 selected >انتخاب کنید</option>";
                     for (var i = 0; i < token.length; i++) {
                         s += "<option value=" + token[i].Id + ">" + token[i].Value + "</option>";
                     }
 
                     document.getElementById('city').innerHTML = s;
-                         
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        alert("مشکل در برقراری ارتباط با سرور");
-                    }
-                });
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("مشکل در برقراری ارتباط با سرور");
+                }
+            });
             return false;
 
         }
 
-        function SaveData() {
-
+        function SaveData_CustomerAddress() {
+            //alert("Hello");
             var CityId = $('#city').val();
+            console.log(CityId);
             var FullAddress = $('#address').val();
-            var CodePosti = $('#pcode').val();
-
-            if (FullAddress != '' && CodePosti = !'')
+            console.log(FullAddress);
+            var CodePosti = $('#CodePosti').val();
+            console.log(CodePosti);
+            if (FullAddress != '' && CodePosti !='')
             {
                 const PostJson = {
-                'CityId': Id,
-                'FullAddress': FullAddress,
-                'CodePosti': CodePosti
+                    'CityId': CityId,
+                    'FullAddress': FullAddress,
+                    'CodePosti': CodePosti
                 };
 
                 $.ajax({
@@ -157,9 +160,9 @@
                     data: JSON.stringify(PostJson),
                     contentType: "application/json; charset=utf-8",
                     success: function (response) {
-                        alert("done");
-                        location.reload(true); 
- 
+                       // alert("done");
+                        location.reload(true);
+
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         alert("مشکل در برقراری ارتباط با سرور");
@@ -173,49 +176,49 @@
         }
 
 
-    jQuery(document).ready(function () {
-        setInterval(function () {
-            $('.owl-prev').trigger('click');
-        }, 3000);
+        jQuery(document).ready(function () {
+            setInterval(function () {
+                $('.owl-prev').trigger('click');
+            }, 3000);
 
-        revapi = jQuery("#rev_slider_1").revolution({
-            sliderType: "standard",
-            sliderLayout: "fullscreen",
-            fullScreenOffsetContainer: ".navigation",
-            delay: 9000,
-            navigation: {
-                keyboardNavigation: "off",
-                mouseScrollNavigation: "on",
-                onHoverStop: "off",
-                touch: {
-                    touchenabled: "on",
-                    swipe_threshold: 75,
-                    swipe_min_touches: 1,
-                    swipe_direction: "horizontal",
-                    drag_block_vertical: false
+            revapi = jQuery("#rev_slider_1").revolution({
+                sliderType: "standard",
+                sliderLayout: "fullscreen",
+                fullScreenOffsetContainer: ".navigation",
+                delay: 9000,
+                navigation: {
+                    keyboardNavigation: "off",
+                    mouseScrollNavigation: "on",
+                    onHoverStop: "off",
+                    touch: {
+                        touchenabled: "on",
+                        swipe_threshold: 75,
+                        swipe_min_touches: 1,
+                        swipe_direction: "horizontal",
+                        drag_block_vertical: false
+                    },
+                    bullets: {
+                        enable: true,
+                        rtl: true,
+                        hide_onmobile: false,
+                        style: "hebe",
+                        hide_onleave: false,
+                        direction: "horizontal",
+                        h_align: "center",
+                        v_align: "bottom",
+                        h_offset: 0,
+                        v_offset: 10,
+                        space: 5,
+                        tmp: '<span class="tp-bullet-inner"></span>'
+                    }
                 },
-                bullets: {
-                    enable: true,
-                    rtl: true,
-                    hide_onmobile: false,
-                    style: "hebe",
-                    hide_onleave: false,
-                    direction: "horizontal",
-                    h_align: "center",
-                    v_align: "bottom",
-                    h_offset: 0,
-                    v_offset: 10,
-                    space: 5,
-                    tmp: '<span class="tp-bullet-inner"></span>'
-                }
-            },
-            responsiveLevels: [4096, 1024, 767, 480],
-            gridwidth: 1230,
-            gridheight: 720
-        });
+                responsiveLevels: [4096, 1024, 767, 480],
+                gridwidth: 1230,
+                gridheight: 720
+            });
 
-        $("#LoaderSpinner").hide(0);
-    }); /*ready*/
+            $("#LoaderSpinner").hide(0);
+        }); /*ready*/
 
     </script>
     @Scripts.Render("~/bundles/CustomerSideUserProfile.js")

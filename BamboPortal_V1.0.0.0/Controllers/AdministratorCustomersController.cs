@@ -210,7 +210,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
         }
 
 
-        //////////////////ماست مالی شده از اینجا
+        ////////////////// از اینجا به بعد ماست مالی شده
 
         public ActionResult UpdateCustomerData(int Id,string name,string last,string phone, string email,string description,string CityId,string FullAddress,string CodePosti)
         {

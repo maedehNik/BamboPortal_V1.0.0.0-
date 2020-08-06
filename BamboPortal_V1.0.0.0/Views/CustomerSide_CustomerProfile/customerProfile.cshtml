@@ -60,7 +60,7 @@
                     <input type="text" class="form-control" name="email" id="email" value="@Model.Email">
                 </div>
                 <div class="form-group pad-bot-15 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <input type="submit" class="btn btn-success form-submit reg-submit" value="ذخیره">
+                    <input type="button" class="btn btn-success form-submit reg-submit" value="ذخیره" onclick="return SaveData_CustomerData()">
                 </div>
             </form>
         </div>
@@ -71,15 +71,19 @@
         <div class="form-theme form-grey">
             <form action="" method="post" autocomplete="off" id="account-form2">
                 <div class="form-group pad-bot-15 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <label for="password" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">کلمه عبور<i class="icon-lock text-right tsh-icon" style="float: left;"></i></label>
+                    <label for="password" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">کلمه عبور قبلی<i class="icon-lock text-right tsh-icon" style="float: left;"></i></label>
+                    <input type="password" class="form-control" name="password" id="password-pre">
+                </div>
+                <div class="form-group pad-bot-15 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <label for="password" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;"> کلمه عبور جدید<i class="icon-lock text-right tsh-icon" style="float: left;"></i></label>
                     <input type="password" class="form-control" name="password" id="password">
                 </div>
                 <div class="form-group pad-bot-15 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <label for="rpassword" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">تکرار کلمه عبور<i class="icon-lock text-right tsh-icon" style="float: left;"></i></label>
+                    <label for="rpassword" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">تکرار کلمه عبور جدید<i class="icon-lock text-right tsh-icon" style="float: left;"></i></label>
                     <input type="password" class="form-control" name="rpassword" id="rpassword">
                 </div>
                 <div class="form-group pad-bot-15 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <input type="submit" class="btn btn-success form-submit reg-submit" value="ذخیره">
+                    <input type="button" class="btn btn-success form-submit reg-submit" value="ذخیره" onclick="return SaveData_CustomerPassword()">
                 </div>
             </form>
         </div>
@@ -89,6 +93,105 @@
 
 @section CS_Scripts {
     <script>
+
+         function SaveData_CustomerData() {
+            //alert("Hello");
+          
+            var name = document.getElementById("firstname").value;
+            var last = document.getElementById("lastname").value;
+            var phone = document.getElementById("mobile").value;
+            var email = document.getElementById("email").value;
+            
+          
+            
+            if (name != '' && last != '' && phone != '' && email != '')
+            {
+                const PostJson = {
+                    'name': name,
+                    'last': last,
+                    'phone': phone,
+                    'email': email
+                };
+
+                $.ajax({
+                    url: '/CustomerSide_CustomerProfile/UpdateCustomerData',
+                    type: "post",
+                    data: JSON.stringify(PostJson),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                       // alert("done");
+                        location.reload(true);
+
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert("مشکل در برقراری ارتباط با سرور");
+                    }
+                });
+
+
+            }
+
+            return false;
+        }
+
+
+
+          function SaveData_CustomerPassword() {
+            //alert("Hello");
+          
+            var PrePass = document.getElementById("password-pre").value;
+            var Pess1 = document.getElementById("password").value;
+            var Pass2 = document.getElementById("rpassword").value;
+            
+            
+          
+            
+              if (PrePass != '' && Pess1 != '' && Pass2 != '' ) {
+
+
+                  if (Pess1 == Pass2) {
+                      const PostJson = {
+                          'PrePass': PrePass,
+                          'Pass': Pess1
+                      };
+
+                      $.ajax({
+                          url: '/CustomerSide_CustomerProfile/UpdateCustomerPass',
+                          type: "post",
+                          data: JSON.stringify(PostJson),
+                          contentType: "application/json; charset=utf-8",
+                          success: function (response) {
+                             // alert(response);
+                              if (response == "Success") {
+                                  alert("کلمه ی عبور با موفقیت تغییر کرد");
+                                  location.reload(true);
+                              } else if (response=="pre_Pass") {
+                                   alert("کلمه ی عبور اشتباه است .");
+                              }
+
+                          },
+                          error: function (jqXHR, textStatus, errorThrown) {
+                              alert("مشکل در برقراری ارتباط با سرور");
+                          }
+                      });
+                  } else {
+                      alert("مقدار کلمه ی عبور جدید و تکرار آن برابر نیست  ");
+                  }
+
+                  
+
+
+              } else {
+                  alert("لطفا همه ی مقادیر را پر کنید ");
+              }
+
+            return false;
+        }
+
+
+
+
+
         var revapi;
         jQuery(document).ready(function () {
             setInterval(function () {
