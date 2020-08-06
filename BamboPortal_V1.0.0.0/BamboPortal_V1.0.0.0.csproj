@@ -3242,6 +3242,7 @@
     <Content Include="Views\AdministratorStockpile\ProductInStockpile.cshtml" />
     <Content Include="Views\AdministratorCustomers\Customers.cshtml" />
     <Content Include="Views\AdministratorCustomers\CustomerProfile.cshtml" />
+    <Content Include="Views\AdministratorProducts_Factors\ProductList_Factors.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

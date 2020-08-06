@@ -30,5 +30,10 @@ namespace BamboPortal_V1._0._0._0.Controllers
         {
             return View();
         }
+
+        public ActionResult ProductList_Factors()
+        {
+            return View();
+        }
     }
 }
