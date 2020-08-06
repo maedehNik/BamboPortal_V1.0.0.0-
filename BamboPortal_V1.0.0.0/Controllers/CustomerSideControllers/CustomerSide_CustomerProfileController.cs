@@ -2,9 +2,13 @@
 using BamboPortal_V1._0._0._0.ModelFiller.CustomerSide;
 using BamboPortal_V1._0._0._0.Models.CustomerSide;
 using BamboPortal_V1._0._0._0.ModelViews.CustomerSide;
+using BamboPortal_V1._0._0._0.ModelViews.CustomerSide.CustomerHistory;
 using BamboPortal_V1._0._0._0.StaticClass;
+using BamboPortal_V1._0._0._0.StaticClass.UploaderStaticsCalculators;
+using MD.PersianDateTime;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -13,7 +17,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
 {
     public class CustomerSide_CustomerProfileController : CustomerSide_CustomerProfileRuleController
     {
-     
+
         public ActionResult customerProfile()
         {
             CustomerModelFiller modelFiller = new CustomerModelFiller();
@@ -40,11 +44,85 @@ namespace BamboPortal_V1._0._0._0.Controllers
 
         public ActionResult customerProfileHistory()
         {
-            CustomerModelFiller modelFiller = new CustomerModelFiller();
-            ///این متغیر پر بشه
-            int CustomerId = 1009;
+            historyProductItemsModelView model = new historyProductItemsModelView()
+            {
+                History = new List<historyProductCardItemsModel>()
+            };
+            tbl_Customer_Main tcm = new tbl_Customer_Main();
+            if (HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerCode()) != null)
+            {
+                var coockie = HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerCode());
+                tcm = CoockieController.SayWhoIsHE(coockie.Value);
+            }
+            else
+            {
+                return RedirectToAction("loginandregister", "CustomerSide_Register");
+            }
+            PDBC db = new PDBC();
+            db.Connect();
+            using (DataTable dt = db.Select("SELECT [id_MainFactor],[MainFactor_CreateDate],[MainFactor_Code],[MainFactor_Price],[MainFactor_IsPay],[MainFactor_Tax],[MainFactor_TotalOff],[PayType] FROM [v_Factor_Main] WHERE [id_Customer] = " + tcm.id_Customer))
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
 
-            return View(modelFiller.Customers_Factors("تکمیل شده", CustomerId, "Date"));
+                    using (DataTable dt2 = db.Select("SELECT [id_MPC],[id_MainFactor],[id_ChildFactor],[Title],[MoneyTypeName],[PQT_Demansion],[ChildFactor_PurePrice],[ChildFactor_QBuy],[MultyPriceStartFromQ],[MultyPrice],[PriceXquantity]  FROM [v_ChildFactorToProduct] WHERE [id_MainFactor] = " + dt.Rows[i]["id_MainFactor"].ToString()))
+                    {
+                        db.DC();
+                        historyProductCardItemsModel df = new historyProductCardItemsModel()
+                        {
+                            WhenCreated = new PersianDateTime(DateTime.Parse(dt.Rows[i]["MainFactor_CreateDate"].ToString())).ToLongDateTimeString(),
+                            Ispay = (dt.Rows[i]["MainFactor_IsPay"].ToString()),
+                            OffPrice = 0,
+                            PeygiriCode = dt.Rows[i]["MainFactor_Code"].ToString(),
+                            TaxPrice = 0,
+                            PayMentTypeName = dt.Rows[i]["PayType"].ToString(),
+                            PayPrice = Convert.ToInt64(dt.Rows[i]["MainFactor_Price"].ToString()),
+                            TotalPrice = Convert.ToInt64(dt.Rows[i]["MainFactor_Price"].ToString())
+                        };
+                        df.AllItems = new List<historyProductTableItemsModel>();
+                        for (int j = 0; j < dt2.Rows.Count; j++)
+                        {
+                            historyProductTableItemsModel ai = new historyProductTableItemsModel()
+                            {
+                                Countof = dt2.Rows[j]["ChildFactor_QBuy"].ToString(),
+                                id_MPC = dt2.Rows[j]["id_MPC"].ToString(),
+                                ProductDimensionName = dt2.Rows[j]["PQT_Demansion"].ToString(),
+                                ProductName = dt2.Rows[j]["Title"].ToString(),
+                                scoknameandvalue = "",
+                                ImagePath = UploaderGeneral.imageFinderfromIDMPC(dt2.Rows[j]["id_MPC"].ToString(), ImageSizeEnums.Thumbnail),
+                            };
+                            if (Convert.ToInt64(dt2.Rows[j]["ChildFactor_QBuy"].ToString()) > Convert.ToInt64(dt2.Rows[j]["MultyPriceStartFromQ"].ToString()))
+                            {
+                                ai.pricebperQ = dt2.Rows[j]["MultyPrice"].ToString();
+                                ai.TotalPrice = (Convert.ToInt64(ai.pricebperQ) * Convert.ToInt64(dt2.Rows[j]["ChildFactor_QBuy"].ToString())).ToString();
+                            }
+                            else
+                            {
+                                ai.pricebperQ = dt2.Rows[j]["PriceXquantity"].ToString();
+                                ai.TotalPrice = (Convert.ToInt64(ai.pricebperQ) * Convert.ToInt64(dt2.Rows[j]["ChildFactor_QBuy"].ToString())).ToString();
+
+                            }
+
+                            df.AllItems.Add(ai);
+                        }
+
+
+                        model.History.Add(df);
+                        db.Connect();
+                    }
+                    
+
+                }
+                db.DC();
+                
+         
+
+
+
+            }
+
+
+            return View(model);
         }
 
         public ActionResult customerProfileReturn()
@@ -65,7 +143,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
         {
             tbl_Customer_Main tcm = new tbl_Customer_Main();
             var coockie = HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerCode());
-            if(coockie!=null)
+            if (coockie != null)
             {
                 tcm = CoockieController.SayWhoIsHE(coockie.Value);
                 var Id = tcm.id_Customer;
@@ -102,7 +180,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
 
                 db.Connect();
                 string result = db.Script("INSERT INTO [tbl_Customer_Address]([id_Customer],[ID_Shahr],[C_AddressHint],[C_FullAddress])VALUES(@Id,@CityId,@CodePosti,@FullAddress)", parss);
-                
+
 
                 db.DC();
 
@@ -115,7 +193,8 @@ namespace BamboPortal_V1._0._0._0.Controllers
                     return Content("Error");
                 }
 
-            }else
+            }
+            else
             {
                 return Content("Error");
             }

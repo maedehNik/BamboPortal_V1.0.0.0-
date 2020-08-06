@@ -237,6 +237,7 @@
     <Compile Include="ModelViews\CustomerProfileModelView.cs" />
     <Compile Include="ModelViews\CustomerSide\AboutUsModelView.cs" />
     <Compile Include="ModelViews\CustomerSide\customerAddressModelView.cs" />
+    <Compile Include="ModelViews\CustomerSide\CustomerHistory\historyProductItemsModel.cs" />
     <Compile Include="ModelViews\CustomerSide\IndexPageModelView.cs" />
     <Compile Include="ModelViews\CustomerSide\ProductDetail_ModelView.cs" />
     <Compile Include="ModelViews\CustomerSide\SearchPageModelView.cs" />
@@ -3210,6 +3211,7 @@
     <Content Include="CustomerSide_desinerResource\third-party\revolution\fonts\revicons\revicons90c6.ttf" />
     <Content Include="CustomerSide_desinerResource\third-party\revolution\fonts\revicons\revicons90c6.woff" />
     <Content Include="CustomerSide_desinerResource\video\movie.ogv" />
+    <Content Include="DatabaseCenter\SQL Scripts\1399\Mordad\16 BakFile\EmptyDatabasePandaPortal.bak" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="Scripts\jquery-3.5.1.min.js" />
