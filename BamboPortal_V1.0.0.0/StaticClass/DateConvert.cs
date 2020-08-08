@@ -13,10 +13,11 @@ namespace BamboPortal_V1._0._0._0.StaticClass
         /// </summary>
         /// <param name="date_">زمان به صورت رشته</param>
         /// <param name="DateType">
-        /// Date : تاریخ 
+        /// Date : تاریخ به فارسی
         /// Time : زمان
         /// DateTime : تاریخ و زمان به طور کامل
         /// Ago : چند دقیقه ، ساعت یا روز پیش
+        /// ShortDate :تاریخ 
         /// </param>
         /// <returns>تاریخ تبدیل شده به صورت رشته</returns>
         public static string DateReturner(string date_, string DateType)
@@ -73,10 +74,11 @@ namespace BamboPortal_V1._0._0._0.StaticClass
         /// </summary>
         /// <param name="date_">زمان</param>
         /// <param name="DateType">
-        /// Date : تاریخ 
+        /// Date : تاریخ به فارسی
         /// Time : زمان
         /// DateTime : تاریخ و زمان به طور کامل
         /// Ago : چند دقیقه ، ساعت یا روز پیش
+        /// ShortDate :تاریخ 
         /// </param>
         /// <returns>تاریخ تبدیل شده به صورت رشته</returns>
         public static string DateReturner(DateTime date_, string DateType)

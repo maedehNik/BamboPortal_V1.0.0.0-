@@ -157,6 +157,8 @@
     <Compile Include="Models\AdministratorCustomers\AddressModel.cs" />
     <Compile Include="Models\AdministratorCustomers\Admin_CustomerDetail.cs" />
     <Compile Include="Models\AdministratorCustomers\CustomerModel.cs" />
+    <Compile Include="Models\AdministratorFactor\FactorItrmModel.cs" />
+    <Compile Include="Models\AdministratorFactor\MainFactorModel.cs" />
     <Compile Include="Models\AdministratorGeneralModels\changeAuthInformation.cs" />
     <Compile Include="Models\AdministratorGeneralModels\ChangeProfileModel.cs" />
     <Compile Include="Models\AdministratorProductsModels\AddProductSemiFinalSubmitToCreateProducts.cs" />
@@ -3178,6 +3180,7 @@
     <Content Include="DatabaseCenter\SQL Scripts\1399\Mordad\13\factors.sql" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Mordad\13\Note.txt" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Mordad\15\Secound.sql" />
+    <Content Include="DatabaseCenter\SQL Scripts\1399\Mordad\18\Note.txt" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Mordad\first1.sql" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Tir\16\desktop - Copy.sql" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Tir\16\desktop.sql" />

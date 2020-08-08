@@ -1,4 +1,5 @@
-﻿
+﻿@using BamboPortal_V1._0._0._0.Models.AdministratorFactor
+@model List<MainFactorModel>
 @{
     ViewBag.Title = "ProductList_Factors";
     Layout = "~/Views/SharedViewPages/Administrator/MasterView.cshtml";
@@ -73,6 +74,263 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                @foreach (var factor in Model)
+                                                {
+                                                    <tr>
+                                                        <th scope="row">@factor.Num</th>
+                                                        <td>@factor.MainFactor_Code</td>
+                                                        <td>@factor.CreateDate</td>
+                                                        @if (factor.IsDeleted == 1)
+                                                        {
+                                                            <td>
+                                                                <button class="btn btn-danger tshpcustom" style="margin: 3px;">
+                                                                    <i class="fa fa-trash tshfa"></i>
+                                                                    حذف شذه
+                                                                </button>
+                                                            </td>
+                                                        }
+                                                        else if (factor.Is_Pay == 1)
+                                                        {
+                                                            <td>
+                                                                <button class="btn btn-success tshpcustom" style="margin: 3px;">
+                                                                    <i class="fa fa-check tshfa"></i>
+                                                                    پرداخت شده
+                                                                </button>
+                                                            </td>
+                                                        }
+                                                        else if (factor.IsEdited == 1)
+                                                        {
+                                                            <td>
+                                                                <button class="btn btn-primary tshpcustom" style="margin: 3px;">
+                                                                    <i class="fa fa-edit tshfa"></i>
+                                                                    ویرایش شده
+                                                                </button>
+                                                            </td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td>
+                                                                <button class="btn btn-warning tshpcustom" style="margin: 3px;">
+                                                                    <i class="fa fa-exclamation tshfa"></i>
+                                                                    ناموفق
+                                                                </button>
+                                                            </td>
+                                                        }
+
+
+
+
+                                                        <td>@factor.PayType</td>
+                                                        <td class="tshaftertoman tshaftermarginright">@factor.MainFactor_Price</td>
+                                                        <td class="tshaftertoman tshaftermarginright">@factor.Tax</td>
+                                                        <td class="tshaftertoman tshaftermarginright">@factor.TotalOff</td>
+                                                        <td>نوع تخفیف</td>
+                                                        <td>
+                                                            <button class="btn btn-brand tshpcustom show-ext" style="margin: 3px;">
+                                                                <i class="fa fa-eye tshfa"></i>
+                                                                نمایش
+                                                            </button>
+                                                            <a href="">
+                                                                <button class="btn btn-success tshpcustom" style="margin: 3px;">
+                                                                    <i class="fa fa-eye tshfa"></i>
+                                                                    اکشن 2
+                                                                </button>
+                                                            </a>
+                                                            <a href="">
+                                                                <button class="btn btn-success tshpcustom" style="margin: 3px;">
+                                                                    <i class="fa fa-eye tshfa"></i>
+                                                                    اکشن 3
+                                                                </button>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr style="display: none;" class="table-dark">
+                                                        <th>#</th>
+                                                        <th>نام پارچه</th>
+                                                        <th>کد پارچه</th>
+                                                        <th>قیمت محاسبه شده</th>
+                                                        <th>واحد</th>
+                                                        <th>فروشگاه</th>
+                                                        <th>تخفیف</th>
+                                                        <th>نوع تخفیف</th>
+                                                        <th>کد تخفیف</th>
+                                                        <th>عملیات</th>
+                                                    </tr>
+                                                    foreach (var item in factor.Items)
+                                                    {
+                                                        <tr style="display: none;" class="table-danger">
+                                                            <th scope="row">@item.Num</th>
+                                                            <td>@item.Title</td>
+                                                            <td>کد پارچه</td>
+                                                            <td class="tshaftertoman tshaftermarginright">@item.PriceAfterOff</td>
+                                                            <td>@item.Quantity @item.QuantityType</td>
+                                                            <td>تجریش</td>
+                                                            <td class="tshaftertoman tshaftermarginright">@item.OffPrice</td>
+                                                            <td>aaaa</td>
+                                                            <td>@item.OffCode</td>
+                                                            <td>
+                                                                <a href="">
+                                                                    <button class="btn btn-success tshpcustom" style="margin: 3px;">
+                                                                        <i class="fa fa-eye tshfa"></i>
+                                                                        اکشن 2
+                                                                    </button>
+                                                                </a>
+                                                                <a href="">
+                                                                    <button class="btn btn-success tshpcustom" style="margin: 3px;">
+                                                                        <i class="fa fa-eye tshfa"></i>
+                                                                        اکشن 3
+                                                                    </button>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    }
+
+                                                }
+
+
+                                                @*<tr>
+                                                    <th scope="row">1</th>
+                                                    <td>شماره فاکتور</td>
+                                                    <td>تاریخ خرید</td>
+                                                    <td>وضعیت فاکتور</td>
+                                                    <td>نحوه پرداخت</td>
+                                                    <td class="tshaftertoman tshaftermarginright">450,000,000</td>
+                                                    <td class="tshaftertoman tshaftermarginright">450,000,000</td>
+                                                    <td class="tshaftertoman tshaftermarginright">450,000,000</td>
+                                                    <td>نوع تخفیف</td>
+                                                    <td>
+                                                        <button class="btn btn-brand tshpcustom show-ext" style="margin: 3px;">
+                                                            <i class="fa fa-eye tshfa"></i>
+                                                            نمایش
+                                                        </button>
+                                                        <a href="">
+                                                            <button class="btn btn-danger tshpcustom" style="margin: 3px;">
+                                                                <i class="fa fa-trash tshfa"></i>
+                                                                حذف شذه
+                                                            </button>
+                                                        </a>
+                                                        <a href="">
+                                                            <button class="btn btn-success tshpcustom" style="margin: 3px;">
+                                                                <i class="fa fa-check tshfa"></i>
+                                                                پرذاخت شده
+                                                            </button>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <tr style="display: none;" class="table-dark">
+                                                    <th>#</th>
+                                                    <th>نام پارچه</th>
+                                                    <th>کد پارچه</th>
+                                                    <th>قیمت محاسبه شده</th>
+                                                    <th>واحد</th>
+                                                    <th>فروشگاه</th>
+                                                    <th>تخفیف</th>
+                                                    <th>نوع تخفیف</th>
+                                                    <th>کد تخفیف</th>
+                                                    <th>عملیات</th>
+                                                </tr>
+                                                <tr style="display: none;" class="table-danger">
+                                                    <th scope="row">1</th>
+                                                    <td>نام پارچه</td>
+                                                    <td>کد پارچه</td>
+                                                    <td class="tshaftertoman tshaftermarginright">450,000,000</td>
+                                                    <td>واحد</td>
+                                                    <td>تجریش</td>
+                                                    <td class="tshaftertoman tshaftermarginright">450,000,000</td>
+                                                    <td>aaaa</td>
+                                                    <td>کد تخفیف</td>
+                                                    <td>
+                                                        <a href="">
+                                                            <button class="btn btn-success tshpcustom" style="margin: 3px;">
+                                                                <i class="fa fa-eye tshfa"></i>
+                                                                اکشن 2
+                                                            </button>
+                                                        </a>
+                                                        <a href="">
+                                                            <button class="btn btn-warning tshpcustom" style="margin: 3px;">
+                                                                <i class="fa fa-exclamation tshfa"></i>
+                                                                ناموفق
+                                                            </button>
+                                                        </a>
+                                                    </td>
+
+
+                                                </tr>
+                                                <tr style="display: none;" class="table-danger">
+                                                    <th scope="row">1</th>
+                                                    <td>نام پارچه</td>
+                                                    <td>کد پارچه</td>
+                                                    <td class="tshaftertoman tshaftermarginright">450,000,000</td>
+                                                    <td>واحد</td>
+                                                    <td>تجریش</td>
+                                                    <td class="tshaftertoman tshaftermarginright">450,000,000</td>
+                                                    <td>aaaa</td>
+                                                    <td>کد تخفیف</td>
+                                                    <td>
+                                                        <a href="">
+                                                            <button class="btn btn-success tshpcustom" style="margin: 3px;">
+                                                                <i class="fa fa-eye tshfa"></i>
+                                                                اکشن 2
+                                                            </button>
+                                                        </a>
+                                                        <a href="">
+                                                            <button class="btn btn-warning tshpcustom" style="margin: 3px;">
+                                                                <i class="fa fa-exclamation tshfa"></i>
+                                                                ناموفق
+                                                            </button>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <tr style="display: none;" class="table-danger">
+                                                    <th scope="row">1</th>
+                                                    <td>نام پارچه</td>
+                                                    <td>کد پارچه</td>
+                                                    <td class="tshaftertoman tshaftermarginright">450,000,000</td>
+                                                    <td>واحد</td>
+                                                    <td>تجریش</td>
+                                                    <td class="tshaftertoman tshaftermarginright">450,000,000</td>
+                                                    <td>aaaa</td>
+                                                    <td>کد تخفیف</td>
+                                                    <td>
+                                                        <a href="">
+                                                            <button class="btn btn-success tshpcustom" style="margin: 3px;">
+                                                                <i class="fa fa-eye tshfa"></i>
+                                                                اکشن 2
+                                                            </button>
+                                                        </a>
+                                                        <a href="">
+                                                            <button class="btn btn-warning tshpcustom" style="margin: 3px;">
+                                                                <i class="fa fa-exclamation tshfa"></i>
+                                                                ناموفق
+                                                            </button>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <tr style="display: none;" class="table-danger">
+                                                    <th scope="row">1</th>
+                                                    <td>نام پارچه</td>
+                                                    <td>کد پارچه</td>
+                                                    <td class="tshaftertoman tshaftermarginright">450,000,000</td>
+                                                    <td>واحد</td>
+                                                    <td>تجریش</td>
+                                                    <td class="tshaftertoman tshaftermarginright">450,000,000</td>
+                                                    <td>aaaa</td>
+                                                    <td>کد تخفیف</td>
+                                                    <td>
+                                                        <a href="">
+                                                            <button class="btn btn-success tshpcustom" style="margin: 3px;">
+                                                                <i class="fa fa-eye tshfa"></i>
+                                                                اکشن 2
+                                                            </button>
+                                                        </a>
+                                                        <a href="">
+                                                            <button class="btn btn-warning tshpcustom" style="margin: 3px;">
+                                                                <i class="fa fa-exclamation tshfa"></i>
+                                                                ناموفق
+                                                            </button>
+                                                        </a>
+                                                    </td>
+                                                </tr>
                                                 <tr>
                                                     <th scope="row">1</th>
                                                     <td>شماره فاکتور</td>
@@ -89,9 +347,9 @@
                                                             نمایش
                                                         </button>
                                                         <a href="">
-                                                            <button class="btn btn-success tshpcustom" style="margin: 3px;">
-                                                                <i class="fa fa-eye tshfa"></i>
-                                                                اکشن 2
+                                                            <button class="btn btn-primary tshpcustom" style="margin: 3px;">
+                                                                <i class="fa fa-edit tshfa"></i>
+                                                                ویرایش شده
                                                             </button>
                                                         </a>
                                                         <a href="">
@@ -138,7 +396,8 @@
                                                             </button>
                                                         </a>
                                                     </td>
-                                                </tr>
+                                                </tr>*@
+
                                             </tbody>
                                         </table>
                                         <table style="display: none;" class="cust-table cust-table-2 table table-striped table-hover m-table m-table--head-separator-primary">
@@ -256,7 +515,7 @@
 
 
                                         </table>
-                                        <div class="col-lg-12 mt-4 mb-4">
+                                        <div class="col-lg-12 mt-4 mb-4" style="display:none">
                                             <span class="col-lg-3">
                                                 صفحه
                                                 <span>50</span>
@@ -296,5 +555,44 @@
 </div>
 
 
-    </div>
+
 <!-- end:: Body -->
+@section Scripts{
+    <script>
+        $(".show-ext").on("click", function () {
+            if ($(window).width() > 768) {
+                $(".show-ext").parent().parent().next().fadeOut();
+                $(".show-ext").parent().parent().next().next().fadeOut();
+                var nextTr = $(this).parent().parent().next();
+                var nextNextTr = $(this).parent().parent().next().next();
+                if ($(this).parent().parent().next().next().css("display") == "none") {
+                    $(nextTr).fadeIn();
+                    $(nextNextTr).fadeIn();
+                }
+            } else {
+                $(".show-ext").parent().parent().next().fadeOut();
+                $(".show-ext").parent().parent().next().next().fadeOut();
+                $(".show-ext").parent().parent().next().next().next().fadeOut();
+                $(".show-ext").parent().parent().next().next().next().next().fadeOut();
+                $(".show-ext").parent().parent().next().next().next().next().next().fadeOut();
+                $(".show-ext").parent().parent().next().next().next().next().next().next().fadeOut();
+                $(".show-ext").parent().parent().next().next().next().next().next().next().next().fadeOut();
+                $(".show-ext").parent().parent().next().next().next().next().next().next().next().next().fadeOut();
+                $(".show-ext").parent().parent().next().next().next().next().next().next().next().next().next().fadeOut();
+                $(".show-ext").parent().parent().next().next().next().next().next().next().next().next().next().next().fadeOut();
+                if ($(this).parent().parent().next().next().css("display") == "none") {
+                    $(this).parent().parent().next().fadeIn();
+                    $(this).parent().parent().next().next().fadeIn();
+                    $(this).parent().parent().next().next().next().fadeIn();
+                    $(this).parent().parent().next().next().next().next().fadeIn();
+                    $(this).parent().parent().next().next().next().next().next().fadeIn();
+                    $(this).parent().parent().next().next().next().next().next().next().fadeIn();
+                    $(this).parent().parent().next().next().next().next().next().next().next().fadeIn();
+                    $(this).parent().parent().next().next().next().next().next().next().next().next().fadeIn();
+                    $(this).parent().parent().next().next().next().next().next().next().next().next().next().fadeIn();
+                    $(this).parent().parent().next().next().next().next().next().next().next().next().next().next().fadeIn();
+                }
+            }
+        })
+    </script>
+}
