@@ -126,7 +126,7 @@
                                                         <td class="tshaftertoman tshaftermarginright">@factor.TotalOff</td>
                                                         <td>نوع تخفیف</td>
                                                         <td>
-                                                            <button class="btn btn-brand tshpcustom show-ext" style="margin: 3px;">
+                                                            <button class="btn btn-brand tshpcustom show-ext show-btn show-@factor.MainFactorId" style="margin: 3px;">
                                                                 <i class="fa fa-eye tshfa"></i>
                                                                 نمایش
                                                             </button>
@@ -188,7 +188,7 @@
                                                 }
 
 
-                                                @*<tr>
+                                                <tr>
                                                     <th scope="row">1</th>
                                                     <td>شماره فاکتور</td>
                                                     <td>تاریخ خرید</td>
@@ -199,7 +199,7 @@
                                                     <td class="tshaftertoman tshaftermarginright">450,000,000</td>
                                                     <td>نوع تخفیف</td>
                                                     <td>
-                                                        <button class="btn btn-brand tshpcustom show-ext" style="margin: 3px;">
+                                                        <button class="btn btn-brand tshpcustom show-btn" id="show-112" style="margin: 3px;">
                                                             <i class="fa fa-eye tshfa"></i>
                                                             نمایش
                                                         </button>
@@ -217,7 +217,7 @@
                                                         </a>
                                                     </td>
                                                 </tr>
-                                                <tr style="display: none;" class="table-dark">
+                                                <tr style="display: none;" class="table-dark hide-112">
                                                     <th>#</th>
                                                     <th>نام پارچه</th>
                                                     <th>کد پارچه</th>
@@ -229,7 +229,7 @@
                                                     <th>کد تخفیف</th>
                                                     <th>عملیات</th>
                                                 </tr>
-                                                <tr style="display: none;" class="table-danger">
+                                                <tr style="display: none;" class="table-danger hide-112">
                                                     <th scope="row">1</th>
                                                     <td>نام پارچه</td>
                                                     <td>کد پارچه</td>
@@ -256,7 +256,7 @@
 
 
                                                 </tr>
-                                                <tr style="display: none;" class="table-danger">
+                                                <tr style="display: none;" class="table-danger hide-112">
                                                     <th scope="row">1</th>
                                                     <td>نام پارچه</td>
                                                     <td>کد پارچه</td>
@@ -281,7 +281,7 @@
                                                         </a>
                                                     </td>
                                                 </tr>
-                                                <tr style="display: none;" class="table-danger">
+                                                <tr style="display: none;" class="table-danger hide-112">
                                                     <th scope="row">1</th>
                                                     <td>نام پارچه</td>
                                                     <td>کد پارچه</td>
@@ -306,7 +306,7 @@
                                                         </a>
                                                     </td>
                                                 </tr>
-                                                <tr style="display: none;" class="table-danger">
+                                                <tr style="display: none;" class="table-danger hide-112">
                                                     <th scope="row">1</th>
                                                     <td>نام پارچه</td>
                                                     <td>کد پارچه</td>
@@ -396,7 +396,7 @@
                                                             </button>
                                                         </a>
                                                     </td>
-                                                </tr>*@
+                                                </tr>
 
                                             </tbody>
                                         </table>
@@ -559,6 +559,69 @@
 <!-- end:: Body -->
 @section Scripts{
     <script>
+         $(".show-btn").on("click", function (e,obj) {
+             if ($(window).width() > 768) {
+
+                 var idSelected = obj.id.replace("show-", "");
+                 $(".hide-" + idSelected).fadeOut();
+
+
+                //$(".show-ext").parent().parent().next().fadeOut();
+                //$(".show-ext").parent().parent().next().next().fadeOut();
+                //var nextTr = $(this).parent().parent().next();
+                //var nextNextTr = $(this).parent().parent().next().next();
+                if ($(this).parent().parent().next().next().css("display") == "none") {
+                   $(".hide-" + idSelected).fadeIn();
+                    
+                }
+            } else {
+                $(".show-ext").parent().parent().next().fadeOut();
+                $(".show-ext").parent().parent().next().next().fadeOut();
+                $(".show-ext").parent().parent().next().next().next().fadeOut();
+                $(".show-ext").parent().parent().next().next().next().next().fadeOut();
+                $(".show-ext").parent().parent().next().next().next().next().next().fadeOut();
+                $(".show-ext").parent().parent().next().next().next().next().next().next().fadeOut();
+                $(".show-ext").parent().parent().next().next().next().next().next().next().next().fadeOut();
+                $(".show-ext").parent().parent().next().next().next().next().next().next().next().next().fadeOut();
+                $(".show-ext").parent().parent().next().next().next().next().next().next().next().next().next().fadeOut();
+                $(".show-ext").parent().parent().next().next().next().next().next().next().next().next().next().next().fadeOut();
+                if ($(this).parent().parent().next().next().css("display") == "none") {
+                    $(this).parent().parent().next().fadeIn();
+                    $(this).parent().parent().next().next().fadeIn();
+                    $(this).parent().parent().next().next().next().fadeIn();
+                    $(this).parent().parent().next().next().next().next().fadeIn();
+                    $(this).parent().parent().next().next().next().next().next().fadeIn();
+                    $(this).parent().parent().next().next().next().next().next().next().fadeIn();
+                    $(this).parent().parent().next().next().next().next().next().next().next().fadeIn();
+                    $(this).parent().parent().next().next().next().next().next().next().next().next().fadeIn();
+                    $(this).parent().parent().next().next().next().next().next().next().next().next().next().fadeIn();
+                    $(this).parent().parent().next().next().next().next().next().next().next().next().next().next().fadeIn();
+                }
+            }
+        })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         $(".show-ext").on("click", function () {
             if ($(window).width() > 768) {
                 $(".show-ext").parent().parent().next().fadeOut();
