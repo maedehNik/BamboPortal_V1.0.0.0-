@@ -1,0 +1,324 @@
+﻿@model BamboPortal_V1._0._0._0.ModelViews.AdministratorBlog.BlogNewPostModelView
+@{
+    ViewBag.Title = "NewPost";
+    Layout = "~/Views/SharedViewPages/Administrator/MasterView.cshtml";
+}
+
+<div class="modal fade" id="deleteArtc" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">پاک کردن پست</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <span id="data-name">
+
+                    </span>
+                    پاک شود؟
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">خیر</button>
+                <button type="button" class="btn btn-danger">بله</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+
+    <!-- BEGIN: Subheader -->
+    <div class="m-subheader">
+        <div class="d-flex align-items-center">
+            <div class="mr-auto">
+                <span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
+                    <span class="m-subheader__daterange-label">
+                        <h3 class="m-subheader__title" style="padding-left: 0!important;margin: 0 0 0 2px!important;">
+                            پیشخوان
+                            <i class="fa fa-chevron-left tshfontsize2" style="transform: translateY(3px);color: #aaaeb8;margin-right: 2px;"></i>
+                            <span class="m-subheader__daterange-title tshfontsize2" style="margin-right: 2px;margin-left: 2px;">ارسال پست جدید</span>
+                            <!--
+                            <i class="fa fa-chevron-left" style="transform: translateY(3px);color: #aaaeb8;"></i>
+                            <span class="m-subheader__daterange-title" style="margin-right: 2px;">نمایش همه ی پست ها</span>
+                            -->
+                        </h3>
+                    </span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="m-content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="m-portlet m-portlet--full-height m-portlet--tabs  ">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-tools">
+                            <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
+                                <li class="nav-item m-tabs__item">
+                                    <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_user_profile_tab_1" role="tab">
+                                        <i class="flaticon-share m--hide"></i>
+                                        <cust_title>
+                                            ارسال پست جدید
+                                        </cust_title>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="m_user_profile_tab_1">
+
+                            @*=============================================Start The Form*@
+                            @using (@Html.BeginForm("NewPost", "AdminstratorBlog", FormMethod.Post, new { @id = "NewPostSubmiter", @class = "m-form m-form--fit m-form--label-align-right" }))
+                            {
+                                @Html.AntiForgeryToken();
+                                <div class="m-portlet__body" style="padding-bottom: 0">
+                                    <div class="container-fluid">
+                                        <div class="row col-12 rowresml0">
+                                            <div style="display:none" class="m-form__group form-group col-lg-6 col-xs-12">
+                                                <label>نوع پست:</label>
+                                                <div class="m-radio-inline">
+                                                    <label class="m-radio">
+                                                        <input type="radio" name="blog" value="1" checked>بلاگ
+                                                        <span></span>
+                                                    </label>
+                                                    <label class="m-radio">
+                                                        <input type="radio" name="article" value="2"> مقاله
+                                                        <span></span>
+                                                    </label>
+                                                    <label class="m-radio">
+                                                        <input type="radio" name="pages" value="3"> صفحات
+                                                        <span></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group m-form__group row col-lg-12 col-xs-12" style="padding-top: 0;">
+                                                <div class="col-lg-12">
+
+                                                    @Html.LabelFor(m => m.AddPostModel.Title, "موضوع پست :", new { @class = "form-control-label" })
+                                                    @Html.TextBoxFor(m => m.AddPostModel.Title, new { @class = "form-control m-input", @Value = Model.AddPostModel.Title })
+                                                    @Html.ValidationMessageFor(m => m.AddPostModel.Title)
+                                                    <small class="m-form__help">
+                                                        موضوع پست همان تیتر مقاله خواهد بود
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            @*<input id="AllImagesByID" value="NoIMG" style="display:none" />*@
+                                            @Html.TextBoxFor(m => m.AddPostModel.Pics, new { @class = "form-control m-input", @Value = Model.AddPostModel.Pics, @id = "AllImagesByID", @style = "display:none" })
+                                            @Html.ValidationMessageFor(m => m.AddPostModel.Pics)
+                                            <div class="container-fluid">
+                                                <div class="m-portlet__head-title container-fluid mt-4 col-12">
+                                                    <h3 class="m-portlet__head-text" style="font-size: 12px;border-bottom: 1px solid rgba(0,0,0,.1);padding-bottom: 17px;">
+                                                        عکس / عکس های سرپیج
+                                                    </h3>
+                                                </div>
+
+                                                <div class="m-section__content container-fluid tshtextright">
+                                                    <button class="btn btn-brand btn-sm" type="button" data-target="#uploader" data-toggle="modal">انتخاب عکس</button>
+                                                </div>
+                                                <div style="display:none">
+                                                    <div class="col-lg-3 selected-img-div">
+                                                        <div class="selected-pic" style="position: relative;">
+                                                            <button type="button" class="btn btn-danger delete-selected-pic" style="position: absolute;right: -8px;top: -10px;z-index: 999;padding: 4px 5px;"><i class="fa fa-trash"></i></button>
+                                                            <img src="assets/demo/default/media/img/misc/preservation-copy.jpg" class="uimg" data-name="نام عکس" data-label="لیبل" data-desc="توضیحات" alt="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 selected-img-div">
+                                                        <div class="selected-pic" style="position: relative;">
+                                                            <button type="button" class="btn btn-danger delete-selected-pic" style="position: absolute;right: -8px;top: -10px;z-index: 999;padding: 4px 5px;"><i class="fa fa-trash"></i></button>
+                                                            <img src="assets/demo/default/media/img/misc/preservation-copy.jpg" class="uimg" data-name="نام عکس" data-label="لیبل" data-desc="توضیحات" alt="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 selected-img-div">
+                                                        <div class="selected-pic" style="position: relative;">
+                                                            <button type="button" class="btn btn-danger delete-selected-pic" style="position: absolute;right: -8px;top: -10px;z-index: 999;padding: 4px 5px;"><i class="fa fa-trash"></i></button>
+                                                            <img src="assets/demo/default/media/img/misc/preservation-copy.jpg" class="uimg" data-name="نام عکس" data-label="لیبل" data-desc="توضیحات" alt="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 selected-img-div">
+                                                        <div class="selected-pic" style="position: relative;">
+                                                            <button type="button" class="btn btn-danger delete-selected-pic" style="position: absolute;right: -8px;top: -10px;z-index: 999;padding: 4px 5px;"><i class="fa fa-trash"></i></button>
+                                                            <img src="assets/demo/default/media/img/misc/preservation-copy.jpg" class="uimg" data-name="نام عکس" data-label="لیبل" data-desc="توضیحات" alt="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 selected-img-div">
+                                                        <div class="selected-pic" style="position: relative;">
+                                                            <button type="button" class="btn btn-danger delete-selected-pic" style="position: absolute;right: -8px;top: -10px;z-index: 999;padding: 4px 5px;"><i class="fa fa-trash"></i></button>
+                                                            <img src="assets/demo/default/media/img/misc/preservation-copy.jpg" class="uimg" data-name="نام عکس" data-label="لیبل" data-desc="توضیحات" alt="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 selected-img-div">
+                                                        <div class="selected-pic" style="position: relative;">
+                                                            <button type="button" class="btn btn-danger delete-selected-pic" style="position: absolute;right: -8px;top: -10px;z-index: 999;padding: 4px 5px;"><i class="fa fa-trash"></i></button>
+                                                            <img src="assets/demo/default/media/img/misc/preservation-copy.jpg" class="uimg" data-name="نام عکس" data-label="لیبل" data-desc="توضیحات" alt="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 selected-img-div">
+                                                        <div class="selected-pic" style="position: relative;">
+                                                            <button type="button" class="btn btn-danger delete-selected-pic" style="position: absolute;right: -8px;top: -10px;z-index: 999;padding: 4px 5px;"><i class="fa fa-trash"></i></button>
+                                                            <img src="assets/demo/default/media/img/misc/preservation-copy.jpg" class="uimg" data-name="نام عکس" data-label="لیبل" data-desc="توضیحات" alt="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group col-12">
+                                                @Html.LabelFor(m => m.AddPostModel.Text_min, "توضیحات مختصر :", new { @class = "form-control-label tshtextright" })
+                                                <div>
+                                                    @Html.TextAreaFor(m => m.AddPostModel.Text_min, new { @class = "form-control m-input", @Value = Model.AddPostModel.Text_min, @maxlength = "150", @style = "padding-top: 20px;min-height: 70px" })
+                                                    @Html.ValidationMessageFor(m => m.AddPostModel.Text_min)
+
+                                                    <span class="m-form__help">این متن در قسمت جستجو یا نمایش مختصر نمایش داده خواهد شد</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group col-12">
+
+                                                @Html.LabelFor(m => m.AddPostModel.Text, "متن اصلی :", new { @class = "form-control-label tshtextright" })
+                                                @Html.TextBoxFor(m => m.AddPostModel.Pics, new { @class = "form-control m-input", @Value = Model.AddPostModel.Pics, @id = "AddPostModel_Text", @style = "display:none" })
+                                                @Html.ValidationMessageFor(m => m.AddPostModel.Pics)
+                                                <div>
+                                                    <div class="summernote" id="summernote"></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group col-lg-3">
+
+                                                @Html.LabelFor(m => m.AddPostModel.GroupId, "گروه :", new { @class = "col-form-label col-12 tshtextright", @style = "padding: 0;" })
+
+                                                <div class="col-12" style="padding: 0;">
+                                                    <select class="form-control m-bootstrap-select m_selectpicker" title="‫انتخاب کنید..." id="AddPostModel_GroupId" name="AddPostModel.GroupId" data-live-search="true">
+                                                        @foreach (var item in Model.Groups)
+                                                        {
+                                                            <option value="@item.Id">@item.Value</option>
+                                                        }
+                                                    </select>
+                                                    @Html.ValidationMessageFor(m => m.AddPostModel.GroupId)
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group col-lg-3">
+                                                @Html.LabelFor(m => m.AddPostModel.CatId, "دسته بندی :", new { @class = "col-form-label col-12 tshtextright", @style = "padding: 0;" })
+                                                <div class="col-12" style="padding: 0;">
+                                                    <select class="form-control m-bootstrap-select m_selectpicker" title="‫انتخاب کنید..." id="AddPostModel_CatId" name="AddPostModel.CatId" data-live-search="true" onchange="return CatChange()">
+                                                        @foreach (var item in Model.Categories)
+                                                        {
+                                                            <option value="@item.Id">@item.Value</option>
+                                                        }
+                                                    </select>
+                                                    @Html.ValidationMessageFor(m => m.AddPostModel.CatId)
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group col-lg-3">
+
+                                                @Html.LabelFor(m => m.AddPostModel.Tags, "برچسب :", new { @class = "col-form-label col-12 tshtextright", @style = "padding: 0;" })
+                                                <div class="col-12" style="padding: 0;">
+                                                    <select disabled class="form-control m-bootstrap-select m_selectpicker" title="‫انتخاب کنید..." id="AddPostModel_Tags" name="AddPostModel.Tags" data-live-search="true" multiple>
+                                                    </select>
+                                                    @Html.ValidationMessageFor(m => m.AddPostModel.Tags)
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group col-lg-3">
+                                                @Html.LabelFor(m => m.AddPostModel.Tags, "ارزش جستجو :", new { @class = "col-form-label col-12 tshtextright", @style = "padding: 0;" })
+                                                <div class="col-12" style="padding: 0;">
+                                                    <div>
+                                                        @Html.TextBoxFor(m => m.AddPostModel.Weight, new { @class = "form-control m-input", @Value = Model.AddPostModel.Weight, type = "number" })
+                                                        @Html.ValidationMessageFor(m => m.AddPostModel.Text_min)
+
+                                                        <span class="m-form__help" style="font-size: 9px">نتایج جست و جوی کاربران بر این اساس نمایش داده خواهند شد.</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="m-portlet__foot m-portlet__foot--fit mt-3">
+                                            <div class="m-form__actions">
+                                                <div class="row">
+                                                    <div class="col-lg-4" style="padding-top: 10px;">
+                                                        <label class="m-checkbox">
+                                                            @Html.CheckBoxFor(m => m.AddPostModel.IsImportant) انتشار به عنوان پست فوری
+                                                            <span></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-lg-8 tshtextleft" style="padding-left: 0;">
+                                                        <button type="submit" id="NewPostSubmiter_SubmitBTN" class="btn btn-accent m-btn m-btn--air m-btn--custom sendblg">ارسال</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*End of Content*@
+@*==========================================================*@
+@{Html.RenderAction("GalleryModal", "AdministratorUploader");}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/Select2.js")
+    @Scripts.Render("~/bundles/Uploader.js")
+    @Scripts.Render("~/bundles/AdminstratorBlog.js")
+    <script>
+        $(document).ready(function () {
+            $("#AddPostModel_GroupId").select2();
+            $("#AddPostModel_CatId").select2();
+            $("#AddPostModel_Tags").select2();
+
+            //select2:select
+        });
+        //End of document ready
+
+
+        function CatChange() {
+            var Id = $('#AddPostModel_CatId').val();
+            //alert(Id);
+            $('#AddPostModel_Tags').prop("disabled", false);
+            const PostJson = {
+                'CatId': Id
+            };
+
+            $.ajax({
+                url: '/AdminstratorBlog/GetBlogTags',
+                type: "post",
+                data: JSON.stringify(PostJson),
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    // alert("done");
+                    var token = response;
+                    var s = "<option value=0 selected >انتخاب کنید</option>";
+                    for (var i = 0; i < token.length; i++) {
+                        s += "<option value=" + token[i].Id + ">" + token[i].Value + "</option>";
+                    }
+
+                    document.getElementById('AddPostModel_Tags').innerHTML = s;
+                    $("#AddPostModel_Tags").select2();
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("مشکل در برقراری ارتباط با سرور");
+                }
+            });
+            return false;
+        }
+
+
+
+    </script>
+
+    <script>
+        var ActionsDemo = { init: function () { $(".summernote").summernote({ height: 350 }) } }; jQuery(document).ready(function () { ActionsDemo.init() });
+
+
+    </script>
+
+}

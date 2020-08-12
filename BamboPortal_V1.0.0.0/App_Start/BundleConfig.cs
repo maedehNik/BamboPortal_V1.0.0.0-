@@ -141,9 +141,14 @@ namespace BamboPortal_V1._0._0._0
 
             //Bundles {Start} : Page Scripts --> Adminstrator_Customers_Profile
             bundles.Add(new ScriptBundle("~/bundles/AdminCustomerProf.js").Include(
-              "~/AdminDesignResource//demo/default/custom/header/actions.js",
+              "~/AdminDesignResource/demo/default/custom/header/actions.js",
               "~/AdminDesignResource/vendors/custom/custom-js.js"));
             //Bundles {END} : Page Scripts --> Adminstrator_Customers_Profile
+
+            //Bundles {Start} : Page Scripts --> Adminstrator_Blog
+            bundles.Add(new ScriptBundle("~/bundles/AdminstratorBlog.js").Include(
+              "~/AdminDesignResource/app/js/Admin_Blog.js"));
+            //Bundles {END} : Page Scripts --> Adminstrator_Blog
 
             BundleTable.EnableOptimizations = false;
 

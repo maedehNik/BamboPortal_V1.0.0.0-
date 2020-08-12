@@ -139,6 +139,7 @@
     <Compile Include="Controllers\AdminLoginAuthController.cs" />
     <Compile Include="Controllers\AdminRulesController.cs" />
     <Compile Include="Controllers\AdminRules_ProductCTRLController.cs" />
+    <Compile Include="Controllers\AdminstratorBlogController.cs" />
     <Compile Include="Controllers\AllErrorsRedirectController.cs" />
     <Compile Include="Controllers\CustomerSideControllers\CustomerSide_BlogController.cs" />
     <Compile Include="Controllers\CustomerSideControllers\CustomerSide_BlogRuleController.cs" />
@@ -154,9 +155,19 @@
     </Compile>
     <Compile Include="ModelFiller\CustomerSide\CustomerModelFiller.cs" />
     <Compile Include="Models\Administrator.cs" />
+    <Compile Include="Models\AdministratorBlogModels\AddBlogCatModel.cs" />
+    <Compile Include="Models\AdministratorBlogModels\AddBlogGroupModel.cs" />
+    <Compile Include="Models\AdministratorBlogModels\AddTagModel.cs" />
+    <Compile Include="Models\AdministratorBlogModels\BlodGroupListModel.cs" />
+    <Compile Include="Models\AdministratorBlogModels\BlogCategoryListModel.cs" />
+    <Compile Include="Models\AdministratorBlogModels\BlogTagListModel.cs" />
+    <Compile Include="Models\AdministratorBlogModels\PostModel.cs" />
+    <Compile Include="Models\AdministratorBlogModels\PostTableModel.cs" />
     <Compile Include="Models\AdministratorCustomers\AddressModel.cs" />
     <Compile Include="Models\AdministratorCustomers\Admin_CustomerDetail.cs" />
     <Compile Include="Models\AdministratorCustomers\CustomerModel.cs" />
+    <Compile Include="Models\AdministratorFactor\FactorItrmModel.cs" />
+    <Compile Include="Models\AdministratorFactor\MainFactorModel.cs" />
     <Compile Include="Models\AdministratorGeneralModels\changeAuthInformation.cs" />
     <Compile Include="Models\AdministratorGeneralModels\ChangeProfileModel.cs" />
     <Compile Include="Models\AdministratorProductsModels\AddProductSemiFinalSubmitToCreateProducts.cs" />
@@ -215,6 +226,10 @@
     <Compile Include="Models\StoreModel.cs" />
     <Compile Include="Models\UsefulModels\Key_ValueModel.cs" />
     <Compile Include="Models\UsefulModels\ProductGroupModel.cs" />
+    <Compile Include="ModelViews\AdministratorBlog\AddBlogTagModelView.cs" />
+    <Compile Include="ModelViews\AdministratorBlog\BlogAddCategoryModelView.cs" />
+    <Compile Include="ModelViews\AdministratorBlog\BlogAddGroupModelView.cs" />
+    <Compile Include="ModelViews\AdministratorBlog\BlogNewPostModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddMainCategoryModel.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddMainCategorySubmiterForm.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddMainTagModelView.cs" />
@@ -267,6 +282,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AdminDesignResource\app\js\adminPanelMainControllerJS.js" />
+    <Content Include="AdminDesignResource\app\js\Admin_Blog.js" />
     <Content Include="AdminDesignResource\app\js\Admin_Customers.js" />
     <Content Include="AdminDesignResource\app\js\dashboard.js" />
     <Content Include="AdminDesignResource\app\js\jqueryvalidate.js" />
@@ -3178,6 +3194,7 @@
     <Content Include="DatabaseCenter\SQL Scripts\1399\Mordad\13\factors.sql" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Mordad\13\Note.txt" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Mordad\15\Secound.sql" />
+    <Content Include="DatabaseCenter\SQL Scripts\1399\Mordad\18\Note.txt" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Mordad\first1.sql" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Tir\16\desktop - Copy.sql" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Tir\16\desktop.sql" />
@@ -3244,6 +3261,13 @@
     <Content Include="Views\AdministratorStockpile\ProductInStockpile.cshtml" />
     <Content Include="Views\AdministratorCustomers\Customers.cshtml" />
     <Content Include="Views\AdministratorCustomers\CustomerProfile.cshtml" />
+    <Content Include="Views\AdministratorProducts_Factors\ProductList_Factors.cshtml" />
+    <Content Include="Views\AdminstratorBlog\NewPost.cshtml" />
+    <Content Include="Views\AdminstratorBlog\PostTable.cshtml" />
+    <Content Include="Views\AdminstratorBlog\Add_Blog_Group.cshtml" />
+    <Content Include="Views\AdminstratorBlog\Add_Blog_Category.cshtml" />
+    <Content Include="Views\AdminstratorBlog\Add_Blog_Tags.cshtml" />
+    <Content Include="Views\AdminstratorBlog\_PostTableItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

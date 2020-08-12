@@ -642,7 +642,6 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 return Json(ModelSender);
             }
 
-            return Json("");
         }
         [HttpPost]
         public JsonResult AddMainCategory_DeActive(string idToDEActive)
