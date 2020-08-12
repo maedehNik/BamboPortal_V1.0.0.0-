@@ -220,16 +220,6 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 return Content("Error");
             }
 
-            }else
-            {
-                return Content("Error");
-            }
-
-            }
-            else
-            {
-                return Content("Error");
-            }
         }
 
         [HttpPost]
