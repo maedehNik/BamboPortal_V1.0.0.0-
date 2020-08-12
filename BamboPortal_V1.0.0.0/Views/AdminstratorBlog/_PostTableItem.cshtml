@@ -1,0 +1,55 @@
+﻿@model BamboPortal_V1._0._0._0.Models.AdministratorBlogModels.PostTableModel
+
+
+    <div class="col-lg-4">
+        <!--begin::Portlet-->
+        <div class="m-portlet">
+            <div class="m-card-profile">
+                <div class="m-card-profile__pic col-12" style="margin: 0;padding: 0;">
+                    <div class="col-12 row" style="margin: 0;padding: 10px;">
+                        <div class="m-card-profile__pic-wrapper col-4" style="border-radius: 0!important;margin: 0;padding: 3px;">
+                            <img class="col-12" src="@Model.PicPath" alt="" style="border-radius: 0!important;max-width:none!important;width: 100%!important;padding: 0;">
+                        </div>
+                        <div class="col-8 tshtextright" style="font-size: 15px;padding-left: 0;">
+                            <i class="fa fa-chevron-left" style="transform: translateY(2px)"></i>
+                            @Model.Title
+                            <div class="tshfontsize3 mt-4" style="display:none">
+                                <a class="m-card-profile__email m-link tshcurpoi">
+                                    <i class="fa fa-chart-bar" style="transform: translateY(2px)"></i>
+                                    تعداد بازدید: @Model.SeenNumber
+                                </a>
+                            </div>
+                            <div class="tshfontsize3 mt-2">
+                                <a class="m-card-profile__email m-link tshcurpoi">
+                                    <i class="fa fa-edit" style="transform: translateY(2px)"></i>
+                                    آخرین ویرایش :@Model.LatEditDate 
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 text-justify">
+                        @Model.Text_Min
+                    </div>
+                </div>
+                <div class="m-card-profile__details">
+                    <div class="m-widget1" style="padding-top: 10px;padding-bottom: 10px;">
+                        <div class="row">
+                            <a href="" class="col-6 tshtextdecnone-2" style="padding-right: 0;">
+                                <button class="btn btn-primary mt-3 col-12" style="margin-top: 0!important;">
+                                    <i class="fa fa-edit"></i>
+                                    ویرایش
+                                </button>
+                            </a>
+                            <a class="col-6 tshtextdecnone-2" style="padding-left: 0;">
+                                <button class="btn btn-danger mt-3 col-12 deleteArtc" data-target="#deleteArtc" data-toggle="modal" data-name="@Model.PostId" style="margin-top: 0!important;">
+                                    <i class="fa fa-trash"></i>
+                                    حذف
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end::Portlet-->
+    </div>

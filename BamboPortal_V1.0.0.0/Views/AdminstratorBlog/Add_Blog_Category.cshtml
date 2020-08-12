@@ -1,0 +1,274 @@
+﻿@model BamboPortal_V1._0._0._0.ModelViews.AdministratorBlog.BlogAddCategoryModelView
+@{
+    ViewBag.Title = "Add_Blog_Category";
+    Layout = "~/Views/SharedViewPages/Administrator/MasterView.cshtml";
+}
+
+
+
+<div class="modal fade" id="deactivemodal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">غیرفعال سازی دسته بندی</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    دسته بندی
+                    <span id="data-name">
+
+                    </span>
+                    غیرفعال شود؟
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">خیر</button>
+                <button type="button" class="btn btn-danger">بله</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="deleteCus" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">پاک کردن دسته بندی</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    دسته بندی
+                    <span id="data-name-delete">
+
+                    </span>
+                    پاک شود؟
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">خیر</button>
+                <button type="button" class="btn btn-danger">بله</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+
+    <!-- BEGIN: Subheader -->
+    <div class="m-subheader">
+        <div class="d-flex align-items-center">
+            <div class="mr-auto">
+                <span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
+                    <span class="m-subheader__daterange-label">
+                        <h3 class="m-subheader__title" style="padding-left: 0!important;margin: 0 0 0 2px!important;">
+                            پیشخوان
+                            <i class="fa fa-chevron-left tshfontsize2" style="transform: translateY(3px);color: #aaaeb8;margin-right: 2px;"></i>
+                            <span class="m-subheader__daterange-title tshfontsize2" style="margin-right: 2px;margin-left: 2px;">تعریف دسته بندی</span>
+                            <!--
+                            <i class="fa fa-chevron-left" style="transform: translateY(3px);color: #aaaeb8;"></i>
+                            <span class="m-subheader__daterange-title" style="margin-right: 2px;">نمایش همه ی پست ها</span>
+                            -->
+                        </h3>
+                    </span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="m-content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="m-portlet m-portlet--full-height m-portlet--tabs  ">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-tools">
+                            <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
+                                <li class="nav-item m-tabs__item">
+                                    <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_user_profile_tab_1" role="tab">
+                                        <i class="flaticon-share m--hide"></i>
+                                        <cust_title>
+                                            تعریف دسته بندی
+                                        </cust_title>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="m_user_profile_tab_1">
+                                @*=========================================================== Form begins*@
+                                @using (@Html.BeginForm("Add_Blog_Category", "AdminstratorBlog", FormMethod.Post, new { @id = "AddBlogCategorySubmiter", @class = "m-form m-form--fit m-form--label-align-right" }))
+                                {
+                                    @Html.AntiForgeryToken();
+                                    <div class="m-portlet__body" style="padding-bottom: 0">
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                                    <div class="col-lg-12">
+                                                        @if (Model.AddCat.typeID == "0")
+                                                        {
+
+
+                                                            @Html.LabelFor(m => m.AddCat.AddCat, "نام دسته بندی :", new { @class = "form-control-label" })
+                                                            @Html.TextBoxFor(m => m.AddCat.AddCat, new { @class = "form-control m-input", @Value = Model.AddCat.AddCat, @placeholder = "نام دسته بندی" })
+                                                            @Html.ValidationMessageFor(m => m.AddCat.AddCat)
+                                                        }
+                                                        else
+                                                        {
+                                                            @Html.LabelFor(m => m.AddCat.AddCat, "در حال ویرایش دسته بندی (" + Model.AddCat.AddCat + ") :", new { @class = "form-control-label" })
+                                                            @Html.TextBoxFor(m => m.AddCat.AddCat, new { @class = "form-control m-input", @Value = Model.AddCat.AddCat, @placeholder = "نام دسته بندی" })
+                                                            @Html.ValidationMessageFor(m => m.AddCat.AddCat)
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @Html.TextBoxFor(m => m.AddCat.typeID, new { @class = "form-control m-input", @style = "display:none;", @Value = Model.AddCat.typeID, @placeholder = "نام دسته بندی" })
+                                            <div class="m-portlet__foot m-portlet__foot--fit mt-3">
+                                                <div class="m-form__actions">
+                                                    <div class="row">
+                                                        <div class="col-lg-12 tshtextleft" style="padding-left: 0;">
+                                                            <button type="submit" id="AddBlogCategorySubmiter_SubmitBTN" class="btn btn-accent m-btn m-btn--air m-btn--custom">ثبت</button>&nbsp;&nbsp;
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                @*=========================================================== Form ENDs*@
+                        </div>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="m_user_profile_tab_1">
+                            <form class="m-form m-form--fit m-form--label-align-right" onsubmit="return false;" id="blgform">
+                                <div class="m-portlet__body" style="padding-bottom: 0">
+                                    <div class="col-12">
+                                        <div>
+                                            <div class="m-portlet__head-title container-fluid mt-4">
+                                                <h3 class="m-portlet__head-text" style="font-size: 12px;border-bottom: 1px solid rgba(0,0,0,.1);padding-bottom: 17px;">
+                                                    لیست دسته بندی ها
+                                                </h3>
+                                            </div>
+                                        </div>
+                                        <div class="container-fluid">
+                                            <table class="cust-table table table-striped table-hover m-table m-table--head-separator-primary">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>نام دسته بندی</th>
+                                                        <th>وضعیت</th>
+                                                        <th>عملیات</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @if (Model.CatList.Count != 0)
+                                                    {
+                                                        foreach (var item in Model.CatList)
+                                                        {
+                                                            <tr>
+                                                                <th scope="row">@item.Num</th>
+                                                                <td>@item.CatName</td>
+                                                                <td>
+                                                                    @if (item.IsDeleted == 1)
+                                                                    {
+                                                                        <button class="btn btn-danger tshpcustom deactivate-btn" data-name="@item.CatName"><i class="fa fa-trash tshfa"></i>حذف شده</button>
+                                                                    }
+                                                                    else if (item.Disabled == 1)
+                                                                    {
+                                                                        <button class="btn btn-warning tshpcustom deactivate-btn" data-target="#deactivemodal" data-toggle="modal" data-name="@item.CatName"><i class="fa fa-check tshfa"></i> غیر فعال</button>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <button class="btn btn-success tshpcustom deactivate-btn" data-target="#deactivemodal" data-toggle="modal" data-name="@item.CatName"><i class="fa fa-check tshfa"></i>فعال</button>
+                                                                    }
+                                                                </td>
+                                                                <td>
+                                                                    @if (item.IsDeleted == 0)
+                                                                    {
+                                                                        <button class="btn btn-danger tshpcustom cus-delete-btn" data-target="#deleteCus" data-toggle="modal" data-name="@item.CatName"><i class="fa fa-trash tshfa"></i>حذف</button>
+                                                                    }
+
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <h3 class="m-badge m-badge--danger m-badge--wide">
+                                                            موردی برای نمایش وجود ندارد.
+
+                                                        </h3>
+                                                    }
+
+
+                                                </tbody>
+                                            </table>
+                                            <table style="display: none;" class="cust-table cust-table-2 table table-striped table-hover m-table m-table--head-separator-primary">
+                                                <tr>
+                                                    <th>#</th>
+                                                    <td>1</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <th>نام دسته بندی</th>
+                                                    <td>بیلبیلک</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>وضعیت</th>
+                                                    <td>
+                                                        <button class="btn btn-success tshpcustom deactivate-btn" data-target="#deactivemodal" data-toggle="modal" data-name="بیلبیلک"><i class="fa fa-check tshfa"></i>فعال</button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>عملیات</th>
+                                                    <td>
+                                                        <button class="btn btn-danger tshpcustom cus-delete-btn" data-target="#deleteCus" data-toggle="modal" data-name="بیلبیلک"><i class="fa fa-trash tshfa"></i>حذف</button>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <div class="col-lg-12 mt-4 mb-4" style="display:none">
+                                                <span class="col-lg-3">
+                                                    صفحه
+                                                    <span>50</span>
+                                                    از
+                                                    <span>170</span>
+                                                </span>
+                                                <ul class="tshpaglist col-lg-9 mb-5">
+                                                    <li class="btn btn-brand disabled">قبلی</li>
+                                                    <li class="btn btn-brand active-pag">1</li>
+                                                    <li class="btn btn-brand">2</li>
+                                                    <li class="btn btn-brand">3</li>
+                                                    <li class="btn btn-brand">4</li>
+                                                    <li class="btn btn-brand">5</li>
+                                                    <li class="btn btn-brand">6</li>
+                                                    <li class="btn btn-brand">7</li>
+                                                    <li class="btn btn-brand">8</li>
+                                                    <li class="btn btn-brand">9</li>
+                                                    <li class="btn btn-brand">10</li>
+                                                    <li class="btn btn-brand">بعدی</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @Scripts.Render("~/bundles/AdminstratorBlog.js")
+}
+
+
