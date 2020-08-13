@@ -420,6 +420,7 @@ function AlertToUser(FormID, data) {
             swal("درخواست با موفقیت ثبت شد!", data.Errormessage, "success").then(function (e) {
                 $("#" + FormID + "_SubmitBTN").removeClass("m-loader m-loader--light m-loader--right").prop("disabled", false);
                 try {
+                   
                     if ($("#" + FormID + "Redirection").val() == "NoReload") {
                     }
                     else if ($("#" + FormID + "Redirection").val().length > 0) {
