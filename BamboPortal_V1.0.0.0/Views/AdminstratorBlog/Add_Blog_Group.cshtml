@@ -5,57 +5,6 @@
 }
 
 
-<div class="modal fade" id="deactivemodal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">غیرفعال سازی گروه</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>
-                    گروه
-                    <span id="data-name">
-
-                    </span>
-                    غیرفعال شود؟
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">خیر</button>
-                <button type="button" class="btn btn-danger">بله</button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="deleteCus" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">پاک کردن گروه</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>
-                    گروه
-                    <span id="data-name-delete">
-
-                    </span>
-                    پاک شود؟
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">خیر</button>
-                <button type="button" class="btn btn-danger">بله</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="m-grid__item m-grid__item--fluid m-wrapper">
 
     <!-- BEGIN: Subheader -->
@@ -90,9 +39,20 @@
                                 <li class="nav-item m-tabs__item">
                                     <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_user_profile_tab_1" role="tab">
                                         <i class="flaticon-share m--hide"></i>
-                                        <cust_title>
-                                            تعریف گروه
-                                        </cust_title>
+                                        @if (Model.AddModel.typeID == "0")
+                                        {
+                                    <cust_title>
+                                        تعریف گروه
+                                    </cust_title>
+                                        }
+                                        else
+                                        {
+                                    <cust_title>
+                                        ویرایش گروه
+                                    </cust_title>
+                                            <input value="@Url.Action("Add_Blog_Group", "AdminstratorBlog",new {id=0 } )" id="AddBlogGroupSubmiterRedirection" style="display:none" />
+                                        }
+
                                     </a>
                                 </li>
                             </ul>
@@ -187,32 +147,50 @@
                                                     {
                                                         foreach (var item in Model.GroupList)
                                                         {
-                                                            <tr>
-                                                                <th scope="row">@item.Num</th>
-                                                                <td>@item.GroupName</td>
-                                                                <td>@item.GroupToken</td>
-                                                                <td>
-                                                                    @if (item.IsDeleted == 1)
-                                                                    {
-                                                                        <button class="btn btn-danger tshpcustom deactivate-btn" data-name="@item.GroupName"><i class="fa fa-trash tshfa"></i>حذف شده</button>
-                                                                    }
-                                                                    else if (item.Disabled == 1)
-                                                                    {
-                                                                        <button class="btn btn-warning tshpcustom deactivate-btn" data-target="#deactivemodal" data-toggle="modal" data-name="@item.GroupName"><i class="fa fa-check tshfa"></i> غیر فعال</button>
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        <button class="btn btn-success tshpcustom deactivate-btn" data-target="#deactivemodal" data-toggle="modal" data-name="@item.GroupName"><i class="fa fa-check tshfa"></i>فعال</button>
-                                                                    }
-                                                                </td>
-                                                                <td>
-                                                                    @if (item.IsDeleted == 0)
-                                                                    {
-                                                                        <button class="btn btn-danger tshpcustom cus-delete-btn" data-target="#deleteCus" data-toggle="modal" data-name="بیلبیلک"><i class="fa fa-trash tshfa"></i>حذف</button>
-                                                                    }
+                                                            <input value="@item.GroupName" id="itemname-@item.GroupId" style="display:none" />
+                                                    <tr>
+                                                        <th scope="row">@item.Num</th>
+                                                        <td>@item.GroupName</td>
+                                                        <td>@item.GroupToken</td>
+                                                        <td>
+                                                            @if (item.IsDeleted == 1)
+                                                            {
+                                                                <button class="btn btn-danger tshpcustom deactivate-btn" data-name="@item.GroupName"><i class="fa fa-trash tshfa"></i>حذف شده</button>
+                                                            }
+                                                            else if (item.Disabled == 1)
+                                                            {
+                                                                <button class="btn btn-warning tshpcustom deactivate-btn" data-target="#ActivationModal" data-toggle="modal"
+                                                                        id="btnAvailableType-@item.GroupId"
+                                                                        onclick=" availableType('btnDesableType-@item.GroupId')">
+                                                                    <i class="fa fa-minus-circle tshfa"></i> غیر فعال
+                                                                </button>
+                                                            }
+                                                            else
+                                                            {
+                                                                @*<button class="btn btn-success tshpcustom deactivate-btn" data-target="#deactivemodal" data-toggle="modal" data-name="@item.CatName"><i class="fa fa-check tshfa"></i>فعال</button>*@
+                                                                <button class="btn btn-success tshpcustom deactivate-btn" data-target="#deactivemodal" data-toggle="modal"
+                                                                        id="btnDesableType-@item.GroupId"
+                                                                        onclick=" DesableType('btnDesableType-@item.GroupId')">
+                                                                    <i class="fa fa-check tshfa"></i> فعال
+                                                                </button>
+                                                            }
+                                                        </td>
+                                                        <td>
+                                                            @if (item.IsDeleted == 0)
+                                                            {
+                                                                @*<button class="btn btn-danger tshpcustom cus-delete-btn" data-target="#deleteCus" data-toggle="modal" data-name="@item.CatName"><i class="fa fa-trash tshfa"></i>حذف</button>*@
+                                                                <button id="btnDeleteType-@item.GroupId"
+                                                                        onclick=" DeleteType('btnDeleteType-@item.GroupId')" class="btn btn-danger tshpcustom cus-delete-btn" data-target="#deleteCus" data-toggle="modal" data-name="...">
+                                                                    <i class="fa fa-trash tshfa"></i>
+                                                                </button>
+                                                                <a href="@Url.Action("Add_Blog_Group","AdminstratorBlog",new {id=item.GroupId } )"
+                                                                   class="btn btn-primary tshpcustom cus-delete-btn">
+                                                                    <i class="fa fa-edit tshfa"></i>
+                                                                </a>
+                                                            }
 
-                                                                </td>
-                                                            </tr>
+                                                        </td>
+                                                    </tr>
                                                         }
                                                     }
                                                     else
@@ -286,7 +264,181 @@
     </div>
 </div>
 
+
+<div class="modal fade" id="deactivemodal" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+    <input value="" id="deactiveIdGetter" style="display:none" />
+
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">غیرفعال سازی گروه </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    گروه
+                    <span id="deactiveNameGetter"></span>
+                    غیرفعال شود؟
+                    
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">خیر</button>
+                <button onclick="deActiveModal()" id="deActiveModal_SubmitBTN" type="button" class="btn btn-warning">بله</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ActivationModal" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+    <input value="" id="activeIdGetter" style="display:none" />
+
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">فعال سازی گروه </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    گروه
+                    <span id="activeNameGetter"></span>
+                    فعال شود؟
+
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">خیر</button>
+                <button onclick="ActiveModal()" id="ActiveModal_SubmitBTN" type="button" class="btn btn-success">بله</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteCus" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+    <input value="" id="deleteCusIdGetter" style="display:none" />
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">پاک کردن گروه</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    گروه
+                    <span id="deleteCusNameGetter"></span>
+                    پاک شود؟
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">خیر</button>
+                <button onclick="DeleteModal()" id="DeleteModal_SubmitBTN" type="button" class="btn btn-danger">بله</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
 @section Scripts{
     @Scripts.Render("~/bundles/AdminstratorBlog.js")
+    <script>
+        function DesableType(id) {
+            id = id.replace("btnDesableType-", "");
+
+            $("#deactiveIdGetter").val(id);
+            $("#deactiveNameGetter").text($("#itemname-" + id).val());
+
+        }
+        function availableType(id) {
+            id = id.replace("btnDesableType-", "");
+            $("#activeIdGetter").val(id);
+            $("#activeNameGetter").text($("#itemname-" + id).val());
+        }
+        function DeleteType(id) {
+            id = id.replace("btnDeleteType-", "");
+            $("#deleteCusIdGetter").val(id);
+            $("#deleteCusNameGetter").text($("#itemname-" + id).val());
+        }
+        function DeleteModal() {
+            const PostJson = {
+                'idTodelete': $("#deleteCusIdGetter").val()
+            };
+
+            $("#DeleteModal_SubmitBTN").addClass("m-loader m-loader--light m-loader--right").prop("disabled", true);
+            $.ajax({
+                url: '/AdminstratorBlog/DeleteBlogGroup',
+                type: "post",
+                data: JSON.stringify(PostJson),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    if (data.Errortype == "Success") {
+                        AlertToUser("DeleteModal", data);
+                    } else {
+                        alert(data.Errormessage);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("مشکل در برقراری ارتباط با سرور");
+                }
+            });
+        }
+        function ActiveModal() {
+            const PostJson = {
+                'idToActive': $("#activeIdGetter").val()
+            };
+
+            $("#ActiveModal_SubmitBTN").addClass("m-loader m-loader--light m-loader--right").prop("disabled", true);
+            $.ajax({
+                url: '/AdminstratorBlog/ActiveBlogGroup',
+                type: "post",
+                data: JSON.stringify(PostJson),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    if (data.Errortype == "Success") {
+                        AlertToUser("ActiveModal", data);
+                    } else {
+                        alert(data.Errormessage);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("مشکل در برقراری ارتباط با سرور");
+                }
+            });
+
+        }
+        function deActiveModal() {
+            const PostJson = {
+                'idToDEActive': $("#deactiveIdGetter").val()
+            };
+
+            $("#deActiveModal_SubmitBTN").addClass("m-loader m-loader--light m-loader--right").prop("disabled", true);
+            $.ajax({
+                url: '/AdminstratorBlog/DeActiveBlogGroup',
+                type: "post",
+                data: JSON.stringify(PostJson),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    if (data.Errortype == "Success") {
+                        AlertToUser("deActiveModal", data);
+                    } else {
+                        alert(data.Errormessage);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("مشکل در برقراری ارتباط با سرور");
+                }
+            });
+
+        }
+    </script>
 }
 

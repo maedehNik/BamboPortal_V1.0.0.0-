@@ -140,10 +140,10 @@ namespace BamboPortal_V1._0._0._0.Controllers
                                 parss.Add(par);
                                 db.Connect();
                                 string InsertedID = db.Script("INSERT INTO  [tbl_BLOG_Post] ([Title],[Text_min],[Text],[WrittenBy_AdminId],[Date],[weight],[IsImportant],[Is_Deleted],[Is_Disabled],[Cat_Id],[GroupId]) output inserted.Id VALUES(@Title,@Text_min,@Text,@WrittenBy_AdminId,GETDate(),@weight,@IsImportant,0,0,@Cat_Id,@GroupId)", parss).ToString();
-                                  
-                                    if (InsertedID != "0")
-                                    {
-                                   
+
+                                if (InsertedID != "0")
+                                {
+
 
                                     var tags = senderObj.Tags.Split(',');
                                     for (int i = 0; i < tags.Length; i++)
@@ -163,7 +163,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                                         };
                                         parss.Add(par);
 
-                                        db.Script("INSERT INTO [tbl_BLOG_TagConnector]([Post_Id],[Tag_Id])VALUES(@PostID,@TagID)",parss);
+                                        db.Script("INSERT INTO [tbl_BLOG_TagConnector]([Post_Id],[Tag_Id])VALUES(@PostID,@TagID)", parss);
 
                                     }
 
@@ -185,30 +185,30 @@ namespace BamboPortal_V1._0._0._0.Controllers
                                         };
                                         parss.Add(par);
 
-                                        db.Script("INSERT INTO [tbl_BLOG_Pic_Connector]([PostId],[PicId])VALUES(@PostId,@PicId)",parss);
+                                        db.Script("INSERT INTO [tbl_BLOG_Pic_Connector]([PostId],[PicId])VALUES(@PostId,@PicId)", parss);
 
                                     }
                                     db.DC();
                                     var ModelSender = new ErrorReporterModel
-                                        {
-                                            ErrorID = "SX105",
-                                            Errormessage = $"اطلاعات با موفقیت ثبت شد!",
-                                            Errortype = "Success"
-                                        };
-                                        return Json(ModelSender);
-                                    }
-                                    else
                                     {
+                                        ErrorID = "SX105",
+                                        Errormessage = $"اطلاعات با موفقیت ثبت شد!",
+                                        Errortype = "Success"
+                                    };
+                                    return Json(ModelSender);
+                                }
+                                else
+                                {
                                     db.DC();
                                     PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, InsertedID);
-                                        var ModelSender = new ErrorReporterModel
-                                        {
-                                            ErrorID = "EX114",
-                                            Errormessage = $"عدم توانایی در ثبت اطلاعات!",
-                                            Errortype = "Error"
-                                        };
-                                        return Json(ModelSender);
-                                    }
+                                    var ModelSender = new ErrorReporterModel
+                                    {
+                                        ErrorID = "EX114",
+                                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                                        Errortype = "Error"
+                                    };
+                                    return Json(ModelSender);
+                                }
                             }
                             else
                             {
@@ -270,7 +270,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                                 parss.Add(par);
                                 db.Connect();
                                 string result = db.Script("UPDATE [tbl_BLOG_Post] SET [Title] = @Title ,[Text_min] = @Text_min ,[Text] = @Text,[weight] = @weight,[IsImportant] = @IsImportant ,[Cat_Id] = @Cat_Id ,[GroupId] = @GroupId WHERE Id=@Id)", parss).ToString();
-                              
+
                                 ////////////////////////////////update tags
                                 parss = new List<ExcParameters>();
                                 par = new ExcParameters()
@@ -282,26 +282,26 @@ namespace BamboPortal_V1._0._0._0.Controllers
                                 db.Script("DELETE FROM [tbl_BLOG_TagConnector]WHERE Post_Id=@PostId", parss);
 
                                 var tags = senderObj.Tags.Split(',');
-                                    for (int i = 0; i < tags.Length; i++)
+                                for (int i = 0; i < tags.Length; i++)
+                                {
+                                    parss = new List<ExcParameters>();
+                                    par = new ExcParameters()
                                     {
-                                        parss = new List<ExcParameters>();
-                                        par = new ExcParameters()
-                                        {
-                                            _KEY = "@PostID",
-                                            _VALUE = senderObj.typeID
-                                        };
-                                        parss.Add(par);
+                                        _KEY = "@PostID",
+                                        _VALUE = senderObj.typeID
+                                    };
+                                    parss.Add(par);
 
-                                        par = new ExcParameters()
-                                        {
-                                            _KEY = "@TagID",
-                                            _VALUE = tags[i]
-                                        };
-                                        parss.Add(par);
+                                    par = new ExcParameters()
+                                    {
+                                        _KEY = "@TagID",
+                                        _VALUE = tags[i]
+                                    };
+                                    parss.Add(par);
 
-                                        db.Script("INSERT INTO [tbl_BLOG_TagConnector]([Post_Id],[Tag_Id])VALUES(@PostID,@TagID)", parss);
+                                    db.Script("INSERT INTO [tbl_BLOG_TagConnector]([Post_Id],[Tag_Id])VALUES(@PostID,@TagID)", parss);
 
-                                    }
+                                }
 
 
                                 ////////////////////////////////update pictures
@@ -315,47 +315,48 @@ namespace BamboPortal_V1._0._0._0.Controllers
                                 db.Script("DELETE FROM [tbl_BLOG_Pic_Connector]WHERE PostId=@PostId", parss);
 
                                 var Pics = senderObj.Pics.Split(',');
-                                    for (int i = 0; i < tags.Length; i++)
+                                for (int i = 0; i < tags.Length; i++)
+                                {
+                                    parss = new List<ExcParameters>();
+                                    par = new ExcParameters()
                                     {
-                                        parss = new List<ExcParameters>();
-                                        par = new ExcParameters()
-                                        {
-                                            _KEY = "@PostId",
-                                            _VALUE = senderObj.typeID
-                                        };
-                                        parss.Add(par);
+                                        _KEY = "@PostId",
+                                        _VALUE = senderObj.typeID
+                                    };
+                                    parss.Add(par);
 
-                                        par = new ExcParameters()
-                                        {
-                                            _KEY = "@PicId",
-                                            _VALUE = Pics[i]
-                                        };
-                                        parss.Add(par);
+                                    par = new ExcParameters()
+                                    {
+                                        _KEY = "@PicId",
+                                        _VALUE = Pics[i]
+                                    };
+                                    parss.Add(par);
 
-                                        db.Script("INSERT INTO [tbl_BLOG_Pic_Connector]([PostId],[PicId])VALUES(@PostId,@PicId)", parss);
+                                    db.Script("INSERT INTO [tbl_BLOG_Pic_Connector]([PostId],[PicId])VALUES(@PostId,@PicId)", parss);
 
-                                    }
+                                }
                                 db.DC();
-                                if (result=="1") { 
-                                var ModelSender = new ErrorReporterModel
-                                        {
-                                            ErrorID = "SX104",
-                                            Errormessage = $"اطلاعات با موفقیت تغییر یافت!",
-                                            Errortype = "Success"
-                                        };
-                                        return Json(ModelSender);
-                                    }
-                                    else
+                                if (result == "1")
+                                {
+                                    var ModelSender = new ErrorReporterModel
                                     {
-                                        PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
-                                        var ModelSender = new ErrorReporterModel
-                                        {
-                                            ErrorID = "EX114",
-                                            Errormessage = $"عدم توانایی در ثبت اطلاعات!",
-                                            Errortype = "Error"
-                                        };
-                                        return Json(ModelSender);
-                                    }
+                                        ErrorID = "SX104",
+                                        Errormessage = $"اطلاعات با موفقیت تغییر یافت!",
+                                        Errortype = "Success"
+                                    };
+                                    return Json(ModelSender);
+                                }
+                                else
+                                {
+                                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                                    var ModelSender = new ErrorReporterModel
+                                    {
+                                        ErrorID = "EX114",
+                                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                                        Errortype = "Error"
+                                    };
+                                    return Json(ModelSender);
+                                }
                             }
                         }
                         catch (Exception ex)
@@ -469,15 +470,110 @@ namespace BamboPortal_V1._0._0._0.Controllers
             ///fill Models End
             return View(Model);
         }
+        [HttpPost]
+        public JsonResult DeleteBlogPost(string idTodelete)
+        {
+            PDBC db = new PDBC();
+            uint id = 0;
+            if (UInt32.TryParse(idTodelete, out id))
+            {
+                List<ExcParameters> parss = new List<ExcParameters>();
+                ExcParameters par = new ExcParameters()
+                {
+                    _KEY = "@id_PT",
+                    _VALUE = idTodelete
+                };
+                parss.Add(par);
+                db.Connect();
+                string result = db.Script("UPDATE [tbl_BLOG_Post] SET [Is_Deleted] = 1 WHERE Id= @id_PT", parss);
+                db.DC();
+                if (result == "1")
+                {
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "SX106",
+                        Errormessage = $"این پست با موفقیت حذف شد!",
+                        Errortype = "Success"
+                    };
+                    return Json(ModelSender);
+                }
+                else
+                {
+                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "EX115",
+                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                        Errortype = "Error"
+                    };
+                    return Json(ModelSender);
+                }
 
+            }
+            else
+            {
+                PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "sher o ver e L326");
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX115",
+                    Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                    Errortype = "Error"
+                };
+                return Json(ModelSender);
+            }
 
+        }
+        //=================================================================================================================
+        //{start}For Blog Group
         [HttpGet]
-        public ActionResult Add_Blog_Group()
+        public ActionResult Add_Blog_Group(int id = 0)
         {
             ///////connect to dataBase
             PDBC db = new PDBC();
             db.Connect();
             DataTable Gro = db.Select("SELECT [G_Id],[name],[Is_Disabled],[Is_Deleted],[GpToken] FROM [tbl_BLOG_Groups]");
+            List<ExcParameters> parss = new List<ExcParameters>();
+            ExcParameters par = new ExcParameters()
+            {
+                _KEY = "@Id_",
+                _VALUE = id
+            };
+            parss.Add(par);
+
+            AddBlogGroupModel add;
+            if (id != 0)
+            {
+                DataTable dt = db.Select("SELECT [name],[GpToken] FROM [tbl_BLOG_Groups] where G_Id= @Id_", parss);
+
+                if (dt.Rows.Count != 0)
+                {
+                    add = new AddBlogGroupModel()
+                    {
+                        typeID = id.ToString(),
+                        GName = dt.Rows[0]["name"].ToString(),
+                        GToken = dt.Rows[0]["GpToken"].ToString()
+                    };
+
+                }
+                else
+                {
+                    add = new AddBlogGroupModel()
+                    {
+                        typeID = "0",
+                        GName = "",
+                        GToken = ""
+                    };
+                }
+            }
+            else
+            {
+                add = new AddBlogGroupModel()
+                {
+                    typeID = "0",
+                    GName = "",
+                    GToken = ""
+                };
+            }
             db.DC();
             ///////disconnect to dataBase
 
@@ -497,13 +593,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 Groups.Add(model);
             }
 
-            var add = new AddBlogGroupModel()
-            {
-                typeID = "0"
-
-            };
-
-
+           
             var Model = new BlogAddGroupModelView()
             {
                 GroupList = Groups,
@@ -722,16 +812,218 @@ namespace BamboPortal_V1._0._0._0.Controllers
 
         }
 
-        [HttpGet]
-        public ActionResult Add_Blog_Category()
+        [HttpPost]
+        public JsonResult DeleteBlogGroup(string idTodelete)
         {
+            PDBC db = new PDBC();
+            uint id = 0;
+            if (UInt32.TryParse(idTodelete, out id))
+            {
+                List<ExcParameters> parss = new List<ExcParameters>();
+                ExcParameters par = new ExcParameters()
+                {
+                    _KEY = "@id_PT",
+                    _VALUE = idTodelete
+                };
+                parss.Add(par);
+                db.Connect();
+                string result = db.Script("UPDATE [tbl_BLOG_Groups] SET [Is_Deleted] = 1 WHERE G_Id = @id_PT", parss);
+                db.DC();
+                if (result == "1")
+                {
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "SX106",
+                        Errormessage = $"این گروه با موفقیت حذف شد!",
+                        Errortype = "Success"
+                    };
+                    return Json(ModelSender);
+                }
+                else
+                {
+                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "EX115",
+                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                        Errortype = "Error"
+                    };
+                    return Json(ModelSender);
+                }
+
+            }
+            else
+            {
+                PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "sher o ver e L326");
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX115",
+                    Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                    Errortype = "Error"
+                };
+                return Json(ModelSender);
+            }
+
+        }
+        [HttpPost]
+        public JsonResult ActiveBlogGroup(string idToActive)
+        {
+            PDBC db = new PDBC();
+            uint id = 0;
+            if (UInt32.TryParse(idToActive, out id))
+            {
+                List<ExcParameters> parss = new List<ExcParameters>();
+                ExcParameters par = new ExcParameters()
+                {
+                    _KEY = "@id_PT",
+                    _VALUE = idToActive
+                };
+                parss.Add(par);
+                db.Connect();
+                string result = db.Script("UPDATE [tbl_BLOG_Groups] SET [Is_Disabled] = 0 WHERE G_Id = @id_PT", parss);
+                db.DC();
+                if (result == "1")
+                {
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "SX106",
+                        Errormessage = $"این گروه با موفقیت فعال شد!",
+                        Errortype = "Success"
+                    };
+                    return Json(ModelSender);
+                }
+                else
+                {
+                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "EX115",
+                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                        Errortype = "Error"
+                    };
+                    return Json(ModelSender);
+                }
+
+            }
+            else
+            {
+                PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "sher o ver e L326");
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX115",
+                    Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                    Errortype = "Error"
+                };
+                return Json(ModelSender);
+            }
+        }
+        [HttpPost]
+        public JsonResult DeActiveBlogGroup(string idToDEActive)
+        {
+
+            PDBC db = new PDBC();
+            uint id = 0;
+            if (UInt32.TryParse(idToDEActive, out id))
+            {
+                List<ExcParameters> parss = new List<ExcParameters>();
+                ExcParameters par = new ExcParameters()
+                {
+                    _KEY = "@id_PT",
+                    _VALUE = idToDEActive
+                };
+                parss.Add(par);
+                db.Connect();
+                string result = db.Script("UPDATE [tbl_BLOG_Groups] SET [Is_Disabled] = 1 WHERE G_Id = @id_PT", parss);
+                db.DC();
+                if (result == "1")
+                {
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "SX106",
+                        Errormessage = $"این گروه با موفقیت فعال شد!",
+                        Errortype = "Success"
+                    };
+                    return Json(ModelSender);
+                }
+                else
+                {
+                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "EX115",
+                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                        Errortype = "Error"
+                    };
+                    return Json(ModelSender);
+                }
+
+            }
+            else
+            {
+                PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "sher o ver e L326");
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX115",
+                    Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                    Errortype = "Error"
+                };
+                return Json(ModelSender);
+            }
+        }
+
+        //{END}For Blog Group
+        //=================================================================================================================
+        //{start}For Blog Category
+        [HttpGet]
+        public ActionResult Add_Blog_Category(int id = 0)
+        {
+
             ///////connect to dataBase
             PDBC db = new PDBC();
             db.Connect();
             DataTable cat = db.Select("SELECT [Id],[name],[Is_Disabled],[Is_Deleted]FROM [tbl_BLOG_Categories]");
+
+            List<ExcParameters> parss = new List<ExcParameters>();
+            ExcParameters par = new ExcParameters()
+            {
+                _KEY = "@Id_",
+                _VALUE = id
+            };
+            parss.Add(par);
+
+            AddBlogCatModel add;
+            if (id != 0)
+            {
+                DataTable dt = db.Select("SELECT [name]FROM [tbl_BLOG_Categories] where Id= @Id_", parss);
+
+                if (dt.Rows.Count != 0)
+                {
+                    add = new AddBlogCatModel()
+                    {
+                        typeID = id.ToString(),
+                        AddCat = dt.Rows[0][0].ToString()
+                    };
+
+                }
+                else
+                {
+                    add = new AddBlogCatModel()
+                    {
+                        typeID = "0",
+                        AddCat = ""
+                    };
+                }
+            }
+            else
+            {
+                add = new AddBlogCatModel()
+                {
+                    typeID = "0",
+                    AddCat = ""
+                };
+            }
             db.DC();
             ///////disconnect to dataBase
-
             ///fill Models
             var Cats = new List<BlogCategoryListModel>();
             for (int i = 0; i < cat.Rows.Count; i++)
@@ -746,12 +1038,6 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 };
                 Cats.Add(model);
             }
-            var add = new AddBlogCatModel()
-            {
-                typeID = "0",
-                AddCat = ""
-            };
-
 
 
             var Model = new BlogAddCategoryModelView()
@@ -929,14 +1215,218 @@ namespace BamboPortal_V1._0._0._0.Controllers
 
         }
 
+        [HttpPost]
+        public JsonResult DeleteBlogCategory(string idTodelete)
+        {
+            PDBC db = new PDBC();
+            uint id = 0;
+            if (UInt32.TryParse(idTodelete, out id))
+            {
+                List<ExcParameters> parss = new List<ExcParameters>();
+                ExcParameters par = new ExcParameters()
+                {
+                    _KEY = "@id_PT",
+                    _VALUE = idTodelete
+                };
+                parss.Add(par);
+                db.Connect();
+                string result = db.Script("UPDATE [tbl_BLOG_Categories] SET [Is_Deleted] = 1 WHERE Id = @id_PT", parss);
+                db.DC();
+                if (result == "1")
+                {
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "SX106",
+                        Errormessage = $"این دسته بندی با موفقیت حذف شد!",
+                        Errortype = "Success"
+                    };
+                    return Json(ModelSender);
+                }
+                else
+                {
+                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "EX115",
+                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                        Errortype = "Error"
+                    };
+                    return Json(ModelSender);
+                }
+
+            }
+            else
+            {
+                PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "sher o ver e L326");
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX115",
+                    Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                    Errortype = "Error"
+                };
+                return Json(ModelSender);
+            }
+
+        }
+        [HttpPost]
+        public JsonResult ActiveBlogCategory(string idToActive)
+        {
+            PDBC db = new PDBC();
+            uint id = 0;
+            if (UInt32.TryParse(idToActive, out id))
+            {
+                List<ExcParameters> parss = new List<ExcParameters>();
+                ExcParameters par = new ExcParameters()
+                {
+                    _KEY = "@id_PT",
+                    _VALUE = idToActive
+                };
+                parss.Add(par);
+                db.Connect();
+                string result = db.Script("UPDATE [tbl_BLOG_Categories] SET [Is_Disabled] = 0 WHERE Id = @id_PT", parss);
+                db.DC();
+                if (result == "1")
+                {
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "SX106",
+                        Errormessage = $"این دسته بندی با موفقیت فعال شد!",
+                        Errortype = "Success"
+                    };
+                    return Json(ModelSender);
+                }
+                else
+                {
+                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "EX115",
+                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                        Errortype = "Error"
+                    };
+                    return Json(ModelSender);
+                }
+
+            }
+            else
+            {
+                PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "sher o ver e L326");
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX115",
+                    Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                    Errortype = "Error"
+                };
+                return Json(ModelSender);
+            }
+        }
+        [HttpPost]
+        public JsonResult DeActiveBlogCategory(string idToDEActive)
+        {
+
+            PDBC db = new PDBC();
+            uint id = 0;
+            if (UInt32.TryParse(idToDEActive, out id))
+            {
+                List<ExcParameters> parss = new List<ExcParameters>();
+                ExcParameters par = new ExcParameters()
+                {
+                    _KEY = "@id_PT",
+                    _VALUE = idToDEActive
+                };
+                parss.Add(par);
+                db.Connect();
+                string result = db.Script("UPDATE [tbl_BLOG_Categories] SET [Is_Disabled] = 1 WHERE Id = @id_PT", parss);
+                db.DC();
+                if (result == "1")
+                {
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "SX106",
+                        Errormessage = $"این دسته بندی با موفقیت فعال شد!",
+                        Errortype = "Success"
+                    };
+                    return Json(ModelSender);
+                }
+                else
+                {
+                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "EX115",
+                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                        Errortype = "Error"
+                    };
+                    return Json(ModelSender);
+                }
+
+            }
+            else
+            {
+                PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "sher o ver e L326");
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX115",
+                    Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                    Errortype = "Error"
+                };
+                return Json(ModelSender);
+            }
+        }
+        //{END}For Blog Category
+        //=================================================================================================================
+        //{start}For Blog Tag
         [HttpGet]
-        public ActionResult Add_Blog_Tags()
+        public ActionResult Add_Blog_Tags(int id = 0)
         {
             ///////connect to dataBase
             PDBC db = new PDBC();
             db.Connect();
             DataTable cat = db.Select("SELECT [Id],[name]FROM [tbl_BLOG_Categories] where Is_Deleted=0 AND Is_Disabled=0");
             DataTable TagList = db.Select("SELECT [Id],[TagName],[Is_Disabled],[Is_Deleted],[CatName] FROM [v_BlogTagsTable]");
+
+            List<ExcParameters> parss = new List<ExcParameters>();
+            ExcParameters par = new ExcParameters()
+            {
+                _KEY = "@Id_",
+                _VALUE = id
+            };
+            parss.Add(par);
+
+            AddTagModel add;
+            if (id != 0)
+            {
+                DataTable dt = db.Select("SELECT [Name],[CtegoryId] FROM [tbl_BLOG_Tags] where [Id]= @Id_", parss);
+
+                if (dt.Rows.Count != 0)
+                {
+                    add = new AddTagModel()
+                    {
+                        typeID = id.ToString(),
+                        TagName = dt.Rows[0]["Name"].ToString(),
+                        CatId = dt.Rows[0]["CtegoryId"].ToString()
+                    };
+
+                }
+                else
+                {
+                    add = new AddTagModel()
+                    {
+                        typeID = "0",
+                        TagName = "",
+                        CatId=""
+                    };
+                }
+            }
+            else
+            {
+                add = new AddTagModel()
+                {
+                    typeID = "0",
+                    TagName = "",
+                    CatId = ""
+                };
+            }
             db.DC();
             ///////disconnect to dataBase
 
@@ -967,11 +1457,6 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 };
                 Tags.Add(model);
             }
-
-            var add = new AddTagModel()
-            {
-                typeID = "0"
-            };
 
             var Model = new AddBlogTagModelView()
             {
@@ -1187,5 +1672,166 @@ namespace BamboPortal_V1._0._0._0.Controllers
 
             return Json(Model);
         }
+
+        [HttpPost]
+        public JsonResult DeleteBlogTags(string idTodelete)
+        {
+            PDBC db = new PDBC();
+            uint id = 0;
+            if (UInt32.TryParse(idTodelete, out id))
+            {
+                List<ExcParameters> parss = new List<ExcParameters>();
+                ExcParameters par = new ExcParameters()
+                {
+                    _KEY = "@id_PT",
+                    _VALUE = idTodelete
+                };
+                parss.Add(par);
+                db.Connect();
+                string result = db.Script("UPDATE [tbl_BLOG_Tags] SET [Is_Deleted] = 1 WHERE Id =@id_PT", parss);
+                db.DC();
+                if (result == "1")
+                {
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "SX106",
+                        Errormessage = $"این برچسب با موفقیت حذف شد!",
+                        Errortype = "Success"
+                    };
+                    return Json(ModelSender);
+                }
+                else
+                {
+                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "EX115",
+                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                        Errortype = "Error"
+                    };
+                    return Json(ModelSender);
+                }
+
+            }
+            else
+            {
+                PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "sher o ver e L326");
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX115",
+                    Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                    Errortype = "Error"
+                };
+                return Json(ModelSender);
+            }
+
+        }
+        [HttpPost]
+        public JsonResult ActiveBlogTags(string idToActive)
+        {
+            PDBC db = new PDBC();
+            uint id = 0;
+            if (UInt32.TryParse(idToActive, out id))
+            {
+                List<ExcParameters> parss = new List<ExcParameters>();
+                ExcParameters par = new ExcParameters()
+                {
+                    _KEY = "@id_PT",
+                    _VALUE = idToActive
+                };
+                parss.Add(par);
+                db.Connect();
+                string result = db.Script("UPDATE [tbl_BLOG_Tags] SET [Is_Disabled] = 0 WHERE Id =@id_PT", parss);
+                db.DC();
+                if (result == "1")
+                {
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "SX106",
+                        Errormessage = $"این برچسب با موفقیت فعال شد!",
+                        Errortype = "Success"
+                    };
+                    return Json(ModelSender);
+                }
+                else
+                {
+                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "EX115",
+                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                        Errortype = "Error"
+                    };
+                    return Json(ModelSender);
+                }
+
+            }
+            else
+            {
+                PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "sher o ver e L326");
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX115",
+                    Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                    Errortype = "Error"
+                };
+                return Json(ModelSender);
+            }
+        }
+        [HttpPost]
+        public JsonResult DeActiveBlogTags(string idToDEActive)
+        {
+
+            PDBC db = new PDBC();
+            uint id = 0;
+            if (UInt32.TryParse(idToDEActive, out id))
+            {
+                List<ExcParameters> parss = new List<ExcParameters>();
+                ExcParameters par = new ExcParameters()
+                {
+                    _KEY = "@id_PT",
+                    _VALUE = idToDEActive
+                };
+                parss.Add(par);
+                db.Connect();
+                string result = db.Script("UPDATE [tbl_BLOG_Tags] SET [Is_Disabled] = 1 WHERE Id = @id_PT", parss);
+                db.DC();
+                if (result == "1")
+                {
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "SX106",
+                        Errormessage = $"این برچسب با موفقیت فعال شد!",
+                        Errortype = "Success"
+                    };
+                    return Json(ModelSender);
+                }
+                else
+                {
+                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "EX115",
+                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                        Errortype = "Error"
+                    };
+                    return Json(ModelSender);
+                }
+
+            }
+            else
+            {
+                PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "sher o ver e L326");
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX115",
+                    Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                    Errortype = "Error"
+                };
+                return Json(ModelSender);
+            }
+        }
+        //{END}For Blog Tag
+        //=================================================================================================================
     }
 }

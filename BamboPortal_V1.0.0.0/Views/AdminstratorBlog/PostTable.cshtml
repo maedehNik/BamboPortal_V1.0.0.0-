@@ -4,31 +4,7 @@
     ViewBag.Title = "PostTable";
     Layout = "~/Views/SharedViewPages/Administrator/MasterView.cshtml";
 }
-
-    <div class="modal fade" id="deleteArtc" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">پاک کردن پست</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>
-                        <span id="data-name">
-
-                        </span>
-                        پاک شود؟
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">خیر</button>
-                    <button type="button" class="btn btn-danger">بله</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
 <div class="m-grid__item m-grid__item--fluid m-wrapper">
 
@@ -64,13 +40,72 @@
             </div>
         </div>
         <div class="row">
-          
+
             @foreach (var item in Model)
             {
-                @Html.Partial("_PostTableItem",item)
+                @Html.Partial("_PostTableItem", item)
             }
         </div>
     </div>
 </div>
 
 <!-- end:: Body -->
+<div class="modal fade" id="deleteCus" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+    <input value="" id="deleteCusIdGetter" style="display:none" />
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">پاک کردن پست</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    پست
+                    <span id="deleteCusNameGetter"></span>
+                    پاک شود؟
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">خیر</button>
+                <button onclick="DeleteModal()" id="DeleteModal_SubmitBTN" type="button" class="btn btn-danger">بله</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        function DeleteType(id) {
+            id = id.replace("btnDeleteType-", "");
+            $("#deleteCusIdGetter").val(id);
+            $("#deleteCusNameGetter").text($("#itemname-" + id).val());
+        }
+        function DeleteModal() {
+            const PostJson = {
+                'idTodelete': $("#deleteCusIdGetter").val()
+            };
+
+            $("#DeleteModal_SubmitBTN").addClass("m-loader m-loader--light m-loader--right").prop("disabled", true);
+            $.ajax({
+                url: '/AdminstratorBlog/DeleteBlogPost',
+                type: "post",
+                data: JSON.stringify(PostJson),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    if (data.Errortype == "Success") {
+                        AlertToUser("DeleteModal", data);
+                    } else {
+                        alert(data.Errormessage);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("مشکل در برقراری ارتباط با سرور");
+                }
+            });
+        }
+
+    </script>
+}
