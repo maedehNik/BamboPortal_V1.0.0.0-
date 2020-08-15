@@ -10,7 +10,7 @@ namespace BamboPortal_V1._0._0._0.nonStaticUsefulClass.Products
     public class SaveJaygashtOfProducts
     {
         public string MainProduct_Actions(string action, int id_MProduct, string Quantity, string QuantityModule, string PriceXquantity, string PricePerquantity, string PriceOff, string offTypeValue, string OffType, string id_MainStarTag, string PriceModule, string PriceShow,
-string MultyPriceXquantity, string CalculateMultyPriceFromQ,string describtion = " ")
+string MultyPriceXquantity, string CalculateMultyPriceFromQ,string MultyPricePerquantity, string describtion = " ")
         {
 
             List<ExcParameters> paramss = new List<ExcParameters>();
@@ -102,21 +102,26 @@ string MultyPriceXquantity, string CalculateMultyPriceFromQ,string describtion =
             parameters = new ExcParameters()
             {
                 _KEY = "@MultyPriceStartFromQ",
-                _VALUE = describtion
+                _VALUE = CalculateMultyPriceFromQ
             };
             paramss.Add(parameters);
             parameters = new ExcParameters()
             {
                 _KEY = "@MultyPrice",
-                _VALUE = describtion
+                _VALUE = MultyPricePerquantity
             };
             paramss.Add(parameters);
-
+            parameters = new ExcParameters()
+            {
+                _KEY = "@MultyPriceXQ",
+                _VALUE = MultyPriceXquantity
+            };
+            paramss.Add(parameters);
             string query = "";
 
             if (action == "insert")
             {
-                query = "INSERT INTO [tlb_Product_MainProductConnector]  ([id_MProduct]  ,[Quantity]  ,[PriceXquantity]  ,[PricePerquantity]  ,[PriceOff]  ,[offTypeValue]  ,[OffType]  ,[id_MainStarTag]  ,[ISDELETE]  ,[OutOfStock]  ,[id_PQT]  ,[DateToRelease]  ,[PriceModule]  ,[PriceShow]  ,[describtion]  ,[id_Stockpile]  ,[HasMultyPrice]  ,[MultyPriceStartFromQ]  ,[MultyPrice])      VALUES (@id_MProduct  ,@Quantity  ,@PriceXquantity  ,@PricePerquantity  ,0  ,0  ,0 ,@id_MainStarTag  ,0 ,0  ,@id_PQT  ,GETDATE()   ,@PriceModule  ,@PriceShow  ,@describtion   ,0,1  ,@MultyPriceStartFromQ  ,@MultyPrice)";
+                query = "INSERT INTO [tlb_Product_MainProductConnector]  ([id_MProduct]  ,[Quantity]  ,[PriceXquantity]  ,[PricePerquantity]  ,[PriceOff]  ,[offTypeValue]  ,[OffType]  ,[id_MainStarTag]  ,[ISDELETE]  ,[OutOfStock]  ,[id_PQT]  ,[DateToRelease]  ,[PriceModule]  ,[PriceShow]  ,[describtion]  ,[id_Stockpile]  ,[HasMultyPrice]  ,[MultyPriceStartFromQ]  ,[MultyPrice],[MultyPriceXQ])  OUTPUT inserted.id_MPC    VALUES (@id_MProduct  ,@Quantity  ,@PriceXquantity  ,@PricePerquantity  ,0  ,0  ,0 ,@id_MainStarTag  ,0 ,0  ,@id_PQT  ,GETDATE()   ,@PriceModule  ,@PriceShow  ,@describtion   ,0,1  ,@MultyPriceStartFromQ  ,@MultyPrice,@MultyPriceXQ)";
             }
             else if (action == "update")
             {
@@ -133,8 +138,6 @@ string MultyPriceXquantity, string CalculateMultyPriceFromQ,string describtion =
                 db.Connect();
                 string res = db.Script(query, paramss);
                 //==========================Add to stockpile=================
-
-                db.Connect();
                 using (DataTable dt = db.Select("SELECT [shop_id]  FROM [tbl_Modules_StockpileShopsMainTable]"))
                 {
                     string idForShops = db.Script("INSERT INTO [tbl_Modules_StockpileMainTable] ([id_Stockpile_AllowType] ,[code_Stockpile] ,[id_MPC]) output inserted.id_Stockpile VALUES (1 ,N' ' ," + res + " )");

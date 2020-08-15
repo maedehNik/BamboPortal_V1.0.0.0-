@@ -362,7 +362,9 @@
             $("#PRDCTDemansionValue").inputmask({ mask: "9", repeat: 4, greedy: !1 });
             $("#PRDCTPricePer1Demansion").inputmask({ mask: "9", repeat: 10, greedy: !1 });
 
-
+            
+            $("#PRDCTMultyPricePer1Demansion").inputmask({ mask: "9", repeat: 4, greedy: !1 });
+            $("#PRDCTMultyDemansionValue").inputmask({ mask: "9", repeat: 10, greedy: !1 });
             //$("#MRT1").inputmask({ mask: "9", repeat: 10, greedy: !1 })
 
 
@@ -547,7 +549,8 @@
                         "hideMethod": "fadeOut"
                     };
                     toastr.success("ویژگی با موفقیت اضافه شد");
-
+                    $("#PRDCTName2").val("");
+                    $("#PRDCTName3").val("")
                 } else {
                     swal("خطا!", "پرکردن قسمت مقدار ویژگی اجباری میباشد!", "error");
                 }
@@ -997,7 +1000,7 @@
                             "PriceNumeric": $("#PriceNumeric-" + $(this).val()).val(),
                             "QTnumeric": $("#QTnumeric-" + $(this).val()).val(),
                             "ProductCode": $("#ProductCode-" + $(this).val()).val(),
-                            "MultyproductQT": $("MultyproductQT-" + $(this).val()).val(),
+                            "MultyproductQT": $("#MultyproductQT-" + $(this).val()).val(),
                             "MultyproductPricePerQT":$("#MultyproductPricePerQT-"+ $(this).val()).val(),
                             "idMPC": $(this).val()
                         };
