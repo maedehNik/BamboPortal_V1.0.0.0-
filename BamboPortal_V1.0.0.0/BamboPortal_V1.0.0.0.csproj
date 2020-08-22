@@ -149,6 +149,8 @@
     <Compile Include="Controllers\CustomerSideControllers\CustomerSide_PagesController.cs" />
     <Compile Include="Controllers\CustomerSideControllers\CustomerSide_ProductController.cs" />
     <Compile Include="Controllers\CustomerSideControllers\CustomerSide_RegisterController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="DatabaseCenter\Class\AddDataToDataBase.cs" />
     <Compile Include="DatabaseCenter\Class\Dbconnect.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -3280,6 +3282,7 @@
     <Folder Include="Views\CustomerSide_Blog\" />
     <Folder Include="Views\CustomerSide_CustomerProfileRule\" />
     <Folder Include="Views\CustomerSide_CustomerRule\" />
+    <Folder Include="Views\Test\" />
     <Folder Include="WebConfigNotes\" />
   </ItemGroup>
   <ItemGroup>
