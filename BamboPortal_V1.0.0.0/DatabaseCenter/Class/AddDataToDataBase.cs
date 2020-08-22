@@ -11,6 +11,7 @@ namespace BamboPortal_V1._0._0._0.DatabaseCenter.Class
         public string AddData()
         {
             PDBC db = new PDBC();
+            db.Connect();
 
             string Type = db.Script("INSERT INTO [tbl_Product_Type]([PTname],[ISDESABLED],[ISDelete],[CreatedDate]) output inserted.id_PT VALUES(N'پارچه',0,0,GETDATE())");
 
@@ -539,7 +540,7 @@ namespace BamboPortal_V1._0._0._0.DatabaseCenter.Class
                     db.Script("INSERT INTO [tbl_Product_SubCategoryOptionKey]([id_SC],[SCOKName],[ISDESABLED],[ISDelete],[CreatedDate]) VALUES(" + sc + ",N'" + SCkeys[j] + "',0,0,GETDATE())");
                 }
             }
-
+            db.DC();
             //////////////////////////
             return "Success";
         }
