@@ -495,7 +495,7 @@ namespace BamboPortal_V1._0._0._0.ModelFiller.CustomerSide
                     Id = Convert.ToInt32(dt.Rows[i]["id_MProduct"]),
                     Title = dt.Rows[i]["Title"].ToString(),
                     Discription = dt.Rows[i]["Description"].ToString(),
-                    PicPath = UploaderGeneral.imageFinder(dt.Rows[i]["Pic"].ToString()),
+                    PicPath = (dt.Rows[i]["Pic"].ToString()),
                     OffPrice = dt.Rows[i]["PriceOff"].ToString(),
                     date = DateReturner(dt.Rows[i]["DateCreated"].ToString(), DateType),
                     MoneyQ = dt.Rows[i]["MoneyTypeName"].ToString(),

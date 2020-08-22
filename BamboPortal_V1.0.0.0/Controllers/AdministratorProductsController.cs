@@ -2563,13 +2563,13 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 {
                     parameters = new ExcParameters()
                     {
-                        _KEY = "@TagTargeName",
+                        _KEY = "@KeyName",
                         _VALUE = Senderobj.TagTargetAdded[i].TagTargeName
                     };
                     Psubk.Add(parameters);
                     parameters = new ExcParameters()
                     {
-                        _KEY = "@TagTargeValue",
+                        _KEY = "@Value",
                         _VALUE = Senderobj.TagTargetAdded[i].TagTargeValue
                     };
                     Psubk.Add(parameters);
@@ -2579,7 +2579,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                         _VALUE = id_MProductOUT
                     };
                     Psubk.Add(parameters);
-                    string resultitemtest = db.Script("INSERT INTO [tbl_Product_tblOptions] VALUES(@id_MProduct,@TagTargeName,@TagTargeValue)", Psubk);
+                    string resultitemtest = db.Script("INSERT INTO [tbl_Product_tblOptions] ([id_MProduct]  ,[KeyName] ,[Value] ,[CreatedDate])  VALUES (@id_MProduct,@KeyName  ,@Value  ,GETDATE())", Psubk);
                     Psubk = new List<ExcParameters>();
                 }
             }
@@ -2591,6 +2591,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
             //Step4
             Int64 PriceXquantity = Convert.ToInt64(Senderobj.PRDCTPricePer1Demansion) * Convert.ToInt64(Senderobj.PRDCTDemansionValue);
             Int64 MultyPriceXquantity = Convert.ToInt64(Senderobj.PRDCTMultyPricePer1Demansion) * Convert.ToInt64(Senderobj.PRDCTDemansionValue);
+            Int64 MultyPricePerquantity = Convert.ToInt64(Senderobj.PRDCTMultyPricePer1Demansion);
             JaygashtCalculator calculator = new JaygashtCalculator();
             var jaygashts = calculator.Result(Senderobj.AllSubcategory_Keys_Vals);
             string itemid = "0";
@@ -2598,7 +2599,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
             db.Connect();
             foreach (var item in jaygashts)
             {
-                itemid = SJOP.MainProduct_Actions("insert", id_MProductOUT, Senderobj.PRDCTDemansionValue, Senderobj.PRDCTDemansion, PriceXquantity.ToString(), Senderobj.PRDCTPricePer1Demansion, "0", "0", "0", Senderobj.PRDCTTagSectionOfProduct, Senderobj.PRDCTPriceDemansion, Senderobj.PRDCTPriceShowType, MultyPriceXquantity.ToString(),Senderobj.PRDCTMultyDemansionValue);
+                itemid = SJOP.MainProduct_Actions("insert", id_MProductOUT, Senderobj.PRDCTDemansionValue, Senderobj.PRDCTDemansion, PriceXquantity.ToString(), Senderobj.PRDCTPricePer1Demansion, "0", "0", "0", Senderobj.PRDCTTagSectionOfProduct, Senderobj.PRDCTPriceDemansion, Senderobj.PRDCTPriceShowType, MultyPriceXquantity.ToString(),Senderobj.PRDCTMultyDemansionValue, MultyPricePerquantity.ToString());
                 foreach (var itm in item)
                 {
                     string resultstiem = db.Script("INSERT INTO[tbl_Product_connectorToMPC_SCOV] VALUES(" + itemid + "," + itm.SubCategoryKeyValue + ")");
