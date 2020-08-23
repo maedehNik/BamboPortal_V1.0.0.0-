@@ -2843,6 +2843,8 @@
     <Content Include="CustomerSide_desinerResource\images\sign-short.png" />
     <Content Include="CustomerSide_desinerResource\images\sign.png" />
     <Content Include="CustomerSide_desinerResource\images\skyline.jpg" />
+    <Content Include="CustomerSide_desinerResource\images\Slider\velvetslide1.jpg" />
+    <Content Include="CustomerSide_desinerResource\images\Slider\velvetslide2.jpg" />
     <Content Include="CustomerSide_desinerResource\images\spa-1.jpg" />
     <Content Include="CustomerSide_desinerResource\images\spa-2.jpg" />
     <Content Include="CustomerSide_desinerResource\images\spa-3.jpg" />
@@ -3229,7 +3231,6 @@
     <Content Include="CustomerSide_desinerResource\third-party\revolution\fonts\revicons\revicons90c6.woff" />
     <Content Include="CustomerSide_desinerResource\video\movie.ogv" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Mordad\16 BakFile\EmptyDatabasePandaPortal.bak" />
-    <Content Include="DatabaseCenter\SQL Scripts\1399\Mordad\22\DbBackUp" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="Scripts\jquery-3.5.1.min.js" />
@@ -3273,6 +3274,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="BamboPortalSecurity\LoginAuth\" />
+    <Folder Include="ConvertedImages\" />
+    <Folder Include="DatabaseCenter\SQL Scripts\1399\Mordad\22\" />
     <Folder Include="Models\AdministratorProducts_FieldLoader\" />
     <Folder Include="UploadedImages\" />
     <Folder Include="Views\AdminRules_ProductCTRL\" />
