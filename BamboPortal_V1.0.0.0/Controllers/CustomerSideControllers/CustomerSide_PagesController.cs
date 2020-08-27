@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace BamboPortal_V1._0._0._0.Controllers
 {
+    [RoutePrefix("گالری-پارچه-ولوت")]
     public class CustomerSide_PagesController : CustomerSide_CustomerRuleController
     {
         // GET: CustomerSide_Pages
@@ -27,6 +28,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
             return View(ModelView);
         }
 
+        [Route("درباره-ما")]
         public ActionResult AboutUs()
         {
             CustomerModelFiller modelFiller = new CustomerModelFiller();
@@ -38,7 +40,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
             };
             return View(ModelView);
         }
-
+        [Route("قوانین")]
         public ActionResult Rules()
         {
             return View();
