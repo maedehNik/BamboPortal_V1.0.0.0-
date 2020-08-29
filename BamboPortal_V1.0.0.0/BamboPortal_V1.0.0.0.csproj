@@ -181,6 +181,7 @@
     <Compile Include="Models\AdministratorProductsModels\AddTypeTable.cs" />
     <Compile Include="Models\AdministratorProductsModels\MainTagStructure.cs" />
     <Compile Include="Models\AdministratorProductsModels\ProductListTable.cs" />
+    <Compile Include="Models\AdministratorProductsModels\ProductOptions_Model.cs" />
     <Compile Include="Models\AdministratorProductsModels\ProductViewDetails_EditTimeLine.cs" />
     <Compile Include="Models\AdministratorProductsModels\ProductViewDetails_ProductSOCKandSOCKVL.cs" />
     <Compile Include="Models\AdministratorProductsModels\ProductViewDetails_PropertyTable.cs" />
@@ -244,6 +245,7 @@
     <Compile Include="ModelViews\AdministratorProducts\AddSubCategoryModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddSubCateGoryValuesOfKeysModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddTypeModelView.cs" />
+    <Compile Include="ModelViews\AdministratorProducts\Edit_ProductModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\ProductDeitalsModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\ProductListTableModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\ProductViewDetailsModelView.cs" />

@@ -1,5 +1,6 @@
 ﻿using BamboPortal_V1._0._0._0.BamboPortalSecurity.EncDec;
 using BamboPortal_V1._0._0._0.DatabaseCenter.Class;
+using BamboPortal_V1._0._0._0.Models;
 using BamboPortal_V1._0._0._0.Models.AdministratorProductsModels;
 using Newtonsoft.Json;
 using System;
