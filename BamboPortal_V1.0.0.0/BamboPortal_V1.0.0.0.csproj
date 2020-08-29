@@ -198,6 +198,7 @@
     <Compile Include="Models\AdministratorUploader\ReturnedSaveImages.cs" />
     <Compile Include="Models\AdministratorUploader\UploaderModelToAlertSizes.cs" />
     <Compile Include="Models\AdministratorValidation.cs" />
+    <Compile Include="Models\CategotyTreeModel.cs" />
     <Compile Include="Models\CustomerSide\PersonalDataModels\ActivationModel.cs" />
     <Compile Include="Models\CustomerSide\PersonalDataModels\AddressModel.cs" />
     <Compile Include="Models\CustomerSide\BlogModels\blogclass.cs" />
@@ -225,6 +226,7 @@
     <Compile Include="Models\ErrorReporterModel.cs" />
     <Compile Include="Models\LoginAuthForm.cs" />
     <Compile Include="Models\MasterObjetsModel\ProfileProperty.cs" />
+    <Compile Include="Models\ProductEditSubmiterModel.cs" />
     <Compile Include="Models\StoreModel.cs" />
     <Compile Include="Models\UsefulModels\Key_ValueModel.cs" />
     <Compile Include="Models\UsefulModels\ProductGroupModel.cs" />
