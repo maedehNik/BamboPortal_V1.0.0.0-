@@ -2718,7 +2718,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
 
         }
 
-        public ActionResult EditProduct(string ProId)
+        public ActionResult Edit_Product(string ProId)
         {
             PDBC db = new PDBC();
             uint id = 0;
@@ -2739,15 +2739,59 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 {
                     var ModelSender = new ProductEditSubmiterModel()
                     {
-                        ProId=Convert.ToInt32(dt.Rows[0]["id_MProduct"]),
-                        Title= dt.Rows[0]["Title"].ToString(),
+                        ProId = Convert.ToInt32(dt.Rows[0]["id_MProduct"]),
+                        Title = dt.Rows[0]["Title"].ToString(),
                         Description = dt.Rows[0]["Description"].ToString(),
-                        SEO_keyword = dt.Rows[0]["Seo_KeyWords"].ToString(),
-                        SEO_Description = dt.Rows[0]["Seo_Description"].ToString(),
-                        Weight = Convert.ToInt32(dt.Rows[0]["Search_Gravity"]),
-                        IsImportant = Convert.ToInt32(dt.Rows[0]["IS_AD"])
+                        //SEO_keyword = dt.Rows[0]["Seo_KeyWords"].ToString(),
+                        //SEO_Description = dt.Rows[0]["Seo_Description"].ToString(),
+                        //Weight = Convert.ToInt32(dt.Rows[0]["Search_Gravity"]),
+                        //IsImportant = Convert.ToInt32(dt.Rows[0]["IS_AD"])
                     };
-                    return Json(ModelSender);
+
+                    DataTable optionsDT = db.Select("SELECT [id_Op],[KeyName],[Value] FROM [tbl_Product_tblOptions] WHERE id_MProduct=@id_PT", parss);
+
+                    var optionList = new List<ProductOptions_Model>();
+                    for (int i = 0; i < optionsDT.Rows.Count; i++)
+                    {
+                        var m = new ProductOptions_Model()
+                        {
+                            Id=Convert.ToInt32(optionsDT.Rows[i]["id_Op"]),
+                            Key= optionsDT.Rows[i]["KeyName"].ToString(),
+                            Value= optionsDT.Rows[i]["Value"].ToString()
+                        };
+                        optionList.Add(m);
+                    }
+
+                    DataTable ImagDT = db.Select("SELECT [id_MProduct],[PicID],[orgUploadAddress],[thumUploadAddress] FROM [v_tblProduct_Image] where id_MProduct=@id_PT", parss);
+                    db.DC();
+                    var Imgs = new List<Id_ValueModel>();
+
+                    for (int i = 0; i < ImagDT.Rows.Count; i++)
+                    {
+                        var m = new Id_ValueModel()
+                        {
+                            Id = Convert.ToInt32(ImagDT.Rows[i]["PicID"]),
+                            Value = ImagDT.Rows[i]["orgUploadAddress"].ToString(),
+                        };
+                        Imgs.Add(m);
+                    }
+
+
+                    var Model = new Edit_ProductModelView()
+                    {
+                        Images=Imgs,
+                        OptionList=optionList,
+                        SubmiterModel=ModelSender,
+                        OptionSubmiter=new ProductOptions_Model()
+                        {
+                            Id=0,
+                            Key="",
+                            Value=""
+                        },
+                        ProId=Convert.ToInt32(ProId)
+                        
+                    };
+                    return View(Model);
                 }
                 else
                 { 
@@ -2755,6 +2799,448 @@ namespace BamboPortal_V1._0._0._0.Controllers
                     {
                         ErrorID = "EX112",
                         Errormessage = $"ورود متغیر خلاف پروتکل های امنیتی",
+                        Errortype = "Error"
+                    };
+                    return Json(ModelSender);
+                }
+
+            }
+            else
+            {
+                PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "sher o ver e L326");
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX115",
+                    Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                    Errortype = "Error"
+                };
+                return Json(ModelSender);
+            }
+        }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult EditProduct(ProductEditSubmiterModel Obj)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        PDBC db = new PDBC();
+
+        //        List<ExcParameters> paramss = new List<ExcParameters>();
+        //        ExcParameters parameters = new ExcParameters();
+
+        //        parameters = new ExcParameters()
+        //        {
+        //            _KEY = "@Title",
+        //            _VALUE = Obj.Title
+        //        };
+        //        paramss.Add(parameters);
+        //        parameters = new ExcParameters()
+        //        {
+        //            _KEY = "@Description",
+        //            _VALUE = Obj.Description
+        //        };
+        //        paramss.Add(parameters);
+        //        parameters = new ExcParameters()
+        //        {
+        //            _KEY = "@id_MProduct",
+        //            _VALUE = Obj.ProId
+        //        };
+        //        paramss.Add(parameters);
+
+        //        db.Connect();
+        //        string result = db.Script("UPDATE [tbl_Product] SET [Description] = @Description ,[Title] = @Title WHERE id_MProduct = @id_MProduct", paramss);
+        //        db.DC();
+        //        uint id = 0;
+        //        if (UInt32.TryParse(result, out id))
+        //        {
+        //            var ModelSender = new ErrorReporterModel
+        //            {
+        //                ErrorID = "SX106",
+        //                Errormessage = $"برچسب  محصولات با موفقیت ثبت شد!",
+        //                Errortype = "Success"
+        //            };
+        //            return Json(ModelSender);
+        //        }
+        //        else
+        //        {
+        //            PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+        //            var ModelSender = new ErrorReporterModel
+        //            {
+        //                ErrorID = "EX115",
+        //                Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+        //                Errortype = "Error"
+        //            };
+        //            return Json(ModelSender);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        List<ModelErrorReporter> allErrors = new List<ModelErrorReporter>();
+        //        //foreach (ModelError error in ModelState.Values.)
+        //        var AllValues = ModelState.Values.ToList();
+        //        var AllKeys = ModelState.Keys.ToList();
+        //        int errorsCount = AllValues.Count;
+        //        for (int i = 0; i < errorsCount; i++)
+        //        {
+        //            if (AllValues[i].Errors.Count > 0)
+        //            {
+        //                ModelErrorReporter er = new ModelErrorReporter()
+        //                {
+        //                    IdOfProperty = AllKeys[i].Replace("SubmiterStructure.", "SubmiterStructure_"),
+        //                    ErrorMessage = AllValues[i].Errors[0].ErrorMessage
+        //                };
+        //                allErrors.Add(er);
+        //            }
+        //        }
+        //        var ModelSender = new ErrorReporterModel
+        //        {
+        //            ErrorID = "EX0012",
+        //            Errormessage = $"عدم رعایت استاندارد ها!",
+        //            Errortype = "ErrorWithList",
+        //            AllErrors = allErrors
+        //        };
+        //        return Json(ModelSender);
+        //    }
+        //}
+
+
+        [HttpPost]
+        
+        public ActionResult EditProduct(string ProId, string Title,string Description)
+        {
+            if (ModelState.IsValid)
+            {
+                PDBC db = new PDBC();
+
+                List<ExcParameters> paramss = new List<ExcParameters>();
+                ExcParameters parameters = new ExcParameters();
+
+                parameters = new ExcParameters()
+                {
+                    _KEY = "@Title",
+                    _VALUE = Title
+                };
+                paramss.Add(parameters);
+                parameters = new ExcParameters()
+                {
+                    _KEY = "@Description",
+                    _VALUE = Description
+                };
+                paramss.Add(parameters);
+                parameters = new ExcParameters()
+                {
+                    _KEY = "@id_MProduct",
+                    _VALUE = ProId
+                };
+                paramss.Add(parameters);
+
+                db.Connect();
+                string result = db.Script("UPDATE [tbl_Product] SET [Description] = @Description ,[Title] = @Title WHERE id_MProduct = @id_MProduct", paramss);
+                db.DC();
+                uint id = 0;
+                if (UInt32.TryParse(result, out id))
+                {
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "SX106",
+                        Errormessage = $"برچسب  محصولات با موفقیت ثبت شد!",
+                        Errortype = "Success"
+                    };
+                    return Json(ModelSender);
+                }
+                else
+                {
+                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "EX115",
+                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                        Errortype = "Error"
+                    };
+                    return Json(ModelSender);
+                }
+            }
+            else
+            {
+                List<ModelErrorReporter> allErrors = new List<ModelErrorReporter>();
+                //foreach (ModelError error in ModelState.Values.)
+                var AllValues = ModelState.Values.ToList();
+                var AllKeys = ModelState.Keys.ToList();
+                int errorsCount = AllValues.Count;
+                for (int i = 0; i < errorsCount; i++)
+                {
+                    if (AllValues[i].Errors.Count > 0)
+                    {
+                        ModelErrorReporter er = new ModelErrorReporter()
+                        {
+                            IdOfProperty = AllKeys[i].Replace("SubmiterStructure.", "SubmiterStructure_"),
+                            ErrorMessage = AllValues[i].Errors[0].ErrorMessage
+                        };
+                        allErrors.Add(er);
+                    }
+                }
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX0012",
+                    Errormessage = $"عدم رعایت استاندارد ها!",
+                    Errortype = "ErrorWithList",
+                    AllErrors = allErrors
+                };
+                return Json(ModelSender);
+            }
+        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult AddOption(ProductOptions_Model Obj)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        PDBC db = new PDBC();
+
+        //        List<ExcParameters> paramss = new List<ExcParameters>();
+        //        ExcParameters parameters = new ExcParameters();
+
+        //        parameters = new ExcParameters()
+        //        {
+        //            _KEY = "@Key",
+        //            _VALUE = Obj.Key
+        //        };
+        //        paramss.Add(parameters);
+        //        parameters = new ExcParameters()
+        //        {
+        //            _KEY = "@Value",
+        //            _VALUE = Obj.Value
+        //        };
+        //        paramss.Add(parameters);
+        //        parameters = new ExcParameters()
+        //        {
+        //            _KEY = "@id_MProduct",
+        //            _VALUE = Obj.Id
+        //        };
+        //        paramss.Add(parameters);
+
+        //        db.Connect();
+        //        string result = db.Script("INSERT INTO [tbl_Product_tblOptions]([id_MProduct],[KeyName],[Value],[CreatedDate]) OUTPUT inserted.id_Op VALUES (@id_MProduct,@Key,@Value,GETDATE())", paramss);
+        //        db.DC();
+        //        uint id = 0;
+        //        if (UInt32.TryParse(result, out id)) 
+        //        { 
+        //            var ModelSender = new ErrorReporterModel
+        //            {
+        //                ErrorID = "SX106",
+        //                Errormessage = $"برچسب  محصولات با موفقیت ثبت شد!",
+        //                Errortype = "Success"+result
+        //            };
+        //            return Json(ModelSender);
+        //        }
+        //        else
+        //        {
+        //            PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+        //            var ModelSender = new ErrorReporterModel
+        //            {
+        //                ErrorID = "EX115",
+        //                Errormessage = $"عدم توانایی در ثبت اطلاعات!"+result,
+        //                Errortype = "Error"
+        //            };
+        //            return Json(ModelSender);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        List<ModelErrorReporter> allErrors = new List<ModelErrorReporter>();
+        //        //foreach (ModelError error in ModelState.Values.)
+        //        var AllValues = ModelState.Values.ToList();
+        //        var AllKeys = ModelState.Keys.ToList();
+        //        int errorsCount = AllValues.Count;
+        //        for (int i = 0; i < errorsCount; i++)
+        //        {
+        //            if (AllValues[i].Errors.Count > 0)
+        //            {
+        //                ModelErrorReporter er = new ModelErrorReporter()
+        //                {
+        //                    IdOfProperty = AllKeys[i].Replace("SubmiterStructure.", "SubmiterStructure_"),
+        //                    ErrorMessage = AllValues[i].Errors[0].ErrorMessage
+        //                };
+        //                allErrors.Add(er);
+        //            }
+        //        }
+        //        var ModelSender = new ErrorReporterModel
+        //        {
+        //            ErrorID = "EX0012",
+        //            Errormessage = $"عدم رعایت استاندارد ها!",
+        //            Errortype = "ErrorWithList",
+        //            AllErrors = allErrors
+        //        };
+        //        return Json(ModelSender);
+        //    }
+        //}
+
+        [HttpPost]
+        public ActionResult AddOption(string ProId,string Key,string Value)
+        {
+            if (ModelState.IsValid)
+            {
+                PDBC db = new PDBC();
+
+                List<ExcParameters> paramss = new List<ExcParameters>();
+                ExcParameters parameters = new ExcParameters();
+
+                parameters = new ExcParameters()
+                {
+                    _KEY = "@Key",
+                    _VALUE = Key
+                };
+                paramss.Add(parameters);
+                parameters = new ExcParameters()
+                {
+                    _KEY = "@Value",
+                    _VALUE = Value
+                };
+                paramss.Add(parameters);
+                parameters = new ExcParameters()
+                {
+                    _KEY = "@id_MProduct",
+                    _VALUE = ProId
+                };
+                paramss.Add(parameters);
+
+                db.Connect();
+                string result = db.Script("INSERT INTO [tbl_Product_tblOptions]([id_MProduct],[KeyName],[Value],[CreatedDate]) OUTPUT inserted.id_Op VALUES (@id_MProduct,@Key,@Value,GETDATE())", paramss);
+                db.DC();
+                uint id = 0;
+                if (UInt32.TryParse(result, out id))
+                {
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "SX106",
+                        Errormessage = $"برچسب  محصولات با موفقیت ثبت شد!",
+                        Errortype = "Success" + result
+                    };
+                    return Json(ModelSender);
+                }
+                else
+                {
+                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "EX115",
+                        Errormessage = $"عدم توانایی در ثبت اطلاعات!" + result,
+                        Errortype = "Error"
+                    };
+                    return Json(ModelSender);
+                }
+            }
+            else
+            {
+                List<ModelErrorReporter> allErrors = new List<ModelErrorReporter>();
+                //foreach (ModelError error in ModelState.Values.)
+                var AllValues = ModelState.Values.ToList();
+                var AllKeys = ModelState.Keys.ToList();
+                int errorsCount = AllValues.Count;
+                for (int i = 0; i < errorsCount; i++)
+                {
+                    if (AllValues[i].Errors.Count > 0)
+                    {
+                        ModelErrorReporter er = new ModelErrorReporter()
+                        {
+                            IdOfProperty = AllKeys[i].Replace("SubmiterStructure.", "SubmiterStructure_"),
+                            ErrorMessage = AllValues[i].Errors[0].ErrorMessage
+                        };
+                        allErrors.Add(er);
+                    }
+                }
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX0012",
+                    Errormessage = $"عدم رعایت استاندارد ها!",
+                    Errortype = "ErrorWithList",
+                    AllErrors = allErrors
+                };
+                return Json(ModelSender);
+            }
+        }
+
+
+
+        public ActionResult Options_Table(string ProId)
+        {
+            PDBC db = new PDBC();
+            uint id = 0;
+            if (UInt32.TryParse(ProId, out id))
+            {
+                List<ExcParameters> parss = new List<ExcParameters>();
+                ExcParameters par = new ExcParameters()
+                {
+                    _KEY = "@id_PT",
+                    _VALUE = ProId
+                };
+                parss.Add(par);
+                db.Connect();
+
+                DataTable optionsDT = db.Select("SELECT [id_Op],[KeyName],[Value] FROM [tbl_Product_tblOptions] WHERE id_MProduct=@id_PT", parss);
+
+                var optionList = new List<ProductOptions_Model>();
+                for (int i = 0; i < optionsDT.Rows.Count; i++)
+                {
+                    var m = new ProductOptions_Model()
+                    {
+                        Id = Convert.ToInt32(optionsDT.Rows[i]["id_Op"]),
+                        Key = optionsDT.Rows[i]["KeyName"].ToString(),
+                        Value = optionsDT.Rows[i]["Value"].ToString()
+                    };
+                    optionList.Add(m);
+                }
+                return View(optionList);
+            }
+            else
+            {
+                PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "sher o ver e L326");
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX115",
+                    Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                    Errortype = "Error"
+                };
+                return Json(ModelSender);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult ProductOptionDelete(string idTodelete)
+        {
+            PDBC db = new PDBC();
+            uint id = 0;
+            if (UInt32.TryParse(idTodelete, out id))
+            {
+                List<ExcParameters> parss = new List<ExcParameters>();
+                ExcParameters par = new ExcParameters()
+                {
+                    _KEY = "@id_PT",
+                    _VALUE = idTodelete
+                };
+                parss.Add(par);
+                db.Connect();
+                string result = db.Script("DELETE FROM [tbl_Product_tblOptions] WHERE id_Op = @id_PT", parss);
+
+                db.DC();
+                if (result == "1")
+                {
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "SX106",
+                        Errormessage = $"این ویژگی با موفقیت حذف شد!",
+                        Errortype = "Success"
+                    };
+                    return Json(ModelSender);
+                }
+                else
+                {
+                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "EX115",
+                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
                         Errortype = "Error"
                     };
                     return Json(ModelSender);

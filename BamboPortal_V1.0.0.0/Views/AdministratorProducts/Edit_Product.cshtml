@@ -1,0 +1,457 @@
+﻿@model BamboPortal_V1._0._0._0.ModelViews.AdministratorProducts.Edit_ProductModelView
+@{
+    ViewBag.Title = "Edit_Product";
+    Layout = "~/Views/SharedViewPages/Administrator/MasterView.cshtml";
+}
+
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+
+    <!-- BEGIN: Subheader -->
+    <div class="m-subheader">
+        <div class="d-flex align-items-center">
+            <div class="mr-auto">
+                <span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
+                    <span class="m-subheader__daterange-label">
+                        <h3 class="m-subheader__title" style="padding-left: 0!important;margin: 0 0 0 2px!important;">
+                            پیشخوان
+                            <i class="fa fa-chevron-left tshfontsize2" style="transform: translateY(3px);color: #aaaeb8;margin-right: 2px;"></i>
+                            <span class="m-subheader__daterange-title tshfontsize2" style="margin-right: 2px;margin-left: 2px;">ویرایش محصول </span>
+                            <!--
+                            <i class="fa fa-chevron-left" style="transform: translateY(3px);color: #aaaeb8;"></i>
+                            <span class="m-subheader__daterange-title" style="margin-right: 2px;">نمایش همه ی پست ها</span>
+                            -->
+                        </h3>
+                    </span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="m-content">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="m-portlet m-portlet--full-height  ">
+                    <div class="m-portlet__body">
+                        <div class="m-card-profile">
+                            @*<div class="slideshow-container">
+                                <div class="mySlides" style="display: none;position: relative">
+                                    <button class="btn btn-danger btn-remove-slider-img" style="padding: 4px;position: absolute;top: -12px;right: -10px;"><i class="fa fa-trash" style="font-size: 10px"></i></button>
+                                    <img src="assets/demo/default/media/img/misc/user_profile_bg.jpg" data-url="assets/demo/default/media/img/misc/user_profile_bg.jpg" style="width:100%">
+                                </div>
+                                <div class="mySlides" style="display: none;position: relative">
+                                    <button class="btn btn-danger btn-remove-slider-img" style="padding: 4px;position: absolute;top: -12px;right: -10px;"><i class="fa fa-trash" style="font-size: 10px"></i></button>
+                                    <img src="assets/demo/default/media/img/misc/quick_actions_bg.jpg" data-url="assets/demo/default/media/img/misc/quick_actions_bg.jpg" style="width:100%">
+                                </div>
+                                <div class="mySlides" style="display: none;position: relative">
+                                    <button class="btn btn-danger btn-remove-slider-img" style="padding: 4px;position: absolute;top: -12px;right: -10px;"><i class="fa fa-trash" style="font-size: 10px"></i></button>
+                                    <img src="assets/demo/default/media/img/misc/notification_bg.jpg" data-url="assets/demo/default/media/img/misc/notification_bg.jpg" style="width:100%">
+                                </div>
+                                <a class="prev" onclick="plusSlides(-1)">&#10095;</a>
+                                <a class="next" onclick="plusSlides(1)">&#10094;</a>
+                            </div>*@
+                            <div class="m-section__content container-fluid tshtextcenter mt-3">
+                                <button class="btn btn-brand btn-sm" data-target="#uploader" data-toggle="modal">انتخاب عکس</button>
+                            </div>
+                        </div>
+                        <div style="display:none" id="ProId">@Model.ProId</div>
+                        <ul class="m-nav m-nav--hover-bg m-portlet-fit--sides mt-2 cus-prof-menu">
+                            <li class="m-nav__item tshcurpoi active-cust-profile tshbtn1">
+                                <a class="m-nav__link">
+                                    <i class="m-nav__link-icon fa fa-chevron-left"></i>
+                                    <span class="m-nav__link-text">اطلاعات کلی محصول</span>
+                                </a>
+                            </li>
+                            <li class="m-nav__item tshcurpoi active-cust-profile tshbtn3">
+                                <a class="m-nav__link">
+                                    <i class="m-nav__link-icon fa fa-file"></i>
+                                    <span class="m-nav__link-text">ویژگی های محصول</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="m-portlet m-portlet--full-height m-portlet--tabs  ">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-tools">
+                            <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
+                                <li class="nav-item m-tabs__item">
+                                    <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_user_profile_tab_1" role="tab">
+                                        <i class="flaticon-share m--hide"></i>
+                                        <cust_title>
+                                            اطلاعات کلی محصول
+                                        </cust_title>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="m_user_profile_tab_1">
+                            @*<form class="m-form m-form--fit m-form--label-align-right" onsubmit="return false;" id="prodform">*@
+                            <div class="m-form m-form--fit m-form--label-align-right" id="prodform">
+                                <div class="m-portlet__body sec-1" style="padding-bottom: 0">
+                                    <div class="row">
+                                        <div class="form-group m-form__group col-lg-12 col-xs-12">
+                                            <label for="PRDCTName" class="col-12 col-form-label tshtextright">نام محصول:</label>
+                                            <div class="col-12">
+                                                <input class="form-control m-input" id="PRDCTName" name="PRDCTName" type="text" value="@Model.SubmiterModel.Title">
+                                            </div>
+                                        </div>
+                                        <div class="form-group m-form__group col-lg-12 col-xs-12" style="padding-top: 0;">
+                                            <label for="PRDCTDescription" class="col-12 col-form-label tshtextright">توضیحات محصول:</label>
+                                            <div class="col-12">
+                                                <textarea class="form-control m-input" style="height:250px;" id="PRDCTDescription" name="PRDCTDescription" type="text" value="@Model.SubmiterModel.Description" multiple maxlength="300" rows="6">
+
+</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="m-portlet__foot m-portlet__foot--fit">
+                                        <div class="m-form__actions">
+                                            <div class="row">
+                                                <div class="col-2">
+                                                </div>
+                                                <div class="col-12 tshtextleft">
+                                                    <button onclick="return EditData()" class="btn btn-accent m-btn m-btn--air m-btn--custom prdn1">ثبت</button>&nbsp;&nbsp;
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    @*@using (@Html.BeginForm("EditProduct", "AdministratorProducts", FormMethod.Post, new { @id = "EditProductSubmiter", @class = "m-form m-form--fit m-form--label-align-right" }))
+        {
+            @Html.AntiForgeryToken();
+            @Html.TextBoxFor(m => m.SubmiterModel.ProId, new { @class = "form-control m-input", @style = "display:none;", @Value = Model.ProId,@id="SubmiterModel_ProId",@name="SubmiterModel.ProId" })
+            <div class="">
+                <div class="form-group m-form__group col-lg-12 col-xs-12">
+                    @Html.LabelFor(m => m.SubmiterModel.Title, "نام محصول :", new { @class = "col-12 col-form-label tshtextright", @style = "padding-right: 0;padding-left: 0;" })
+                    <div class="col-12">
+                        @Html.TextBoxFor(m => m.SubmiterModel.Title, new { @class = "form-control m-input", @placeholder = "", id = "SubmiterModel_Title" ,@value=Model.SubmiterModel.Title, @name = "SubmiterModel.Title" })
+                        @Html.ValidationMessageFor(m => m.SubmiterModel.Title)
+                    </div>
+                </div>
+                <div class="form-group m-form__group col-lg-12 col-xs-12" style="padding-top: 0;">
+                    @Html.LabelFor(m => m.SubmiterModel.Description, "توضیحات محصول :", new { @class = "col-12 col-form-label tshtextright", @style = "padding-right: 0;padding-left: 0;" })
+                    <div class="col-12">
+
+                        @Html.TextAreaFor(m => m.SubmiterModel.Description, new { @class = "form-control m-input", @placeholder = "" , id = "SubmiterModel_Description" ,@value=Model.SubmiterModel.Description , @maxlength= "300",@rows="6",@style="height:250px;",@name="SubmiterModel.Description"})
+                        @Html.ValidationMessageFor(m => m.SubmiterModel.Description)
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="m-portlet__foot m-portlet__foot--fit">
+                <div class="m-form__actions">
+                    <div class="row">
+                        <div class="col-12 tshtextleft">
+                            <button type="submit" id="EditProduct_SubmitBTN" class="btn btn-accent m-btn m-btn--air m-btn--custom prdn1">ثبت</button>&nbsp;&nbsp;
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }*@
+
+
+                                </div>
+                                <div class="sec-3" style="display: none">
+                                    <div class="col-12">
+                                        <div>
+                                            <div class="m-portlet__head-title container-fluid mt-4">
+                                                <h3 class="m-portlet__head-text" style="font-size: 12px;border-bottom: 1px solid rgba(0,0,0,.1);padding-bottom: 17px;">
+                                                    جزئیات
+                                                </h3>
+                                            </div>
+                                        </div>
+
+                                        
+                                        @*<div class="row">
+            <div class="col-12" id="prodform2">
+                @using (@Html.BeginForm("AddOption", "AdministratorProducts", FormMethod.Post, new { @id = "AddOptionSubmiter", @class = "m-form m-form--fit m-form--label-align-right" }))
+                {
+
+                    @Html.AntiForgeryToken();
+                    @Html.TextBoxFor(m => m.OptionSubmiter.Id, new { @class = "form-control m-input", @style = "display:none;", @Value = Model.ProId })
+
+                    <div class="row">
+                        <div class="form-group m-form__group col-lg-6 col-xs-12">
+                            @Html.LabelFor(m => m.OptionSubmiter.Key, "ویژگی :", new { @class = "col-12 col-form-label tshtextright", @style = "padding-right: 0;padding-left: 0;" })
+                            <div class="col-12" style="padding-right: 0;padding-left: 0;">
+                                @Html.TextBoxFor(m => m.OptionSubmiter.Key, new { @class = "form-control m-input", @placeholder = "", @id = "PRDCTName2" })
+                                @Html.ValidationMessageFor(m => m.OptionSubmiter.Key)
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+
+                            @Html.LabelFor(m => m.OptionSubmiter.Value, "مقدار :", new { @class = "col-12 col-form-label tshtextright", @style = "padding-right: 0;padding-left: 0;" })
+                            <div class="col-12" style="padding-right: 0;padding-left: 0;">
+                                @Html.TextBoxFor(m => m.OptionSubmiter.Value, new { @class = "form-control m-input", @placeholder = "", id = "PRDCTName3" })
+                                @Html.ValidationMessageFor(m => m.OptionSubmiter.Value)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 tshtextleft mb-3">
+                        <button id="AddOptionSubmiter_SubmitBTN" type="submit" style="margin-left: 10px;" class="btn btn-sm btn-success m-btn m-btn--air m-btn--custom">افزودن</button>&nbsp;&nbsp;
+                    </div>
+                }
+            </div>
+
+        </div>*@
+                                        <div class="row">
+                                            <div class="col-12" id="prodform2">
+                                                <div class="row">
+                                                    <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                                        <label for="PRDCTName2" class="col-12 col-form-label tshtextright" style="padding-right: 0;padding-left: 0;">ویژگی:</label>
+                                                        <div class="col-12" style="padding-right: 0;padding-left: 0;">
+                                                            <input class="form-control m-input" name="PRDCTName2" id="PRDCTName2" type="text" value="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                                        <label for="PRDCTName3" class="col-12 col-form-label tshtextright" style="padding-right: 0;padding-left: 0;">مقدار:</label>
+                                                        <div class="col-12" style="padding-right: 0;padding-left: 0;">
+                                                            <input class="form-control m-input" name="PRDCTName3" id="PRDCTName3" type="text" value="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-12 tshtextleft mb-3">
+                                                    <button onclick="return AddOption()" style="margin-left: 10px;" class="btn btn-sm btn-success m-btn m-btn--air m-btn--custom">افزودن</button>&nbsp;&nbsp;
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="container-fluid" id="optiontable">
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="m-portlet__foot m-portlet__foot--fit">
+                                        <div class="m-form__actions">
+                                            <div class="row">
+                                                <div class="col-2">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*</form>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- end:: Body -->
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+        var url ='@Url.Action("Options_Table","AdministratorProducts",null,Request.Url.Scheme)?ProId=' + $('#ProId').text();
+
+                $('#optiontable').load(url);
+    });
+
+
+        $(".tshbtn1").on("click", function () {
+            if (!$(this).hasClass("tshdisabled-validation")) {
+                $("cust_title").text("اطلاعات کلی محصول");
+                $(".cus-prof-menu li").removeClass("active-cust-profile");
+                $(this).addClass("active-cust-profile");
+                $(".sec-2 , .sec-3 , .sec-4 , .sec-5").hide();
+                $(".sec-1").show();
+            }
+        })
+
+        $(".tshbtn3").on("click", function () {
+            if (!$(this).hasClass("tshdisabled-validation")) {
+                $("cust_title").text("ویژگی های محصول");
+                $(".cus-prof-menu li").removeClass("active-cust-profile");
+                $(this).addClass("active-cust-profile");
+                $(".sec-1 , .sec-2 , .sec-4 , .sec-5").hide();
+                $(".sec-3").show();
+            }
+        })
+        $(".prdn1").on("click", function () {
+            setTimeout(function () {
+                if ($("#PRDCTName-error").css("display") == 'inline-block' ||
+                    $("#PRDCTDescription-error").css("display") == 'inline-block' ||
+                    $("#prd3-error").css("display") == 'inline-block' ||
+                    $("#prd4-error").css("display") == 'inline-block' ||
+                    $("#prd5-error").css("display") == 'inline-block') { } else {
+                    $(".tshbtn3").removeClass("tshdisabled-validation");
+                    $(".tshbtn3").click();
+                    $("#PRDCTType").select2();
+                }
+            }, 200)
+        })
+
+
+       
+
+        //=================================================================================================
+        //{Start}For administrator AddSubCategory
+       
+        //$(function () {
+
+        //    $("#AddOptionSubmiter").on("submit", function (e) {
+        //        alert("Hello");
+        //        e.preventDefault();
+        //        DisableBTN("AddOptionSubmiter");
+        //        $.ajax({
+        //            url: this.action,
+        //            type: this.method,
+        //            data: $(this).serialize(),
+        //            success: function (data) {
+        //                console.log(data)
+        //                const jsondata = data;
+        //                console.log(jsondata.Errortype)
+        //                if (jsondata.Errortype=="Success") {
+
+        //                    AlertToUser("AddOptionSubmiter", data);
+                           
+        //                    $("#PRDCTName2").val("");
+        //                    $("#PRDCTName3").val("")
+
+        //                } else if (jsondata.Errortype == "ErrorWithList") {
+        //                    AlertToUser("AddOptionSubmiter", data);
+        //                } else {
+        //                    AlertToUser("AddOptionSubmiter", data);
+        //                }
+        //            }
+        //        });
+        //    });
+        //});
+        //}
+
+
+        function AddOption() {
+
+            var _Key = $("#PRDCTName2").val();
+            console.log("Key:" + _Key);
+            var _Value = $("#PRDCTName3").val();
+            console.log("Value:" + _Value);
+            if (_Key != "" && _Value != "") {
+                var PostJson = {
+                    'ProId': $("#ProId").text(),
+                    'Key': _Key,
+                    'Value': _Value
+                };
+
+                $.ajax({
+                    url: "/AdministratorProducts/AddOption",
+                    type: "post",
+                    data: JSON.stringify(PostJson),
+                    success: function (data) {
+
+                        var url = '@Url.Action("Options_Table","AdministratorProducts",null,Request.Url.Scheme)?ProId=' + $('#ProId').text();
+
+                        $('#optiontable').load(url);
+                        AlertToUser("EditProductSubmiter", data);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus, errorThrown);
+                    }
+                });
+            } else {
+                AlertToUser("EditProductSubmiter", data);
+            }
+            
+        }
+
+        //{END}For administrator AddSubCategory
+        //=================================================================================================
+       
+         //=================================================================================================
+    //{Start}For administrator AddSubCategory
+    //if ($("#EditProductSubmiter").length == 1) {
+    //    $(function () {
+    //        $("#EditProductSubmiter").on("submit", function (e) {
+    //            e.preventDefault();
+    //            DisableBTN("EditProductSubmiter");
+    //            $.ajax({
+    //                url: this.action,
+    //                type: this.method,
+    //                data: $(this).serialize(),
+    //                success: function (data) {
+    //                    console.log(data)
+    //                    const jsondata = data;
+    //                    console.log(jsondata.Errortype)
+    //                    if (jsondata.Errortype == "Success") {
+    //                        AlertToUser("EditProductSubmiter", data);
+    //                    } else if (jsondata.Errortype == "ErrorWithList") {
+    //                        AlertToUser("EditProductSubmiter", data);
+    //                    } else {
+    //                        AlertToUser("EditProductSubmiter", data);
+    //                    }
+    //                }
+    //            });
+    //        });
+    //    });
+    //}
+
+
+        function Click_op_del(id) {
+
+        $.ajax({
+            url: "/AdministratorProducts/ProductOptionDelete",
+            type: "post",
+            data: {"idTodelete": id },
+            success: function (data) {
+
+                var url ='@Url.Action("Options_Table","AdministratorProducts",null,Request.Url.Scheme)?ProId=' + $('#ProId').text();
+
+                $('#optiontable').load(url);
+                AlertToUser("EditProductSubmiter", data);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+            }
+        });
+    }
+
+        function EditData() {
+
+            var _title = $("#PRDCTName").val();
+            var _description = $("#PRDCTDescription").val();
+
+            if (_title != "" && _description != "") {
+                var PostJson = {
+                    'ProId': $("#ProId").text(),
+                    'Title': _title,
+                    'Description': _description
+
+                };
+
+                $.ajax({
+                    url: "/AdministratorProducts/EditProduct",
+                    type: "post",
+                    data: JSON.stringify(PostJson),
+                    success: function (data) {
+                        AlertToUser("EditProductSubmiter", data);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus, errorThrown);
+                    }
+                });
+            } else {
+                AlertToUser("EditProductSubmiter", data);
+            }
+            
+        }
+
+
+    //{END}For administrator AddSubCategory
+    //=================================================================================================
+
+    </script>
+
+
+}

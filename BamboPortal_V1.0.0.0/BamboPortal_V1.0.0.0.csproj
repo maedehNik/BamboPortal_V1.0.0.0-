@@ -3276,6 +3276,8 @@
     <Content Include="Views\AdminstratorBlog\Add_Blog_Category.cshtml" />
     <Content Include="Views\AdminstratorBlog\Add_Blog_Tags.cshtml" />
     <Content Include="Views\AdminstratorBlog\_PostTableItem.cshtml" />
+    <Content Include="Views\AdministratorProducts\Edit_Product.cshtml" />
+    <Content Include="Views\AdministratorProducts\Options_Table.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

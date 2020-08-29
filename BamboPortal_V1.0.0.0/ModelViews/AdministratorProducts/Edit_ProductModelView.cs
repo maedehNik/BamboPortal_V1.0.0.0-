@@ -10,6 +10,7 @@ namespace BamboPortal_V1._0._0._0.ModelViews.AdministratorProducts
 {
     public class Edit_ProductModelView
     {
+        public int ProId { get; set; }
         public List<Id_ValueModel> Images { get; set; }
         public List<ProductOptions_Model> OptionList{ get; set; }
         public ProductEditSubmiterModel SubmiterModel{ get; set; }

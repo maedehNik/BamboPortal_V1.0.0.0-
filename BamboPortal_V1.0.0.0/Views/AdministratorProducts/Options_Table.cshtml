@@ -1,0 +1,52 @@
+﻿@using BamboPortal_V1._0._0._0.Models.AdministratorProductsModels
+@model List<ProductOptions_Model>
+@{
+    ViewBag.Title = "Options_Table";
+}
+
+<table class="cust-table table table-striped table-hover m-table m-table--head-separator-primary">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>ویژگی</th>
+            <th>مقدار</th>
+            <th>غملیات</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int _i = 0; _i < Model.Count; _i++)
+        {
+            <tr>
+                <th scope="row">@(_i+1)</th>
+                <td>@Model[_i].Key</td>
+                <td>@Model[_i].Value</td>
+                <td>
+
+                    <button class="btn btn-danger tshpcustom cus-delete-btn" data-target="#deleteCus" data-toggle="modal" data-name="ویژگی" onclick="return Click_op_del(@Model[_i].Id)"><i class="fa fa-trash tshfa"></i>حذف</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<table style="display: none;" class="cust-table cust-table-2 table table-striped table-hover m-table m-table--head-separator-primary">
+    <tr>
+        <th>#</th>
+        <td>1</td>
+
+    </tr>
+    <tr>
+        <th>ویژگی</th>
+        <td>ویژگی</td>
+    </tr>
+    <tr>
+        <th>مقدار</th>
+        <td>مقدار</td>
+    </tr>
+    <tr>
+        <th>وضعیت</th>
+        <td>
+            <button class="btn btn-warning tshpcustom tshcolorwhite"><i class="fa fa-edit tshfa"></i>ویرایش</button>
+            <button class="btn btn-danger tshpcustom cus-delete-btn" data-target="#deleteCus" data-toggle="modal" data-name="ویژگی"><i class="fa fa-trash tshfa"></i>حذف</button>
+        </td>
+    </tr>
+</table>
