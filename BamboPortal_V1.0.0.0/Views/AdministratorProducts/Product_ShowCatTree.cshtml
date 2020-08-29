@@ -1,0 +1,368 @@
+﻿
+
+@{
+    ViewBag.Title = "Product_ShowCatTree";
+    Layout = "~/Views/SharedViewPages/Administrator/MasterView.cshtml";
+}
+
+    @*<div class="modal fade" id="showtree" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p class="inner-tree">
+                        <div class="m-portlet__body col-lg-6 col-xs-12">
+                            <div id="m_tree_44" class="tree-demo jstree jstree-4 jstree-rtl jstree-default" role="tree" aria-multiselectable="true" tabindex="0" aria-activedescendant="j4_1" aria-busy="false"><ul class="jstree-container-ul jstree-children jstree-contextmenu" role="group"><li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="j4_1_anchor" aria-expanded="true" id="j4_1" class="jstree-node  jstree-open"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j4_1_anchor"><i class="jstree-icon jstree-themeicon fa fa-folder m--font-brand jstree-themeicon-custom" role="presentation"></i>فرزند گره</a><ul role="group" class="jstree-children"><li role="treeitem" aria-selected="true" aria-level="2" aria-labelledby="j4_2_anchor" id="j4_2" class="jstree-node  jstree-leaf"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor  jstree-clicked" href="#" tabindex="-1" id="j4_2_anchor"><i class="jstree-icon jstree-themeicon fa fa-folder m--font-brand jstree-themeicon-custom" role="presentation"></i>انتخاب شده</a></li><li role="treeitem" aria-selected="false" aria-level="2" aria-labelledby="j4_3_anchor" id="j4_3" class="jstree-node  jstree-leaf"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j4_3_anchor"><i class="jstree-icon jstree-themeicon fa fa-warning m--font-danger jstree-themeicon-custom" role="presentation"></i>Custom Icon</a></li><li role="treeitem" aria-selected="false" aria-level="2" aria-labelledby="j4_4_anchor" aria-expanded="true" id="j4_4" class="jstree-node  jstree-open"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j4_4_anchor"><i class="jstree-icon jstree-themeicon fa fa-folder m--font-success jstree-themeicon-custom" role="presentation"></i>Initially open</a><ul role="group" class="jstree-children"><li role="treeitem" aria-selected="false" aria-level="3" aria-labelledby="j4_5_anchor" id="j4_5" class="jstree-node  jstree-leaf jstree-last"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j4_5_anchor"><i class="jstree-icon jstree-themeicon fa fa-file m--font-waring jstree-themeicon-custom" role="presentation"></i>دیگر گره ها</a></li></ul></li><li role="treeitem" aria-selected="false" aria-level="2" aria-labelledby="j4_6_anchor" id="j4_6" class="jstree-node  jstree-leaf"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j4_6_anchor"><i class="jstree-icon jstree-themeicon fa fa-warning m--font-waring jstree-themeicon-custom" role="presentation"></i>Another Custom Icon</a></li><li role="treeitem" aria-selected="false" aria-level="2" aria-labelledby="j4_7_anchor" aria-disabled="true" id="j4_7" class="jstree-node  jstree-leaf"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor  jstree-disabled" href="#" tabindex="-1" id="j4_7_anchor"><i class="jstree-icon jstree-themeicon fa fa-check m--font-success jstree-themeicon-custom" role="presentation"></i>گره غیرفعال</a></li><li role="treeitem" aria-selected="false" aria-level="2" aria-labelledby="j4_8_anchor" aria-expanded="false" id="j4_8" class="jstree-node  jstree-closed jstree-last"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j4_8_anchor"><i class="jstree-icon jstree-themeicon fa fa-folder m--font-danger jstree-themeicon-custom" role="presentation"></i>Sub Nodes</a></li></ul></li><li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="j4_14_anchor" id="j4_14" class="jstree-node  jstree-leaf jstree-last"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j4_14_anchor"><i class="jstree-icon jstree-themeicon fa fa-folder m--font-brand jstree-themeicon-custom" role="presentation"></i>Another گره</a></li></ul></div>
+                        </div>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success">ذخیره</button>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+
+    <!-- BEGIN: Subheader -->
+    <div class="m-subheader">
+        <div class="d-flex align-items-center">
+            <div class="mr-auto">
+                <span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
+                    <span class="m-subheader__daterange-label">
+                        <h3 class="m-subheader__title" style="padding-left: 0!important;margin: 0 0 0 2px!important;">
+                            پیشخوان
+                            <i class="fa fa-chevron-left tshfontsize2" style="transform: translateY(3px);color: #aaaeb8;margin-right: 2px;"></i>
+                            <span class="m-subheader__daterange-title tshfontsize2" style="margin-right: 2px;margin-left: 2px;">لیست دسته بندی ها</span>
+                            <!--
+                            <i class="fa fa-chevron-left" style="transform: translateY(3px);color: #aaaeb8;"></i>
+                            <span class="m-subheader__daterange-title" style="margin-right: 2px;">نمایش همه ی پست ها</span>
+                            -->
+                        </h3>
+                    </span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="m-content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="m-portlet m-portlet--full-height m-portlet--tabs  ">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-tools">
+                            <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
+                                <li class="nav-item m-tabs__item">
+                                    <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_user_profile_tab_1" role="tab">
+                                        <i class="flaticon-share m--hide"></i>
+                                        <cust_title>
+                                            لیست دسته بندی ها
+                                        </cust_title>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="m_user_profile_tab_1">
+                            <form class="m-form m-form--fit m-form--label-align-right" onsubmit="return false;" id="cusform">
+                                <div class="m-portlet__body" style="padding-bottom: 0">
+                                    <div class="per-info">
+                                        <div class="row">
+                                            <div class="col-3 tshremovecol"></div>
+                                            <div class="m-portlet__body col-lg-6 col-xs-12">
+                                                <div id="m_tree_4" class="tree-demo jstree jstree-4 jstree-rtl jstree-default" role="tree" aria-multiselectable="true" tabindex="0" aria-activedescendant="j4_1" aria-busy="false"><ul class="jstree-container-ul jstree-children jstree-contextmenu" role="group"><li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="j4_1_anchor" aria-expanded="true" id="j4_1" class="jstree-node  jstree-open"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j4_1_anchor"><i class="jstree-icon jstree-themeicon fa fa-folder m--font-brand jstree-themeicon-custom" role="presentation"></i>فرزند گره</a><ul role="group" class="jstree-children"><li role="treeitem" aria-selected="true" aria-level="2" aria-labelledby="j4_2_anchor" id="j4_2" class="jstree-node  jstree-leaf"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor  jstree-clicked" href="#" tabindex="-1" id="j4_2_anchor"><i class="jstree-icon jstree-themeicon fa fa-folder m--font-brand jstree-themeicon-custom" role="presentation"></i>انتخاب شده</a></li><li role="treeitem" aria-selected="false" aria-level="2" aria-labelledby="j4_3_anchor" id="j4_3" class="jstree-node  jstree-leaf"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j4_3_anchor"><i class="jstree-icon jstree-themeicon fa fa-warning m--font-danger jstree-themeicon-custom" role="presentation"></i>Custom Icon</a></li><li role="treeitem" aria-selected="false" aria-level="2" aria-labelledby="j4_4_anchor" aria-expanded="true" id="j4_4" class="jstree-node  jstree-open"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j4_4_anchor"><i class="jstree-icon jstree-themeicon fa fa-folder m--font-success jstree-themeicon-custom" role="presentation"></i>Initially open</a><ul role="group" class="jstree-children"><li role="treeitem" aria-selected="false" aria-level="3" aria-labelledby="j4_5_anchor" id="j4_5" class="jstree-node  jstree-leaf jstree-last"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j4_5_anchor"><i class="jstree-icon jstree-themeicon fa fa-file m--font-waring jstree-themeicon-custom" role="presentation"></i>دیگر گره ها</a></li></ul></li><li role="treeitem" aria-selected="false" aria-level="2" aria-labelledby="j4_6_anchor" id="j4_6" class="jstree-node  jstree-leaf"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j4_6_anchor"><i class="jstree-icon jstree-themeicon fa fa-warning m--font-waring jstree-themeicon-custom" role="presentation"></i>Another Custom Icon</a></li><li role="treeitem" aria-selected="false" aria-level="2" aria-labelledby="j4_7_anchor" aria-disabled="true" id="j4_7" class="jstree-node  jstree-leaf"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor  jstree-disabled" href="#" tabindex="-1" id="j4_7_anchor"><i class="jstree-icon jstree-themeicon fa fa-check m--font-success jstree-themeicon-custom" role="presentation"></i>گره غیرفعال</a></li><li role="treeitem" aria-selected="false" aria-level="2" aria-labelledby="j4_8_anchor" aria-expanded="false" id="j4_8" class="jstree-node  jstree-closed jstree-last"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j4_8_anchor"><i class="jstree-icon jstree-themeicon fa fa-folder m--font-danger jstree-themeicon-custom" role="presentation"></i>Sub Nodes</a></li></ul></li><li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="j4_14_anchor" id="j4_14" class="jstree-node  jstree-leaf jstree-last"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j4_14_anchor"><i class="jstree-icon jstree-themeicon fa fa-folder m--font-brand jstree-themeicon-custom" role="presentation"></i>Another گره</a></li></ul></div>
+                                            </div>
+                                        </div>
+                                        <div class="m-portlet__foot m-portlet__foot--fit">
+                                            <div class="m-form__actions">
+                                                <div class="row">
+                                                    <div class="col-2">
+                                                    </div>
+                                                    <div class="col-12 tshtextleft">
+                                                        @*<button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom">ذخیره</button>&nbsp;&nbsp;*@
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- end:: Body -->
+@section Scripts{
+    <script>
+        
+         $.ajax({
+            url: '/AdministratorProducts/GetCategoryTree',
+            type: "post",
+            contentType: "application/json; charset=utf-8",
+             success: function (data) {
+                 console.log("Loooog" + data);
+                 var treee = data;
+                 alert("Hello");
+                   var Treeview = {
+            init: function () {
+                $("#m_tree_4").jstree({
+                    core: {
+                        themes: { responsive: !1 },
+                        check_callback: !1,
+                        data: treee
+                    },
+                    types: { default: { icon: "fa fa-folder m--font-brand" }, file: { icon: "fa fa-file  m--font-brand" } },
+                    state: { key: "demo" },
+                    plugins: ["contextmenu", "state", "types",],
+                }),
+                    $("#m_tree_44").jstree({
+                        core: {
+                            themes: { responsive: !1 },
+                            check_callback: !1,
+                            data: treee 
+                            ,
+                        },
+                        types: { default: { icon: "fa fa-folder m--font-brand" }, file: { icon: "fa fa-file  m--font-brand" } },
+                        state: { key: "demo" },
+                        plugins: ["contextmenu", "state", "types", "checkbox"],
+                    });
+            },
+        };
+        jQuery(document).ready(function () {
+            Treeview.init();
+        });
+
+
+
+
+
+
+
+             },
+            error: function (jqXHR, textStatus, errorThrown) {
+                
+            }
+        });
+
+
+
+
+        //var Treeview = {
+        //    init: function () {
+        //        $("#m_tree_4").jstree({
+        //            core: {
+        //                themes: { responsive: !1 },
+        //                check_callback: !1,
+        //                data: [
+        //                    {
+        //                        text: "کفش و صنایع وابسته", icon: "fa fa-folder m--font-success",
+        //                        children: [
+        //                            {
+        //                                text: "کفش", icon: "fa fa-folder m--font-danger",
+        //                                children: [
+        //                                    {
+        //                                        text: "مردانه", icon: "fa fa-folder m--font-warning",
+        //                                        children: [
+        //                                            { text: "نوع", icon: "fa fa-folder m--font-brand" },
+        //                                            { text: "تولید کننده", icon: "fa fa-folder m--font-brand" },
+        //                                            {
+        //                                                text: "سایز", icon: "fa fa-folder m--font-brand",
+        //                                                children: [
+        //                                                    { text: "23", icon: "fa fa-file m--font-secondary" },
+        //                                                ],
+        //                                            },
+        //                                            { text: "زنگ", icon: "fa fa-folder m--font-brand" },
+        //                                            { text: "جنس رویه", icon: "fa fa-folder m--font-brand" },
+        //                                            { text: "لایه داخلی", icon: "fa fa-folder m--font-brand" },
+        //                                            { text: "جنس زیره", icon: "fa fa-folder m--font-brand" },
+        //                                            { text: "واحد فروش", icon: "fa fa-folder m--font-brand" },
+        //                                            { text: "تعداد در کارتن", icon: "fa fa-folder m--font-brand" },
+        //                                        ],
+        //                                    },
+        //                                    { text: "نقلی", icon: "fa fa-folder m--font-warning" },
+        //                                    { text: "پسرانه/دخترانه", icon: "fa fa-folder m--font-warning" },
+        //                                    { text: "زنانه/میانه", icon: "fa fa-folder m--font-warning" },
+        //                                ],
+        //                            },
+        //                            {
+        //                                text: "کفش", icon: "fa fa-folder m--font-danger",
+        //                                children: [
+        //                                    {
+        //                                        text: "مردانه", icon: "fa fa-folder m--font-warning",
+        //                                        children: [
+        //                                            { text: "نوع", icon: "fa fa-folder m--font-brand" },
+        //                                            { text: "تولید کننده", icon: "fa fa-folder m--font-brand" },
+        //                                            {
+        //                                                text: "سایز", icon: "fa fa-folder m--font-brand",
+        //                                                children: [
+        //                                                    { text: "23", icon: "fa fa-file m--font-secondary" },
+        //                                                ],
+        //                                            },
+        //                                            { text: "زنگ", icon: "fa fa-folder m--font-brand" },
+        //                                            { text: "جنس رویه", icon: "fa fa-folder m--font-brand" },
+        //                                            { text: "لایه داخلی", icon: "fa fa-folder m--font-brand" },
+        //                                            { text: "جنس زیره", icon: "fa fa-folder m--font-brand" },
+        //                                            { text: "واحد فروش", icon: "fa fa-folder m--font-brand" },
+        //                                            { text: "تعداد در کارتن", icon: "fa fa-folder m--font-brand" },
+        //                                        ],
+        //                                    },
+        //                                    { text: "نقلی", icon: "fa fa-folder m--font-warning" },
+        //                                    { text: "پسرانه/دخترانه", icon: "fa fa-folder m--font-warning" },
+        //                                    { text: "زنانه/میانه", icon: "fa fa-folder m--font-warning" },
+        //                                ],
+        //                            },
+        //                        ],
+        //                    }, {
+        //                        text: "کفش و صنایع وابسته", icon: "fa fa-folder m--font-success",
+        //                        children: [
+        //                            {
+        //                                text: "کفش", icon: "fa fa-folder m--font-danger",
+        //                                children: [
+        //                                    {
+        //                                        text: "مردانه", icon: "fa fa-folder m--font-warning",
+        //                                        children: [
+        //                                            { text: "نوع", icon: "fa fa-folder m--font-brand" },
+        //                                            { text: "تولید کننده", icon: "fa fa-folder m--font-brand" },
+        //                                            {
+        //                                                text: "سایز", icon: "fa fa-folder m--font-brand",
+        //                                                children: [
+        //                                                    { text: "23", icon: "fa fa-file m--font-secondary" },
+        //                                                ],
+        //                                            },
+        //                                            { text: "زنگ", icon: "fa fa-folder m--font-brand" },
+        //                                            { text: "جنس رویه", icon: "fa fa-folder m--font-brand" },
+        //                                            { text: "لایه داخلی", icon: "fa fa-folder m--font-brand" },
+        //                                            { text: "جنس زیره", icon: "fa fa-folder m--font-brand" },
+        //                                            { text: "واحد فروش", icon: "fa fa-folder m--font-brand" },
+        //                                            { text: "تعداد در کارتن", icon: "fa fa-folder m--font-brand" },
+        //                                        ],
+        //                                    },
+        //                                    { text: "نقلی", icon: "fa fa-folder m--font-warning" },
+        //                                    { text: "پسرانه/دخترانه", icon: "fa fa-folder m--font-warning" },
+        //                                    { text: "زنانه/میانه", icon: "fa fa-folder m--font-warning" },
+        //                                ],
+        //                            },
+        //                        ],
+        //                    },
+        //                ],
+        //            },
+        //            types: { default: { icon: "fa fa-folder m--font-brand" }, file: { icon: "fa fa-file  m--font-brand" } },
+        //            state: { key: "demo" },
+        //            plugins: ["contextmenu", "state", "types",],
+        //        }),
+        //            $("#m_tree_44").jstree({
+        //                core: {
+        //                    themes: { responsive: !1 },
+        //                    check_callback: !1,
+        //                    data: [
+        //                        {
+        //                            text: "کفش و صنایع وابسته", icon: "fa fa-folder m--font-success",
+        //                            children: [
+        //                                {
+        //                                    text: "کفش", icon: "fa fa-folder m--font-danger",
+        //                                    children: [
+        //                                        {
+        //                                            text: "مردانه", icon: "fa fa-folder m--font-warning",
+        //                                            children: [
+        //                                                { text: "نوع", icon: "fa fa-folder m--font-brand" },
+        //                                                { text: "تولید کننده", icon: "fa fa-folder m--font-brand" },
+        //                                                {
+        //                                                    text: "سایز", icon: "fa fa-folder m--font-brand",
+        //                                                    children: [
+        //                                                        { text: "23", icon: "fa fa-file m--font-secondary" },
+        //                                                    ],
+        //                                                },
+        //                                                { text: "زنگ", icon: "fa fa-folder m--font-brand" },
+        //                                                { text: "جنس رویه", icon: "fa fa-folder m--font-brand" },
+        //                                                { text: "لایه داخلی", icon: "fa fa-folder m--font-brand" },
+        //                                                { text: "جنس زیره", icon: "fa fa-folder m--font-brand" },
+        //                                                { text: "واحد فروش", icon: "fa fa-folder m--font-brand" },
+        //                                                { text: "تعداد در کارتن", icon: "fa fa-folder m--font-brand" },
+        //                                            ],
+        //                                        },
+        //                                        { text: "نقلی", icon: "fa fa-folder m--font-warning" },
+        //                                        { text: "پسرانه/دخترانه", icon: "fa fa-folder m--font-warning" },
+        //                                        { text: "زنانه/میانه", icon: "fa fa-folder m--font-warning" },
+        //                                    ],
+        //                                },
+        //                                {
+        //                                    text: "کفش", icon: "fa fa-folder m--font-danger",
+        //                                    children: [
+        //                                        {
+        //                                            text: "مردانه", icon: "fa fa-folder m--font-warning",
+        //                                            children: [
+        //                                                { text: "نوع", icon: "fa fa-folder m--font-brand" },
+        //                                                { text: "تولید کننده", icon: "fa fa-folder m--font-brand" },
+        //                                                {
+        //                                                    text: "سایز", icon: "fa fa-folder m--font-brand",
+        //                                                    children: [
+        //                                                        { text: "23", icon: "fa fa-file m--font-secondary" },
+        //                                                    ],
+        //                                                },
+        //                                                { text: "زنگ", icon: "fa fa-folder m--font-brand" },
+        //                                                { text: "جنس رویه", icon: "fa fa-folder m--font-brand" },
+        //                                                { text: "لایه داخلی", icon: "fa fa-folder m--font-brand" },
+        //                                                { text: "جنس زیره", icon: "fa fa-folder m--font-brand" },
+        //                                                { text: "واحد فروش", icon: "fa fa-folder m--font-brand" },
+        //                                                { text: "تعداد در کارتن", icon: "fa fa-folder m--font-brand" },
+        //                                            ],
+        //                                        },
+        //                                        { text: "نقلی", icon: "fa fa-folder m--font-warning" },
+        //                                        { text: "پسرانه/دخترانه", icon: "fa fa-folder m--font-warning" },
+        //                                        { text: "زنانه/میانه", icon: "fa fa-folder m--font-warning" },
+        //                                    ],
+        //                                },
+        //                            ],
+        //                        }, {
+        //                            text: "کفش و صنایع وابسته", icon: "fa fa-folder m--font-success",
+        //                            children: [
+        //                                {
+        //                                    text: "کفش", icon: "fa fa-folder m--font-danger",
+        //                                    children: [
+        //                                        {
+        //                                            text: "مردانه", icon: "fa fa-folder m--font-warning",
+        //                                            children: [
+        //                                                { text: "نوع", icon: "fa fa-folder m--font-brand" },
+        //                                                { text: "تولید کننده", icon: "fa fa-folder m--font-brand" },
+        //                                                {
+        //                                                    text: "سایز", icon: "fa fa-folder m--font-brand",
+        //                                                    children: [
+        //                                                        { text: "23", icon: "fa fa-file m--font-secondary" },
+        //                                                    ],
+        //                                                },
+        //                                                { text: "زنگ", icon: "fa fa-folder m--font-brand" },
+        //                                                { text: "جنس رویه", icon: "fa fa-folder m--font-brand" },
+        //                                                { text: "لایه داخلی", icon: "fa fa-folder m--font-brand" },
+        //                                                { text: "جنس زیره", icon: "fa fa-folder m--font-brand" },
+        //                                                { text: "واحد فروش", icon: "fa fa-folder m--font-brand" },
+        //                                                { text: "تعداد در کارتن", icon: "fa fa-folder m--font-brand" },
+        //                                            ],
+        //                                        },
+        //                                        { text: "نقلی", icon: "fa fa-folder m--font-warning" },
+        //                                        { text: "پسرانه/دخترانه", icon: "fa fa-folder m--font-warning" },
+        //                                        { text: "زنانه/میانه", icon: "fa fa-folder m--font-warning" },
+        //                                    ],
+        //                                },
+        //                            ],
+        //                        },
+        //                    ],
+        //                },
+        //                types: { default: { icon: "fa fa-folder m--font-brand" }, file: { icon: "fa fa-file  m--font-brand" } },
+        //                state: { key: "demo" },
+        //                plugins: ["contextmenu", "state", "types", "checkbox"],
+        //            });
+        //    },
+        //};
+        //jQuery(document).ready(function () {
+        //    Treeview.init();
+        //});
+
+    </script>
+}

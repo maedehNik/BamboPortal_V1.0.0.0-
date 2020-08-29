@@ -8,7 +8,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">غیرفعال سازی گروه اصلی</h5>
+                <h5 class="modal-title">غیرفعال سازی گروه محصولات</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -16,12 +16,16 @@
             <input id="deactivemodalID" value="" style="display:none" />
             <div class="modal-body">
                 <p>
-                    <small style="display: block">با غیرفعال کردن این گروه اصلی تمام زیرمجموعه های این گروه اصلی نیز غیرفعال خواهند شد.</small>
+
+                    این گروه
+                    <span id="deactiveNameGetter"></span>
+                    غیرفعال شود؟
+                    <small style="display: block">با غیرفعال کردن این گروه تمام زیرمجموعه های این گروه نیز غیرفعال خواهند شد.</small>
                 </p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">خیر</button>
-                <button type="button" id="deActiveModal_SubmitBTN" class="btn btn-danger" onclick="return YesDeactivePlz()">بله</button>
+                <button type="button" id="deActiveModal_SubmitBTN" class="btn btn-warning" onclick="return YesDeactivePlz()">بله</button>
             </div>
         </div>
     </div>
@@ -30,20 +34,24 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">غیرفعال سازی گروه اصلی</h5>
+                <h5 class="modal-title">فعال سازی گروه اصلی</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
                 <p>
-                    <small style="display: block">با غیرفعال کردن این گروه اصلی تمام زیرمجموعه های این گروه اصلی نیز غیرفعال خواهند شد.</small>
+
+                    این گروه
+                    <span id="deactiveNameGetter"></span>
+                    فعال شود؟
+                    <small style="display: block">با فعال کردن این گروه تمام زیرمجموعه های این گروه نیز فعال خواهند شد.</small>
                 </p>
             </div>
             <div class="modal-footer">
                 <input id="activemodalID" value="" style="display:none" />
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">خیر</button>
-                <button type="button" id="ActiveModal_SubmitBTN" class="btn btn-danger" onclick="return YesAactivePlz()">بله</button>
+                <button type="button" id="ActiveModal_SubmitBTN" class="btn btn-success" onclick="return YesAactivePlz()">بله</button>
             </div>
         </div>
     </div>
@@ -60,7 +68,11 @@
             </div>
             <div class="modal-body">
                 <p>
-                    <small style="display: block">با حذف کردن این گروه اصلی تمام زیرمجموعه های این گروه اصلی نیز حذف خواهند شد.</small>
+
+                    این گروه
+                    <span id="deactiveNameGetter"></span>
+                    حذف شود؟
+                    <small style="display: block">با حذف کردن این گروه تمام زیرمجموعه های این گروه نیز حذف خواهند شد.</small>
                 </p>
             </div>
             <div class="modal-footer">
@@ -107,9 +119,20 @@
                             <li class="nav-item m-tabs__item">
                                 <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_user_profile_tab_1" role="tab">
                                     <i class="flaticon-share m--hide"></i>
-                                    <cust_title>
-                                        تعریف گروه محصولات
-                                    </cust_title>
+                                    @if (Model.SubmiterModel.IdSubCategoryForEdit == "0")
+                                    {
+                                <cust_title>
+                                    تعریف گروه محصولات
+                                </cust_title>
+                                    }
+                                    else
+                                    {
+                                <cust_title>
+                                    ویرایش گروه محصولات
+                                </cust_title>
+                                        <input value="@Url.Action("AddSubCategory","AdministratorProducts")" id="AddBlogGroupSubmiterRedirection" style="display:none" />
+                                    }
+
                                 </a>
                             </li>
                         </ul>
@@ -137,6 +160,7 @@
                                                 @Html.ValidationMessageFor(m => m.SubmiterModel.typeID)
                                             </div>
                                         </div>
+
                                         <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
                                             @Html.LabelFor(m => m.SubmiterModel.MainCategoryID, "سردسته محصول :", new { @id = "SubmiterModel_MainCategoryIDLBL", @class = "col-12 tshtextright" })
                                             <div class="col-lg-12 col-md-12 col-sm-12">
@@ -147,15 +171,36 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="form-group m-form__group col-lg-12 col-xs-12">
-                                            <div class="col-lg-12">
-                                                @Html.LabelFor(m => m.SubmiterModel.SubCategoryName, "نام گروه :", new { @id = "SubmiterModel_SubCategoryNameLBL", @class = "form-control-label" })
-                                                @Html.TextBoxFor(m => m.SubmiterModel.SubCategoryName, new { @class = "form-control m-input", @placeholder = "نام گروه" })
-                                                @Html.ValidationMessageFor(m => m.SubmiterModel.SubCategoryName)
+                                    @if (Model.SubmiterModel.IdSubCategoryForEdit == "0")
+                                    {
+
+
+                                        <div class="row">
+                                            <div class="form-group m-form__group col-lg-12 col-xs-12">
+                                                <div class="col-lg-12">
+                                                    @Html.LabelFor(m => m.SubmiterModel.SubCategoryName, "نام گروه :", new { @id = "SubmiterModel_SubCategoryNameLBL", @class = "form-control-label" })
+                                                    @Html.TextBoxFor(m => m.SubmiterModel.SubCategoryName, new { @class = "form-control m-input", @placeholder = "نام گروه" ,@Value=Model.SubmiterModel.SubCategoryName})
+                                                    @Html.ValidationMessageFor(m => m.SubmiterModel.SubCategoryName)
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    }
+                                    else
+                                    {
+
+                                       <div class="row">
+                                            <div class="form-group m-form__group col-lg-12 col-xs-12">
+                                                <div class="col-lg-12">
+                                                    @Html.LabelFor(m => m.SubmiterModel.SubCategoryName, "نام گروه :", new { @id = "SubmiterModel_SubCategoryNameLBL", @class = "form-control-label" })
+                                                    @Html.TextBoxFor(m => m.SubmiterModel.SubCategoryName, new { @class = "form-control m-input", @placeholder = Model.SubmiterModel.SubCategoryName ,@Value=Model.SubmiterModel.SubCategoryName
+                                                   })
+                                                    @Html.ValidationMessageFor(m => m.SubmiterModel.SubCategoryName)
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+
+                                    @Html.TextBoxFor(m => m.SubmiterModel.IdSubCategoryForEdit, new { @class = "form-control m-input", @style = "display:none;", @Value = Model.SubmiterModel.IdSubCategoryForEdit, @placeholder = "" })
                                     <div class="m-portlet__foot m-portlet__foot--fit mt-3">
                                         <div class="m-form__actions">
                                             <div class="row">
@@ -234,6 +279,7 @@
                                                                     }
                                                                 </td>
                                                                 <td>
+                                                                    <a href="@Url.Action("AddSubCategory","AdministratorProducts")?tID=@item.Id" class="btn btn-warning tshpcustom cus-delete-btn" onclick="return EditorforEdit('@item.Id')"><i class="fa fa-edit tshfa"></i>ویرایش</a>
                                                                     <button class="btn btn-danger tshpcustom cus-delete-btn" data-target="#deleteCus" data-toggle="modal" data-name="مردانه"><i class="fa fa-trash tshfa"></i>حذف</button>
                                                                 </td>
                                                             }
@@ -392,14 +438,14 @@
         function Activate(id) {
             $("#activemodalID").val(id);
         }
-        //function EditorforEdit(id) {
-        //    $("#FormSubmiting_IDMainCategoryForEdit").val(id);
-        //    $("#FormSubmiting_NameofCategory").val($("#idofMC-" + id).text());
-        //    $("#FormSubmiting_NameofCategoryLBL").text("در حال ویرایش " + $("#FormSubmiting_NameofCategory").val() + " :");
-        //    var idtype = $("#idoftype-" + id).val();
-        //    console.log(idtype);
-        //    $("#FormSubmiting_IdofSardastebandi").val('' + idtype).trigger('change');
-        //}
+        function EditorforEdit(id) {
+            $("#FormSubmiting_IDMainCategoryForEdit").val(id);
+            $("#FormSubmiting_NameofCategory").val($("#idofMC-" + id).text());
+            $("#FormSubmiting_NameofCategoryLBL").text("در حال ویرایش " + $("#FormSubmiting_NameofCategory").val() + " :");
+            var idtype = $("#idoftype-" + id).val();
+            console.log(idtype);
+            $("#FormSubmiting_IdofSardastebandi").val('' + idtype).trigger('change');
+        }
         function DeleteMC(id) {
             $("#deleteCusID").val(id)
         }

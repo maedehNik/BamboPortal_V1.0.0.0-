@@ -131,10 +131,10 @@
                                             <table class="cust-table table table-striped table-hover m-table m-table--head-separator-success">
                                                 <thead>
                                                     <tr>
-                                                        <th></th>
-                                                        <th></th>
-                                                        <th></th>
-                                                        <th></th>
+                                                        <th>#</th>
+                                                        <th>نام سردسته</th>
+                                                        <th>وضعیت</th>
+                                                        <th>عملیات</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -201,7 +201,7 @@
                                                                     <button class="btn btn-success tshpcustom deactivate-btn" data-target="#deactivemodal" data-toggle="modal"
                                                                             id="btnDesableType-@Model.TableAvailableProperty[_ii].id"
                                                                             onclick=" DesableType('btnDesableType-@Model.TableAvailableProperty[_ii].id')">
-                                                                        <i class="fa fa-check tshfa"></i>
+                                                                        <i class="fa fa-check tshfa">فعال</i>
                                                                     </button>
                                                                 }
                                                                 else
@@ -209,7 +209,7 @@
                                                                     <button class="btn btn-warning tshpcustom deactivate-btn" data-target="#deactivemodal" data-toggle="modal"
                                                                             id="btnAvailableType-@Model.TableAvailableProperty[_ii].id"
                                                                             onclick=" availableType('btnDesableType-@Model.TableAvailableProperty[_ii].id')">
-                                                                        <i class="fa fa-minus-circle tshfa"></i>
+                                                                        <i class="fa fa-minus-circle tshfa">غیرفعال</i>
                                                                     </button>
                                                                 }
                                                             </td>
@@ -219,11 +219,11 @@
                                                             <td>
                                                                 <a href="@Url.Action("AddType","AdministratorProducts")?tID=@Model.TableAvailableProperty[_ii].id"
                                                                    class="btn btn-warning tshpcustom cus-delete-btn">
-                                                                    <i class="fa fa-edit tshfa"></i>
+                                                                    <i class="fa fa-edit tshfa">ویرایش</i>
                                                                 </a>
                                                                 <button id="btnDeleteType-@Model.TableAvailableProperty[_ii].id"
-                                                                        onclick=" DeleteType('btnDeleteType-@Model.TableAvailableProperty[_ii].id')" class="btn btn-danger tshpcustom cus-delete-btn" data-target="#deleteCus" data-toggle="modal" data-name="...">
-                                                                    <i class="fa fa-trash tshfa"></i>
+                                                                        onclick=" DeleteType('btnDeleteType-@Model.TableAvailableProperty[_ii].id')" class="btn btn-danger tshpcustom cus-delete-btn" data-target="#deleteCus" data-toggle="modal" data-name="@Model.TableAvailableProperty[_ii].Typename">
+                                                                    <i class="fa fa-trash tshfa">حذف</i>
                                                                 </button>
                                                             </td>
                                                         </tr>

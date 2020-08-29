@@ -1,6 +1,7 @@
 ﻿using BamboPortal_V1._0._0._0.DatabaseCenter.Class;
 using BamboPortal_V1._0._0._0.Models;
 using BamboPortal_V1._0._0._0.Models.AdministratorProductsModels;
+using BamboPortal_V1._0._0._0.Models.CustomerSide;
 using BamboPortal_V1._0._0._0.Models.UsefulModels;
 using BamboPortal_V1._0._0._0.ModelViews.AdministratorProducts;
 using BamboPortal_V1._0._0._0.nonStaticUsefulClass.Products;
@@ -879,56 +880,204 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 model.Tbl = res;
             }
 
-            return View(model);
+            //================================================================================ For Editpage
+            if (Request.QueryString["tID"] != null)
+            {
+                List<ExcParameters> excParameters = new List<ExcParameters>();
+                ExcParameters excParameter = new ExcParameters()
+                {
+                    _KEY = "@id_PT",
+                    _VALUE = Request.QueryString["tID"].ToString()
+                };
+                excParameters.Add(excParameter);
+                db.Connect();
+                using (DataTable dt = db.Select("SELECT[id_SC],[id_MC],[SCName] FROM [tbl_Product_SubCategory] WHERE [id_SC]= @id_PT", excParameters))
+                {
+                    db.DC();
+                    if (dt.Rows.Count > 0)
+                    {
+                        AddSubCategorySubmiterModel submiterModel = new AddSubCategorySubmiterModel()
+                        {
+                            SubCategoryName = dt.Rows[0]["SCName"].ToString(),
+                            MainCategoryID = dt.Rows[0]["id_MC"].ToString(),
+                            typeID="0",
+                            IdSubCategoryForEdit= dt.Rows[0]["id_SC"].ToString(),
+                        };
+                        model.SubmiterModel = submiterModel;
+                        return View(model);
+                    }
+                    else
+                    {
+                        PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "IN Controller : {AdministratorProductsController}\nMethod : {public ActionResult AddSubCategory() Cannot Cast to Request.QueryString[\"tID\"].ToString()}");
+                        var ModelSender = new ErrorReporterModel
+                        {
+                            ErrorID = "EX112",
+                            Errormessage = $"ورود متغیر خلاف پروتکل های امنیتی",
+                            Errortype = "Error"
+                        };
+                        return Json(ModelSender);
+                    }
+                }
+            }
+            else
+            {
+                AddSubCategorySubmiterModel submiterModel = new AddSubCategorySubmiterModel()
+                {
+                    SubCategoryName = "",
+                    MainCategoryID = "0",
+                    typeID = "0",
+                    IdSubCategoryForEdit = "0",
+                };
+                model.SubmiterModel = submiterModel;
+                return View(model);
+            }
+            //================================================================================ For Editpage
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddSubCategory(AddSubCategoryModelView senderobj)
+        public ActionResult AddSubCategory(AddSubCategoryModelView senderObjs)
         {
+            AddSubCategorySubmiterModel senderObj = senderObjs.SubmiterModel;
+            PDBC db = new PDBC();
             if (ModelState.IsValid)
             {
-                PDBC db = new PDBC();
-
-                List<ExcParameters> paramss = new List<ExcParameters>();
-                ExcParameters parameters = new ExcParameters();
-                parameters = new ExcParameters()
+                if (senderObj != null)
                 {
-                    _KEY = "@value",
-                    _VALUE = senderobj.SubmiterModel.SubCategoryName
-                };
-                paramss.Add(parameters);
-                parameters = new ExcParameters()
-                {
-                    _KEY = "@data_Sub",
-                    _VALUE = senderobj.SubmiterModel.MainCategoryID
-                };
-                paramss.Add(parameters);
-                db.Connect();
-                string result = db.Script("INSERT INTO [tbl_Product_SubCategory]([id_MC],[SCName],[ISDESABLED],[ISDelete])VALUES (@data_Sub,@value,0,0)", paramss);
-                db.DC();
-                if (result == "1")
-                {
-                    var ModelSender = new ErrorReporterModel
+                    uint id = 0;
+                    if (UInt32.TryParse(senderObj.IdSubCategoryForEdit, out id))
                     {
-                        ErrorID = "SX106",
-                        Errormessage = $"گروه محصولات با موفقیت ثبت شد!",
-                        Errortype = "Success"
-                    };
-                    return Json(ModelSender);
+                        try
+                        {
+                            if (senderObj.typeID == "0")
+                            {
+                                List<ExcParameters> parss = new List<ExcParameters>();
+                                ExcParameters par = new ExcParameters()
+                                {
+                                    _KEY = "@value",
+                                    _VALUE = senderObj.SubCategoryName
+                                };
+                                parss.Add(par); 
+                                par = new ExcParameters()
+                                {
+                                    _KEY = "@data_Sub",
+                                    _VALUE = senderObj.MainCategoryID
+                                };
+                                parss.Add(par);
+                                db.Connect();
+                                string result = db.Script("INSERT INTO [tbl_Product_SubCategory]([id_MC],[SCName],[ISDESABLED],[ISDelete])VALUES (@data_Sub,@value,0,0)", parss);
+                                db.DC();
+                                if (result == "1")
+                                {
+                                    var ModelSender = new ErrorReporterModel
+                                    {
+                                        ErrorID = "SX105",
+                                        Errormessage = $"اطلاعات با موفقیت ثبت شد!",
+                                        Errortype = "Success"
+                                    };
+                                    return Json(ModelSender);
+                                }
+                                else
+                                {
+                                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                                    var ModelSender = new ErrorReporterModel
+                                    {
+                                        ErrorID = "EX114",
+                                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                                        Errortype = "Error"
+                                    };
+                                    return Json(ModelSender);
+                                }
+                            }
+                            else
+                            {
+                                List<ExcParameters> parss = new List<ExcParameters>();
+                                ExcParameters par = new ExcParameters()
+                                {
+                                    _KEY = "@id",
+                                    _VALUE = senderObj.IdSubCategoryForEdit
+                                };
+                                parss.Add(par);
+                                par = new ExcParameters()
+                                {
+                                    _KEY = "@value",
+                                    _VALUE = senderObj.SubCategoryName
+                                };
+                                parss.Add(par);
+                                par = new ExcParameters()
+                                {
+                                    _KEY = "@data_Sub",
+                                    _VALUE = senderObj.MainCategoryID
+                                };
+                                parss.Add(par);
+                                db.Connect();
+                                string result = db.Script("UPDATE [tbl_Product_SubCategory] SET [SCName] = @value,[id_MC] = @data_Sub WHERE id_SC = @id", parss);
+                                db.DC();
+                                if (result == "1")
+                                {
+                                    var ModelSender = new ErrorReporterModel
+                                    {
+                                        ErrorID = "SX104",
+                                        Errormessage = $"اطلاعات با موفقیت تغییر یافت!",
+                                        Errortype = "Success"
+                                    };
+                                    return Json(ModelSender);
+                                }
+                                else
+                                {
+                                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                                    var ModelSender = new ErrorReporterModel
+                                    {
+                                        ErrorID = "EX114",
+                                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                                        Errortype = "Error"
+                                    };
+                                    return Json(ModelSender);
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "IN Controller : {AdministratorProductsController}\nMethod : {public ActionResult AddSubCategory(AddSubCategory senderObj) Cannot Cast to UINT}")
+                            {
+                                EXOBJ = ex
+                            };
+                            var ModelSender = new ErrorReporterModel
+                            {
+                                ErrorID = "EX113",
+                                Errormessage = $"ورود متغیر خلاف پروتکل های امنیتی",
+                                Errortype = "Error"
+                            };
+                            return Json(ModelSender);
+                        }
+
+
+
+                    }
+                    else
+                    {
+                        PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "IN Controller : {AdministratorProductsController}\nMethod : {public ActionResult AddType(addtype senderObj) Cannot Cast to UINT}");
+                        var ModelSender = new ErrorReporterModel
+                        {
+                            ErrorID = "EX111",
+                            Errormessage = $"ورود متغیر خلاف پروتکل های امنیتی",
+                            Errortype = "Error"
+                        };
+                        return Json(ModelSender);
+                    }
+
                 }
                 else
                 {
-                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "IN Controller : {AdministratorProductsController}\nMethod : {public ActionResult AddType(addtype senderObj)  (senderObj == null)");
                     var ModelSender = new ErrorReporterModel
                     {
-                        ErrorID = "EX115",
-                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                        ErrorID = "EX111",
+                        Errormessage = $"ورود متغیر خلاف پروتکل های امنیتی",
                         Errortype = "Error"
                     };
                     return Json(ModelSender);
                 }
-
-
             }
             else
             {
@@ -943,7 +1092,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                     {
                         ModelErrorReporter er = new ModelErrorReporter()
                         {
-                            IdOfProperty = AllKeys[i].Replace("SubmiterModel.", "SubmiterModel_"),
+                            IdOfProperty = AllKeys[i].Replace("addtypeField.", "addtypeField_"),
                             ErrorMessage = AllValues[i].Errors[0].ErrorMessage
                         };
                         allErrors.Add(er);
@@ -951,7 +1100,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 }
                 var ModelSender = new ErrorReporterModel
                 {
-                    ErrorID = "EX0012",
+                    ErrorID = "EX115",
                     Errormessage = $"عدم رعایت استاندارد ها!",
                     Errortype = "ErrorWithList",
                     AllErrors = allErrors
@@ -959,7 +1108,9 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 return Json(ModelSender);
             }
 
+
         }
+
         [HttpPost]
         public JsonResult AddSubCategoryActive(string idToActive)
         {
@@ -1198,59 +1349,205 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 }
             }
 
-            return View(model);
+            //================================================================================ For Editpage
+            if (Request.QueryString["tID"] != null)
+            {
+                List<ExcParameters> excParameters = new List<ExcParameters>();
+                ExcParameters excParameter = new ExcParameters()
+                {
+                    _KEY = "@id_PT",
+                    _VALUE = Request.QueryString["tID"].ToString()
+                };
+                excParameters.Add(excParameter);
+                db.Connect();
+                using (DataTable dt = db.Select("SELECT [id_SCOK],[id_SC],[SCOKName] FROM [tbl_Product_SubCategoryOptionKey] WHERE id_SCOK= @id_PT", excParameters))
+                {
+                    db.DC();
+                    if (dt.Rows.Count > 0)
+                    {
+                        AddSubCatKeySubmit submiterModel = new AddSubCatKeySubmit()
+                        {
+                            ProductSubCategoryId = dt.Rows[0]["id_SC"].ToString(),
+                            ProductSubCategoryKeyName = dt.Rows[0]["SCOKName"].ToString(),
+                            ProcuctMainCategoryId = "0",
+                            ProductTypeId = "0",
+                            ProductSubCategoryKeyIDForEdit = dt.Rows[0]["id_SCOK"].ToString(),
+                        };
+                        model.KeySubmit = submiterModel;
+                        return View(model);
+                    }
+                    else
+                    {
+                        PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "IN Controller : {AdministratorProductsController}\nMethod : {public ActionResult AddSubCategory() Cannot Cast to Request.QueryString[\"tID\"].ToString()}");
+                        var ModelSender = new ErrorReporterModel
+                        {
+                            ErrorID = "EX112",
+                            Errormessage = $"ورود متغیر خلاف پروتکل های امنیتی",
+                            Errortype = "Error"
+                        };
+                        return Json(ModelSender);
+                    }
+                }
+            }
+            else
+            {
+                AddSubCatKeySubmit submiterModel = new AddSubCatKeySubmit()
+                {
+                    ProductSubCategoryId = "0",
+                    ProductSubCategoryKeyName = "",
+                    ProcuctMainCategoryId = "0",
+                    ProductTypeId = "0",
+                    ProductSubCategoryKeyIDForEdit = "0",
+                };
+                model.KeySubmit = submiterModel;
+                return View(model);
+            }
+            //================================================================================ For Editpage
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddSubCategoryKey(AddSubCategoryKeyModelView senderobj)
+        public ActionResult AddSubCategoryKey(AddSubCategoryKeyModelView senderObjs)
         {
+            AddSubCatKeySubmit senderObj = senderObjs.KeySubmit;
+            PDBC db = new PDBC();
             if (ModelState.IsValid)
             {
-
-                PDBC db = new PDBC();
-                List<ExcParameters> paramss = new List<ExcParameters>();
-                ExcParameters parameters = new ExcParameters();
-
-                parameters = new ExcParameters()
+                if (senderObj != null)
                 {
-                    _KEY = "@value",
-                    _VALUE = senderobj.KeySubmit.ProductSubCategoryKeyName
-                };
-                paramss.Add(parameters);
-
-                parameters = new ExcParameters()
-                {
-                    _KEY = "@data_SCK",
-                    _VALUE = senderobj.KeySubmit.ProductSubCategoryId
-                };
-                paramss.Add(parameters);
-                db.Connect();
-                string result = db.Script("INSERT INTO [tbl_Product_SubCategoryOptionKey]([id_SC],[SCOKName],[ISDESABLED],[ISDelete])VALUES(@data_SCK,@value,0,0)", paramss);
-                db.DC();
-
-                if (result == "1")
-                {
-                    var ModelSender = new ErrorReporterModel
+                    uint id = 0;
+                    if (UInt32.TryParse(senderObj.ProductSubCategoryKeyIDForEdit, out id))
                     {
-                        ErrorID = "SX106",
-                        Errormessage = $"نام ویژگی محصولات با موفقیت ثبت شد!",
-                        Errortype = "Success"
-                    };
-                    return Json(ModelSender);
+                        try
+                        {
+                            if (senderObj.ProductSubCategoryKeyIDForEdit == "0")
+                            {
+                                List<ExcParameters> parss = new List<ExcParameters>();
+                                ExcParameters par = new ExcParameters()
+                                {
+                                    _KEY = "@SubId",
+                                    _VALUE = senderObj.ProductSubCategoryId
+                                };
+                                parss.Add(par);
+                                par = new ExcParameters()
+                                {
+                                    _KEY = "@data",
+                                    _VALUE = senderObj.ProductSubCategoryKeyName
+                                };
+                                parss.Add(par);
+                                db.Connect();
+                                string result = db.Script("INSERT INTO [dbo].[tbl_Product_SubCategoryOptionKey]([id_SC],[SCOKName],[ISDESABLED],[ISDelete],[CreatedDate])VALUES(@SubId,@data,0,0,GetDate())", parss);
+                                db.DC();
+                                if (result == "1")
+                                {
+                                    var ModelSender = new ErrorReporterModel
+                                    {
+                                        ErrorID = "SX105",
+                                        Errormessage = $"اطلاعات با موفقیت ثبت شد!",
+                                        Errortype = "Success"
+                                    };
+                                    return Json(ModelSender);
+                                }
+                                else
+                                {
+                                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                                    var ModelSender = new ErrorReporterModel
+                                    {
+                                        ErrorID = "EX114",
+                                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                                        Errortype = "Error"
+                                    };
+                                    return Json(ModelSender);
+                                }
+                            }
+                            else
+                            {
+                                List<ExcParameters> parss = new List<ExcParameters>();
+                                ExcParameters par = new ExcParameters()
+                                {
+                                    _KEY = "@id",
+                                    _VALUE = senderObj.ProductSubCategoryKeyIDForEdit
+                                };
+                                parss.Add(par);
+                                par = new ExcParameters()
+                                {
+                                    _KEY = "@SubId",
+                                    _VALUE = senderObj.ProductSubCategoryId
+                                };
+                                parss.Add(par);
+                                par = new ExcParameters()
+                                {
+                                    _KEY = "@data",
+                                    _VALUE = senderObj.ProductSubCategoryKeyName
+                                };
+                                parss.Add(par);
+                                db.Connect();
+                                string result = db.Script("UPDATE [tbl_Product_SubCategoryOptionKey] SET [id_SC] = @SubId,[SCOKName] = @data WHERE id_SCOK = @id", parss);
+                                db.DC();
+                                if (result == "1")
+                                {
+                                    var ModelSender = new ErrorReporterModel
+                                    {
+                                        ErrorID = "SX104",
+                                        Errormessage = $"اطلاعات با موفقیت تغییر یافت!",
+                                        Errortype = "Success"
+                                    };
+                                    return Json(ModelSender);
+                                }
+                                else
+                                {
+                                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                                    var ModelSender = new ErrorReporterModel
+                                    {
+                                        ErrorID = "EX114",
+                                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                                        Errortype = "Error"
+                                    };
+                                    return Json(ModelSender);
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "IN Controller : {AdministratorProductsController}\nMethod : {public ActionResult AddSubCategoryKey(AddSubCategoryKey senderObj) Cannot Cast to UINT}")
+                            {
+                                EXOBJ = ex
+                            };
+                            var ModelSender = new ErrorReporterModel
+                            {
+                                ErrorID = "EX113",
+                                Errormessage = $"ورود متغیر خلاف پروتکل های امنیتی",
+                                Errortype = "Error"
+                            };
+                            return Json(ModelSender);
+                        }
+
+
+
+                    }
+                    else
+                    {
+                        PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "IN Controller : {AdministratorProductsController}\nMethod : {public ActionResult AddType(addtype senderObj) Cannot Cast to UINT}");
+                        var ModelSender = new ErrorReporterModel
+                        {
+                            ErrorID = "EX111",
+                            Errormessage = $"ورود متغیر خلاف پروتکل های امنیتی",
+                            Errortype = "Error"
+                        };
+                        return Json(ModelSender);
+                    }
+
                 }
                 else
                 {
-                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "IN Controller : {AdministratorProductsController}\nMethod : {public ActionResult AddType(addtype senderObj)  (senderObj == null)");
                     var ModelSender = new ErrorReporterModel
                     {
-                        ErrorID = "EX115",
-                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                        ErrorID = "EX111",
+                        Errormessage = $"ورود متغیر خلاف پروتکل های امنیتی",
                         Errortype = "Error"
                     };
                     return Json(ModelSender);
                 }
-
-
             }
             else
             {
@@ -1273,15 +1570,16 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 }
                 var ModelSender = new ErrorReporterModel
                 {
-                    ErrorID = "EX0012",
+                    ErrorID = "EX115",
                     Errormessage = $"عدم رعایت استاندارد ها!",
                     Errortype = "ErrorWithList",
                     AllErrors = allErrors
                 };
                 return Json(ModelSender);
             }
-        }
 
+
+        }
         [HttpPost]
         public JsonResult AddSubCategoryKeyActive(string idToActive)
         {
@@ -1509,58 +1807,209 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 }
             }
 
-            return View(model);
+            //================================================================================ For Editpage
+            if (Request.QueryString["tID"] != null)
+            {
+                List<ExcParameters> excParameters = new List<ExcParameters>();
+                ExcParameters excParameter = new ExcParameters()
+                {
+                    _KEY = "@id_PT",
+                    _VALUE = Request.QueryString["tID"].ToString()
+                };
+                excParameters.Add(excParameter);
+                db.Connect();
+                using (DataTable dt = db.Select("SELECT [id_SCOV],[id_SCOK],[SCOVValueName] FROM [tbl_Product_SubCategoryOptionValue] WHERE id_SCOV= @id_PT", excParameters))
+                {
+                    db.DC();
+                    if (dt.Rows.Count > 0)
+                    {
+                        AddSubCateGoryValuesOfKeysSubmit submiterModel = new AddSubCateGoryValuesOfKeysSubmit()
+                        {
+                            ProductSubCategoryValueOfKeyName= dt.Rows[0]["SCOVValueName"].ToString(),
+                            ProductSubCategoryKeyID= dt.Rows[0]["id_SCOK"].ToString(),
+                            ProductSubCategoryId = "0",
+                            ProcuctMainCategoryId = "0",
+                            ProductTypeId = "0",
+                            ProductSubCategoryValueOfKeyIDForEdit= dt.Rows[0]["id_SCOV"].ToString(),
+                        };
+                        model.KeySubmit = submiterModel;
+                        return View(model);
+                    }
+                    else
+                    {
+                        PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "IN Controller : {AdministratorProductsController}\nMethod : {public ActionResult AddSubCateGoryValuesOfKeys() Cannot Cast to Request.QueryString[\"tID\"].ToString()}");
+                        var ModelSender = new ErrorReporterModel
+                        {
+                            ErrorID = "EX112",
+                            Errormessage = $"ورود متغیر خلاف پروتکل های امنیتی",
+                            Errortype = "Error"
+                        };
+                        return Json(ModelSender);
+                    }
+                }
+            }
+            else
+            {
+                AddSubCateGoryValuesOfKeysSubmit submiterModel = new AddSubCateGoryValuesOfKeysSubmit()
+                {
+                    ProductSubCategoryValueOfKeyName = "",
+                    ProductSubCategoryKeyID = "0",
+                    ProductSubCategoryId = "0",
+                    ProcuctMainCategoryId = "0",
+                    ProductTypeId = "0",
+                    ProductSubCategoryValueOfKeyIDForEdit ="0",
+                };
+                model.KeySubmit = submiterModel;
+                return View(model);
+            }
+            //================================================================================ For Editpage
+
         }
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddSubCateGoryValuesOfKeys(AddSubCateGoryValuesOfKeysModelView senderobj)
+        public ActionResult AddSubCateGoryValuesOfKeys(AddSubCateGoryValuesOfKeysModelView senderObjs)
         {
+            AddSubCateGoryValuesOfKeysSubmit senderObj = senderObjs.KeySubmit;
+            PDBC db = new PDBC();
             if (ModelState.IsValid)
             {
-
-                PDBC db = new PDBC();
-                List<ExcParameters> paramss = new List<ExcParameters>();
-                ExcParameters parameters = new ExcParameters();
-
-                parameters = new ExcParameters()
+                if (senderObj != null)
                 {
-                    _KEY = "@value",
-                    _VALUE = senderobj.KeySubmit.ProductSubCategoryValueOfKeyName
-                };
-                paramss.Add(parameters);
-                parameters = new ExcParameters()
-                {
-                    _KEY = "@data_SCK",
-                    _VALUE = senderobj.KeySubmit.ProductSubCategoryKeyID
-                };
-                paramss.Add(parameters);
-                db.Connect();
-                string result = db.Script("INSERT INTO [tbl_Product_SubCategoryOptionValue] ([id_SCOK] ,[SCOVValueName] ,[CreatedDate]) VALUES(@data_SCK,@value,getdate())", paramss);
-                db.DC();
-
-                if (result == "1")
-                {
-                    var ModelSender = new ErrorReporterModel
+                    uint id = 0;
+                    if (UInt32.TryParse(senderObj.ProductSubCategoryValueOfKeyIDForEdit, out id))
                     {
-                        ErrorID = "SX106",
-                        Errormessage = $"مقدار ویژگی محصولات با موفقیت ثبت شد!",
-                        Errortype = "Success"
-                    };
-                    return Json(ModelSender);
+                        try
+                        {
+                            if (senderObj.ProductSubCategoryValueOfKeyIDForEdit == "0")
+                            {
+                                List<ExcParameters> parss = new List<ExcParameters>();
+                                ExcParameters par = new ExcParameters()
+                                {
+                                    _KEY = "@KeyId",
+                                    _VALUE = senderObj.ProductSubCategoryKeyID
+                                };
+                                parss.Add(par);
+                                par = new ExcParameters()
+                                {
+                                    _KEY = "@data",
+                                    _VALUE = senderObj.ProductSubCategoryValueOfKeyName
+                                };
+                                parss.Add(par);
+                                db.Connect();
+                                string result = db.Script("INSERT INTO [tbl_Product_SubCategoryOptionValue]([id_SCOK],[SCOVValueName],[CreatedDate])VALUES(@KeyId,@data,GETDATE())", parss);
+                                db.DC();
+                                if (result == "1")
+                                {
+                                    var ModelSender = new ErrorReporterModel
+                                    {
+                                        ErrorID = "SX105",
+                                        Errormessage = $"اطلاعات با موفقیت ثبت شد!",
+                                        Errortype = "Success"
+                                    };
+                                    return Json(ModelSender);
+                                }
+                                else
+                                {
+                                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                                    var ModelSender = new ErrorReporterModel
+                                    {
+                                        ErrorID = "EX114",
+                                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                                        Errortype = "Error"
+                                    };
+                                    return Json(ModelSender);
+                                }
+                            }
+                            else
+                            {
+                                List<ExcParameters> parss = new List<ExcParameters>();
+                                ExcParameters par = new ExcParameters()
+                                {
+                                    _KEY = "@id",
+                                    _VALUE = senderObj.ProductSubCategoryValueOfKeyIDForEdit
+                                };
+                                parss.Add(par);
+                                par = new ExcParameters()
+                                {
+                                    _KEY = "@KeyId",
+                                    _VALUE = senderObj.ProductSubCategoryKeyID
+                                };
+                                parss.Add(par);
+                                par = new ExcParameters()
+                                {
+                                    _KEY = "@data",
+                                    _VALUE = senderObj.ProductSubCategoryValueOfKeyName
+                                };
+                                parss.Add(par);
+                                db.Connect();
+                                string result = db.Script("UPDATE [tbl_Product_SubCategoryOptionValue] SET [id_SCOK] = @KeyId ,[SCOVValueName] = @data WHERE id_SCOV= @id", parss);
+                                db.DC();
+                                if (result == "1")
+                                {
+                                    var ModelSender = new ErrorReporterModel
+                                    {
+                                        ErrorID = "SX104",
+                                        Errormessage = $"اطلاعات با موفقیت تغییر یافت!",
+                                        Errortype = "Success"
+                                    };
+                                    return Json(ModelSender);
+                                }
+                                else
+                                {
+                                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                                    var ModelSender = new ErrorReporterModel
+                                    {
+                                        ErrorID = "EX114",
+                                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                                        Errortype = "Error"
+                                    };
+                                    return Json(ModelSender);
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "IN Controller : {AdministratorProductsController}\nMethod : {public ActionResult AddSubCateGoryValuesOfKeys(AddSubCateGoryValuesOfKeys senderObj) Cannot Cast to UINT}")
+                            {
+                                EXOBJ = ex
+                            };
+                            var ModelSender = new ErrorReporterModel
+                            {
+                                ErrorID = "EX113",
+                                Errormessage = $"ورود متغیر خلاف پروتکل های امنیتی",
+                                Errortype = "Error"
+                            };
+                            return Json(ModelSender);
+                        }
+
+
+
+                    }
+                    else
+                    {
+                        PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "IN Controller : {AdministratorProductsController}\nMethod : {public ActionResult AddSubCateGoryValuesOfKeys(AddSubCateGoryValuesOfKeys senderObj) Cannot Cast to UINT}");
+                        var ModelSender = new ErrorReporterModel
+                        {
+                            ErrorID = "EX111",
+                            Errormessage = $"ورود متغیر خلاف پروتکل های امنیتی",
+                            Errortype = "Error"
+                        };
+                        return Json(ModelSender);
+                    }
+
                 }
                 else
                 {
-                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "IN Controller : {AdministratorProductsController}\nMethod : {public ActionResult AddSubCateGoryValuesOfKeys(AddSubCateGoryValuesOfKeys senderObj)  (senderObj == null)");
                     var ModelSender = new ErrorReporterModel
                     {
-                        ErrorID = "EX115",
-                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                        ErrorID = "EX111",
+                        Errormessage = $"ورود متغیر خلاف پروتکل های امنیتی",
                         Errortype = "Error"
                     };
                     return Json(ModelSender);
                 }
-
-
             }
             else
             {
@@ -1583,14 +2032,17 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 }
                 var ModelSender = new ErrorReporterModel
                 {
-                    ErrorID = "EX0012",
+                    ErrorID = "EX115",
                     Errormessage = $"عدم رعایت استاندارد ها!",
                     Errortype = "ErrorWithList",
                     AllErrors = allErrors
                 };
                 return Json(ModelSender);
             }
+
+
         }
+
         [HttpPost]
         public JsonResult AddSubCateGoryValuesOfKeysDelete(string idTodelete)
         {
@@ -1821,10 +2273,8 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 }
             }
 
-
-
-
-            return View(model);
+            
+                return View(model);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -1956,7 +2406,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 return Json(ModelSender);
             }
 
-            return Json("");
+            
         }
 
         public JsonResult AddMainTag_DELETE(string idTodelete)
@@ -2266,6 +2716,62 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 return RedirectToAction("ProductList");
             }
 
+        }
+
+        public ActionResult EditProduct(string ProId)
+        {
+            PDBC db = new PDBC();
+            uint id = 0;
+            if (UInt32.TryParse(ProId, out id))
+            {
+                List<ExcParameters> parss = new List<ExcParameters>();
+                ExcParameters par = new ExcParameters()
+                {
+                    _KEY = "@id_PT",
+                    _VALUE = ProId
+                };
+                parss.Add(par);
+                db.Connect();
+                DataTable dt = db.Select("SELECT [id_MProduct],[Description],[Title],[Seo_Description],[Seo_KeyWords],[IS_AD],[Search_Gravity] FROM [tbl_Product] WHERE id_MProduct= @id_PT", parss);
+
+                db.DC();
+                if (dt.Rows.Count > 0)
+                {
+                    var ModelSender = new ProductEditSubmiterModel()
+                    {
+                        ProId=Convert.ToInt32(dt.Rows[0]["id_MProduct"]),
+                        Title= dt.Rows[0]["Title"].ToString(),
+                        Description = dt.Rows[0]["Description"].ToString(),
+                        SEO_keyword = dt.Rows[0]["Seo_KeyWords"].ToString(),
+                        SEO_Description = dt.Rows[0]["Seo_Description"].ToString(),
+                        Weight = Convert.ToInt32(dt.Rows[0]["Search_Gravity"]),
+                        IsImportant = Convert.ToInt32(dt.Rows[0]["IS_AD"])
+                    };
+                    return Json(ModelSender);
+                }
+                else
+                { 
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "EX112",
+                        Errormessage = $"ورود متغیر خلاف پروتکل های امنیتی",
+                        Errortype = "Error"
+                    };
+                    return Json(ModelSender);
+                }
+
+            }
+            else
+            {
+                PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "sher o ver e L326");
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX115",
+                    Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                    Errortype = "Error"
+                };
+                return Json(ModelSender);
+            }
         }
         //{END}For Product  AddProduct
         //=================================================================================================================
@@ -2688,6 +3194,75 @@ namespace BamboPortal_V1._0._0._0.Controllers
             return View(modelView);
         }
 
+        public ActionResult DeletedProductsList()
+        {
+            ProductListTableModelView modelView = new ProductListTableModelView();
+            modelView.Allrows = new List<ProductListTable>();
+            PDBC db = new PDBC();
+            db.Connect();
+            using (DataTable dt = db.Select("SELECT [id_MProduct],(SELECT TOP 1 [id_MPC] FROM [tlb_Product_MainProductConnector] WHERE [tlb_Product_MainProductConnector].[id_MProduct] =[tbl_Product].[id_MProduct] ) as idMPC,[IS_AVAILABEL],[Description],[DateCreated],[Title],[id_SubCategory],[ISDELETE],(SELECT top 1 [thumUploadAddress] FROM [v_tblProduct_Image] where [v_tblProduct_Image].[id_MProduct]=[tbl_Product].[id_MProduct]) as [pic],(SELECT[PricePerquantity] FROM [tlb_Product_MainProductConnector] WHERE id_MPC=idMPC_WhichTomainPrice) AS price,(SELECT[ad_firstname]+' '+[ad_lastname] FROM [tbl_ADMIN_main]where id_Admin=[id_CreatedByAdmin])as AddBy,(SELECT [PTname]FROM [tbl_Product_Type]where[id_PT]=[id_Type])as [type],(SELECT[SCName]FROM [tbl_Product_SubCategory]where[id_SC]=[id_SubCategory])as SubCat,(SELECT[MCName]FROM [tbl_Product_MainCategory]where[id_MC]=[id_MainCategory])as MainCat FROM [tbl_Product] WHERE [ISDELETE]=1 ORDER BY (DateCreated) DESC "))
+            {
+                db.DC();
+                int dtrows = dt.Rows.Count;
+                for (int i = 0; i < dtrows; i++)
+                {
+                    DateTime date = Convert.ToDateTime(dt.Rows[i]["DateCreated"]);
+                    PersianDateTime persianDateTime = new PersianDateTime(date);
+                    string aa = dt.Rows[i]["id_MProduct"].ToString();
+                    string bb = dt.Rows[i]["idMPC"].ToString();
+                    int bb2 = 0;
+                    int aa2 = 0;
+                    if (!string.IsNullOrEmpty(aa))
+                        aa2 = Convert.ToInt32(aa);
+                    if (!string.IsNullOrEmpty(bb))
+                        bb2 = Convert.ToInt32(bb);
+                    var model = new ProductListTable()
+                    {
+                        idMPC = bb2,
+                        id = aa2,
+                        Productname = dt.Rows[i]["Title"].ToString(),
+                        ProductDescription = dt.Rows[i]["Description"].ToString(),
+                        AdminSubmiterName = dt.Rows[i]["AddBy"].ToString(),
+                        SubmitedDate = persianDateTime.ToString(),
+                        PicThumnailUrl = dt.Rows[i]["pic"].ToString(),
+                    };
+
+                    if (dt.Rows[i]["IS_AVAILABEL"].ToString() == "1")
+                    {
+                        model.ActivateStatus = 1;
+                    }
+                    else
+                    {
+                        model.ActivateStatus = 2;
+                    }
+                    if (dt.Rows[i]["ISDELETE"].ToString() == "1")
+                    {
+                        model.ActivateStatus = 3;
+                    }
+                    model.AllCategorys = new List<Categors>();
+                    model.AllCategorys.Add(new Categors()
+                    {
+                        CategorColor = "success",
+                        CategorName = dt.Rows[i]["SubCat"].ToString()
+
+                    });
+                    model.AllCategorys.Add(new Categors()
+                    {
+                        CategorColor = "info",
+                        CategorName = dt.Rows[i]["MainCat"].ToString()
+
+                    });
+                    model.AllCategorys.Add(new Categors()
+                    {
+                        CategorColor = "danger",
+                        CategorName = dt.Rows[i]["type"].ToString()
+
+                    });
+                    modelView.Allrows.Add(model);
+                }
+            }
+            return View(modelView);
+        }
         [HttpPost]
         public JsonResult ActiveProduct(string idToActive)
         {
@@ -2951,7 +3526,87 @@ namespace BamboPortal_V1._0._0._0.Controllers
         }
         //========================================================
 
+        public ActionResult Product_ShowCatTree()
+        {
+            return View();
+        }
 
 
+        [HttpPost]
+        public ActionResult GetCategoryTree()
+        {
+            var result = new List<CategotyTreeModel>();
+            PDBC db = new PDBC();
+            db.Connect();
+            DataTable Type = db.Select("SELECT [id_PT],[PTname] FROM [tbl_Product_Type] where ISDelete=0 AND ISDESABLED=0");
+            for (int i = 0; i < Type.Rows.Count; i++)
+            {
+                var MainCat = new List<CategotyTreeModel>();
+                DataTable Mains = db.Select("SELECT [id_MC],[MCName] FROM [tbl_Product_MainCategory] WHERE ISDelete=0 AND ISDESABLED=0 AND id_PT=" + Type.Rows[i]["id_PT"]);
+                for (int j = 0; j < Mains.Rows.Count; j++)
+                {
+                    var SubCat = new List<CategotyTreeModel>();
+                    DataTable Subs = db.Select("SELECT [id_SC],[SCName] FROM [tbl_Product_SubCategory] WHERE ISDelete=0 AND ISDESABLED=0 AND id_MC=" + Mains.Rows[j]["id_MC"]);
+                    for (int k = 0; k < Subs.Rows.Count; k++)
+                    {
+                        var SubCatKey = new List<CategotyTreeModel>();
+                        DataTable SubsK = db.Select("SELECT [id_SCOK],[SCOKName] FROM [tbl_Product_SubCategoryOptionKey] where ISDelete=0 AND ISDESABLED=0 AND id_SC=" + Subs.Rows[k]["id_SC"]);
+                        for (int k1 = 0; k1 < SubsK.Rows.Count; k1++)
+                        {
+                            var SubCatKeyVal = new List<CategotyTreeModel>();
+                            DataTable SubsKV = db.Select("SELECT [id_SCOV],[SCOVValueName] FROM [tbl_Product_SubCategoryOptionValue] where id_SCOK=" + SubsK.Rows[k1]["id_SCOK"]);
+                            for (int k2 = 0; k2 < SubsKV.Rows.Count; k2++)
+                            {
+                                var M5 = new CategotyTreeModel()
+                                {
+                                    Id = Convert.ToInt32(SubsKV.Rows[k2]["id_SCOV"]),
+                                    text = SubsKV.Rows[k2]["SCOVValueName"].ToString(),
+                                    icon = "fa fa-file m--font-secondary"
+                                };
+                                SubCatKeyVal.Add(M5);
+                            }
+                            var M4 = new CategotyTreeModel()
+                            {
+                                Id = Convert.ToInt32(SubsK.Rows[k1]["id_SCOK"]),
+                                text = SubsK.Rows[k1]["SCOKName"].ToString(),
+                                icon = "fa fa-folder m--font-brand",
+                                children = SubCatKeyVal
+                            };
+                            SubCatKey.Add(M4);
+                        }
+                        var M3 = new CategotyTreeModel()
+                        {
+                            Id = Convert.ToInt32(Subs.Rows[k]["id_SC"]),
+                            text = Subs.Rows[k]["SCName"].ToString(),
+                            icon = "fa fa-folder m--font-warning",
+                            children = SubCatKey
+                        };
+
+                        SubCat.Add(M3);
+
+                    }
+                    var M2 = new CategotyTreeModel()
+                    {
+                        Id = Convert.ToInt32(Mains.Rows[j]["id_MC"]),
+                        text = Mains.Rows[j]["MCName"].ToString(),
+                        icon = "fa fa-folder m--font-danger",
+                        children = SubCat
+                    };
+                    MainCat.Add(M2);
+
+                }
+                var M1 = new CategotyTreeModel()
+                {
+                    Id = Convert.ToInt32(Type.Rows[i]["id_PT"]),
+                    text = Type.Rows[i]["PTname"].ToString(),
+                    icon = "fa fa-folder m--font-success",
+                    children = MainCat
+                };
+                result.Add(M1);
+            }
+            db.DC();
+
+            return Json(result);
+        }
     }
 }

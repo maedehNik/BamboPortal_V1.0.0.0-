@@ -1,0 +1,247 @@
+﻿@model BamboPortal_V1._0._0._0.Models.AdministratorProductsModels.ProductEditSubmiterModel
+@{
+    ViewBag.Title = "EditProduct";
+    Layout = "~/Views/SharedViewPages/Administrator/MasterView.cshtml";
+}
+
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+
+    <!-- BEGIN: Subheader -->
+    <div class="m-subheader">
+        <div class="d-flex align-items-center">
+            <div class="mr-auto">
+                <span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
+                    <span class="m-subheader__daterange-label">
+                        <h3 class="m-subheader__title" style="padding-left: 0!important;margin: 0 0 0 2px!important;">
+                            پیشخوان
+                            <i class="fa fa-chevron-left tshfontsize2" style="transform: translateY(3px);color: #aaaeb8;margin-right: 2px;"></i>
+                            <span class="m-subheader__daterange-title tshfontsize2" style="margin-right: 2px;margin-left: 2px;">ویرایش محصول </span>
+                            <!--
+                            <i class="fa fa-chevron-left" style="transform: translateY(3px);color: #aaaeb8;"></i>
+                            <span class="m-subheader__daterange-title" style="margin-right: 2px;">نمایش همه ی پست ها</span>
+                            -->
+                        </h3>
+                    </span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="m-content">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="m-portlet m-portlet--full-height  ">
+                    <div class="m-portlet__body">
+                        <div class="m-card-profile">
+                            <div class="slideshow-container">
+                                <div class="mySlides" style="display: none;position: relative">
+                                    <button class="btn btn-danger btn-remove-slider-img" style="padding: 4px;position: absolute;top: -12px;right: -10px;"><i class="fa fa-trash" style="font-size: 10px"></i></button>
+                                    <img src="assets/demo/default/media/img/misc/user_profile_bg.jpg" data-url="assets/demo/default/media/img/misc/user_profile_bg.jpg" style="width:100%">
+                                </div>
+                                <div class="mySlides" style="display: none;position: relative">
+                                    <button class="btn btn-danger btn-remove-slider-img" style="padding: 4px;position: absolute;top: -12px;right: -10px;"><i class="fa fa-trash" style="font-size: 10px"></i></button>
+                                    <img src="assets/demo/default/media/img/misc/quick_actions_bg.jpg" data-url="assets/demo/default/media/img/misc/quick_actions_bg.jpg" style="width:100%">
+                                </div>
+                                <div class="mySlides" style="display: none;position: relative">
+                                    <button class="btn btn-danger btn-remove-slider-img" style="padding: 4px;position: absolute;top: -12px;right: -10px;"><i class="fa fa-trash" style="font-size: 10px"></i></button>
+                                    <img src="assets/demo/default/media/img/misc/notification_bg.jpg" data-url="assets/demo/default/media/img/misc/notification_bg.jpg" style="width:100%">
+                                </div>
+                                <a class="prev" onclick="plusSlides(-1)">&#10095;</a>
+                                <a class="next" onclick="plusSlides(1)">&#10094;</a>
+                            </div>
+                            <div class="m-section__content container-fluid tshtextcenter mt-3">
+                                <button class="btn btn-brand btn-sm" data-target="#uploader" data-toggle="modal">انتخاب عکس</button>
+                            </div>
+                        </div>
+                        <ul class="m-nav m-nav--hover-bg m-portlet-fit--sides mt-2 cus-prof-menu">
+                            <li class="m-nav__item tshcurpoi active-cust-profile tshbtn1">
+                                <a class="m-nav__link">
+                                    <i class="m-nav__link-icon fa fa-chevron-left"></i>
+                                    <span class="m-nav__link-text">اطلاعات کلی محصول</span>
+                                </a>
+                            </li>
+                            <li class="m-nav__item tshcurpoi tshdisabled-validation tshbtn3">
+                                <a class="m-nav__link">
+                                    <i class="m-nav__link-icon fa fa-file"></i>
+                                    <span class="m-nav__link-text">ویژگی های محصول</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="m-portlet m-portlet--full-height m-portlet--tabs  ">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-tools">
+                            <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
+                                <li class="nav-item m-tabs__item">
+                                    <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_user_profile_tab_1" role="tab">
+                                        <i class="flaticon-share m--hide"></i>
+                                        <cust_title>
+                                            اطلاعات کلی محصول
+                                        </cust_title>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="m_user_profile_tab_1">
+                            <form class="m-form m-form--fit m-form--label-align-right" onsubmit="return false;" id="prodform">
+                                <div class="m-portlet__body" style="padding-bottom: 0">
+                                    <div class="sec-1">
+                                        <div class="row">
+                                            <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                                <label for="prd1" class="col-12 col-form-label tshtextright">نام محصول:</label>
+                                                <div class="col-12">
+                                                    <input class="form-control m-input" id="prd1" name="prd1" type="text" value="">
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                                <label for="prd2" class="col-12 col-form-label tshtextright">توضیحات محصول:</label>
+                                                <div class="col-12">
+                                                    <input class="form-control m-input" id="prd2" name="prd2" type="text" value="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                                <label for="prd3" class="col-12 col-form-label tshtextright">کلید واژه سئو:</label>
+                                                <div class="col-12">
+                                                    <input class="form-control m-input" id="prd3" name="prd3" type="text" value="">
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                                <label for="prd4" class="col-12 col-form-label tshtextright">توضیحات سئو:</label>
+                                                <div class="col-12">
+                                                    <input class="form-control m-input" id="prd4" name="prd4" type="text" value="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                                <label for="prd5" class="col-12 col-form-label tshtextright">ارزش جستجو:</label>
+                                                <div class="col-12">
+                                                    <input class="form-control m-input" id="prd5" name="prd5" type="number" value="">
+                                                    <span class="m-form__help">نتایج جست و جوی کاربران بر این اساس نمایش داده خواهند شد.</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group col-lg-6 col-xs-12 p-5">
+                                                <label class="m-checkbox">
+                                                    <input type="checkbox"> تبلیغ شود؟
+                                                    <span></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="m-portlet__foot m-portlet__foot--fit">
+                                            <div class="m-form__actions">
+                                                <div class="row">
+                                                    <div class="col-2">
+                                                    </div>
+                                                    <div class="col-12 tshtextleft">
+                                                        <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom prdn1">بعدی</button>&nbsp;&nbsp;
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sec-3" style="display: none">
+                                        <div class="col-12">
+                                            <div>
+                                                <div class="m-portlet__head-title container-fluid mt-4">
+                                                    <h3 class="m-portlet__head-text" style="font-size: 12px;border-bottom: 1px solid rgba(0,0,0,.1);padding-bottom: 17px;">
+                                                        جزئیات
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <form id="prodform2">
+                                                    <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                                        <label for="prd12" class="col-12 col-form-label tshtextright" style="padding-right: 0;padding-left: 0;">ویژگی:</label>
+                                                        <div class="col-12" style="padding-right: 0;padding-left: 0;">
+                                                            <input class="form-control m-input" name="prd12" id="prd12" type="text" value="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                                        <label for="prd13" class="col-12 col-form-label tshtextright" style="padding-right: 0;padding-left: 0;">مقدار:</label>
+                                                        <div class="col-12" style="padding-right: 0;padding-left: 0;">
+                                                            <input class="form-control m-input" name="prd13" id="prd13" type="text" value="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 tshtextleft mb-3">
+                                                        <span style="margin-left: 10px;" class="btn btn-sm btn-success m-btn m-btn--air m-btn--custom">افزودن</span>&nbsp;&nbsp;
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="container-fluid">
+                                                <table class="cust-table table table-striped table-hover m-table m-table--head-separator-primary">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>ویژگی</th>
+                                                            <th>مقدار</th>
+                                                            <th>غملیات</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th scope="row">1</th>
+                                                            <td>ویژگی</td>
+                                                            <td>مقدار</td>
+                                                            <td>
+                                                                <button class="btn btn-warning tshpcustom tshcolorwhite"><i class="fa fa-edit tshfa"></i>ویرایش</button>
+                                                                <button class="btn btn-danger tshpcustom cus-delete-btn" data-target="#deleteCus" data-toggle="modal" data-name="ویژگی"><i class="fa fa-trash tshfa"></i>حذف</button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <table style="display: none;" class="cust-table cust-table-2 table table-striped table-hover m-table m-table--head-separator-primary">
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <td>1</td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <th>ویژگی</th>
+                                                        <td>ویژگی</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>مقدار</th>
+                                                        <td>مقدار</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>وضعیت</th>
+                                                        <td>
+                                                            <button class="btn btn-warning tshpcustom tshcolorwhite"><i class="fa fa-edit tshfa"></i>ویرایش</button>
+                                                            <button class="btn btn-danger tshpcustom cus-delete-btn" data-target="#deleteCus" data-toggle="modal" data-name="ویژگی"><i class="fa fa-trash tshfa"></i>حذف</button>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="m-portlet__foot m-portlet__foot--fit">
+                                            <div class="m-form__actions">
+                                                <div class="row">
+                                                    <div class="col-2">
+                                                    </div>
+                                                    <div class="col-12 tshtextleft">
+                                                        <button type="submit" class="btn btn-success m-btn m-btn--air m-btn--custom prdn3">ثبت</button>&nbsp;&nbsp;
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

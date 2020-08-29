@@ -1,91 +1,9 @@
 ﻿@model BamboPortal_V1._0._0._0.ModelViews.AdministratorProducts.ProductListTableModelView
 @{
-    ViewBag.Title = "ProductList";
+    ViewBag.Title = "DeletedProductsList";
     Layout = "~/Views/SharedViewPages/Administrator/MasterView.cshtml";
     int rowcount = Model.Allrows.Count;
 }
-<div class="modal fade" id="ActiveModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">فعال کردن محصول</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>
-                    محصول
-                    <span id="data-name-Active">
-
-                    </span>
-                    فعال شود؟
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">خیر</button>
-                <button id="ActiveModal_SubmitBTN" onclick="return YesAactivePlz()" type="button" class="btn btn-danger">بله</button>
-                <input id="activemodalID" style="display:none" />
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="deActiveModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">غیرفعال کردن محصول</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>
-                    محصول
-                    <span id="data-name">
-
-                    </span>
-                    غیرفعال شود؟
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">خیر</button>
-                <button onclick="return YesDeactivePlz()" id="deActiveModal_SubmitBTN" type="button" class="btn btn-danger">بله</button>
-                <input id="idTodeactivemodal" style="display:none" />
-
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="deleteCus" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">پاک کردن محصول</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>
-                    محصول
-                    <span id="data-name-delete">
-
-                    </span>
-                    پاک شود؟
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">خیر</button>
-                <button onclick="return YesDeletePlz()" id="deleteCus_SubmitBTN" type="button" class="btn btn-danger">بله</button>
-                <input id="idTodeleteCus" style="display:none" />
-
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- BEGIN: Subheader -->
 <div class="m-subheader">
@@ -154,7 +72,7 @@
                         <div class="m-portlet__body">
                             <div class="m-section container-fluid">
                                 <div class="m-section__content container-fluid">
-                                    <table class="cust-table table table-striped table-hover m-table m-table--head-separator-primary ">
+                                    <table class="cust-table table table-striped table-hover m-table m-table--head-separator-danger ">
                                         <thead>
                                             <tr>
                                                 <th>#</th>
@@ -184,19 +102,10 @@
                                                         <td> @Model.Allrows[_i].Productname </td>
                                                         <td style="max-width: 230px;width: 50px;word-wrap: break-word;"> @Model.Allrows[_i].ProductDescription </td>
                                                         <td><img src="@Model.Allrows[_i].PicThumnailUrl" alt="" style="max-width: 230px" onerror="this.onerror=null;this.src='/AdminDesignResource/app/media/img/users/user4.jpg'" /></td>
-                                                        @if (Model.Allrows[_i].ActivateStatus != 3)
-                                                        {
                                                             <td>
-                                                                @if (Model.Allrows[_i].ActivateStatus == 1)
-                                                                {
-                                                                    <button id="DeActive-@Model.Allrows[_i].id" class="btn btn-success tshpcustom deactivate-btn" data-target="#deActiveModal" data-toggle="modal" data-name="@Model.Allrows[_i].Productname"><i class="fa fa-check tshfa"></i>فعال</button>
-                                                                }
-                                                                else
-                                                                {
-                                                                    <button id="Active-@Model.Allrows[_i].id" class="btn btn-warning tshpcustom activate-btn" data-target="#ActiveModal" data-toggle="modal" data-name="@Model.Allrows[_i].Productname"><i class="fa fa-check tshfa"></i>غیر فعال</button>
-                                                                }
-
-
+                                                                
+                                                                    <button  class="btn btn-danger tshpcustom " ><i class="fa fa-trash tshfa"></i>حذف شده</button>
+                                                                
                                                             </td>
                                                             <td>
                                                                 @Model.Allrows[_i].SubmitedDate
@@ -217,16 +126,8 @@
                                                                     <a href="@Url.Action("ViewDetails","AdministratorProducts")?idMPC=@Model.Allrows[_i].idMPC" class="btn btn-brand tshpcustom" style="margin: 3px;display: block;width: 100%;"><i class="fa fa-eye tshfa"></i>نمایش</a>
                                                                 }
 
-                                                                <button id="Deletebtnproduct-@Model.Allrows[_i].id" class="btn btn-danger tshpcustom cus-delete-btn" style="margin: 3px;display: block;width: 100%;" data-target="#deleteCus" data-toggle="modal" data-name="نام ساختگی برای محصول"><i class="fa fa-trash tshfa"></i>حذف</button>
+                                                                
                                                             </td>
-                                                        }
-                                                        else
-                                                        {
-                                                            <td>
-                                                                <button class="btn btn-danger tshpcustom deactivate-btn"><i class="fa fa-check tshfa"></i>حذف شده</button>
-                                                            </td>
-                                                        }
-
 
                                                     </tr>
                                                 }
@@ -286,14 +187,7 @@
                                                     ادمین ولوت
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <th>عملیات</th>
-                                                <td>
-                                                    <button class="btn btn-brand tshpcustom" style="margin: 3px;"><i class="fa fa-eye tshfa"></i>نمایش</button>
-                                                    <button class="btn btn-warning tshpcustom" style="margin: 3px;"><i class="fa fa-edit tshfa"></i>ویرایش</button>
-                                                    <button class="btn btn-danger tshpcustom cus-delete-btn" style="margin: 3px;" data-target="#deleteCus" data-toggle="modal" data-name="نام ساختگی برای محصول"><i class="fa fa-trash tshfa"></i>حذف</button>
-                                                </td>
-                                            </tr>
+                                            
                                         }
                                         else
                                         {
@@ -322,106 +216,4 @@
 </div>
 
 
-@section Scripts {
-    <script>
-        //Search
-        $("#ProductSearch").on("keyup", function () {
-            mApp.block("#tableFreezer", {
-                overlayColor: "#2c2e3e", type: "loader", state: "success", message: "در حال گرفتن اطلاعات از سمت سرور ..."
-            });
-            var value = $(this).val();
-            $("table tr").each(function (index) {
-                if (index !== 0) {
 
-                    $row = $(this);
-
-                    var id = $row.find("td:first").text();
-
-                    if (id.indexOf(value) !== 0) {
-                        $row.hide();
-                    }
-                    else {
-                        $row.show();
-                    }
-                }
-            });
-            setTimeout(function () {
-                mApp.unblock("#tableFreezer")
-            }, 1000);
-        });
-        // End
-        //Active delete Deactive
-        function YesDeactivePlz() {
-
-            const PostJson = {
-                'idToDEActive': $("#idTodeactivemodal").val()
-            };
-
-            $("#deActiveModal_SubmitBTN").addClass("m-loader m-loader--light m-loader--right").prop("disabled", true);
-            $.ajax({
-                url: '/AdministratorProducts/DeActiveProduct',
-                type: "post",
-                data: JSON.stringify(PostJson),
-                contentType: "application/json; charset=utf-8",
-                success: function (data) {
-                    if (data.Errortype == "Success") {
-                        AlertToUser("deActiveModal", data);
-                    } else {
-                        alert(data.Errormessage);
-                    }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert("مشکل در برقراری ارتباط با سرور");
-                }
-            });
-        }
-        function YesAactivePlz() {
-
-            const PostJson = {
-                'idToActive': $("#activemodalID").val()
-            };
-
-            $("#ActiveModal_SubmitBTN").addClass("m-loader m-loader--light m-loader--right").prop("disabled", true);
-            $.ajax({
-                url: '/AdministratorProducts/ActiveProduct',
-                type: "post",
-                data: JSON.stringify(PostJson),
-                contentType: "application/json; charset=utf-8",
-                success: function (data) {
-
-                    if (data.Errortype == "Success") {
-                        AlertToUser("ActiveModal", data);
-                    } else {
-                        alert(data.Errormessage);
-                    }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert("مشکل در برقراری ارتباط با سرور");
-                }
-            });
-        }
-        function YesDeletePlz() {
-            const PostJson = {
-                'idTodelete': $("#idTodeleteCus").val()
-            };
-            $("#deleteCus_SubmitBTN").addClass("m-loader m-loader--light m-loader--right").prop("disabled", true);
-            $.ajax({
-                url: '/AdministratorProducts/DeleteProduct',
-                type: "post",
-                data: JSON.stringify(PostJson),
-                contentType: "application/json; charset=utf-8",
-                success: function (data) {
-
-                    if (data.Errortype == "Success") {
-                        AlertToUser("deleteCus", data);
-                    } else {
-                        alert(data.Errormessage);
-                    }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert("مشکل در برقراری ارتباط با سرور");
-                }
-            });
-        }
-    </script>
-}
