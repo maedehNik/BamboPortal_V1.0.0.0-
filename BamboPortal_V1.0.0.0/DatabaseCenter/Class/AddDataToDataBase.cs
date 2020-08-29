@@ -320,7 +320,7 @@ namespace BamboPortal_V1._0._0._0.DatabaseCenter.Class
             ///////////////////////////
 
             string T21 = db.Select("SELECT [id_MC] FROM [tbl_Product_MainCategory] WHERE [MCName] LIKE N'حریر'").Rows[0][0].ToString();
-            string[] s21 = { "پلیسه، سیدان، سوزن دوزی، مخمل، خامه دوزی، موجی، پم پم، بامبو، اورگانزا، ابریشم، لمه، گلدار، پلنگی، ساده" };
+            string[] s21 = { "پلیسه", "سیدان", "سوزن دوزی", "مخمل", "خامه دوزی", "موجی", "پم پم", "بامبو", "اورگانزا", "ابریشم", "لمه", "گلدار", "پلنگی", "ساده" };
 
             for (int i = 0; i < s21.Length; i++)
             {
