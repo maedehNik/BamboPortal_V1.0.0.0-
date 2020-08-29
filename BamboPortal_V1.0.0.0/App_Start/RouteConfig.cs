@@ -12,12 +12,13 @@ namespace BamboPortal_V1._0._0._0
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
+            routes.MapMvcAttributeRoutes();
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "CustomerSide_Pages", action = "Index", id = UrlParameter.Optional }
+                url: "{controller}/{action}/",
+                defaults: new { controller = "CustomerSide_Pages", action = "Index" }
             );
+
         }
     }
 }

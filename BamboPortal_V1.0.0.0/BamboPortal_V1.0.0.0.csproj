@@ -179,11 +179,8 @@
     <Compile Include="Models\AdministratorProductsModels\AddSubCatKeySubmit.cs" />
     <Compile Include="Models\AdministratorProductsModels\addtype.cs" />
     <Compile Include="Models\AdministratorProductsModels\AddTypeTable.cs" />
-    <Compile Include="Models\AdministratorProductsModels\CategotyTreeModel.cs" />
     <Compile Include="Models\AdministratorProductsModels\MainTagStructure.cs" />
-    <Compile Include="Models\AdministratorProductsModels\ProductEditSubmiterModel.cs" />
     <Compile Include="Models\AdministratorProductsModels\ProductListTable.cs" />
-    <Compile Include="Models\AdministratorProductsModels\ProductOptionsModel.cs" />
     <Compile Include="Models\AdministratorProductsModels\ProductViewDetails_EditTimeLine.cs" />
     <Compile Include="Models\AdministratorProductsModels\ProductViewDetails_ProductSOCKandSOCKVL.cs" />
     <Compile Include="Models\AdministratorProductsModels\ProductViewDetails_PropertyTable.cs" />
@@ -245,7 +242,6 @@
     <Compile Include="ModelViews\AdministratorProducts\AddSubCategoryModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddSubCateGoryValuesOfKeysModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddTypeModelView.cs" />
-    <Compile Include="ModelViews\AdministratorProducts\EditProductModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\ProductDeitalsModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\ProductListTableModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\ProductViewDetailsModelView.cs" />
@@ -586,7 +582,6 @@
     <Content Include="AdminDesignResource\demo\default\custom\components\charts\amcharts\plugins\dataloader\lang\fr.js" />
     <Content Include="AdminDesignResource\demo\default\custom\components\charts\amcharts\plugins\dataloader\lang\lt.js" />
     <Content Include="AdminDesignResource\demo\default\custom\components\charts\amcharts\plugins\dataloader\license.txt" />
-    <Content Include="AdminDesignResource\demo\default\custom\components\charts\amcharts\plugins\export\.gitignore" />
     <Content Include="AdminDesignResource\demo\default\custom\components\charts\amcharts\plugins\export\examples\advanced.html" />
     <Content Include="AdminDesignResource\demo\default\custom\components\charts\amcharts\plugins\export\examples\export.config.advanced.js" />
     <Content Include="AdminDesignResource\demo\default\custom\components\charts\amcharts\plugins\export\examples\export.config.default.js" />
@@ -1941,7 +1936,6 @@
     <Content Include="AdminDesignResource\demo\default\custom\components\charts\ammap\plugins\dataloader\lang\fr.js" />
     <Content Include="AdminDesignResource\demo\default\custom\components\charts\ammap\plugins\dataloader\lang\lt.js" />
     <Content Include="AdminDesignResource\demo\default\custom\components\charts\ammap\plugins\dataloader\license.txt" />
-    <Content Include="AdminDesignResource\demo\default\custom\components\charts\ammap\plugins\export\.gitignore" />
     <Content Include="AdminDesignResource\demo\default\custom\components\charts\ammap\plugins\export\examples\advanced.html" />
     <Content Include="AdminDesignResource\demo\default\custom\components\charts\ammap\plugins\export\examples\export.config.advanced.js" />
     <Content Include="AdminDesignResource\demo\default\custom\components\charts\ammap\plugins\export\examples\export.config.default.js" />
@@ -2202,7 +2196,6 @@
     <Content Include="AdminDesignResource\demo\default\custom\crud\forms\widgets\input-mask.js" />
     <Content Include="AdminDesignResource\demo\default\custom\crud\forms\widgets\ion-range-slider.js" />
     <Content Include="AdminDesignResource\demo\default\custom\crud\forms\widgets\nouislider.js" />
-    <Content Include="AdminDesignResource\demo\default\custom\crud\forms\widgets\select2-2.js" />
     <Content Include="AdminDesignResource\demo\default\custom\crud\forms\widgets\select2.js" />
     <Content Include="AdminDesignResource\demo\default\custom\crud\forms\widgets\summernote.js" />
     <Content Include="AdminDesignResource\demo\default\custom\crud\forms\widgets\typeahead.js" />
@@ -2230,10 +2223,13 @@
     <Content Include="AdminDesignResource\demo\default\custom\crud\metronic-datatable\scrolling\vertical.js" />
     <Content Include="AdminDesignResource\demo\default\custom\crud\wizard\wizard.js" />
     <Content Include="AdminDesignResource\demo\default\custom\header\actions.js" />
+    <Content Include="AdminDesignResource\demo\default\media\img\items\svg\doc.svg" />
+    <Content Include="AdminDesignResource\demo\default\media\img\items\svg\pdf.svg" />
     <Content Include="AdminDesignResource\demo\default\media\img\logo\favicon.ico" />
     <Content Include="AdminDesignResource\demo\default\media\img\logo\logo.png" />
     <Content Include="AdminDesignResource\demo\default\media\img\misc\notification_bg.jpg" />
     <Content Include="AdminDesignResource\demo\default\media\img\misc\preservation-copy.jpg" />
+    <Content Include="AdminDesignResource\demo\default\media\img\misc\ProfileDefault.JPG" />
     <Content Include="AdminDesignResource\demo\default\media\img\misc\quick_actions_bg.jpg" />
     <Content Include="AdminDesignResource\demo\default\media\img\misc\slider-main.m4v" />
     <Content Include="AdminDesignResource\demo\default\media\img\misc\user_profile_bg.jpg" />
@@ -2849,6 +2845,8 @@
     <Content Include="CustomerSide_desinerResource\images\sign-short.png" />
     <Content Include="CustomerSide_desinerResource\images\sign.png" />
     <Content Include="CustomerSide_desinerResource\images\skyline.jpg" />
+    <Content Include="CustomerSide_desinerResource\images\Slider\velvetslide1.jpg" />
+    <Content Include="CustomerSide_desinerResource\images\Slider\velvetslide2.jpg" />
     <Content Include="CustomerSide_desinerResource\images\spa-1.jpg" />
     <Content Include="CustomerSide_desinerResource\images\spa-2.jpg" />
     <Content Include="CustomerSide_desinerResource\images\spa-3.jpg" />
@@ -3235,7 +3233,62 @@
     <Content Include="CustomerSide_desinerResource\third-party\revolution\fonts\revicons\revicons90c6.woff" />
     <Content Include="CustomerSide_desinerResource\video\movie.ogv" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Mordad\16 BakFile\EmptyDatabasePandaPortal.bak" />
-    <Content Include="DatabaseCenter\SQL Scripts\1399\Mordad\22\DbBackUp" />
+    <None Include="Scripts\jquery-3.5.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.5.1.js" />
+    <Content Include="Scripts\jquery-3.5.1.min.js" />
+    <Content Include="Scripts\jquery-3.5.1.slim.js" />
+    <Content Include="Scripts\jquery-3.5.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\AdministratorProducts\ReturnInputsOfSubCategorykeyValues.cshtml" />
+    <Content Include="Views\AdministratorProducts\AddproductGetAllFinallyPriceDataAboutProducts.cshtml" />
+    <Content Include="Views\AdministratorProducts\ViewDetails.cshtml" />
+    <Content Include="Views\AdministratorProducts\AddproductStep5Stockpile.cshtml" />
+    <Content Include="Views\AdministratorStockpile\Index.cshtml" />
+    <Content Include="Views\CustomerSide_CustomerProfile\customerProfile.cshtml" />
+    <Content Include="Views\CustomerSide_CustomerProfile\customerProfileAddress.cshtml" />
+    <Content Include="Views\CustomerSide_CustomerProfile\customerProfileHistory.cshtml" />
+    <Content Include="Views\CustomerSide_CustomerProfile\customerProfileReturn.cshtml" />
+    <Content Include="Views\CustomerSide_CustomerProfile\customerProfileSettings.cshtml" />
+    <Content Include="Views\CustomerSide_Product\test.cshtml" />
+    <Content Include="Views\CustomerSide_Product\ShoppingCartSlide.cshtml" />
+    <Content Include="Views\AdministratorStockpile\ProductInStockpile.cshtml" />
+    <Content Include="Views\AdministratorCustomers\Customers.cshtml" />
+    <Content Include="Views\AdministratorCustomers\CustomerProfile.cshtml" />
+    <Content Include="Views\AdministratorProducts_Factors\ProductList_Factors.cshtml" />
+    <Content Include="Views\AdminstratorBlog\NewPost.cshtml" />
+    <Content Include="Views\AdminstratorBlog\PostTable.cshtml" />
+    <Content Include="Views\AdminstratorBlog\Add_Blog_Group.cshtml" />
+    <Content Include="Views\AdminstratorBlog\Add_Blog_Category.cshtml" />
+    <Content Include="Views\AdminstratorBlog\Add_Blog_Tags.cshtml" />
+    <Content Include="Views\AdminstratorBlog\_PostTableItem.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="BamboPortalSecurity\LoginAuth\" />
+    <Folder Include="ConvertedImages\" />
+    <Folder Include="DatabaseCenter\SQL Scripts\1399\Mordad\22\" />
+    <Folder Include="Models\AdministratorProducts_FieldLoader\" />
+    <Folder Include="UploadedImages\" />
+    <Folder Include="Views\AdminRules_ProductCTRL\" />
+    <Folder Include="Views\CustomerSide_BlogRule\" />
+    <Folder Include="Views\CustomerSide_Blog\" />
+    <Folder Include="Views\CustomerSide_CustomerProfileRule\" />
+    <Folder Include="Views\CustomerSide_CustomerRule\" />
+    <Folder Include="Views\Test\" />
+    <Folder Include="WebConfigNotes\" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="AdminDesignResource\demo\default\custom\components\charts\amcharts\plugins\animate\bower.json" />
     <Content Include="AdminDesignResource\demo\default\custom\components\charts\amcharts\plugins\animate\LICENSE" />
     <Content Include="AdminDesignResource\demo\default\custom\components\charts\amcharts\plugins\animate\package.json" />
@@ -3255,6 +3308,7 @@
     <Content Include="AdminDesignResource\demo\default\custom\components\charts\amcharts\plugins\dataloader\examples\data\TXN.csv" />
     <Content Include="AdminDesignResource\demo\default\custom\components\charts\amcharts\plugins\dataloader\package.json" />
     <Content Include="AdminDesignResource\demo\default\custom\components\charts\amcharts\plugins\dataloader\readme.md" />
+    <Content Include="AdminDesignResource\demo\default\custom\components\charts\amcharts\plugins\export\.gitignore" />
     <Content Include="AdminDesignResource\demo\default\custom\components\charts\amcharts\plugins\export\bower.json" />
     <Content Include="AdminDesignResource\demo\default\custom\components\charts\amcharts\plugins\export\libs\pdfmake\pdfmake.min.js.map" />
     <Content Include="AdminDesignResource\demo\default\custom\components\charts\amcharts\plugins\export\libs\xlsx\LICENSE" />
@@ -3284,6 +3338,7 @@
     <Content Include="AdminDesignResource\demo\default\custom\components\charts\ammap\plugins\dataloader\examples\data\TXN.csv" />
     <Content Include="AdminDesignResource\demo\default\custom\components\charts\ammap\plugins\dataloader\package.json" />
     <Content Include="AdminDesignResource\demo\default\custom\components\charts\ammap\plugins\dataloader\readme.md" />
+    <Content Include="AdminDesignResource\demo\default\custom\components\charts\ammap\plugins\export\.gitignore" />
     <Content Include="AdminDesignResource\demo\default\custom\components\charts\ammap\plugins\export\bower.json" />
     <Content Include="AdminDesignResource\demo\default\custom\components\charts\ammap\plugins\export\libs\pdfmake\pdfmake.min.js.map" />
     <Content Include="AdminDesignResource\demo\default\custom\components\charts\ammap\plugins\export\libs\xlsx\LICENSE" />
@@ -3378,63 +3433,6 @@
     <Content Include="AdminDesignResource\vendors\base\fonts\summernote\summernote.eot" />
     <Content Include="AdminDesignResource\vendors\base\fonts\summernote\summernote.ttf" />
     <Content Include="AdminDesignResource\vendors\base\fonts\summernote\summernote.woff" />
-    <None Include="Scripts\jquery-3.5.1.intellisense.js" />
-    <Content Include="Scripts\jquery-3.5.1.js" />
-    <Content Include="Scripts\jquery-3.5.1.min.js" />
-    <Content Include="Scripts\jquery-3.5.1.slim.js" />
-    <Content Include="Scripts\jquery-3.5.1.slim.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Web.config" />
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\AdministratorProducts\ReturnInputsOfSubCategorykeyValues.cshtml" />
-    <Content Include="Views\AdministratorProducts\AddproductGetAllFinallyPriceDataAboutProducts.cshtml" />
-    <Content Include="Views\AdministratorProducts\ViewDetails.cshtml" />
-    <Content Include="Views\AdministratorProducts\AddproductStep5Stockpile.cshtml" />
-    <Content Include="Views\AdministratorStockpile\Index.cshtml" />
-    <Content Include="Views\CustomerSide_CustomerProfile\customerProfile.cshtml" />
-    <Content Include="Views\CustomerSide_CustomerProfile\customerProfileAddress.cshtml" />
-    <Content Include="Views\CustomerSide_CustomerProfile\customerProfileHistory.cshtml" />
-    <Content Include="Views\CustomerSide_CustomerProfile\customerProfileReturn.cshtml" />
-    <Content Include="Views\CustomerSide_CustomerProfile\customerProfileSettings.cshtml" />
-    <Content Include="Views\CustomerSide_Product\test.cshtml" />
-    <Content Include="Views\CustomerSide_Product\ShoppingCartSlide.cshtml" />
-    <Content Include="Views\AdministratorStockpile\ProductInStockpile.cshtml" />
-    <Content Include="Views\AdministratorCustomers\Customers.cshtml" />
-    <Content Include="Views\AdministratorCustomers\CustomerProfile.cshtml" />
-    <Content Include="Views\AdministratorProducts_Factors\ProductList_Factors.cshtml" />
-    <Content Include="Views\AdminstratorBlog\NewPost.cshtml" />
-    <Content Include="Views\AdminstratorBlog\PostTable.cshtml" />
-    <Content Include="Views\AdminstratorBlog\Add_Blog_Group.cshtml" />
-    <Content Include="Views\AdminstratorBlog\Add_Blog_Category.cshtml" />
-    <Content Include="Views\AdminstratorBlog\Add_Blog_Tags.cshtml" />
-    <Content Include="Views\AdminstratorBlog\_PostTableItem.cshtml" />
-    <Content Include="Views\AdministratorProducts\Product_ShowCatTree.cshtml" />
-    <Content Include="Views\AdministratorProducts\DeletedProductsList.cshtml" />
-    <Content Include="Views\AdministratorProducts\EditProduct.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="BamboPortalSecurity\LoginAuth\" />
-    <Folder Include="Models\AdministratorProducts_FieldLoader\" />
-    <Folder Include="UploadedImages\" />
-    <Folder Include="Views\AdminRules_ProductCTRL\" />
-    <Folder Include="Views\CustomerSide_BlogRule\" />
-    <Folder Include="Views\CustomerSide_Blog\" />
-    <Folder Include="Views\CustomerSide_CustomerProfileRule\" />
-    <Folder Include="Views\CustomerSide_CustomerRule\" />
-    <Folder Include="Views\Test\" />
-    <Folder Include="WebConfigNotes\" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="DatabaseCenter\SQL Scripts\1399\Khordad\ER\ER13990330.pdf" />
     <Content Include="Docs\ErrorHelper\ErrorHelper.json" />
     <None Include="packages.config" />

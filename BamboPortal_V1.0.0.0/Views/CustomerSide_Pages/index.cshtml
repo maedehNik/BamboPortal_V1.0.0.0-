@@ -65,8 +65,8 @@
                                             <a href="#" class="menu-dropdown-link account-li">ناحیه کاربری<span class="dropdown-icon tshfatrtry3 tshfamr"></span></a>
                                             <ul class="menu-dropdown tshsubmneu">
                                                 <li><a href="@Url.Action("customerProfile","CustomerSide_CustomerProfile")">ناحیه کاربری</a></li>
-                                                <li><a href="@Url.Action("factor","CustomerSide_Product")">فاکتورها</a></li>
-                                                <li><a href="@Url.Action("customershoppingCart","CustomerSide_Product")">سبد خرید</a></li>
+                                                @*<li><a href="@Url.Action("factor","CustomerSide_Product")">فاکتورها</a></li>
+                                                <li><a href="@Url.Action("customershoppingCart","CustomerSide_Product")">سبد خرید</a></li>*@
                                             </ul>
                                         </li>
                                         <li><a href="@Url.Action("search","CustomerSide_Product",new {Type="همه",Id=1 })" style="letter-spacing: 0px;">محصولات</a></li>
@@ -133,10 +133,10 @@
 
         <div id="home" class="one-page-section owl-carousel owl-theme owl-slider owl-arrows full-width no-padding-side full-height" data-offset-container="" style="overflow: hidden;" data-items="1" data-items-desktop="1" data-items-tablet="1" data-items-mobile="1" data-pagination-speed="2000" data-slide-speed="2000" data-navigation="true" data-auto-play="true" data-stop-on-hover="true">
             <div class="item">
-                <div class="slider-item full-height" style="background-image: url('../../CustomerSide_desinerResource/images/ntc/bag.jpg'); background-position: center center;background-size: cover;"></div>
+                <div class="slider-item full-height" style="background-image: url('../../CustomerSide_desinerResource/images/Slider/velvetslide1.jpg'); background-position: center center;background-size: cover;"></div>
             </div>
             <div class="item">
-                <div class="slider-item full-height" style="background-image: url('../../CustomerSide_desinerResource/images/ntc/chair-brown.jpg'); background-position: center center;background-size: cover;"></div>
+                <div class="slider-item full-height" style="background-image: url('../../CustomerSide_desinerResource/images/Slider/velvetslide2.jpg'); background-position: center center;background-size: cover;"></div>
             </div>
         </div>
 
@@ -327,14 +327,32 @@
             </div>
             <div class="row product pad-bot-50 markets">
                 <div class="col-md-3">
-                    <h4 class="footer-title">شعبه تجریش</h4>
+                    <h4 class="footer-title">شعبه مرکزی</h4>
                     <p class="footer-content">
                         <i class="fa fa-map-marker"></i>
-                        تجریش - خیابان اول - کوچه دوم - پلاک 3 - زنگ 4
+                        آدرس : میدان تجریش ، رو به روی بیمارستان شهدا ، پاساژ میری طبقه سه پلاک  108و  ، 56گالری
+                        پارچه ولوت
                     </p>
                     <p class="footer-content">
                         <i class="fa fa-phone"></i>
-                        <a class="tshbeforetel" href="tel:02122334455">22334455</a>
+                        <a class="tshbeforetel" href="tel:982122717656021">22334455</a>
+                    </p>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d808.9394280925661!2d51.43142306470913!3d35.80588097728032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x28b271f00e6177d4!2z2LTYudio2Ycg2YXYsdqp2LLbjCDZvtin2LHahtmHINmI2YTZiNiq!5e0!3m2!1sen!2sus!4v1580312708942!5m2!1sen!2sus" height="200" frameborder="0" style="width: 100%;" allowfullscreen="true"></iframe>
+                    <ul class="social-icons list-inline list-unstyled si-light circle inverse" style="text-align: center; display: flow-root;">
+                        <li><a href="#" class="Whatsapp"><i class="fa fa-whatsapp soc-icon"></i></a></li>
+                        <li><a href="#" class="pinterest"><i class="fa fa-pinterest soc-icon"></i></a></li>
+                        <li><a href="https://www.instagram.com/velvet_textile" class="instagram"><i class="fa fa-instagram soc-icon"></i></a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h4 class="footer-title">شعبه دوم</h4>
+                    <p class="footer-content">
+                        <i class="fa fa-map-marker"></i>
+                        آدرس : بازار بزرگ ، کوچه حمام چال ، پاساژ قائم زیرزمین اول انتهای دالان  11پلاک 226 (فروش عمده)
+                    </p>
+                    <p class="footer-content">
+                        <i class="fa fa-phone"></i>
+                        <a class="tshbeforetel" href="tel:+982155802683">22334455</a>
                     </p>
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d808.9394280925661!2d51.43142306470913!3d35.80588097728032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x28b271f00e6177d4!2z2LTYudio2Ycg2YXYsdqp2LLbjCDZvtin2LHahtmHINmI2YTZiNiq!5e0!3m2!1sen!2sus!4v1580312708942!5m2!1sen!2sus" height="200" frameborder="0" style="width: 100%;" allowfullscreen="true"></iframe>
                     <ul class="social-icons list-inline list-unstyled si-light circle inverse" style="text-align: center; display: flow-root;">
@@ -344,54 +362,37 @@
                     </ul>
                 </div>
                 <div class="col-md-3">
-                    <h4 class="footer-title">شعبه تجریش</h4>
+                    <h4 class="footer-title">شعبه سوم</h4>
                     <p class="footer-content">
                         <i class="fa fa-map-marker"></i>
-                        تجریش - خیابان اول - کوچه دوم - پلاک 3 - زنگ 4
+                        آدرس : خیابان گاندی نبش کوچه  ، 23گالری پارچه ولوت
                     </p>
                     <p class="footer-content">
                         <i class="fa fa-phone"></i>
-                        <a class="tshbeforetel" href="tel:02122334455">22334455</a>
+                        <a class="tshbeforetel" href="tel:+982188885389">22334455</a>
                     </p>
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d808.9394280925661!2d51.43142306470913!3d35.80588097728032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x28b271f00e6177d4!2z2LTYudio2Ycg2YXYsdqp2LLbjCDZvtin2LHahtmHINmI2YTZiNiq!5e0!3m2!1sen!2sus!4v1580312708942!5m2!1sen!2sus" height="200" frameborder="0" style="width: 100%;" allowfullscreen="true"></iframe>
                     <ul class="social-icons list-inline list-unstyled si-light circle inverse" style="text-align: center; display: flow-root;">
-                        <li><a href="#" class="Whatsapp"><i class="fa fa-whatsapp soc-icon"></i></a></li>
+                        <li><a href="https://api.whatsapp.com/send?phone=09929496284&text=velvet" class="Whatsapp"><i class="fa fa-whatsapp soc-icon"></i></a></li>
                         <li><a href="#" class="pinterest"><i class="fa fa-pinterest soc-icon"></i></a></li>
-                        <li><a href="#" class="instagram"><i class="fa fa-instagram soc-icon"></i></a></li>
+                        <li><a href="https://www.instagram.com/velvet_gandi" class="instagram"><i class="fa fa-instagram soc-icon"></i></a></li>
                     </ul>
                 </div>
                 <div class="col-md-3">
-                    <h4 class="footer-title">شعبه تجریش</h4>
+                    <h4 class="footer-title">شعبه چهارم</h4>
                     <p class="footer-content">
                         <i class="fa fa-map-marker"></i>
-                        تجریش - خیابان اول - کوچه دوم - پلاک 3 - زنگ 4
+                        آدرس : کرج ، خیابان شهید بهشتی ، رو به روی پاساژ آزادی نبش پاساژ زنوزی ، گالری پارچه ولوت
                     </p>
                     <p class="footer-content">
                         <i class="fa fa-phone"></i>
-                        <a class="tshbeforetel" href="tel:02122334455">22334455</a>
+                        <a class="tshbeforetel" href="tel:+98212222914">22334455</a>
                     </p>
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d808.9394280925661!2d51.43142306470913!3d35.80588097728032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x28b271f00e6177d4!2z2LTYudio2Ycg2YXYsdqp2LLbjCDZvtin2LHahtmHINmI2YTZiNiq!5e0!3m2!1sen!2sus!4v1580312708942!5m2!1sen!2sus" height="200" frameborder="0" style="width: 100%;" allowfullscreen="true"></iframe>
                     <ul class="social-icons list-inline list-unstyled si-light circle inverse" style="text-align: center; display: flow-root;">
-                        <li><a href="#" class="Whatsapp"><i class="fa fa-whatsapp soc-icon"></i></a></li>
+                        <li><a href="https://api.whatsapp.com/send?phone=09025012445&text=velvet" class="Whatsapp"><i class="fa fa-whatsapp soc-icon"></i></a></li>
                         <li><a href="#" class="pinterest"><i class="fa fa-pinterest soc-icon"></i></a></li>
-                        <li><a href="#" class="instagram"><i class="fa fa-instagram soc-icon"></i></a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3">
-                    <h4 class="footer-title">شعبه تجریش</h4>
-                    <p class="footer-content">
-                        <i class="fa fa-map-marker"></i>
-                        تجریش - خیابان اول - کوچه دوم - پلاک 3 - زنگ 4
-                    </p>
-                    <p class="footer-content">
-                        <i class="fa fa-phone"></i>
-                        <a class="tshbeforetel" href="tel:02122334455">22334455</a>
-                    </p>
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d808.9394280925661!2d51.43142306470913!3d35.80588097728032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x28b271f00e6177d4!2z2LTYudio2Ycg2YXYsdqp2LLbjCDZvtin2LHahtmHINmI2YTZiNiq!5e0!3m2!1sen!2sus!4v1580312708942!5m2!1sen!2sus" height="200" frameborder="0" style="width: 100%;" allowfullscreen="true"></iframe>
-                    <ul class="social-icons list-inline list-unstyled si-light circle inverse" style="text-align: center; display: flow-root;">
-                        <li><a href="#" class="Whatsapp"><i class="fa fa-whatsapp soc-icon"></i></a></li>
-                        <li><a href="#" class="pinterest"><i class="fa fa-pinterest soc-icon"></i></a></li>
-                        <li><a href="#" class="instagram"><i class="fa fa-instagram soc-icon"></i></a></li>
+                        <li><a href="https://www.instagram.com/velvet_Karaj" class="instagram"><i class="fa fa-instagram soc-icon"></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -410,7 +411,8 @@
                             </div>
                             <div class="col-md-9">
                                 <p class="tshabout">
-                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام.
+                                    گالری پارچه ولوت مجموعه ای کامل از پارچه های مانتویی ، مجلسی و سنتی است.<br /> در پارچه ولوت با بیش از هزاران مدل از انواع پارچه های ژاکارد ، کرپ ، وال ، سوزندوزی ، کتان ، مخمل ، شانتون ، ابریشم ،لنین آماده خدمت رسانی به شما عزیزانیم.
+                                    <br />
                                 </p>
                             </div>
                         </div>
@@ -421,17 +423,14 @@
                             <span>
                                 <i class="fa fa-phone"></i>
                                 <!--شماره تماس:-->
-                                <a class="tshbeforetel" href="tel:02122334455">22334455</a>
+                                <a class="tshbeforetel" href="tel:982122717656021">22334455</a>
                             </span>
-                            <span>
-                                <i class="fa fa-envelope"></i>
-                                <!--آدرس ایمیل:-->
-                                <a class="tshbeforetel" href="mailto:info@velvet.com">info@velvet.com</a>
-                            </span>
+
                             <span style="line-height: 30px">
                                 <i class="fa fa-map-marker"></i>
                                 آدرس دفتر مرکزی:
-                                تجریش - خیابان اول - کوچه دوم - پلاک 3 - زنگ 4
+                                میدان تجریش ، رو به روی بیمارستان شهدا ، پاساژ میری طبقه سه پلاک  108و  ، 56گالری
+                                پارچه ولوت
                             </span>
                         </div>
                     </div>
