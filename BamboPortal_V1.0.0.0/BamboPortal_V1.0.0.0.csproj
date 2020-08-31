@@ -179,12 +179,15 @@
     <Compile Include="Models\AdministratorProductsModels\AddSubCatKeySubmit.cs" />
     <Compile Include="Models\AdministratorProductsModels\addtype.cs" />
     <Compile Include="Models\AdministratorProductsModels\AddTypeTable.cs" />
+    <Compile Include="Models\AdministratorProductsModels\CommentModel.cs" />
     <Compile Include="Models\AdministratorProductsModels\MainTagStructure.cs" />
     <Compile Include="Models\AdministratorProductsModels\ProductListTable.cs" />
     <Compile Include="Models\AdministratorProductsModels\ProductOptions_Model.cs" />
     <Compile Include="Models\AdministratorProductsModels\ProductViewDetails_EditTimeLine.cs" />
     <Compile Include="Models\AdministratorProductsModels\ProductViewDetails_ProductSOCKandSOCKVL.cs" />
     <Compile Include="Models\AdministratorProductsModels\ProductViewDetails_PropertyTable.cs" />
+    <Compile Include="Models\AdministratorProductsModels\ReplyModel.cs" />
+    <Compile Include="Models\AdministratorProductsModels\ReplySubmiterModel.cs" />
     <Compile Include="Models\AdministratorProductsModels\ReturnInputsOfSubCategorykeyValues.cs" />
     <Compile Include="Models\AdministratorProductsModels\ReturnInputsOfSubCategorykeyValuesGetSubmiter.cs" />
     <Compile Include="Models\AdministratorProductsModels\SaveDataToStockpileStep5.cs" />
@@ -245,6 +248,7 @@
     <Compile Include="ModelViews\AdministratorProducts\AddSubCategoryModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddSubCateGoryValuesOfKeysModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\AddTypeModelView.cs" />
+    <Compile Include="ModelViews\AdministratorProducts\CommentsListModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\Edit_ProductModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\ProductDeitalsModelView.cs" />
     <Compile Include="ModelViews\AdministratorProducts\ProductListTableModelView.cs" />
@@ -3204,6 +3208,7 @@
     <Content Include="DatabaseCenter\SQL Scripts\1399\Mordad\15\Secound.sql" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Mordad\18\Note.txt" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Mordad\first1.sql" />
+    <Content Include="DatabaseCenter\SQL Scripts\1399\Shahrivar\10\CommentEdits.txt" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Tir\16\desktop - Copy.sql" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Tir\16\desktop.sql" />
     <Content Include="Docs\usefulguides\Webpages.txt" />
@@ -3278,6 +3283,7 @@
     <Content Include="Views\AdminstratorBlog\_PostTableItem.cshtml" />
     <Content Include="Views\AdministratorProducts\Edit_Product.cshtml" />
     <Content Include="Views\AdministratorProducts\Options_Table.cshtml" />
+    <Content Include="Views\AdministratorProducts\ProductComments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

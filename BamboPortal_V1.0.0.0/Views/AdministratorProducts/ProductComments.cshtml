@@ -1,0 +1,357 @@
+﻿@model BamboPortal_V1._0._0._0.ModelViews.AdministratorProducts.CommentsListModelView
+
+@{
+    ViewBag.Title = "ProductComments";
+    Layout = "~/Views/SharedViewPages/Administrator/MasterView.cshtml";
+}
+
+<div class="modal fade" id="editcomm" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">ویرایش</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            @using (@Html.BeginForm("UpdateReply", "AdministratorProducts", FormMethod.Post, new { @id = "UpdateReplySubmiter", @class = "m-form m-form--fit m-form--label-align-right" }))
+            {
+                @Html.AntiForgeryToken();
+
+                <div class="modal-body">
+                    <div class="form-group m-form__group row">
+                        @Html.LabelFor(m => m.submiterModel.Message, " پیام :", new { @class = "col-form-label col-lg-12 col-sm-12" })
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+
+                            @Html.TextAreaFor(m => m.submiterModel.Message, new { @class = "form-control m-input", @Value = Model.submiterModel.Message, @placeholder = "پیام", @style = "height: 100px; direction: rtl;", @id = "submiterModel_Message-1", @name = "submiterModel.Message" })
+                            @Html.ValidationMessageFor(m => m.submiterModel.Message)
+                            <span class="m-form__help"></span>
+                            @Html.TextBoxFor(m => m.submiterModel.ProId, new { @class = "form-control m-input", @style = "display:none;", @Value = Model.submiterModel.ProId, @id = "submiterModel_ProId-1", @name = "submiterModel.ProId" })
+
+                            @Html.TextBoxFor(m => m.submiterModel.CommentId, new { @class = "form-control m-input", @style = "display:none;", @Value = Model.submiterModel.CommentId, @id = "submiterModel_CommentId-1", @name = "submiterModel.CommentId" })
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" id="UpdateReplySubmiter_SubmitBTN">ذخیره</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Addcomm" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">پاسخ به نظر مشتری</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            @using (@Html.BeginForm("AddReply", "AdministratorProducts", FormMethod.Post, new { @id = "AddReplySubmiter", @class = "m-form m-form--fit m-form--label-align-right" }))
+            {
+                @Html.AntiForgeryToken();
+
+                <div class="modal-body">
+                    <div class="form-group m-form__group row">
+
+                        @Html.LabelFor(m => m.submiterModel.Message, " پیام :", new { @class = "col-form-label col-lg-12 col-sm-12" })
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+
+                            @Html.TextAreaFor(m => m.submiterModel.Message, new { @class = "form-control m-input", @placeholder = "پیام", @style = "height: 100px; direction: rtl;", @id = "submiterModel_Message-2", @name = "submiterModel.Message" })
+                            @Html.ValidationMessageFor(m => m.submiterModel.Message)
+                            <span class="m-form__help"></span>
+                            @Html.TextBoxFor(m => m.submiterModel.ProId, new { @class = "form-control m-input", @style = "display:none;", @Value = Model.submiterModel.ProId, @id = "submiterModel_ProId-2", @name = "submiterModel.ProId" })
+
+                            @Html.TextBoxFor(m => m.submiterModel.CommentId, new { @class = "form-control m-input", @style = "display:none;", @Value = Model.submiterModel.CommentId, @id = "submiterModel_CommentId-2", @name = "submiterModel.CommentId" })
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" id="AddReplySubmiter_SubmitBTN">ذخیره</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+
+    <!-- BEGIN: Subheader -->
+    <div class="m-subheader">
+        <div class="d-flex align-items-center">
+            <div class="mr-auto">
+                <span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
+                    <span class="m-subheader__daterange-label">
+                        <h3 class="m-subheader__title" style="padding-left: 0!important;margin: 0 0 0 2px!important;">
+                            پیشخوان
+                            <i class="fa fa-chevron-left tshfontsize2" style="transform: translateY(3px);color: #aaaeb8;margin-right: 2px;"></i>
+                            <span class="m-subheader__daterange-title tshfontsize2" style="margin-right: 2px;margin-left: 2px;">لیست نظرات</span>
+                            <!--
+                            <i class="fa fa-chevron-left" style="transform: translateY(3px);color: #aaaeb8;"></i>
+                            <span class="m-subheader__daterange-title" style="margin-right: 2px;">نمایش همه ی پست ها</span>
+                            -->
+                        </h3>
+                    </span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="m-content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="m-portlet">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-tools">
+                            <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
+                                <li class="nav-item m-tabs__item">
+                                    <a class="nav-link m-tabs__link active" style="padding-top: 24px;padding-bottom: 24px;" data-toggle="tab" href="#m_user_profile_tab_1" role="tab">
+                                        <i class="flaticon-share m--hide"></i>
+                                        <cust_title>
+                                            لیست سوابق
+                                        </cust_title>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="m-card-profile" style="padding-top: 0;">
+                        <!--<div class="m-card-profile__pic col-12" style="margin: 0;padding: 0;">
+                            <div class="col-12 row" style="margin: 0;padding: 20px 10px 10px 10px;">
+                                <div class="m-card-profile__pic-wrapper" style="border-radius: 0!important;margin: 0;padding: 3px;height: 60px;width: 60px;">
+                                    <img class="col-12" src="./assets/app/media/img/users/user4.jpg" alt="" style="border-radius: 0!important;padding: 0;">
+                                </div>
+                                <div style="text-align: right;">
+                                    <ul class="comment-header-ul">
+                                        <li>
+                                            <i class="fa fa-user"></i>
+                                            نام مشتری: امیرحسین عرب
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div style="text-align: right;">
+                                    <ul class="comment-header-ul">
+                                        <li>
+                                            <i class="fa fa-calendar-alt"></i>
+                                            آخرین تغییر: 22:30 1399/08/5
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div style="text-align: right;">
+                                    <ul class="comment-header-ul">
+                                        <li>
+                                            <i class="fa fa-chevron-left"></i>
+                                            نام محصول: کفش بیلبیلک
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div style="text-align: right;">
+                                    <ul class="comment-header-ul">
+                                        <li>
+                                            <i class="fa fa-hashtag"></i>
+                                            کد محصول: 1191230
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>-->
+
+                        @foreach (var Com in Model.Comments)
+                        {
+                            <table class="custresttable col-12 text-center table table-striped table-hover m-table m-table--head-separator-primary">
+                                <tr>
+                                    <td>
+                                        <a href="@Url.Action("CustomerProfile","AdministratorCustomers",new { id=Com.CusromerId})">
+                                            <i class="fa fa-user"></i>
+                                            نام مشتری: @Com.CustomerName
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <i class="fa fa-calendar-alt"></i>
+                                        تاریخ ثبت: @Com.C_RegisterDate
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("ViewDetails","AdministratorProducts")?idMPC=@Com.ProId">
+                                            <i class="fa fa-chevron-left"></i>
+                                            نام محصول: @Com.ProTitle
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <i class="fa fa-hashtag"></i>
+                                        کد محصول: @Com.ProductCode
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="col-12 pb-4">
+                                <div class="m-card-profile__pic col-12" style="margin: 15px auto;padding: 0;">
+                                    <div class="row custom-shev-right chat-right">
+                                        @*<div class="m-card-profile__pic-wrapper" style="border-radius: 0!important;margin: 0;padding: 3px;height: 70px;width: 70px;">
+                                                <img class="col-12" src="./assets/app/media/img/users/user4.jpg" alt="" style="border-radius: 0!important;padding: 0;">
+                                            </div>*@
+                                        <div style="text-align: right;padding-left: 0;" class="col-lg-11 respr0">
+                                            <span class="nmp" style="margin-right: 15px;">
+                                                <i class="fa fa-user"></i>
+                                                @Com.CustomerName
+                                            </span>
+                                            <p class="col-12 text-justify pmp" style="margin-top: 5px;">
+                                                <span style="display: block">پیام:</span>
+                                                @Com.Message
+                                            </p>
+                                            <span style="width: 100%;text-align:left;display: block">
+                                                @Com.CommentDate
+                                                <i class="fa fa-calendar-alt"></i>
+                                            </span>
+                                            <div id="ComProId-@Com.CommentId" style="display:none">@Com.ProId</div>
+                                            @if (Com.Reply.Count == 0)
+                                            {
+
+                                                <button class="btn btn-success editCmBtn btn-sm" data-target="#Addcomm" data-toggle="modal" onclick="return AddReply(@Com.CommentId)">
+                                                    <i class="fa fa-edit"></i>
+                                                    پاسخ
+                                                </button>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                @foreach (var item in Com.Reply)
+                                {
+                                    <div class="m-card-profile__pic col-12" style="margin: 15px auto;padding: 0;">
+                                        <div class="row custom-shev-right chat-left">
+                                            <div class="m-card-profile__pic-wrapper" style="border-radius: 0!important;margin: 0;padding: 3px;height: 70px;width: 70px;">
+                                                <img class="col-12" src="@item.AdminPic" alt="" style="border-radius: 0!important;padding: 0;">
+                                            </div>
+                                            <div id="ProId-@item.RepId" style="display:none">@Com.ProId</div>
+                                            <div id="ComId-@item.RepId" style="display:none">@Com.CommentId</div>
+                                            <div style="text-align: right;padding-left: 0;" class="col-lg-11 respr0">
+                                                <span class="nmp" style="margin-right: 15px;">
+                                                    <i class="fa fa-user"></i>
+                                                    @item.AdminName
+                                                </span>
+                                                <p class="col-12 text-justify pmp" style="margin-top: 5px;">
+                                                    <span style="display: block">پیام:</span>
+                                                    <span class="spanedit" id="Mess-@item.RepId">@item.Message</span>
+                                                </p>
+                                                <br>
+                                                <span style="width: 100%;text-align:left;display: block">
+                                                    @item.RepDate
+                                                    <i class="fa fa-calendar-alt"></i>
+                                                </span>
+                                                <button class="btn btn-primary editCmBtn btn-sm" data-target="#editcomm" data-toggle="modal" onclick="return EditReply(@item.RepId)">
+                                                    <i class="fa fa-edit"></i>
+                                                    ویرایش
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end:: Body -->
+
+@section Scripts{
+    <script>
+
+        $(document).ready(function () {
+            $("#submiterModel_Message-2").val("");
+        });
+
+        function EditReply(_id) {
+            var ProId = $("#ProId-" + _id).text();
+            var Messag = $("#Mess-" + _id).text();
+
+            $("#submiterModel_Message-1").val(Messag);
+            $("#submiterModel_CommentId-1").val(_id);
+            $("#submiterModel_ProId-1").val(ProId);
+        }
+
+        function AddReply(_id) {
+            var ProId = $("#ComProId" + _id).text();
+            $("#submiterModel_CommentId-2").val(_id);
+            $("#submiterModel_ProId-2").val(ProId);
+        }
+
+        //=================================================================================================
+        //{Start}For administrator UpdateReplySubmiter
+
+        if ($("#UpdateReplySubmiter").length == 1) {
+            $(function () {
+                $("#UpdateReplySubmiter").on("submit", function (e) {
+                    e.preventDefault();
+                    DisableBTN("UpdateReplySubmiter");
+                    $.ajax({
+                        url: this.action,
+                        type: this.method,
+                        data: $(this).serialize(),
+                        success: function (data) {
+                            console.log(data)
+                            const jsondata = data;
+                            console.log(jsondata.Errortype)
+                            if (jsondata.Errortype == "Success") {
+                                $("#submiterModel_Message-2").val("");
+                                AlertToUser("UpdateReplySubmiter", data);
+                                $("#editcomm").dialog({ show: 'fade', hide: 'drop' });
+                            } else if (jsondata.Errortype == "ErrorWithList") {
+                                $("#submiterModel_Message-2").val("");
+                                AlertToUser("UpdateReplySubmiter", data);
+                                $("#editcomm").dialog({ show: 'fade', hide: 'drop' });
+                            } else {
+                                $("#submiterModel_Message-2").val("");
+                                AlertToUser("UpdateReplySubmiter", data);
+                                $("#editcomm").dialog({ show: 'fade', hide: 'drop' });
+                            }
+                        }
+                    });
+                });
+            });
+        }
+        //{END}For administrator UpdateReplySubmiter
+        //=================================================================================================
+
+        //=================================================================================================
+        //{Start}For administrator AddReply
+        if ($("#AddReplySubmiter").length == 1) {
+            $(function () {
+                $("#AddReplySubmiter").on("submit", function (e) {
+                    e.preventDefault();
+                    DisableBTN("AddReplySubmiter");
+                    $.ajax({
+                        url: this.action,
+                        type: this.method,
+                        data: $(this).serialize(),
+                        success: function (data) {
+                            console.log(data)
+                            const jsondata = data;
+                            console.log(jsondata.Errortype)
+                            if (jsondata.Errortype == "Success") {
+                                AlertToUser("AddReplySubmiter", data);
+                                $("#Addcomm").dialog({ show: 'fade', hide: 'drop' });
+                            } else if (jsondata.Errortype == "ErrorWithList") {
+                                AlertToUser("AddReplySubmiter", data);
+                            } else {
+                                AlertToUser("AddReplySubmiter", data);
+                            }
+                        }
+                    });
+                });
+            });
+        }
+        //{END}For administrator AddReply
+        //=================================================================================================
+
+    </script>
+}

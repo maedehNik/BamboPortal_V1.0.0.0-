@@ -900,8 +900,8 @@ namespace BamboPortal_V1._0._0._0.Controllers
                         {
                             SubCategoryName = dt.Rows[0]["SCName"].ToString(),
                             MainCategoryID = dt.Rows[0]["id_MC"].ToString(),
-                            typeID="0",
-                            IdSubCategoryForEdit= dt.Rows[0]["id_SC"].ToString(),
+                            typeID = "0",
+                            IdSubCategoryForEdit = dt.Rows[0]["id_SC"].ToString(),
                         };
                         model.SubmiterModel = submiterModel;
                         return View(model);
@@ -957,7 +957,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                                     _KEY = "@value",
                                     _VALUE = senderObj.SubCategoryName
                                 };
-                                parss.Add(par); 
+                                parss.Add(par);
                                 par = new ExcParameters()
                                 {
                                     _KEY = "@data_Sub",
@@ -1825,12 +1825,12 @@ namespace BamboPortal_V1._0._0._0.Controllers
                     {
                         AddSubCateGoryValuesOfKeysSubmit submiterModel = new AddSubCateGoryValuesOfKeysSubmit()
                         {
-                            ProductSubCategoryValueOfKeyName= dt.Rows[0]["SCOVValueName"].ToString(),
-                            ProductSubCategoryKeyID= dt.Rows[0]["id_SCOK"].ToString(),
+                            ProductSubCategoryValueOfKeyName = dt.Rows[0]["SCOVValueName"].ToString(),
+                            ProductSubCategoryKeyID = dt.Rows[0]["id_SCOK"].ToString(),
                             ProductSubCategoryId = "0",
                             ProcuctMainCategoryId = "0",
                             ProductTypeId = "0",
-                            ProductSubCategoryValueOfKeyIDForEdit= dt.Rows[0]["id_SCOV"].ToString(),
+                            ProductSubCategoryValueOfKeyIDForEdit = dt.Rows[0]["id_SCOV"].ToString(),
                         };
                         model.KeySubmit = submiterModel;
                         return View(model);
@@ -1857,7 +1857,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                     ProductSubCategoryId = "0",
                     ProcuctMainCategoryId = "0",
                     ProductTypeId = "0",
-                    ProductSubCategoryValueOfKeyIDForEdit ="0",
+                    ProductSubCategoryValueOfKeyIDForEdit = "0",
                 };
                 model.KeySubmit = submiterModel;
                 return View(model);
@@ -1865,7 +1865,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
             //================================================================================ For Editpage
 
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AddSubCateGoryValuesOfKeys(AddSubCateGoryValuesOfKeysModelView senderObjs)
@@ -2273,8 +2273,8 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 }
             }
 
-            
-                return View(model);
+
+            return View(model);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -2406,7 +2406,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 return Json(ModelSender);
             }
 
-            
+
         }
 
         public JsonResult AddMainTag_DELETE(string idTodelete)
@@ -2755,9 +2755,9 @@ namespace BamboPortal_V1._0._0._0.Controllers
                     {
                         var m = new ProductOptions_Model()
                         {
-                            Id=Convert.ToInt32(optionsDT.Rows[i]["id_Op"]),
-                            Key= optionsDT.Rows[i]["KeyName"].ToString(),
-                            Value= optionsDT.Rows[i]["Value"].ToString()
+                            Id = Convert.ToInt32(optionsDT.Rows[i]["id_Op"]),
+                            Key = optionsDT.Rows[i]["KeyName"].ToString(),
+                            Value = optionsDT.Rows[i]["Value"].ToString()
                         };
                         optionList.Add(m);
                     }
@@ -2779,22 +2779,22 @@ namespace BamboPortal_V1._0._0._0.Controllers
 
                     var Model = new Edit_ProductModelView()
                     {
-                        Images=Imgs,
-                        OptionList=optionList,
-                        SubmiterModel=ModelSender,
-                        OptionSubmiter=new ProductOptions_Model()
+                        Images = Imgs,
+                        OptionList = optionList,
+                        SubmiterModel = ModelSender,
+                        OptionSubmiter = new ProductOptions_Model()
                         {
-                            Id=0,
-                            Key="",
-                            Value=""
+                            Id = 0,
+                            Key = "",
+                            Value = ""
                         },
-                        ProId=Convert.ToInt32(ProId)
-                        
+                        ProId = Convert.ToInt32(ProId)
+
                     };
                     return View(Model);
                 }
                 else
-                { 
+                {
                     var ModelSender = new ErrorReporterModel
                     {
                         ErrorID = "EX112",
@@ -2906,8 +2906,8 @@ namespace BamboPortal_V1._0._0._0.Controllers
 
 
         [HttpPost]
-        
-        public ActionResult EditProduct(string ProId, string Title,string Description)
+
+        public ActionResult EditProduct(string ProId, string Title, string Description)
         {
             if (ModelState.IsValid)
             {
@@ -3077,7 +3077,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
         //}
 
         [HttpPost]
-        public ActionResult AddOption(string ProId,string Key,string Value)
+        public ActionResult AddOption(string ProId, string Key, string Value)
         {
             if (ModelState.IsValid)
             {
@@ -3591,7 +3591,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
             db.Connect();
             foreach (var item in jaygashts)
             {
-                itemid = SJOP.MainProduct_Actions("insert", id_MProductOUT, Senderobj.PRDCTDemansionValue, Senderobj.PRDCTDemansion, PriceXquantity.ToString(), Senderobj.PRDCTPricePer1Demansion, "0", "0", "0", Senderobj.PRDCTTagSectionOfProduct, Senderobj.PRDCTPriceDemansion, Senderobj.PRDCTPriceShowType, MultyPriceXquantity.ToString(),Senderobj.PRDCTMultyDemansionValue, MultyPricePerquantity.ToString());
+                itemid = SJOP.MainProduct_Actions("insert", id_MProductOUT, Senderobj.PRDCTDemansionValue, Senderobj.PRDCTDemansion, PriceXquantity.ToString(), Senderobj.PRDCTPricePer1Demansion, "0", "0", "0", Senderobj.PRDCTTagSectionOfProduct, Senderobj.PRDCTPriceDemansion, Senderobj.PRDCTPriceShowType, MultyPriceXquantity.ToString(), Senderobj.PRDCTMultyDemansionValue, MultyPricePerquantity.ToString());
                 foreach (var itm in item)
                 {
                     string resultstiem = db.Script("INSERT INTO[tbl_Product_connectorToMPC_SCOV] VALUES(" + itemid + "," + itm.SubCategoryKeyValue + ")");
@@ -4094,5 +4094,258 @@ namespace BamboPortal_V1._0._0._0.Controllers
 
             return Json(result);
         }
+
+        //========================================================
+        public ActionResult AddReply(ReplySubmiterModel submiterModel)
+        {
+            if(string.IsNullOrEmpty(submiterModel.ProId))
+            {
+                submiterModel.ProId = "0";
+            }
+            string id_CreatedByAdmin = "0";
+            if (Session["AdministratorRegistery"] != null)
+            {
+                id_CreatedByAdmin = ((Administrator)Session["AdministratorRegistery"]).id_Admin;
+            }
+            else
+            {
+                var coockie = HttpContext.Request.Cookies.Get(ProjectProperies.AuthCoockieCode());
+                Administrator administratorobj = CoockieController.SayMyName(coockie.Value);
+                id_CreatedByAdmin = administratorobj.id_Admin;
+            }
+
+            PDBC db = new PDBC();
+            uint id = 0;
+            if (UInt32.TryParse(submiterModel.CommentId, out id))
+            {
+                List<ExcParameters> parss = new List<ExcParameters>();
+                ExcParameters par = new ExcParameters()
+                {
+                    _KEY = "@CommentId",
+                    _VALUE = submiterModel.CommentId
+                };
+                parss.Add(par);
+
+                par = new ExcParameters()
+                {
+                    _KEY = "@Message",
+                    _VALUE = submiterModel.Message
+                };
+                parss.Add(par);
+
+                par = new ExcParameters()
+                {
+                    _KEY = "@AdminId",
+                    _VALUE = id_CreatedByAdmin
+                };
+                parss.Add(par);
+
+                db.Connect();
+                string result = db.Script("INSERT INTO [tbl_Product_Reply]([Message],[CommentId],[date],[AdminId])VALUES(@Message,@CommentId, GETDATE(),@AdminId)", parss);
+                db.DC();
+                if (UInt32.TryParse(result, out id))
+                {
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "SX106",
+                        Errormessage = $"پاسخ به نظر مشتری با موفقیت ثبت شد!",
+                        Errortype = "Success"
+                    };
+                    return Json(ModelSender);
+                }
+                else
+                {
+                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "EX115",
+                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                        Errortype = "Error"
+                    };
+                    return Json(ModelSender);
+                }
+            }
+            else
+            {
+                List<ModelErrorReporter> allErrors = new List<ModelErrorReporter>();
+                //foreach (ModelError error in ModelState.Values.)
+                var AllValues = ModelState.Values.ToList();
+                var AllKeys = ModelState.Keys.ToList();
+                int errorsCount = AllValues.Count;
+                for (int i = 0; i < errorsCount; i++)
+                {
+                    if (AllValues[i].Errors.Count > 0)
+                    {
+                        ModelErrorReporter er = new ModelErrorReporter()
+                        {
+                            IdOfProperty = AllKeys[i].Replace("SubmiterStructure.", "SubmiterStructure_"),
+                            ErrorMessage = AllValues[i].Errors[0].ErrorMessage
+                        };
+                        allErrors.Add(er);
+                    }
+                }
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX0012",
+                    Errormessage = $"عدم رعایت استاندارد ها!",
+                    Errortype = "ErrorWithList",
+                    AllErrors = allErrors
+                };
+                return Json(ModelSender);
+            }
+        }
+
+        public ActionResult UpdateReply(ReplySubmiterModel submiterModel)
+        {
+            PDBC db = new PDBC();
+            uint id = 0;
+            if (UInt32.TryParse(submiterModel.CommentId, out id))
+            {
+                List<ExcParameters> parss = new List<ExcParameters>();
+                ExcParameters par = new ExcParameters()
+                {
+                    _KEY = "@RepId",
+                    _VALUE = submiterModel.CommentId
+                };
+                parss.Add(par);
+
+                par = new ExcParameters()
+                {
+                    _KEY = "@Message",
+                    _VALUE = submiterModel.Message
+                };
+                parss.Add(par);
+
+                db.Connect();
+                string result = db.Script("UPDATE [tbl_Product_Reply] SET [Message] = @Message WHERE RepId=@RepId", parss);
+                db.DC();
+                if (UInt32.TryParse(result, out id))
+                {
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "SX106",
+                        Errormessage = $"پاسخ به نظر مشتری با موفقیت ثبت شد!",
+                        Errortype = "Success"
+                    };
+                    return Json(ModelSender);
+                }
+                else
+                {
+                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "EX115",
+                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                        Errortype = "Error"
+                    };
+                    return Json(ModelSender);
+                }
+            }
+            else
+            {
+                List<ModelErrorReporter> allErrors = new List<ModelErrorReporter>();
+                //foreach (ModelError error in ModelState.Values.)
+                var AllValues = ModelState.Values.ToList();
+                var AllKeys = ModelState.Keys.ToList();
+                int errorsCount = AllValues.Count;
+                for (int i = 0; i < errorsCount; i++)
+                {
+                    if (AllValues[i].Errors.Count > 0)
+                    {
+                        ModelErrorReporter er = new ModelErrorReporter()
+                        {
+                            IdOfProperty = AllKeys[i].Replace("SubmiterStructure.", "SubmiterStructure_"),
+                            ErrorMessage = AllValues[i].Errors[0].ErrorMessage
+                        };
+                        allErrors.Add(er);
+                    }
+                }
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX0012",
+                    Errormessage = $"عدم رعایت استاندارد ها!",
+                    Errortype = "ErrorWithList",
+                    AllErrors = allErrors
+                };
+                return Json(ModelSender);
+            }
+        }
+
+        public ActionResult ProductComments(string ProId = "0")
+        {
+            string Query;
+            if (ProId == "0")
+            {
+                Query = "SELECT [C_FirstName]+' '+[C_LastNAme] as name,[id_Customer],[CommentId],[Message],[date],[Title],[C_regDate],[id_MProduct] FROM [v_CommentsList] ORDER BY([date])DESC";
+            }
+            else
+            {
+                Query = "SELECT [C_FirstName]+' '+[C_LastNAme] as name,[id_Customer],[CommentId],[Message],[date],[Title],[C_regDate],[id_MProduct] FROM [v_CommentsList] WHERE ProductId=@id_MProduct ORDER BY([date])DESC";
+            }
+            var Comments = new List<CommentModel>();
+            PDBC db = new PDBC();
+            ExcParameters par = new ExcParameters()
+            {
+                _KEY = "@id_MProduct",
+                _VALUE = ProId
+            };
+            List<ExcParameters> pars = new List<ExcParameters>();
+            pars.Add(par);
+            db.Connect();
+            using (DataTable dt = db.Select(Query, pars))
+            {
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    CommentModel Comment = new CommentModel()
+                    {
+                        ProId = Convert.ToInt32(dt.Rows[i]["id_MProduct"]),
+                        CusromerId = Convert.ToInt32(dt.Rows[i]["id_Customer"]),
+                        ProTitle = dt.Rows[i]["Title"].ToString(),
+                        CustomerName = dt.Rows[i]["name"].ToString(),
+                        ProductCode = "",
+                        C_RegisterDate = DateConvert.DateReturner(dt.Rows[i]["C_regDate"].ToString(), "ShortDate"),
+                        CommentDate = DateConvert.DateReturner(dt.Rows[i]["date"].ToString(), "DateTime"),
+                        Message = dt.Rows[i]["Message"].ToString(),
+                        CommentId = Convert.ToInt32(dt.Rows[i]["CommentId"])
+                    };
+                    Comment.Reply = new List<ReplyModel>();
+                    using (DataTable dtJ = db.Select("SELECT [AdminId],[ad_avatarprofile],[ad_firstname]+' '+[ad_lastname] as AdName,[CommentId],[Message],[RepId],[date] FROM [v_ReplyList] WHERE [CommentId]=" + Comment.CommentId + " order by([date])DESC"))
+
+                    {
+                        for (int j = 0; j < dtJ.Rows.Count; j++)
+                        {
+                            Comment.Reply.Add(new ReplyModel()
+                            {
+                                //= dtJ.Rows[j][""].ToString(),
+                                AdminId = Convert.ToInt32(dtJ.Rows[j]["AdminId"]),
+                                Message = dtJ.Rows[j]["Message"].ToString(),
+                                RepDate = DateConvert.DateReturner(dtJ.Rows[j]["date"].ToString(), "DateTime"),
+                                AdminName = dtJ.Rows[j]["AdName"].ToString(),
+                                AdminPic = dtJ.Rows[j]["ad_avatarprofile"].ToString(),
+                                RepId = Convert.ToInt32(dtJ.Rows[j]["RepId"]),
+                            });
+                        }
+                    }
+                    Comments.Add(Comment);
+                }
+                db.DC();
+
+                var Model = new CommentsListModelView()
+                {
+                    Comments = Comments,
+                    submiterModel = new ReplySubmiterModel()
+                    {
+                        CommentId = "0",
+                        Message = "",
+                        ProId = ProId
+                    }
+                };
+
+                return View(Model);
+            }
+        }
+
+        
     }
 }
