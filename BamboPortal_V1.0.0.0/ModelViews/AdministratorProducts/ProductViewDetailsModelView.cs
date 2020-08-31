@@ -8,6 +8,7 @@ namespace BamboPortal_V1._0._0._0.ModelViews.AdministratorProducts
 {
     public class ProductViewDetailsModelView
     {
+        public string ID_Mainpr { get; set; }
         public string id_MPC { get; set; }
         public List<ProductViewDetails_ProductSOCKandSOCKVLList> ProductsJaygashtList { get; set; }
         public string ProductName { get; set; }

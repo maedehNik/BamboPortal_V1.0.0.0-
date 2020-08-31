@@ -135,7 +135,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                                 }
                                 if (string.IsNullOrEmpty(adObj.urlRedirection))
                                 {
-                                    return RedirectToAction("Logs", "AdminLoginAuth");
+                                    return RedirectToAction("Index");
                                 }
                                 else
                                 {

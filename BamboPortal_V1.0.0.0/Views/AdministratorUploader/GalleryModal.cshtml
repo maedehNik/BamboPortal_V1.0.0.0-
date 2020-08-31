@@ -16,12 +16,17 @@
                                 آپلود
                             </span>
                         </li>
-                        <li class="col-6">
+                        <li class="col-5">
                             <span class="gal-btn">
                                 <i class="fa fa-images"></i>
                                 گالری
                             </span>
                         </li>
+                        <li class="col-1">
+                            <span class="relogal-btn">
+                                <i class="fa fa-circle-notch"></i>
+                                تازه سازی گالری
+                            </span>
                         </li>
                     </ul>
                 </h5>
@@ -30,7 +35,7 @@
                 </button>
             </div>
             <input id="DataSelectedFromGallery" style="display:none" />
-            <div class="modal-body" style="overflow-y: auto;overflow-x: hidden;">
+            <div class="modal-body" style="overflow-y: auto;overflow-x: hidden;" id="galmodalbdy">
                 @{Html.RenderAction("Uploader_Image");}
 
                 @{Html.RenderAction("Gallery");}

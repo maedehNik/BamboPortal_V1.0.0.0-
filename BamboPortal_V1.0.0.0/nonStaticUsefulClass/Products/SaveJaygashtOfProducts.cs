@@ -50,26 +50,26 @@ string MultyPriceXquantity, string CalculateMultyPriceFromQ,string MultyPricePer
             };
             paramss.Add(parameters);
 
-            //parameters = new ExcParameters()
-            //{
-            //    _KEY = "@PriceOff",
-            //    _VALUE = PriceOff
-            //};
-            //paramss.Add(parameters);
+            parameters = new ExcParameters()
+            {
+                _KEY = "@PriceOff",
+                _VALUE = 0
+            };
+            paramss.Add(parameters);
 
-            //parameters = new ExcParameters()
-            //{
-            //    _KEY = "@offTypeValue",
-            //    _VALUE = offTypeValue
-            //};
-            //paramss.Add(parameters);
+            parameters = new ExcParameters()
+            {
+                _KEY = "@offTypeValue",
+                _VALUE = 0
+            };
+            paramss.Add(parameters);
 
-            //parameters = new ExcParameters()
-            //{
-            //    _KEY = "@OffType",
-            //    _VALUE = OffType
-            //};
-            //paramss.Add(parameters);
+            parameters = new ExcParameters()
+            {
+                _KEY = "@OffType",
+                _VALUE = 0
+            };
+            paramss.Add(parameters);
 
             parameters = new ExcParameters()
             {

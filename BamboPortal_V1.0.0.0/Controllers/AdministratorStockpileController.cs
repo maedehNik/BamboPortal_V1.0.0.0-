@@ -116,8 +116,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                         ShopAvailable4Transaction = new List<Key_ValueModel>(),
                         ShopList = new List<Shops>(),
                         socKandSockvlList = new List<ProductViewDetails_ProductSOCKandSOCKVLList>(),
-                        STHList = new List<StockpileTransactionHistoryModel>()
-                        ,
+                        STHList = new List<StockpileTransactionHistoryModel>(),
                         MoneyType = dtproduct.Rows[0]["MoneyTypeName"].ToString(),
                         demansion = dtproduct.Rows[0]["PQT_Demansion"].ToString(),
                     };

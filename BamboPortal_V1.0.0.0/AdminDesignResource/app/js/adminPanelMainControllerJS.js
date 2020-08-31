@@ -377,14 +377,13 @@
 //=================================================================================================
 //{Start}got Json of ErrorReporterModel--> AllErrors For validate from backend serverside Validation{
 function ValidationOrNotValidateDatas(data, formID) {
-    var AllInps = $("#" + formID).parent().find('input');
-    var __iValidationOrNotValidateDatas = 0
-
-    for (__iValidationOrNotValidateDatas = 0; __iValidationOrNotValidateDatas < AllInps.length; __iValidationOrNotValidateDatas++) {
-        $(AllInps[__iValidationOrNotValidateDatas]).removeClass("input-validation-error");
-        var idinp = $(AllInps[__iValidationOrNotValidateDatas]).attr('id');
+    $("body input:text").each(function () {
+        $(this).removeClass("input-validation-error");
+        var idinp = $(this).attr('id');
         $("#" + idinp + "ERR").remove();
-    }
+        console.log(idinp);
+    });
+
     const AllErrors = data.AllErrors;
     var allErrorsCounter = 0;
     for (allErrorsCounter = 0; allErrorsCounter < AllErrors.length; allErrorsCounter++) {
@@ -392,6 +391,7 @@ function ValidationOrNotValidateDatas(data, formID) {
     }
 }
 function NotValidation(messagetxt, inputID) {
+    console.log("#" + inputID + " : " + $("#" + inputID ).length)
     $("#" + inputID).addClass('input-validation-error');
     if ($("#" + inputID + "ERR").length == 0) {
         $("#" + inputID).after('<span id="' + inputID + 'ERR" class="field-validation-error" data-valmsg-replace="true">' + messagetxt + '</span>');
@@ -415,7 +415,7 @@ function ThisIsValid(inputID) {
 function AlertToUser(FormID, data) {
     setTimeout(function () {
 
-
+        console.log("saaaalaaaaam");
         if (data.Errortype == "Success") {
             swal("درخواست با موفقیت ثبت شد!", data.Errormessage, "success").then(function (e) {
                 $("#" + FormID + "_SubmitBTN").removeClass("m-loader m-loader--light m-loader--right").prop("disabled", false);
@@ -435,6 +435,8 @@ function AlertToUser(FormID, data) {
         }
         else if (data.Errortype == "ErrorWithList") {
             swal("متاسفانه در ارسال درخواست مشکلی بوجود آمده", data.Errormessage, "error").then(function (e) {
+
+
                 ValidationOrNotValidateDatas(data, FormID);
                 $("#" + FormID + "_SubmitBTN").removeClass("m-loader m-loader--light m-loader--right").prop("disabled", false);
             })
@@ -497,3 +499,7 @@ $(".activate-btn").on("click", function (e) {
     $('#ActiveModal').find('#data-name-Active').text(data);
     $("#activemodalID").val($(this).attr("id").replace("Active-", ""));
 });
+function RemoveDeactivityFromBTN(FormID) {
+    $("#" + FormID + "_SubmitBTN").removeClass("m-loader m-loader--light m-loader--right").prop("disabled", false);
+
+}
