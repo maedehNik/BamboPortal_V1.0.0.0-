@@ -179,8 +179,12 @@
     <Compile Include="Models\AdministratorProductsModels\AddSubCatKeySubmit.cs" />
     <Compile Include="Models\AdministratorProductsModels\addtype.cs" />
     <Compile Include="Models\AdministratorProductsModels\AddTypeTable.cs" />
+    <Compile Include="Models\AdministratorProductsModels\CategotyTreeModel.cs" />
+    <Compile Include="Models\AdministratorProductsModels\EditproductSenderModel.cs" />
     <Compile Include="Models\AdministratorProductsModels\MainTagStructure.cs" />
+    <Compile Include="Models\AdministratorProductsModels\ProductImagesObj.cs" />
     <Compile Include="Models\AdministratorProductsModels\ProductListTable.cs" />
+    <Compile Include="Models\AdministratorProductsModels\ProductOptionsModel.cs" />
     <Compile Include="Models\AdministratorProductsModels\ProductOptions_Model.cs" />
     <Compile Include="Models\AdministratorProductsModels\ProductViewDetails_EditTimeLine.cs" />
     <Compile Include="Models\AdministratorProductsModels\ProductViewDetails_ProductSOCKandSOCKVL.cs" />
@@ -3278,6 +3282,8 @@
     <Content Include="Views\AdminstratorBlog\_PostTableItem.cshtml" />
     <Content Include="Views\AdministratorProducts\Edit_Product.cshtml" />
     <Content Include="Views\AdministratorProducts\Options_Table.cshtml" />
+    <Content Include="Views\AdministratorProducts\DeletedProductsList.cshtml" />
+    <Content Include="Views\AdministratorProducts\Product_ShowCatTree.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -9,6 +9,7 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CategotyTreeModel = BamboPortal_V1._0._0._0.Models.AdministratorProductsModels.CategotyTreeModel;
 
 namespace BamboPortal_V1._0._0._0.Controllers
 {

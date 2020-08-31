@@ -4,244 +4,197 @@
     Layout = "~/Views/SharedViewPages/Administrator/MasterView.cshtml";
 }
 
-<div class="m-grid__item m-grid__item--fluid m-wrapper">
-
-    <!-- BEGIN: Subheader -->
-    <div class="m-subheader">
-        <div class="d-flex align-items-center">
-            <div class="mr-auto">
-                <span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
-                    <span class="m-subheader__daterange-label">
-                        <h3 class="m-subheader__title" style="padding-left: 0!important;margin: 0 0 0 2px!important;">
-                            پیشخوان
-                            <i class="fa fa-chevron-left tshfontsize2" style="transform: translateY(3px);color: #aaaeb8;margin-right: 2px;"></i>
-                            <span class="m-subheader__daterange-title tshfontsize2" style="margin-right: 2px;margin-left: 2px;">ویرایش محصول </span>
-                            <!--
-                            <i class="fa fa-chevron-left" style="transform: translateY(3px);color: #aaaeb8;"></i>
-                            <span class="m-subheader__daterange-title" style="margin-right: 2px;">نمایش همه ی پست ها</span>
-                            -->
-                        </h3>
-                    </span>
+<!-- BEGIN: Subheader -->
+<div class="m-subheader">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
+                <span class="m-subheader__daterange-label">
+                    <h3 class="m-subheader__title" style="padding-left: 0!important;margin: 0 0 0 2px!important;">
+                        پیشخوان
+                        <i class="fa fa-chevron-left tshfontsize2" style="transform: translateY(3px);color: #aaaeb8;margin-right: 2px;"></i>
+                        <span class="m-subheader__daterange-title tshfontsize2" style="margin-right: 2px;margin-left: 2px;">ویرایش محصول</span>
+                        <!--
+                        <i class="fa fa-chevron-left" style="transform: translateY(3px);color: #aaaeb8;"></i>
+                        <span class="m-subheader__daterange-title" style="margin-right: 2px;">نمایش همه ی پست ها</span>
+                        -->
+                    </h3>
                 </span>
-            </div>
+            </span>
         </div>
     </div>
+</div>
+<input id="Savedimgs" value="" style="display:none;" />
+<input id="idmp" style="display:none;" value="@Model.idMainProduct" />
 
-
-    <div class="m-content">
-        <div class="row">
-            <div class="col-lg-4">
-                <div class="m-portlet m-portlet--full-height  ">
-                    <div class="m-portlet__body">
-                        <div class="m-card-profile">
-                            @*<div class="slideshow-container">
-                                <div class="mySlides" style="display: none;position: relative">
-                                    <button class="btn btn-danger btn-remove-slider-img" style="padding: 4px;position: absolute;top: -12px;right: -10px;"><i class="fa fa-trash" style="font-size: 10px"></i></button>
-                                    <img src="assets/demo/default/media/img/misc/user_profile_bg.jpg" data-url="assets/demo/default/media/img/misc/user_profile_bg.jpg" style="width:100%">
-                                </div>
-                                <div class="mySlides" style="display: none;position: relative">
-                                    <button class="btn btn-danger btn-remove-slider-img" style="padding: 4px;position: absolute;top: -12px;right: -10px;"><i class="fa fa-trash" style="font-size: 10px"></i></button>
-                                    <img src="assets/demo/default/media/img/misc/quick_actions_bg.jpg" data-url="assets/demo/default/media/img/misc/quick_actions_bg.jpg" style="width:100%">
-                                </div>
-                                <div class="mySlides" style="display: none;position: relative">
-                                    <button class="btn btn-danger btn-remove-slider-img" style="padding: 4px;position: absolute;top: -12px;right: -10px;"><i class="fa fa-trash" style="font-size: 10px"></i></button>
-                                    <img src="assets/demo/default/media/img/misc/notification_bg.jpg" data-url="assets/demo/default/media/img/misc/notification_bg.jpg" style="width:100%">
-                                </div>
-                                <a class="prev" onclick="plusSlides(-1)">&#10095;</a>
-                                <a class="next" onclick="plusSlides(1)">&#10094;</a>
-                            </div>*@
-                            <div class="m-section__content container-fluid tshtextcenter mt-3">
-                                <button class="btn btn-brand btn-sm" data-target="#uploader" data-toggle="modal">انتخاب عکس</button>
-                            </div>
-                        </div>
-                        <div style="display:none" id="ProId">@Model.ProId</div>
-                        <ul class="m-nav m-nav--hover-bg m-portlet-fit--sides mt-2 cus-prof-menu">
-                            <li class="m-nav__item tshcurpoi active-cust-profile tshbtn1">
-                                <a class="m-nav__link">
-                                    <i class="m-nav__link-icon fa fa-chevron-left"></i>
-                                    <span class="m-nav__link-text">اطلاعات کلی محصول</span>
-                                </a>
-                            </li>
-                            <li class="m-nav__item tshcurpoi active-cust-profile tshbtn3">
-                                <a class="m-nav__link">
-                                    <i class="m-nav__link-icon fa fa-file"></i>
-                                    <span class="m-nav__link-text">ویژگی های محصول</span>
+<div class="m-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="m-portlet m-portlet--full-height  ">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-tools">
+                        <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
+                            <li class="nav-item m-tabs__item">
+                                <a class="nav-link m-tabs__link active" style="padding-top: 24px;padding-bottom: 24px;" data-toggle="tab" href="#m_user_profile_tab_1" role="tab">
+                                    <i class="flaticon-share m--hide"></i>
+                                    <cust_title>
+                                        ویرایش محصول
+                                    </cust_title>
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-8">
-                <div class="m-portlet m-portlet--full-height m-portlet--tabs  ">
-                    <div class="m-portlet__head">
-                        <div class="m-portlet__head-tools">
-                            <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
-                                <li class="nav-item m-tabs__item">
-                                    <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_user_profile_tab_1" role="tab">
-                                        <i class="flaticon-share m--hide"></i>
-                                        <cust_title>
-                                            اطلاعات کلی محصول
-                                        </cust_title>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="m_user_profile_tab_1">
-                            @*<form class="m-form m-form--fit m-form--label-align-right" onsubmit="return false;" id="prodform">*@
-                            <div class="m-form m-form--fit m-form--label-align-right" id="prodform">
-                                <div class="m-portlet__body sec-1" style="padding-bottom: 0">
-                                    <div class="row">
-                                        <div class="form-group m-form__group col-lg-12 col-xs-12">
-                                            <label for="PRDCTName" class="col-12 col-form-label tshtextright">نام محصول:</label>
-                                            <div class="col-12">
-                                                <input class="form-control m-input" id="PRDCTName" name="PRDCTName" type="text" value="@Model.SubmiterModel.Title">
-                                            </div>
-                                        </div>
-                                        <div class="form-group m-form__group col-lg-12 col-xs-12" style="padding-top: 0;">
-                                            <label for="PRDCTDescription" class="col-12 col-form-label tshtextright">توضیحات محصول:</label>
-                                            <div class="col-12">
-                                                <textarea class="form-control m-input" style="height:250px;" id="PRDCTDescription" name="PRDCTDescription" type="text" value="@Model.SubmiterModel.Description" multiple maxlength="300" rows="6">
+                <div class="m-portlet__body" id="EditProductSubmiter">
+                    <div class="row col-12 no-margin-res">
+                        <div class="m-card-profile col-lg-4 col-xs-12" id="Sliderss">
+                            <input id="SliderssRedirection" value="NoReload" style="display:none" />
+                            <div class="slideshow-container foreditPage">
+                                @if (Model.Allimgs.Count > 0)
+                                {
+                                    foreach (var item in Model.Allimgs)
+                                    {
 
-</textarea>
-                                            </div>
+                                        <div class="mySlides inserteds" style="display: none;position: relative" id="imgSlide-@item.ImageConnectorID">
+                                            <button onclick="return ImgRemoveEditpage('@item.ImageConnectorID')" class="btn btn-danger btn-remove-slider-img btnremoveimgslideshowhide" style="padding: 4px;position: absolute;top: -12px;right: -10px;"><i class="fa fa-trash" style="font-size: 10px"></i></button>
+                                            <img src="@item.ThumnailAddress" data-url="@item.OrgImgAddress" style="width:100%" onerror="this.onerror=null;this.src='/CustomerSide_desinerResource/images/shop/imgNotFount.jpg'">
                                         </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <div class="mySlides " style="display: none;position: relative">
+                                        <img src="/CustomerSide_desinerResource/images/shop/imgNotFount.jpg" data-url="/CustomerSide_desinerResource/images/shop/imgNotFount.jpg" style="width:100%" onerror="this.onerror=null;this.src='/CustomerSide_desinerResource/images/shop/imgNotFount.jpg'">
                                     </div>
-                                    <div class="m-portlet__foot m-portlet__foot--fit">
-                                        <div class="m-form__actions">
+                                }
+
+                                <a class="prev" onclick="plusSlides(-1)">&#10095;</a>
+                                <a class="next" onclick="plusSlides(1)">&#10094;</a>
+                            </div>
+                            <div class="m-section__content container-fluid tshtextcenter mt-3">
+                                <button class="btn btn-brand btn-sm " onclick="return btn4Upload()" data-target="#uploader" data-toggle="modal">انتخاب عکس</button>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-8">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="m_user_profile_tab_1">
+                                    <div class="m-portlet__body nopadleftrightres" style="padding-bottom: 0;padding-top: 0;">
+                                        <div class="sec-1">
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="form-group m-form__group col-lg-6 col-xs-12 nopadleftrightres">
+                                                    <label for="ProductName" class="col-12 col-form-label tshtextright nopadleftrightres">نام محصول:</label>
+                                                    <div class="col-12 nopadleftrightres">
+                                                        <input class="form-control m-input" id="ProductName" name="ProductName" type="text" value="@Model.ProductName">
+                                                    </div>
                                                 </div>
-                                                <div class="col-12 tshtextleft">
-                                                    <button onclick="return EditData()" class="btn btn-accent m-btn m-btn--air m-btn--custom prdn1">ثبت</button>&nbsp;&nbsp;
+                                                <div class="form-group m-form__group col-lg-6 col-xs-12 nopadleftrightres">
+                                                    <label class="col-12 col-form-label tshtextright nopadleftrightres">مشخصات محصول:</label>
+                                                    <div class="col-12 nopadleftrightres">
+                                                        @foreach (var ProductsJaygashtList in Model.ProductsJaygashtList)
+                                                        {
+                                                            <span class="m-badge m-badge--@ProductsJaygashtList.BootstrapColor tshcolorwhite m-badge--wide tshbadge" style="float: right;">@ProductsJaygashtList.ToString()</span>
+                                                        }
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
-
-                                    @*@using (@Html.BeginForm("EditProduct", "AdministratorProducts", FormMethod.Post, new { @id = "EditProductSubmiter", @class = "m-form m-form--fit m-form--label-align-right" }))
-        {
-            @Html.AntiForgeryToken();
-            @Html.TextBoxFor(m => m.SubmiterModel.ProId, new { @class = "form-control m-input", @style = "display:none;", @Value = Model.ProId,@id="SubmiterModel_ProId",@name="SubmiterModel.ProId" })
-            <div class="">
-                <div class="form-group m-form__group col-lg-12 col-xs-12">
-                    @Html.LabelFor(m => m.SubmiterModel.Title, "نام محصول :", new { @class = "col-12 col-form-label tshtextright", @style = "padding-right: 0;padding-left: 0;" })
-                    <div class="col-12">
-                        @Html.TextBoxFor(m => m.SubmiterModel.Title, new { @class = "form-control m-input", @placeholder = "", id = "SubmiterModel_Title" ,@value=Model.SubmiterModel.Title, @name = "SubmiterModel.Title" })
-                        @Html.ValidationMessageFor(m => m.SubmiterModel.Title)
-                    </div>
-                </div>
-                <div class="form-group m-form__group col-lg-12 col-xs-12" style="padding-top: 0;">
-                    @Html.LabelFor(m => m.SubmiterModel.Description, "توضیحات محصول :", new { @class = "col-12 col-form-label tshtextright", @style = "padding-right: 0;padding-left: 0;" })
-                    <div class="col-12">
-
-                        @Html.TextAreaFor(m => m.SubmiterModel.Description, new { @class = "form-control m-input", @placeholder = "" , id = "SubmiterModel_Description" ,@value=Model.SubmiterModel.Description , @maxlength= "300",@rows="6",@style="height:250px;",@name="SubmiterModel.Description"})
-                        @Html.ValidationMessageFor(m => m.SubmiterModel.Description)
-
-
-                    </div>
-                </div>
-            </div>
-            <div class="m-portlet__foot m-portlet__foot--fit">
-                <div class="m-form__actions">
-                    <div class="row">
-                        <div class="col-12 tshtextleft">
-                            <button type="submit" id="EditProduct_SubmitBTN" class="btn btn-accent m-btn m-btn--air m-btn--custom prdn1">ثبت</button>&nbsp;&nbsp;
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }*@
-
-
                                 </div>
-                                <div class="sec-3" style="display: none">
+                            </div>
+                        </div>
+                        <div class="col-12" style="padding-right: 0;padding-left: 0;">
+                            <div class="row">
+                                <div class="form-group m-form__group col-lg-12 col-xs-12" style="padding-top: 0;padding-right: 0;padding-left: 0;">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <label for="Description" class="col-12 col-form-label tshtextright">توضیحات محصول:</label>
+                                        <div class="col-12">
+                                            <textarea class="form-control m-input" style="height:250px;" id="Description" name="Description" type="text" value="" multiple maxlength="300" rows="6"></textarea>
+                                            <input id="Descriptioninp" value="@Model.Description" style="display:none" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group m-form__group col-lg-6 col-xs-12 nopadleftres" style="padding-right: 0;">
+                                    <label for="GheymateVahed" class="col-12 col-form-label tshtextright">قیمت واحد:</label>
                                     <div class="col-12">
-                                        <div>
-                                            <div class="m-portlet__head-title container-fluid mt-4">
-                                                <h3 class="m-portlet__head-text" style="font-size: 12px;border-bottom: 1px solid rgba(0,0,0,.1);padding-bottom: 17px;">
-                                                    جزئیات
-                                                </h3>
-                                            </div>
-                                        </div>
-
-                                        
-                                        @*<div class="row">
-            <div class="col-12" id="prodform2">
-                @using (@Html.BeginForm("AddOption", "AdministratorProducts", FormMethod.Post, new { @id = "AddOptionSubmiter", @class = "m-form m-form--fit m-form--label-align-right" }))
-                {
-
-                    @Html.AntiForgeryToken();
-                    @Html.TextBoxFor(m => m.OptionSubmiter.Id, new { @class = "form-control m-input", @style = "display:none;", @Value = Model.ProId })
-
-                    <div class="row">
-                        <div class="form-group m-form__group col-lg-6 col-xs-12">
-                            @Html.LabelFor(m => m.OptionSubmiter.Key, "ویژگی :", new { @class = "col-12 col-form-label tshtextright", @style = "padding-right: 0;padding-left: 0;" })
-                            <div class="col-12" style="padding-right: 0;padding-left: 0;">
-                                @Html.TextBoxFor(m => m.OptionSubmiter.Key, new { @class = "form-control m-input", @placeholder = "", @id = "PRDCTName2" })
-                                @Html.ValidationMessageFor(m => m.OptionSubmiter.Key)
+                                        <input class="form-control m-input" id="GheymateVahed" name="GheymateVahed" type="text" value="@Model.GheymateVahed">
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group col-lg-6 col-xs-12 nopadrightres" style="padding-top: 0;padding-left: 0;">
+                                    <label for="TedadeVahed" class="col-12 col-form-label tshtextright">تعداد واحد:</label>
+                                    <div class="col-12">
+                                        <input class="form-control m-input" id="TedadeVahed" name="TedadeVahed" type="text" value="@Model.TedadeVahed">
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
-
-                            @Html.LabelFor(m => m.OptionSubmiter.Value, "مقدار :", new { @class = "col-12 col-form-label tshtextright", @style = "padding-right: 0;padding-left: 0;" })
-                            <div class="col-12" style="padding-right: 0;padding-left: 0;">
-                                @Html.TextBoxFor(m => m.OptionSubmiter.Value, new { @class = "form-control m-input", @placeholder = "", id = "PRDCTName3" })
-                                @Html.ValidationMessageFor(m => m.OptionSubmiter.Value)
+                            <div class="row">
+                                <div class="form-group m-form__group col-lg-6 col-xs-12 nopadleftres" style="padding-right: 0;">
+                                    <label for="GheymatevahedOmde" class="col-12 col-form-label tshtextright">قیمت واحد(عمده):</label>
+                                    <div class="col-12">
+                                        <input class="form-control m-input" id="GheymatevahedOmde" name="GheymatevahedOmde" type="text" value="@Model.GheymatevahedOmde">
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group col-lg-6 col-xs-12 nopadrightres" style="padding-top: 0;padding-left: 0;">
+                                    <label for="TedadeVahedOmde" class="col-12 col-form-label tshtextright">تعداد واحد(عمده):</label>
+                                    <div class="col-12">
+                                        <input class="form-control m-input" id="TedadeVahedOmde" name="TedadeVahedOmde" type="text" value="@Model.TedadeVahedOmde">
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
+                            <div class="row">
+                                <div class="form-group m-form__group col-lg-12 col-xs-12 nopadleftres" style="padding-right: 0;">
+                                    <label for="MainTags" class="col-12 col-form-label tshtextright">برچسب های اصلی:</label>
+                                    <div class="col-12">
+                                        <div class="col-lg-12 col-md-12 col-sm-12" style="padding: 0;">
+                                            <select class="form-control m-select2 col-12" id="MainTags" name="MainTags">
+                                                @foreach (var item in Model.MainTags)
+                                                {
+                                                    if (item.Id == 0)
+                                                    {
+                                                        <option value=0 selected disabled hidden>@item.Value</option>
+                                                    }
+                                                    else
+                                                    {
 
-                    <div class="col-12 tshtextleft mb-3">
-                        <button id="AddOptionSubmiter_SubmitBTN" type="submit" style="margin-left: 10px;" class="btn btn-sm btn-success m-btn m-btn--air m-btn--custom">افزودن</button>&nbsp;&nbsp;
-                    </div>
-                }
-            </div>
-
-        </div>*@
-                                        <div class="row">
-                                            <div class="col-12" id="prodform2">
-                                                <div class="row">
-                                                    <div class="form-group m-form__group col-lg-6 col-xs-12">
-                                                        <label for="PRDCTName2" class="col-12 col-form-label tshtextright" style="padding-right: 0;padding-left: 0;">ویژگی:</label>
-                                                        <div class="col-12" style="padding-right: 0;padding-left: 0;">
-                                                            <input class="form-control m-input" name="PRDCTName2" id="PRDCTName2" type="text" value="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
-                                                        <label for="PRDCTName3" class="col-12 col-form-label tshtextright" style="padding-right: 0;padding-left: 0;">مقدار:</label>
-                                                        <div class="col-12" style="padding-right: 0;padding-left: 0;">
-                                                            <input class="form-control m-input" name="PRDCTName3" id="PRDCTName3" type="text" value="">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-12 tshtextleft mb-3">
-                                                    <button onclick="return AddOption()" style="margin-left: 10px;" class="btn btn-sm btn-success m-btn m-btn--air m-btn--custom">افزودن</button>&nbsp;&nbsp;
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="container-fluid" id="optiontable">
-                                            
+                                                        <option value=@item.Id>@item.Value</option>
+                                                    }
+                                                }
+                                            </select>
                                         </div>
                                     </div>
-                                    <div class="m-portlet__foot m-portlet__foot--fit">
-                                        <div class="m-form__actions">
-                                            <div class="row">
-                                                <div class="col-2">
-                                                </div>
-                                            </div>
+                                </div>
+                            </div>
+                            <input id="AllImagesByID" value="@Model.AllImagesByID" style="display:none;" />
+
+                            <div class="row">
+                                <div class="form-group m-form__group col-lg-6 col-xs-12 nopadleftres" style="padding-right: 0;">
+                                    <label for="SeoKeywords" class="col-12 col-form-label tshtextright">کلید واژه سئو:</label>
+                                    <div class="col-12">
+                                        <input class="form-control m-input" id="SeoKeywords" name="SeoKeywords" type="text" value="@Model.SeoKeywords">
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group col-lg-6 col-xs-12 nopadrightres" style="padding-top: 0;padding-left: 0;">
+                                    <label for="SeoDescription" class="col-12 col-form-label tshtextright">توضیحات سئو:</label>
+                                    <div class="col-12">
+                                        <input class="form-control m-input" id="SeoDescription" name="SeoDescription" type="text" value="@Model.SeoDescription">
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="m-portlet__foot m-portlet__foot--fit">
+                                <div class="m-form__actions">
+                                    <div class="row">
+                                        <div class="col-2">
+                                        </div>
+                                        <div class="col-12 tshtextleft">
+                                            <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom mt-3" style="float: left" onclick="return SubmitEditProduct('@Model.idMPC')" id="EditProductSubmiter_SubmitBTN">ثبت ویرایش</button>&nbsp;&nbsp;
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        @*</form>*@
                     </div>
                 </div>
             </div>
@@ -249,209 +202,401 @@
     </div>
 </div>
 
-<!-- end:: Body -->
+<div class="m-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="m-portlet m-portlet--full-height  ">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-tools">
+                        <ul class="nav nav-tabs m-tabs m-tabs-line   m-tabs-line--left m-tabs-line--primary" role="tablist">
+                            <li class="nav-item m-tabs__item">
+                                <a class="nav-link m-tabs__link active" style="padding-top: 24px;padding-bottom: 24px;" data-toggle="tab" href="#m_user_profile_tab_1" role="tab">
+                                    <i class="flaticon-share m--hide"></i>
+                                    <cust_title>
+                                        ویرایش جزئیات
+                                    </cust_title>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="m-portlet__body">
+                    <div class="col-12">
+                        <div class="row" id="MaintagidSubmits">
+                            <div class="col-12" id="prodform2">
+                                <div class="row">
+                                    <div class="form-group m-form__group col-lg-6 col-xs-12">
+                                        <label for="PRDCTName2" class="col-12 col-form-label tshtextright" style="padding-right: 0;padding-left: 0;">ویژگی:</label>
+                                        <div class="col-12" style="padding-right: 0;padding-left: 0;">
+                                            <input class="form-control m-input" name="PRDCTName2" id="PRDCTName2" type="text" value="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group m-form__group col-lg-6 col-xs-12" style="padding-top: 0;">
+                                        <label for="PRDCTName3" class="col-12 col-form-label tshtextright" style="padding-right: 0;padding-left: 0;">مقدار:</label>
+                                        <div class="col-12" style="padding-right: 0;padding-left: 0;">
+                                            <input class="form-control m-input" name="PRDCTName3" id="PRDCTName3" type="text" value="">
+                                        </div>
+                                    </div>
+                                </div>
 
-@section Scripts{
+                                <div class="col-12 tshtextleft mb-3">
+                                    <button onclick="return PushTagTargetAdded()" style="margin-left: 10px;" class="btn btn-sm btn-success m-btn m-btn--air m-btn--custom" id="MaintagidSubmits_SubmitBTN">افزودن</button>&nbsp;&nbsp;
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container-fluid">
+                            @if (Model.AllOptions.Count > 0)
+                            {
+
+
+                                <table class="cust-table table table-striped table-hover m-table m-table--head-separator-primary">
+                                    <thead>
+                                        <tr>
+                                            <th>ویژگی</th>
+                                            <th>مقدار</th>
+                                            <th>عملیات</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="TbodyForTagsPC">
+                                        @foreach (var items in Model.AllOptions)
+                                        {
+                                            <tr id="tb-@items.idOption">
+                                                <td>@items.Key</td>
+                                                <td>@items.Value</td>
+                                                <td>
+                                                    <button onclick="return DeleteTargetsTag('@items.idOption')" class="btn btn-danger tshpcustom"><i class="fa fa-trash tshfa"></i>حذف</button>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                            else
+                            {
+                                <h3 class="m-badge m-badge--danger m-badge--wide">
+                                    موردی برای نمایش وجود ندارد.
+                                </h3>
+                            }
+                            <table style="display: none;" class="cust-table cust-table-2 table table-striped table-hover m-table m-table--head-separator-primary">
+                                <thead>
+                                    <tr>
+                                        <th>ویژگی</th>
+                                        <th>مقدار</th>
+                                        <th>عملیات</th>
+                                    </tr>
+                                </thead>
+                                @if (Model.AllOptions.Count > 0)
+                                {
+                                    <tbody id="TbodyForTagsmobile">
+                                        @foreach (var items in Model.AllOptions)
+                                        {
+                                            <tr id="tb-@items.idOption">
+                                                <td>@items.Key</td>
+                                                <td>@items.Value</td>
+                                                <td>
+                                                    <button onclick="return DeleteTargetsTag('@items.idOption')" class="btn btn-danger tshpcustom"><i class="fa fa-trash tshfa"></i>حذف</button>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                }
+                                else
+                                {
+                                    <h3 class="m-badge m-badge--danger m-badge--wide">
+                                        موردی برای نمایش وجود ندارد.
+                                    </h3>
+                                }
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@{Html.RenderAction("GalleryModal", "AdministratorUploader");}
+<div class="modal fade" id="viewmodal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">نمایش تصویر</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img class="view-img" src="" alt="" onerror="this.onerror=null;this.src='/CustomerSide_desinerResource/images/shop/imgNotFount.jpg'">
+            </div>
+        </div>
+    </div>
+</div>
+<input id="EditProductSubmiterRedirection" value="@Url.Action("ViewDetails","AdministratorProducts",new { idMPC = Model.idMPC})" style="display:none;" />
+@section Scripts {
+    @Scripts.Render("~/bundles/Select2.js")
+    @Scripts.Render("~/bundles/Uploader.js")
+
     <script>
+        var tagtargtid = 0;
         $(document).ready(function () {
-        var url ='@Url.Action("Options_Table","AdministratorProducts",null,Request.Url.Scheme)?ProId=' + $('#ProId').text();
-
-                $('#optiontable').load(url);
-    });
-
-
-        $(".tshbtn1").on("click", function () {
-            if (!$(this).hasClass("tshdisabled-validation")) {
-                $("cust_title").text("اطلاعات کلی محصول");
-                $(".cus-prof-menu li").removeClass("active-cust-profile");
-                $(this).addClass("active-cust-profile");
-                $(".sec-2 , .sec-3 , .sec-4 , .sec-5").hide();
-                $(".sec-1").show();
-            }
-        })
-
-        $(".tshbtn3").on("click", function () {
-            if (!$(this).hasClass("tshdisabled-validation")) {
-                $("cust_title").text("ویژگی های محصول");
-                $(".cus-prof-menu li").removeClass("active-cust-profile");
-                $(this).addClass("active-cust-profile");
-                $(".sec-1 , .sec-2 , .sec-4 , .sec-5").hide();
-                $(".sec-3").show();
-            }
-        })
-        $(".prdn1").on("click", function () {
-            setTimeout(function () {
-                if ($("#PRDCTName-error").css("display") == 'inline-block' ||
-                    $("#PRDCTDescription-error").css("display") == 'inline-block' ||
-                    $("#prd3-error").css("display") == 'inline-block' ||
-                    $("#prd4-error").css("display") == 'inline-block' ||
-                    $("#prd5-error").css("display") == 'inline-block') { } else {
-                    $(".tshbtn3").removeClass("tshdisabled-validation");
-                    $(".tshbtn3").click();
-                    $("#PRDCTType").select2();
-                }
-            }, 200)
-        })
-
-
-       
-
-        //=================================================================================================
-        //{Start}For administrator AddSubCategory
-       
-        //$(function () {
-
-        //    $("#AddOptionSubmiter").on("submit", function (e) {
-        //        alert("Hello");
-        //        e.preventDefault();
-        //        DisableBTN("AddOptionSubmiter");
-        //        $.ajax({
-        //            url: this.action,
-        //            type: this.method,
-        //            data: $(this).serialize(),
-        //            success: function (data) {
-        //                console.log(data)
-        //                const jsondata = data;
-        //                console.log(jsondata.Errortype)
-        //                if (jsondata.Errortype=="Success") {
-
-        //                    AlertToUser("AddOptionSubmiter", data);
-                           
-        //                    $("#PRDCTName2").val("");
-        //                    $("#PRDCTName3").val("")
-
-        //                } else if (jsondata.Errortype == "ErrorWithList") {
-        //                    AlertToUser("AddOptionSubmiter", data);
-        //                } else {
-        //                    AlertToUser("AddOptionSubmiter", data);
-        //                }
-        //            }
-        //        });
-        //    });
-        //});
-        //}
-
-
-        function AddOption() {
-
-            var _Key = $("#PRDCTName2").val();
-            console.log("Key:" + _Key);
-            var _Value = $("#PRDCTName3").val();
-            console.log("Value:" + _Value);
-            if (_Key != "" && _Value != "") {
-                var PostJson = {
-                    'ProId': $("#ProId").text(),
-                    'Key': _Key,
-                    'Value': _Value
-                };
-
-                $.ajax({
-                    url: "/AdministratorProducts/AddOption",
-                    type: "post",
-                    data: JSON.stringify(PostJson),
-                    success: function (data) {
-
-                        var url = '@Url.Action("Options_Table","AdministratorProducts",null,Request.Url.Scheme)?ProId=' + $('#ProId').text();
-
-                        $('#optiontable').load(url);
-                        AlertToUser("EditProductSubmiter", data);
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        console.log(textStatus, errorThrown);
-                    }
-                });
-            } else {
-                AlertToUser("EditProductSubmiter", data);
-            }
-            
-        }
-
-        //{END}For administrator AddSubCategory
-        //=================================================================================================
-       
-         //=================================================================================================
-    //{Start}For administrator AddSubCategory
-    //if ($("#EditProductSubmiter").length == 1) {
-    //    $(function () {
-    //        $("#EditProductSubmiter").on("submit", function (e) {
-    //            e.preventDefault();
-    //            DisableBTN("EditProductSubmiter");
-    //            $.ajax({
-    //                url: this.action,
-    //                type: this.method,
-    //                data: $(this).serialize(),
-    //                success: function (data) {
-    //                    console.log(data)
-    //                    const jsondata = data;
-    //                    console.log(jsondata.Errortype)
-    //                    if (jsondata.Errortype == "Success") {
-    //                        AlertToUser("EditProductSubmiter", data);
-    //                    } else if (jsondata.Errortype == "ErrorWithList") {
-    //                        AlertToUser("EditProductSubmiter", data);
-    //                    } else {
-    //                        AlertToUser("EditProductSubmiter", data);
-    //                    }
-    //                }
-    //            });
-    //        });
-    //    });
-    //}
-
-
-        function Click_op_del(id) {
-
-        $.ajax({
-            url: "/AdministratorProducts/ProductOptionDelete",
-            type: "post",
-            data: {"idTodelete": id },
-            success: function (data) {
-
-                var url ='@Url.Action("Options_Table","AdministratorProducts",null,Request.Url.Scheme)?ProId=' + $('#ProId').text();
-
-                $('#optiontable').load(url);
-                AlertToUser("EditProductSubmiter", data);
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(textStatus, errorThrown);
-            }
+            $("#Description").maxlength({ threshold: 8, warningClass: "m-badge m-badge--primary m-badge--rounded m-badge--wide", limitReachedClass: "m-badge m-badge--brand m-badge--rounded m-badge--wide" });
+            $("#MainTags").select2();
+            $("#GheymateVahed").inputmask({ mask: "9", repeat: 10, greedy: !1 });
+            $("#GheymatevahedOmde").inputmask({ mask: "9", repeat: 10, greedy: !1 });
+            $("#TedadeVahedOmde").inputmask({ mask: "9", repeat: 4, greedy: !1 });
+            $("#TedadeVahed").inputmask({ mask: "9", repeat: 4, greedy: !1 });
+            $("textarea#Description").val($("#Descriptioninp").val());
+            console.log($("#Description").val());
         });
-    }
+        //=============================================SubmitEditProduct
+        function SubmitEditProduct(idMPC) {
+            var pushData = {
+                "MainTagsID": $("#MainTags").val(),
+                "ProductName": $("#ProductName").val(),
+                "Description": $("#Description").val(),
+                "GheymateVahed": $("#GheymateVahed").val(),
+                "TedadeVahed": $("#TedadeVahed").val(),
+                "GheymatevahedOmde": $("#GheymatevahedOmde").val(),
+                "TedadeVahedOmde": $("#TedadeVahedOmde").val(),
+                "SeoKeywords": $("#SeoKeywords").val(),
+                "SeoDescription": $("#SeoDescription").val(),
+                "AllImagesByID": $("#AllImagesByID").val(),
+                "idMPC": idMPC,
+                "Idmainp": $("#idmp").val()
+            };
 
-        function EditData() {
-
-            var _title = $("#PRDCTName").val();
-            var _description = $("#PRDCTDescription").val();
-
-            if (_title != "" && _description != "") {
-                var PostJson = {
-                    'ProId': $("#ProId").text(),
-                    'Title': _title,
-                    'Description': _description
-
-                };
-
-                $.ajax({
-                    url: "/AdministratorProducts/EditProduct",
-                    type: "post",
-                    data: JSON.stringify(PostJson),
-                    success: function (data) {
+            DisableBTN("EditProductSubmiter");
+            $.ajax({
+                url: "/AdministratorProducts/EditProduct",
+                data: JSON.stringify(pushData),
+                type: "post",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    console.log(data)
+                    const jsondata = data;
+                    console.log(jsondata.Errortype)
+                    if (jsondata.Errortype == "Success") {
                         AlertToUser("EditProductSubmiter", data);
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        console.log(textStatus, errorThrown);
+                    } else if (jsondata.Errortype == "ErrorWithList") {
+                        AlertToUser("EditProductSubmiter", data);
+                    } else {
+                        AlertToUser("EditProductSubmiter", data);
                     }
-                });
-            } else {
-                AlertToUser("EditProductSubmiter", data);
-            }
-            
+                }
+            });
         }
 
+        //========================================= TagTargets
+        function DeleteTargetsTag(idtar) {
+            var pushData = {
+                "idTodelete": idtar
+            };
+            $.ajax({
+                url: "/AdministratorProducts/DeleteProductMainTags",
+                data: JSON.stringify(pushData),
+                type: "post",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    const jsondata = data;
+                    if (jsondata.Errortype == "Success") {
+                        $("#tb-" + idtar).hide();
+                        swal("با موفقیت حذف شد!", data.Errormessage, "success")
+                    } else {
+                        swal("عدم توانایی در ارسال درخواست", data.Errormessage, "error")
+                    }
+                }
+            });
+            return false;
+        }
+        var TagTargetAdded = [];
+        function PushTagTargetAdded() {
+            if ($("#PRDCTName2").val().length > 0) {
+                if ($("#PRDCTName3").val().length > 0) {
 
-    //{END}For administrator AddSubCategory
-    //=================================================================================================
+                    var pushData = {
+                        "Key": $("#PRDCTName2").val(),
+                        "Value": $("#PRDCTName3").val(),
+                        "ProId": $("#idmp").val()
+                    };
+                    DisableBTN("MaintagidSubmits");
+                    $.ajax({
+                        url: "/AdministratorProducts/EditProductMainTags",
+                        data: JSON.stringify(pushData),
+                        type: "post",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            console.log(data)
+                            const jsondata = data;
+                            if (jsondata.Errortype == "Success") {
+                                var pushmaintags = {
+                                    "TagTargeName": $("#PRDCTName2").val(),
+                                    "TagTargeValue": $("#PRDCTName3").val(),
+                                    "TagTargetID": jsondata.Errormessage
+                                };
+                                tagtargtid++;
+                                TagTargetAdded.push(pushmaintags);
+                                toastr.options = {
+                                    "closeButton": false,
+                                    "debug": false,
+                                    "newestOnTop": false,
+                                    "progressBar": false,
+                                    "positionClass": "toast-bottom-right",
+                                    "preventDuplicates": false,
+                                    "onclick": null,
+                                    "showDuration": "300",
+                                    "hideDuration": "1000",
+                                    "timeOut": "5000",
+                                    "extendedTimeOut": "1000",
+                                    "showEasing": "swing",
+                                    "hideEasing": "linear",
+                                    "showMethod": "fadeIn",
+                                    "hideMethod": "fadeOut"
+                                };
+                                RenderTagTargetTable();
+                                toastr.success("ویژگی با موفقیت اضافه شد");
+                                $("#PRDCTName2").val("");
+                                $("#PRDCTName3").val("");
+                                RemoveDeactivityFromBTN("MaintagidSubmits");
+                            }
+                            else if (jsondata.Errortype == "ErrorWithList") {
+                                AlertToUser("MaintagidSubmits", data);
+                                RemoveDeactivityFromBTN("MaintagidSubmits");
+                            }
+                            else {
+                                AlertToUser("MaintagidSubmits", data);
+                                RemoveDeactivityFromBTN("MaintagidSubmits");
+                            }
+                        }
+                    });
+                } else {
+                    swal("خطا!", "پرکردن قسمت مقدار ویژگی اجباری میباشد!", "error");
+                }
+            } else {
+                swal("خطا!", "پرکردن قسمت نام ویژگی اجباری میباشد!", "error");
+            }
+            return false;
+        }
+        function RenderTagTargetTable() {
+            var _k = '';
+            var _l = '';
+            console.log(TagTargetAdded.length);
+            for (var ii = 0; ii < TagTargetAdded.length; ii++) {
+                _k += '<tr id="tb-' + TagTargetAdded[ii].TagTargetID + '"><td>' + TagTargetAdded[ii].TagTargeName + '</td><td>' + TagTargetAdded[ii].TagTargeValue + '</td><td><button onclick="return DeleteTargetsTag(' + TagTargetAdded[ii].TagTargetID + ')" class="btn btn-danger tshpcustom cus-delete-btn" ><i class="fa fa-trash tshfa"></i>حذف</button></td></tr>';
+                _l += '<tr id="tb-' + TagTargetAdded[ii].TagTargetID + '"><th>ویژگی</th><td>' + TagTargetAdded[ii].TagTargeName + '</td></tr><tr><th>مقدار</th><td>' + TagTargetAdded[ii].TagTargeValue + '</td></tr><tr><th>عملیات</th><td><button onclick="return DeleteTargetsTag(' + TagTargetAdded[ii].TagTargetID + ')" class="btn btn-danger tshpcustom cus-delete-btn" ><i class="fa fa-trash tshfa"></i>حذف</button></td></tr>';
+            }
+            console.log(_k);
+            $("#TbodyForTagsPC").html($("#TbodyForTagsPC").html() + _k);
+            $("#TbodyForTagsmobile").html($("#TbodyForTagsmobile").html() + _l);
+        }
+        //========================================= TagTargets
+
+        //================================================ Slider
+        function ImgRemoveEditpage(id) {
+            var idmmp = $("#idmp").val();
+            $(".btnremoveimgslideshowhide").hide(100);
+            mApp.block("#Sliderss", {
+                overlayColor: "#2c2e3e", type: "loader", state: "success", message: "درحال چک کردن حریم دسترسی و دریافت اطلاعات از سمت سرور ..."
+            });
+            var pushData = {
+                "idOfimg": id,
+                "idMpc": idmmp
+            };
+            $.ajax({
+                url: "/AdministratorProducts/EditRemoveImgProduct",
+                data: JSON.stringify(pushData),
+                type: "post",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    console.log(data)
+                    const jsondata = data;
+                    console.log(jsondata.Errortype)
+                    if (jsondata.Errortype == "Success") {
+                        AlertToUser("Sliderss", data);
+                        RemoveFromSlider(id);
+                        setTimeout(function () {
+                            mApp.unblock("#Sliderss");
+                            $(".btnremoveimgslideshowhide").show(100);
+
+                        }, 1000);
+                    } else if (jsondata.Errortype == "ErrorWithList") {
+                        AlertToUser("Sliderss", data);
+                        setTimeout(function () {
+                            mApp.unblock("#Sliderss");
+                            $(".btnremoveimgslideshowhide").show(100);
+                        }, 1000);
+                    } else {
+                        AlertToUser("Sliderss", data);
+                        setTimeout(function () {
+                            mApp.unblock("#Sliderss");
+                            $(".btnremoveimgslideshowhide").show(100);
+                        }, 1000);
+                    }
+                }, error: function (data) {
+                    setTimeout(function () {
+                        mApp.unblock("#Sliderss");
+                        $(".btnremoveimgslideshowhide").show(100);
+                    }, 1000);
+                }
+            });
+            return false;
+        }
+        function btn4Upload() {
+            var innerhtm = "";
+            if ($(".inserteds").length > 0) {
+                for (var _Sii = 0; _Sii < $(".inserteds").length; _Sii++) {
+                    innerhtm += '<div class="mySlides inserteds" style="display: none;position: relative">';
+                    innerhtm += $(".inserteds")[_Sii].innerHTML;
+                    innerhtm += "</div>";
+                }
+            }
+            console.log(innerhtm);
+            $("#Savedimgs").val(innerhtm);
+        }
+        function RemoveFromSlider(id) {
+            console.log("imgSlide-" + id);
+            console.log($("#imgSlide-" + id).length);
+            $("#imgSlide-" + id).remove();
+            var lenslico = $(".slideshow-container").children().length - 1;
+            if (lenslico > 1) {
+                $(".next").click();
+            }
+            if (lenslico == 1) {
+                $(".slideshow-container").hide(500);
+            } else {
+                $(".slideshow-container").show(500);
+            }
+        }
+        $(".mySlides img").on("click", function () {
+            var imgSrc = $(this).data("url");
+            $("#viewmodal").modal();
+            $(".view-img").attr("src", imgSrc);
+        })
+
+        var slideIndex = 1;
+        showSlides(slideIndex);
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+        function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("dot");
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+        }
+                                                                                                                                                                                                    //================================================ Slider
+
+
 
     </script>
-
 
 }

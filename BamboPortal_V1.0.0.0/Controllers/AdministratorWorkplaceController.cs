@@ -9,6 +9,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
     public class AdministratorWorkplaceController : AdminRulesController
     {
         // GET: AdministratorWorkplace
+        //Widgets Is Here
         public ActionResult Index()
         {
             return View();

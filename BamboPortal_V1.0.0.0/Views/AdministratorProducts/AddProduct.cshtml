@@ -363,8 +363,8 @@
             $("#PRDCTPricePer1Demansion").inputmask({ mask: "9", repeat: 10, greedy: !1 });
 
             
-            $("#PRDCTMultyPricePer1Demansion").inputmask({ mask: "9", repeat: 4, greedy: !1 });
-            $("#PRDCTMultyDemansionValue").inputmask({ mask: "9", repeat: 10, greedy: !1 });
+            $("#PRDCTMultyPricePer1Demansion").inputmask({ mask: "9", repeat: 10, greedy: !1 });
+            $("#PRDCTMultyDemansionValue").inputmask({ mask: "9", repeat: 4, greedy: !1 });
             //$("#MRT1").inputmask({ mask: "9", repeat: 10, greedy: !1 })
 
 
@@ -761,7 +761,7 @@
         })
         $(".tshbtn4").on("click", function () {
             if (!$(this).hasClass("tshdisabled-validation")) {
-                $("cust_title").text("قیمت کذاری اولیه");
+                $("cust_title").text("قیمت گذاری اولیه");
                 $(".cus-prof-menu li").removeClass("active-cust-profile");
                 $(this).addClass("active-cust-profile");
                 $(".sec-1 , .sec-2 , .sec-3 , .sec-5").hide();
@@ -914,6 +914,7 @@
                         success: function (data) {
                             if (data.Errortype == "Success") {
                                 AlertToUser("MainaddProductController", data);
+                                $(".prdn4").hide();
                                 var PostJ = {
                                     "id_MProduct": data.ImportantValsReturn
                                 };

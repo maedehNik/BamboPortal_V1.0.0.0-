@@ -4,6 +4,89 @@
     Layout = "~/Views/SharedViewPages/Administrator/MasterView.cshtml";
 }
 
+<div class="modal fade" id="deleteCus" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">پاک کردن محصول</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    محصول
+                    <span id="data-name-delete">
+
+                    </span>
+                    پاک شود؟
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">خیر</button>
+                <button onclick="return YesDeletePlz()" id="deleteCus_SubmitBTN" type="button" class="btn btn-danger">بله</button>
+                <input id="idTodeleteCus" value="@Model.ID_Mainpr" style="display:none" />
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ActiveModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">فعال کردن محصول</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    محصول
+                    <span id="data-name-Active">
+
+                    </span>
+                    فعال شود؟
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">خیر</button>
+                <button id="ActiveModal_SubmitBTN" onclick="return YesAactivePlz()" type="button" class="btn btn-danger">بله</button>
+                <input id="activemodalID" value="@Model.ID_Mainpr" style="display:none" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deActiveModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">غیرفعال کردن محصول</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    محصول
+                    <span id="data-name">
+
+                    </span>
+                    غیرفعال شود؟
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">خیر</button>
+                <button onclick="return YesDeactivePlz()" id="deActiveModal_SubmitBTN" type="button" class="btn btn-danger">بله</button>
+                <input id="idTodeactivemodal" value="@Model.ID_Mainpr" style="display:none" />
+
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- BEGIN: Subheader -->
 <div class="m-subheader">
     <div class="d-flex align-items-center">
@@ -72,18 +155,13 @@
                                                             <div class="m-dropdown__content">
                                                                 <ul class="m-nav">
                                                                     <li class="m-nav__item">
-                                                                        <a href="javascript:void(0)" class="m-nav__link">
+                                                                        <a href="@Url.Action("Edit_Product","AdministratorProducts" ,new {idmpc = Model.id_MPC })" class="m-nav__link">
                                                                             <i class="m-nav__link-icon flaticon-edit"></i>
                                                                             <span class="m-nav__link-text">ویرایش</span>
                                                                         </a>
                                                                     </li>
-                                                                    <li class="m-nav__item deactivate-btn" data-target="#deactivemodal" data-toggle="modal" data-name="کفش بیلبیلک">
-                                                                        <a href="javascript:void(0)" class="m-nav__link">
-                                                                            <i class="m-nav__link-icon fa fa-ban"></i>
-                                                                            <span class="m-nav__link-text">عیرفعال کردن</span>
-                                                                        </a>
-                                                                    </li>
-                                                                    <li class="m-nav__item cus-delete-btn" data-target="#deleteCus" data-toggle="modal" data-name="کفش بیلبیلک">
+
+                                                                    <li class="m-nav__item cus-delete-btn" id="Deletebtnproduct-@Model.ID_Mainpr" data-target="#deleteCus" data-toggle="modal" data-name="@Model.ProductName">
                                                                         <a href="javascript:void(0)" class="m-nav__link">
                                                                             <i class="m-nav__link-icon fa fa-times"></i>
                                                                             <span class="m-nav__link-text">حذف</span>
@@ -103,19 +181,19 @@
                                             {
                                                 if (Model.id_MPC == item.id_MPC)
                                                 {
-                                            <span class="col-12 row" style="float: right;display: block;margin-bottom: 10px;">
-                                                <i class="fa fa-chevron-left"></i>
-                                                @Model.ProductName
-                                            </span>
-                                            <br />
+                                                    <span class="col-12 row" style="float: right;display: block;margin-bottom: 10px;">
+                                                        <i class="fa fa-chevron-left"></i>
+                                                        @Model.ProductName
+                                                    </span>
+                                                    <br />
                                                     <div class="col-12" style="overflow: hidden;transform: translate(-5px,-5px);padding: 0!important; display: inline !important;">
-                                                        
-                                                            @foreach (var scokitems in item.ProductSOCKSOCKVList)
-                                                            {
-                                                                <span class=" m-badge m-badge--@scokitems.BootstrapColor tshcolorwhite m-badge--wide tshbadge" style="float: right;">@scokitems.ToString()</span>
 
-                                                            }
-                                                       
+                                                        @foreach (var scokitems in item.ProductSOCKSOCKVList)
+                                                        {
+                                                            <span class=" m-badge m-badge--@scokitems.BootstrapColor tshcolorwhite m-badge--wide tshbadge" style="float: right;">@scokitems.ToString()</span>
+
+                                                        }
+
 
                                                     </div>
                                                 }
@@ -337,7 +415,7 @@
     </div>
 </div>
 
-
+<input style="display:none;" value="@Url.Action("ProductList","AdministratorProducts")" id="TheRedirection" />
 
 @section Scripts{
     <script>
@@ -502,7 +580,86 @@
             slides[slideIndex - 1].style.display = "block";
             //dots[slideIndex - 1].className += " active";
         }
-                //===========================================
+        //===========================================
+
+
+
+        function YesDeactivePlz() {
+
+            const PostJson = {
+                'idToDEActive': $("#idTodeactivemodal").val()
+            };
+
+            $("#deActiveModal_SubmitBTN").addClass("m-loader m-loader--light m-loader--right").prop("disabled", true);
+            $.ajax({
+                url: '/AdministratorProducts/DeActiveProduct',
+                type: "post",
+                data: JSON.stringify(PostJson),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    if (data.Errortype == "Success") {
+                        AlertToUser("deActiveModal", data);
+                        window.location.replace(window.location.origin + $("#TheRedirection").val());
+                    } else {
+                        alert(data.Errormessage);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("مشکل در برقراری ارتباط با سرور");
+                }
+            });
+        }
+        function YesAactivePlz() {
+
+            const PostJson = {
+                'idToActive': $("#activemodalID").val()
+            };
+
+            $("#ActiveModal_SubmitBTN").addClass("m-loader m-loader--light m-loader--right").prop("disabled", true);
+            $.ajax({
+                url: '/AdministratorProducts/ActiveProduct',
+                type: "post",
+                data: JSON.stringify(PostJson),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    if (data.Errortype == "Success") {
+                        AlertToUser("ActiveModal", data);
+                    } else {
+                        alert(data.Errormessage);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("مشکل در برقراری ارتباط با سرور");
+                }
+            });
+        }
+        function YesDeletePlz() {
+            const PostJson = {
+                'idTodelete': $("#idTodeleteCus").val()
+            };
+            $("#deleteCus_SubmitBTN").addClass("m-loader m-loader--light m-loader--right").prop("disabled", true);
+            $.ajax({
+                url: '/AdministratorProducts/DeleteProduct',
+                type: "post",
+                data: JSON.stringify(PostJson),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    if (data.Errortype == "Success") {
+                        AlertToUser("deleteCus", data);
+                        //window.location.replace(window.location.origin + $("#TheRedirection").val());
+                    } else {
+                        alert(data.Errormessage);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("مشکل در برقراری ارتباط با سرور");
+                }
+            });
+        }
+
+
     </script>
 
 

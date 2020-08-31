@@ -900,8 +900,8 @@ namespace BamboPortal_V1._0._0._0.Controllers
                         {
                             SubCategoryName = dt.Rows[0]["SCName"].ToString(),
                             MainCategoryID = dt.Rows[0]["id_MC"].ToString(),
-                            typeID="0",
-                            IdSubCategoryForEdit= dt.Rows[0]["id_SC"].ToString(),
+                            typeID = "0",
+                            IdSubCategoryForEdit = dt.Rows[0]["id_SC"].ToString(),
                         };
                         model.SubmiterModel = submiterModel;
                         return View(model);
@@ -957,7 +957,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                                     _KEY = "@value",
                                     _VALUE = senderObj.SubCategoryName
                                 };
-                                parss.Add(par); 
+                                parss.Add(par);
                                 par = new ExcParameters()
                                 {
                                     _KEY = "@data_Sub",
@@ -1825,12 +1825,12 @@ namespace BamboPortal_V1._0._0._0.Controllers
                     {
                         AddSubCateGoryValuesOfKeysSubmit submiterModel = new AddSubCateGoryValuesOfKeysSubmit()
                         {
-                            ProductSubCategoryValueOfKeyName= dt.Rows[0]["SCOVValueName"].ToString(),
-                            ProductSubCategoryKeyID= dt.Rows[0]["id_SCOK"].ToString(),
+                            ProductSubCategoryValueOfKeyName = dt.Rows[0]["SCOVValueName"].ToString(),
+                            ProductSubCategoryKeyID = dt.Rows[0]["id_SCOK"].ToString(),
                             ProductSubCategoryId = "0",
                             ProcuctMainCategoryId = "0",
                             ProductTypeId = "0",
-                            ProductSubCategoryValueOfKeyIDForEdit= dt.Rows[0]["id_SCOV"].ToString(),
+                            ProductSubCategoryValueOfKeyIDForEdit = dt.Rows[0]["id_SCOV"].ToString(),
                         };
                         model.KeySubmit = submiterModel;
                         return View(model);
@@ -1857,7 +1857,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                     ProductSubCategoryId = "0",
                     ProcuctMainCategoryId = "0",
                     ProductTypeId = "0",
-                    ProductSubCategoryValueOfKeyIDForEdit ="0",
+                    ProductSubCategoryValueOfKeyIDForEdit = "0",
                 };
                 model.KeySubmit = submiterModel;
                 return View(model);
@@ -1865,7 +1865,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
             //================================================================================ For Editpage
 
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AddSubCateGoryValuesOfKeys(AddSubCateGoryValuesOfKeysModelView senderObjs)
@@ -2273,8 +2273,8 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 }
             }
 
-            
-                return View(model);
+
+            return View(model);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -2406,7 +2406,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 return Json(ModelSender);
             }
 
-            
+
         }
 
         public JsonResult AddMainTag_DELETE(string idTodelete)
@@ -2539,6 +2539,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                         {
                             id_MProductReal = dtproduct.Rows[0]["id_MProduct"].ToString();
                             model.id_MPC = idMPC;
+                            model.ID_Mainpr = id_MProductReal;
                             model.ProductName = dtproduct.Rows[0]["Title"].ToString();
                             model.ProductStockpileCode = dtproduct.Rows[0]["code_Stockpile"].ToString();
                             model.Description = dtproduct.Rows[0]["Description"].ToString();
@@ -2717,548 +2718,132 @@ namespace BamboPortal_V1._0._0._0.Controllers
             }
 
         }
-
-        public ActionResult Edit_Product(string ProId)
+        [HttpGet]
+        public ActionResult Edit_Product(string idmpc)
         {
-            PDBC db = new PDBC();
-            uint id = 0;
-            if (UInt32.TryParse(ProId, out id))
+            int idmp = 0;
+            if (Int32.TryParse(idmpc, out idmp))
             {
-                List<ExcParameters> parss = new List<ExcParameters>();
-                ExcParameters par = new ExcParameters()
-                {
-                    _KEY = "@id_PT",
-                    _VALUE = ProId
-                };
-                parss.Add(par);
+
+                Edit_ProductModelView model = new Edit_ProductModelView();
+                model.idMainProduct = "";
+                model.idMPC = idmpc;
+                model.ProductName = "";
+                model.GheymateVahed = "";
+                model.TedadeVahed = "";
+                model.GheymatevahedOmde = "";
+                model.TedadeVahedOmde = "";
+                model.SeoKeywords = "";
+                model.SeoDescription = "";
+                model.AllImagesByID = "";
+                model.Description = "";
+                model.MainTags = new List<Key_ValueModel>();
+                model.Allimgs = new List<ProductImagesObj>();
+                model.ProductsJaygashtList = new List<ProductViewDetails_ProductSOCKandSOCKVL>();
+                model.AllOptions = new List<productOptionsTbl>();
+                model.Description = "";
+                model.MainTagSelected = "";
+                PDBC db = new PDBC();
                 db.Connect();
-                DataTable dt = db.Select("SELECT [id_MProduct],[Description],[Title],[Seo_Description],[Seo_KeyWords],[IS_AD],[Search_Gravity] FROM [tbl_Product] WHERE id_MProduct= @id_PT", parss);
-
-                db.DC();
-                if (dt.Rows.Count > 0)
+                using (DataTable dt = db.Select("SELECT  [id_MProduct] ,[Quantity] ,[id_MainStarTag] ,[PricePerquantity] ,[MultyPriceStartFromQ] ,[MultyPrice] FROM [tlb_Product_MainProductConnector] WHERE [id_MPC] = " + idmpc))
                 {
-                    var ModelSender = new ProductEditSubmiterModel()
-                    {
-                        ProId = Convert.ToInt32(dt.Rows[0]["id_MProduct"]),
-                        Title = dt.Rows[0]["Title"].ToString(),
-                        Description = dt.Rows[0]["Description"].ToString(),
-                        //SEO_keyword = dt.Rows[0]["Seo_KeyWords"].ToString(),
-                        //SEO_Description = dt.Rows[0]["Seo_Description"].ToString(),
-                        //Weight = Convert.ToInt32(dt.Rows[0]["Search_Gravity"]),
-                        //IsImportant = Convert.ToInt32(dt.Rows[0]["IS_AD"])
-                    };
 
-                    DataTable optionsDT = db.Select("SELECT [id_Op],[KeyName],[Value] FROM [tbl_Product_tblOptions] WHERE id_MProduct=@id_PT", parss);
-
-                    var optionList = new List<ProductOptions_Model>();
-                    for (int i = 0; i < optionsDT.Rows.Count; i++)
+                    if (dt.Rows.Count > 0)
                     {
-                        var m = new ProductOptions_Model()
-                        {
-                            Id=Convert.ToInt32(optionsDT.Rows[i]["id_Op"]),
-                            Key= optionsDT.Rows[i]["KeyName"].ToString(),
-                            Value= optionsDT.Rows[i]["Value"].ToString()
-                        };
-                        optionList.Add(m);
+                        model.idMainProduct = dt.Rows[0]["id_MProduct"].ToString();
+                        model.GheymateVahed = dt.Rows[0]["PricePerquantity"].ToString();
+                        model.TedadeVahed = dt.Rows[0]["Quantity"].ToString();
+                        model.TedadeVahedOmde = dt.Rows[0]["MultyPriceStartFromQ"].ToString();
+                        model.GheymatevahedOmde = dt.Rows[0]["MultyPrice"].ToString();
+                        model.MainTagSelected = dt.Rows[0]["id_MainStarTag"].ToString();
                     }
+                    else
+                    {
+                        return RedirectToAction("Logs", "AdminLoginAuth");
+                    }
+                }
 
-                    DataTable ImagDT = db.Select("SELECT [id_MProduct],[PicID],[orgUploadAddress],[thumUploadAddress] FROM [v_tblProduct_Image] where id_MProduct=@id_PT", parss);
+                using (DataTable dt = db.Select("SELECT  [Description] ,[Title] ,[Seo_Description] ,[Seo_KeyWords] FROM  [tbl_Product] WHERE [id_MProduct] = " + model.idMainProduct))
+                {
+
+                    model.Description = dt.Rows[0]["Description"].ToString();
+                    model.ProductName = dt.Rows[0]["Title"].ToString();
+                    model.SeoDescription = dt.Rows[0]["Seo_Description"].ToString();
+                    model.SeoKeywords = dt.Rows[0]["Seo_KeyWords"].ToString();
+                }
+
+                using (DataTable dt = db.Select("SELECT [orgPicID],[orgUploadAddress] ,[thumUploadAddress] FROM  [v_tblProduct_Image] WHERE [id_MProduct] = " + model.idMainProduct))
+                {
+
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        model.Allimgs.Add(new ProductImagesObj()
+                        {
+                            ImageConnectorID = dt.Rows[i]["orgPicID"].ToString(),
+                            OrgImgAddress = dt.Rows[i]["orgUploadAddress"].ToString(),
+                            ThumnailAddress = dt.Rows[i]["thumUploadAddress"].ToString()
+                        });
+                    }
+                }
+                db.DC();
+                db.Connect();
+                using (DataTable dt = db.Select("SELECT [id_Op]  ,[KeyName] ,[Value]  FROM [tbl_Product_tblOptions] WHERE [id_MProduct] = " + model.idMainProduct))
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        model.AllOptions.Add(new productOptionsTbl()
+                        {
+                            idOption = dt.Rows[i]["id_Op"].ToString(),
+                            Key = dt.Rows[i]["KeyName"].ToString()
+                            ,
+                            Value = dt.Rows[i]["Value"].ToString()
+                        });
+                    }
+                }
+                using (DataTable dt = db.Select("SELECT [id_MainStarTag] , [MST_Name] FROM [tbl_Product_MainStarTags]"))
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        model.MainTags.Add(new Key_ValueModel()
+                        {
+                            Id = Convert.ToInt32(dt.Rows[i]["id_MainStarTag"].ToString()),
+                            Value = dt.Rows[i]["MST_Name"].ToString()
+                        });
+                    }
+                }
+                using (DataTable dtJ = db.Select("SELECT  [SCOKName] ,[SCOVValueName] FROM [v_ConnectorTheProductConnectorViewToSCOVandSCOKV_s] WHERE [id_MPC] = " + model.idMPC))
+                {
                     db.DC();
-                    var Imgs = new List<Id_ValueModel>();
-
-                    for (int i = 0; i < ImagDT.Rows.Count; i++)
+                    for (int j = 0; j < dtJ.Rows.Count; j++)
                     {
-                        var m = new Id_ValueModel()
+                        model.ProductsJaygashtList.Add(new ProductViewDetails_ProductSOCKandSOCKVL()
                         {
-                            Id = Convert.ToInt32(ImagDT.Rows[i]["PicID"]),
-                            Value = ImagDT.Rows[i]["orgUploadAddress"].ToString(),
-                        };
-                        Imgs.Add(m);
+                            BootstrapColor = BootstrapColorPicker.GetbootstrapColorRandomByCounter(j),
+                            SOCKName = dtJ.Rows[j]["SCOKName"].ToString(),
+                            SOCKVName = dtJ.Rows[j]["SCOVValueName"].ToString()
+                        });
                     }
-
-
-                    var Model = new Edit_ProductModelView()
-                    {
-                        Images=Imgs,
-                        OptionList=optionList,
-                        SubmiterModel=ModelSender,
-                        OptionSubmiter=new ProductOptions_Model()
-                        {
-                            Id=0,
-                            Key="",
-                            Value=""
-                        },
-                        ProId=Convert.ToInt32(ProId)
-                        
-                    };
-                    return View(Model);
                 }
-                else
-                { 
-                    var ModelSender = new ErrorReporterModel
-                    {
-                        ErrorID = "EX112",
-                        Errormessage = $"ورود متغیر خلاف پروتکل های امنیتی",
-                        Errortype = "Error"
-                    };
-                    return Json(ModelSender);
+                if (model.SeoDescription == "_tshNOkey")
+                {
+                    model.SeoDescription = "";
                 }
-
+                if (model.SeoKeywords == "_tshNOkey")
+                {
+                    model.SeoKeywords = "";
+                }
+                return View(model);
             }
             else
             {
-                PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "sher o ver e L326");
-                var ModelSender = new ErrorReporterModel
-                {
-                    ErrorID = "EX115",
-                    Errormessage = $"عدم توانایی در ثبت اطلاعات!",
-                    Errortype = "Error"
-                };
-                return Json(ModelSender);
+                return RedirectToAction("Logs", "AdminLoginAuth");
             }
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult EditProduct(ProductEditSubmiterModel Obj)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        PDBC db = new PDBC();
-
-        //        List<ExcParameters> paramss = new List<ExcParameters>();
-        //        ExcParameters parameters = new ExcParameters();
-
-        //        parameters = new ExcParameters()
-        //        {
-        //            _KEY = "@Title",
-        //            _VALUE = Obj.Title
-        //        };
-        //        paramss.Add(parameters);
-        //        parameters = new ExcParameters()
-        //        {
-        //            _KEY = "@Description",
-        //            _VALUE = Obj.Description
-        //        };
-        //        paramss.Add(parameters);
-        //        parameters = new ExcParameters()
-        //        {
-        //            _KEY = "@id_MProduct",
-        //            _VALUE = Obj.ProId
-        //        };
-        //        paramss.Add(parameters);
-
-        //        db.Connect();
-        //        string result = db.Script("UPDATE [tbl_Product] SET [Description] = @Description ,[Title] = @Title WHERE id_MProduct = @id_MProduct", paramss);
-        //        db.DC();
-        //        uint id = 0;
-        //        if (UInt32.TryParse(result, out id))
-        //        {
-        //            var ModelSender = new ErrorReporterModel
-        //            {
-        //                ErrorID = "SX106",
-        //                Errormessage = $"برچسب  محصولات با موفقیت ثبت شد!",
-        //                Errortype = "Success"
-        //            };
-        //            return Json(ModelSender);
-        //        }
-        //        else
-        //        {
-        //            PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
-        //            var ModelSender = new ErrorReporterModel
-        //            {
-        //                ErrorID = "EX115",
-        //                Errormessage = $"عدم توانایی در ثبت اطلاعات!",
-        //                Errortype = "Error"
-        //            };
-        //            return Json(ModelSender);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        List<ModelErrorReporter> allErrors = new List<ModelErrorReporter>();
-        //        //foreach (ModelError error in ModelState.Values.)
-        //        var AllValues = ModelState.Values.ToList();
-        //        var AllKeys = ModelState.Keys.ToList();
-        //        int errorsCount = AllValues.Count;
-        //        for (int i = 0; i < errorsCount; i++)
-        //        {
-        //            if (AllValues[i].Errors.Count > 0)
-        //            {
-        //                ModelErrorReporter er = new ModelErrorReporter()
-        //                {
-        //                    IdOfProperty = AllKeys[i].Replace("SubmiterStructure.", "SubmiterStructure_"),
-        //                    ErrorMessage = AllValues[i].Errors[0].ErrorMessage
-        //                };
-        //                allErrors.Add(er);
-        //            }
-        //        }
-        //        var ModelSender = new ErrorReporterModel
-        //        {
-        //            ErrorID = "EX0012",
-        //            Errormessage = $"عدم رعایت استاندارد ها!",
-        //            Errortype = "ErrorWithList",
-        //            AllErrors = allErrors
-        //        };
-        //        return Json(ModelSender);
-        //    }
-        //}
 
 
         [HttpPost]
-        
-        public ActionResult EditProduct(string ProId, string Title,string Description)
-        {
-            if (ModelState.IsValid)
-            {
-                PDBC db = new PDBC();
 
-                List<ExcParameters> paramss = new List<ExcParameters>();
-                ExcParameters parameters = new ExcParameters();
-
-                parameters = new ExcParameters()
-                {
-                    _KEY = "@Title",
-                    _VALUE = Title
-                };
-                paramss.Add(parameters);
-                parameters = new ExcParameters()
-                {
-                    _KEY = "@Description",
-                    _VALUE = Description
-                };
-                paramss.Add(parameters);
-                parameters = new ExcParameters()
-                {
-                    _KEY = "@id_MProduct",
-                    _VALUE = ProId
-                };
-                paramss.Add(parameters);
-
-                db.Connect();
-                string result = db.Script("UPDATE [tbl_Product] SET [Description] = @Description ,[Title] = @Title WHERE id_MProduct = @id_MProduct", paramss);
-                db.DC();
-                uint id = 0;
-                if (UInt32.TryParse(result, out id))
-                {
-                    var ModelSender = new ErrorReporterModel
-                    {
-                        ErrorID = "SX106",
-                        Errormessage = $"برچسب  محصولات با موفقیت ثبت شد!",
-                        Errortype = "Success"
-                    };
-                    return Json(ModelSender);
-                }
-                else
-                {
-                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
-                    var ModelSender = new ErrorReporterModel
-                    {
-                        ErrorID = "EX115",
-                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
-                        Errortype = "Error"
-                    };
-                    return Json(ModelSender);
-                }
-            }
-            else
-            {
-                List<ModelErrorReporter> allErrors = new List<ModelErrorReporter>();
-                //foreach (ModelError error in ModelState.Values.)
-                var AllValues = ModelState.Values.ToList();
-                var AllKeys = ModelState.Keys.ToList();
-                int errorsCount = AllValues.Count;
-                for (int i = 0; i < errorsCount; i++)
-                {
-                    if (AllValues[i].Errors.Count > 0)
-                    {
-                        ModelErrorReporter er = new ModelErrorReporter()
-                        {
-                            IdOfProperty = AllKeys[i].Replace("SubmiterStructure.", "SubmiterStructure_"),
-                            ErrorMessage = AllValues[i].Errors[0].ErrorMessage
-                        };
-                        allErrors.Add(er);
-                    }
-                }
-                var ModelSender = new ErrorReporterModel
-                {
-                    ErrorID = "EX0012",
-                    Errormessage = $"عدم رعایت استاندارد ها!",
-                    Errortype = "ErrorWithList",
-                    AllErrors = allErrors
-                };
-                return Json(ModelSender);
-            }
-        }
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult AddOption(ProductOptions_Model Obj)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        PDBC db = new PDBC();
-
-        //        List<ExcParameters> paramss = new List<ExcParameters>();
-        //        ExcParameters parameters = new ExcParameters();
-
-        //        parameters = new ExcParameters()
-        //        {
-        //            _KEY = "@Key",
-        //            _VALUE = Obj.Key
-        //        };
-        //        paramss.Add(parameters);
-        //        parameters = new ExcParameters()
-        //        {
-        //            _KEY = "@Value",
-        //            _VALUE = Obj.Value
-        //        };
-        //        paramss.Add(parameters);
-        //        parameters = new ExcParameters()
-        //        {
-        //            _KEY = "@id_MProduct",
-        //            _VALUE = Obj.Id
-        //        };
-        //        paramss.Add(parameters);
-
-        //        db.Connect();
-        //        string result = db.Script("INSERT INTO [tbl_Product_tblOptions]([id_MProduct],[KeyName],[Value],[CreatedDate]) OUTPUT inserted.id_Op VALUES (@id_MProduct,@Key,@Value,GETDATE())", paramss);
-        //        db.DC();
-        //        uint id = 0;
-        //        if (UInt32.TryParse(result, out id)) 
-        //        { 
-        //            var ModelSender = new ErrorReporterModel
-        //            {
-        //                ErrorID = "SX106",
-        //                Errormessage = $"برچسب  محصولات با موفقیت ثبت شد!",
-        //                Errortype = "Success"+result
-        //            };
-        //            return Json(ModelSender);
-        //        }
-        //        else
-        //        {
-        //            PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
-        //            var ModelSender = new ErrorReporterModel
-        //            {
-        //                ErrorID = "EX115",
-        //                Errormessage = $"عدم توانایی در ثبت اطلاعات!"+result,
-        //                Errortype = "Error"
-        //            };
-        //            return Json(ModelSender);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        List<ModelErrorReporter> allErrors = new List<ModelErrorReporter>();
-        //        //foreach (ModelError error in ModelState.Values.)
-        //        var AllValues = ModelState.Values.ToList();
-        //        var AllKeys = ModelState.Keys.ToList();
-        //        int errorsCount = AllValues.Count;
-        //        for (int i = 0; i < errorsCount; i++)
-        //        {
-        //            if (AllValues[i].Errors.Count > 0)
-        //            {
-        //                ModelErrorReporter er = new ModelErrorReporter()
-        //                {
-        //                    IdOfProperty = AllKeys[i].Replace("SubmiterStructure.", "SubmiterStructure_"),
-        //                    ErrorMessage = AllValues[i].Errors[0].ErrorMessage
-        //                };
-        //                allErrors.Add(er);
-        //            }
-        //        }
-        //        var ModelSender = new ErrorReporterModel
-        //        {
-        //            ErrorID = "EX0012",
-        //            Errormessage = $"عدم رعایت استاندارد ها!",
-        //            Errortype = "ErrorWithList",
-        //            AllErrors = allErrors
-        //        };
-        //        return Json(ModelSender);
-        //    }
-        //}
-
-        [HttpPost]
-        public ActionResult AddOption(string ProId,string Key,string Value)
-        {
-            if (ModelState.IsValid)
-            {
-                PDBC db = new PDBC();
-
-                List<ExcParameters> paramss = new List<ExcParameters>();
-                ExcParameters parameters = new ExcParameters();
-
-                parameters = new ExcParameters()
-                {
-                    _KEY = "@Key",
-                    _VALUE = Key
-                };
-                paramss.Add(parameters);
-                parameters = new ExcParameters()
-                {
-                    _KEY = "@Value",
-                    _VALUE = Value
-                };
-                paramss.Add(parameters);
-                parameters = new ExcParameters()
-                {
-                    _KEY = "@id_MProduct",
-                    _VALUE = ProId
-                };
-                paramss.Add(parameters);
-
-                db.Connect();
-                string result = db.Script("INSERT INTO [tbl_Product_tblOptions]([id_MProduct],[KeyName],[Value],[CreatedDate]) OUTPUT inserted.id_Op VALUES (@id_MProduct,@Key,@Value,GETDATE())", paramss);
-                db.DC();
-                uint id = 0;
-                if (UInt32.TryParse(result, out id))
-                {
-                    var ModelSender = new ErrorReporterModel
-                    {
-                        ErrorID = "SX106",
-                        Errormessage = $"برچسب  محصولات با موفقیت ثبت شد!",
-                        Errortype = "Success" + result
-                    };
-                    return Json(ModelSender);
-                }
-                else
-                {
-                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
-                    var ModelSender = new ErrorReporterModel
-                    {
-                        ErrorID = "EX115",
-                        Errormessage = $"عدم توانایی در ثبت اطلاعات!" + result,
-                        Errortype = "Error"
-                    };
-                    return Json(ModelSender);
-                }
-            }
-            else
-            {
-                List<ModelErrorReporter> allErrors = new List<ModelErrorReporter>();
-                //foreach (ModelError error in ModelState.Values.)
-                var AllValues = ModelState.Values.ToList();
-                var AllKeys = ModelState.Keys.ToList();
-                int errorsCount = AllValues.Count;
-                for (int i = 0; i < errorsCount; i++)
-                {
-                    if (AllValues[i].Errors.Count > 0)
-                    {
-                        ModelErrorReporter er = new ModelErrorReporter()
-                        {
-                            IdOfProperty = AllKeys[i].Replace("SubmiterStructure.", "SubmiterStructure_"),
-                            ErrorMessage = AllValues[i].Errors[0].ErrorMessage
-                        };
-                        allErrors.Add(er);
-                    }
-                }
-                var ModelSender = new ErrorReporterModel
-                {
-                    ErrorID = "EX0012",
-                    Errormessage = $"عدم رعایت استاندارد ها!",
-                    Errortype = "ErrorWithList",
-                    AllErrors = allErrors
-                };
-                return Json(ModelSender);
-            }
-        }
-
-
-
-        public ActionResult Options_Table(string ProId)
-        {
-            PDBC db = new PDBC();
-            uint id = 0;
-            if (UInt32.TryParse(ProId, out id))
-            {
-                List<ExcParameters> parss = new List<ExcParameters>();
-                ExcParameters par = new ExcParameters()
-                {
-                    _KEY = "@id_PT",
-                    _VALUE = ProId
-                };
-                parss.Add(par);
-                db.Connect();
-
-                DataTable optionsDT = db.Select("SELECT [id_Op],[KeyName],[Value] FROM [tbl_Product_tblOptions] WHERE id_MProduct=@id_PT", parss);
-
-                var optionList = new List<ProductOptions_Model>();
-                for (int i = 0; i < optionsDT.Rows.Count; i++)
-                {
-                    var m = new ProductOptions_Model()
-                    {
-                        Id = Convert.ToInt32(optionsDT.Rows[i]["id_Op"]),
-                        Key = optionsDT.Rows[i]["KeyName"].ToString(),
-                        Value = optionsDT.Rows[i]["Value"].ToString()
-                    };
-                    optionList.Add(m);
-                }
-                return View(optionList);
-            }
-            else
-            {
-                PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "sher o ver e L326");
-                var ModelSender = new ErrorReporterModel
-                {
-                    ErrorID = "EX115",
-                    Errormessage = $"عدم توانایی در ثبت اطلاعات!",
-                    Errortype = "Error"
-                };
-                return Json(ModelSender);
-            }
-        }
-
-        [HttpPost]
-        public JsonResult ProductOptionDelete(string idTodelete)
-        {
-            PDBC db = new PDBC();
-            uint id = 0;
-            if (UInt32.TryParse(idTodelete, out id))
-            {
-                List<ExcParameters> parss = new List<ExcParameters>();
-                ExcParameters par = new ExcParameters()
-                {
-                    _KEY = "@id_PT",
-                    _VALUE = idTodelete
-                };
-                parss.Add(par);
-                db.Connect();
-                string result = db.Script("DELETE FROM [tbl_Product_tblOptions] WHERE id_Op = @id_PT", parss);
-
-                db.DC();
-                if (result == "1")
-                {
-                    var ModelSender = new ErrorReporterModel
-                    {
-                        ErrorID = "SX106",
-                        Errormessage = $"این ویژگی با موفقیت حذف شد!",
-                        Errortype = "Success"
-                    };
-                    return Json(ModelSender);
-                }
-                else
-                {
-                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
-                    var ModelSender = new ErrorReporterModel
-                    {
-                        ErrorID = "EX115",
-                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
-                        Errortype = "Error"
-                    };
-                    return Json(ModelSender);
-                }
-
-            }
-            else
-            {
-                PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "sher o ver e L326");
-                var ModelSender = new ErrorReporterModel
-                {
-                    ErrorID = "EX115",
-                    Errormessage = $"عدم توانایی در ثبت اطلاعات!",
-                    Errortype = "Error"
-                };
-                return Json(ModelSender);
-            }
-        }
         //{END}For Product  AddProduct
         //=================================================================================================================
         public ActionResult ReturnInputsOfSubCategorykeyValues(string[] ListOfKeyIDs)
@@ -3591,7 +3176,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
             db.Connect();
             foreach (var item in jaygashts)
             {
-                itemid = SJOP.MainProduct_Actions("insert", id_MProductOUT, Senderobj.PRDCTDemansionValue, Senderobj.PRDCTDemansion, PriceXquantity.ToString(), Senderobj.PRDCTPricePer1Demansion, "0", "0", "0", Senderobj.PRDCTTagSectionOfProduct, Senderobj.PRDCTPriceDemansion, Senderobj.PRDCTPriceShowType, MultyPriceXquantity.ToString(),Senderobj.PRDCTMultyDemansionValue, MultyPricePerquantity.ToString());
+                itemid = SJOP.MainProduct_Actions("insert", id_MProductOUT, Senderobj.PRDCTDemansionValue, Senderobj.PRDCTDemansion, PriceXquantity.ToString(), Senderobj.PRDCTPricePer1Demansion, "0", "0", "0", Senderobj.PRDCTTagSectionOfProduct, Senderobj.PRDCTPriceDemansion, Senderobj.PRDCTPriceShowType, MultyPriceXquantity.ToString(), Senderobj.PRDCTMultyDemansionValue, MultyPricePerquantity.ToString());
                 foreach (var itm in item)
                 {
                     string resultstiem = db.Script("INSERT INTO[tbl_Product_connectorToMPC_SCOV] VALUES(" + itemid + "," + itm.SubCategoryKeyValue + ")");
@@ -3616,7 +3201,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
             modelView.Allrows = new List<ProductListTable>();
             PDBC db = new PDBC();
             db.Connect();
-            using (DataTable dt = db.Select("SELECT [id_MProduct],(SELECT TOP 1 [id_MPC] FROM [tlb_Product_MainProductConnector] WHERE [tlb_Product_MainProductConnector].[id_MProduct] =[tbl_Product].[id_MProduct] ) as idMPC,[IS_AVAILABEL],[Description],[DateCreated],[Title],[id_SubCategory],[ISDELETE],(SELECT top 1 [thumUploadAddress] FROM [v_tblProduct_Image] where [v_tblProduct_Image].[id_MProduct]=[tbl_Product].[id_MProduct]) as [pic],(SELECT[PricePerquantity] FROM [tlb_Product_MainProductConnector] WHERE id_MPC=idMPC_WhichTomainPrice) AS price,(SELECT[ad_firstname]+' '+[ad_lastname] FROM [tbl_ADMIN_main]where id_Admin=[id_CreatedByAdmin])as AddBy,(SELECT [PTname]FROM [tbl_Product_Type]where[id_PT]=[id_Type])as [type],(SELECT[SCName]FROM [tbl_Product_SubCategory]where[id_SC]=[id_SubCategory])as SubCat,(SELECT[MCName]FROM [tbl_Product_MainCategory]where[id_MC]=[id_MainCategory])as MainCat FROM [tbl_Product] ORDER BY (DateCreated) DESC"))
+            using (DataTable dt = db.Select("SELECT [id_MProduct],(SELECT TOP 1 [id_MPC] FROM [tlb_Product_MainProductConnector] WHERE [tlb_Product_MainProductConnector].[id_MProduct] =[tbl_Product].[id_MProduct] ) as idMPC,[IS_AVAILABEL],[Description],[DateCreated],[Title],[id_SubCategory],[ISDELETE],(SELECT top 1 [thumUploadAddress] FROM [v_tblProduct_Image] where [v_tblProduct_Image].[id_MProduct]=[tbl_Product].[id_MProduct]) as [pic],(SELECT[PricePerquantity] FROM [tlb_Product_MainProductConnector] WHERE id_MPC=idMPC_WhichTomainPrice) AS price,(SELECT[ad_firstname]+' '+[ad_lastname] FROM [tbl_ADMIN_main]where id_Admin=[id_CreatedByAdmin])as AddBy,(SELECT [PTname]FROM [tbl_Product_Type]where[id_PT]=[id_Type])as [type],(SELECT[SCName]FROM [tbl_Product_SubCategory]where[id_SC]=[id_SubCategory])as SubCat,(SELECT[MCName]FROM [tbl_Product_MainCategory]where[id_MC]=[id_MainCategory])as MainCat FROM [tbl_Product] WHERE [ISDELETE] = 0  ORDER BY (DateCreated) DESC"))
             {
                 db.DC();
                 int dtrows = dt.Rows.Count;
@@ -4012,38 +3597,49 @@ namespace BamboPortal_V1._0._0._0.Controllers
         }
         //========================================================
 
+        //[HttpPost]
+        //public JsonResult EditProductMainTags(productOptionsTbl sender)
+        //{
+        //    var ModelSenders = new ErrorReporterModel
+        //    {
+        //        ErrorID = "EX11658945",
+        //        Errormessage = "1",
+        //        Errortype = "Success"
+        //    };
+        //    return Json(ModelSenders);
+        //}
+
+
         public ActionResult Product_ShowCatTree()
         {
             return View();
         }
-
-
         [HttpPost]
         public ActionResult GetCategoryTree()
         {
-            var result = new List<CategotyTreeModel>();
+            var result = new List<Models.CategotyTreeModel>();
             PDBC db = new PDBC();
             db.Connect();
             DataTable Type = db.Select("SELECT [id_PT],[PTname] FROM [tbl_Product_Type] where ISDelete=0 AND ISDESABLED=0");
             for (int i = 0; i < Type.Rows.Count; i++)
             {
-                var MainCat = new List<CategotyTreeModel>();
+                var MainCat = new List<Models.CategotyTreeModel>();
                 DataTable Mains = db.Select("SELECT [id_MC],[MCName] FROM [tbl_Product_MainCategory] WHERE ISDelete=0 AND ISDESABLED=0 AND id_PT=" + Type.Rows[i]["id_PT"]);
                 for (int j = 0; j < Mains.Rows.Count; j++)
                 {
-                    var SubCat = new List<CategotyTreeModel>();
+                    var SubCat = new List<Models.CategotyTreeModel>();
                     DataTable Subs = db.Select("SELECT [id_SC],[SCName] FROM [tbl_Product_SubCategory] WHERE ISDelete=0 AND ISDESABLED=0 AND id_MC=" + Mains.Rows[j]["id_MC"]);
                     for (int k = 0; k < Subs.Rows.Count; k++)
                     {
-                        var SubCatKey = new List<CategotyTreeModel>();
+                        var SubCatKey = new List<Models.CategotyTreeModel>();
                         DataTable SubsK = db.Select("SELECT [id_SCOK],[SCOKName] FROM [tbl_Product_SubCategoryOptionKey] where ISDelete=0 AND ISDESABLED=0 AND id_SC=" + Subs.Rows[k]["id_SC"]);
                         for (int k1 = 0; k1 < SubsK.Rows.Count; k1++)
                         {
-                            var SubCatKeyVal = new List<CategotyTreeModel>();
+                            var SubCatKeyVal = new List<Models.CategotyTreeModel>();
                             DataTable SubsKV = db.Select("SELECT [id_SCOV],[SCOVValueName] FROM [tbl_Product_SubCategoryOptionValue] where id_SCOK=" + SubsK.Rows[k1]["id_SCOK"]);
                             for (int k2 = 0; k2 < SubsKV.Rows.Count; k2++)
                             {
-                                var M5 = new CategotyTreeModel()
+                                var M5 = new Models.CategotyTreeModel()
                                 {
                                     Id = Convert.ToInt32(SubsKV.Rows[k2]["id_SCOV"]),
                                     text = SubsKV.Rows[k2]["SCOVValueName"].ToString(),
@@ -4051,7 +3647,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                                 };
                                 SubCatKeyVal.Add(M5);
                             }
-                            var M4 = new CategotyTreeModel()
+                            var M4 = new Models.CategotyTreeModel()
                             {
                                 Id = Convert.ToInt32(SubsK.Rows[k1]["id_SCOK"]),
                                 text = SubsK.Rows[k1]["SCOKName"].ToString(),
@@ -4060,7 +3656,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                             };
                             SubCatKey.Add(M4);
                         }
-                        var M3 = new CategotyTreeModel()
+                        var M3 = new Models.CategotyTreeModel()
                         {
                             Id = Convert.ToInt32(Subs.Rows[k]["id_SC"]),
                             text = Subs.Rows[k]["SCName"].ToString(),
@@ -4071,7 +3667,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                         SubCat.Add(M3);
 
                     }
-                    var M2 = new CategotyTreeModel()
+                    var M2 = new Models.CategotyTreeModel()
                     {
                         Id = Convert.ToInt32(Mains.Rows[j]["id_MC"]),
                         text = Mains.Rows[j]["MCName"].ToString(),
@@ -4081,7 +3677,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                     MainCat.Add(M2);
 
                 }
-                var M1 = new CategotyTreeModel()
+                var M1 = new Models.CategotyTreeModel()
                 {
                     Id = Convert.ToInt32(Type.Rows[i]["id_PT"]),
                     text = Type.Rows[i]["PTname"].ToString(),
@@ -4093,6 +3689,457 @@ namespace BamboPortal_V1._0._0._0.Controllers
             db.DC();
 
             return Json(result);
+        }
+
+        [HttpPost]
+        public ActionResult EditProductMainTags(string ProId, string Key, string Value)
+        {
+            //if (ModelState.IsValid)
+            //{
+            PDBC db = new PDBC();
+            List<ExcParameters> paramss = new List<ExcParameters>();
+            ExcParameters parameters = new ExcParameters();
+
+            parameters = new ExcParameters()
+            {
+                _KEY = "@Key",
+                _VALUE = Key
+            };
+            paramss.Add(parameters);
+            parameters = new ExcParameters()
+            {
+                _KEY = "@Value",
+                _VALUE = Value
+            };
+            paramss.Add(parameters);
+            parameters = new ExcParameters()
+            {
+                _KEY = "@id_MProduct",
+                _VALUE = ProId
+            };
+            paramss.Add(parameters);
+            db.Connect();
+            string result = db.Script("INSERT INTO [tbl_Product_tblOptions]([id_MProduct],[KeyName],[Value],[CreatedDate]) OUTPUT inserted.id_Op VALUES (@id_MProduct,@Key,@Value,GETDATE())", paramss);
+            db.DC();
+            uint id = 0;
+            if (UInt32.TryParse(result, out id))
+            {
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "SX106",
+                    Errormessage = result,
+                    Errortype = "Success"
+                };
+                return Json(ModelSender);
+            }
+            else
+            {
+                PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX115",
+                    Errormessage = $"عدم توانایی در ثبت اطلاعات!" + result,
+                    Errortype = "Error"
+                };
+                return Json(ModelSender);
+            }
+            //}
+            //else
+            //{
+            //    List<ModelErrorReporter> allErrors = new List<ModelErrorReporter>();
+            //    //foreach (ModelError error in ModelState.Values.)
+            //    var AllValues = ModelState.Values.ToList();
+            //    var AllKeys = ModelState.Keys.ToList();
+            //    int errorsCount = AllValues.Count;
+            //    for (int i = 0; i < errorsCount; i++)
+            //    {
+            //        if (AllValues[i].Errors.Count > 0)
+            //        {
+            //            ModelErrorReporter er = new ModelErrorReporter()
+            //            {
+            //                IdOfProperty = AllKeys[i].Replace("SubmiterStructure.", "SubmiterStructure_"),
+            //                ErrorMessage = AllValues[i].Errors[0].ErrorMessage
+            //            };
+            //            allErrors.Add(er);
+            //        }
+            //    }
+            //    var ModelSender = new ErrorReporterModel
+            //    {
+            //        ErrorID = "EX0012",
+            //        Errormessage = $"عدم رعایت استاندارد ها!",
+            //        Errortype = "ErrorWithList",
+            //        AllErrors = allErrors
+            //    };
+            //    return Json(ModelSender);
+            //}
+        }
+
+
+
+        public ActionResult Options_Table(string ProId)
+        {
+            PDBC db = new PDBC();
+            uint id = 0;
+            if (UInt32.TryParse(ProId, out id))
+            {
+                List<ExcParameters> parss = new List<ExcParameters>();
+                ExcParameters par = new ExcParameters()
+                {
+                    _KEY = "@id_PT",
+                    _VALUE = ProId
+                };
+                parss.Add(par);
+                db.Connect();
+
+                DataTable optionsDT = db.Select("SELECT [id_Op],[KeyName],[Value] FROM [tbl_Product_tblOptions] WHERE id_MProduct=@id_PT", parss);
+
+                var optionList = new List<ProductOptions_Model>();
+                for (int i = 0; i < optionsDT.Rows.Count; i++)
+                {
+                    var m = new ProductOptions_Model()
+                    {
+                        Id = Convert.ToInt32(optionsDT.Rows[i]["id_Op"]),
+                        Key = optionsDT.Rows[i]["KeyName"].ToString(),
+                        Value = optionsDT.Rows[i]["Value"].ToString()
+                    };
+                    optionList.Add(m);
+                }
+                return View(optionList);
+            }
+            else
+            {
+                PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "sher o ver e L326");
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX115",
+                    Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                    Errortype = "Error"
+                };
+                return Json(ModelSender);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult DeleteProductMainTags(string idTodelete)
+        {
+            PDBC db = new PDBC();
+            uint id = 0;
+            if (UInt32.TryParse(idTodelete, out id))
+            {
+                List<ExcParameters> parss = new List<ExcParameters>();
+                ExcParameters par = new ExcParameters()
+                {
+                    _KEY = "@id_PT",
+                    _VALUE = idTodelete
+                };
+                parss.Add(par);
+                db.Connect();
+                string result = db.Script("DELETE FROM [tbl_Product_tblOptions] WHERE id_Op = @id_PT", parss);
+
+                db.DC();
+                if (result == "1")
+                {
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "SX106",
+                        Errormessage = $"این ویژگی با موفقیت حذف شد!",
+                        Errortype = "Success"
+                    };
+                    return Json(ModelSender);
+                }
+                else
+                {
+                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "EX115",
+                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                        Errortype = "Error"
+                    };
+                    return Json(ModelSender);
+                }
+
+            }
+            else
+            {
+                PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, "sher o ver e L326");
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX115",
+                    Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                    Errortype = "Error"
+                };
+                return Json(ModelSender);
+            }
+        }
+        [HttpPost]
+        public JsonResult EditRemoveImgProduct(string idMpc, string idOfimg)
+        {
+            int dasteTABAR = 0;
+            if(Int32.TryParse(idMpc,out dasteTABAR))
+            {
+                if(Int32.TryParse(idOfimg,out dasteTABAR))
+                {
+                    PDBC db = new PDBC();
+                    db.Connect();
+                    string sts = db.Script($"DELETE FROM [tbl_Product_PicConnector] WHERE [id_MProduct] = {idMpc} AND [PicID] = {idOfimg}");
+                    db.DC();
+                    if(sts == "1")
+                    {
+                        var ModelSender = new ErrorReporterModel
+                        {
+                            ErrorID = "SX106",
+                            Errormessage = $"این محصول با موفقیت ویرایش شد!",
+                            Errortype = "Success"
+                        };
+                        return Json(ModelSender);
+                    }
+                    else
+                    {
+                        PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, sts);
+                        var ModelSender = new ErrorReporterModel
+                        {
+                            ErrorID = "EX11745435485",
+                            Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                            Errortype = "Error"
+                        };
+                        return Json(ModelSender);
+                    }
+                }
+                else
+                {
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "EX11745585",
+                        Errormessage = $"EX11745585 !",
+                        Errortype = "Error"
+                    };
+                    return Json(ModelSender);
+                }
+            }
+            else
+            {
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX117485",
+                    Errormessage = $"EX117485 !",
+                    Errortype = "Error"
+                };
+                return Json(ModelSender);
+            }
+
+
+
+        }
+        [HttpPost]
+        public JsonResult EditProduct(EditproductSenderModel sender)
+        {
+            if (ModelState.IsValid)
+            {
+                if (!string.IsNullOrEmpty(sender.idMPC))
+                {
+                    int idmpc = 0;
+                    if (Int32.TryParse(sender.idMPC, out idmpc))
+                    {
+                        //UPDATE [dbo].[tlb_Product_MainProductConnector]   SET [Quantity] = @Quantity ,[PriceXquantity] = @PriceXquantity ,[PricePerquantity] = @PricePerquantity ,[describtion] = @describtion ,[MultyPriceStartFromQ] = @MultyPriceStartFromQ ,[MultyPrice] = @MultyPrice ,[MultyPriceXQ] = @MultyPriceXQ  WHERE [id_MPC] =@id_MPC
+                        PDBC db = new PDBC();
+                        ExcParameters pa = new ExcParameters();
+                        List<ExcParameters> pas = new List<ExcParameters>();
+                        pa = new ExcParameters()
+                        {
+                            _KEY = "@Quantity",
+                            _VALUE = sender.TedadeVahed
+                        };
+                        pas.Add(pa);
+                        Int64 PXQ = Convert.ToInt64(sender.TedadeVahed) * Convert.ToInt64(sender.GheymateVahed);
+                        pa = new ExcParameters()
+                        {
+                            _KEY = "@PriceXquantity",
+                            _VALUE = PXQ
+                        };
+                        pas.Add(pa);
+                        pa = new ExcParameters()
+                        {
+                            _KEY = "@PricePerquantity",
+                            _VALUE = sender.GheymateVahed
+                        };
+                        pas.Add(pa);
+                        pa = new ExcParameters()
+                        {
+                            _KEY = "@describtion",
+                            _VALUE = sender.Description
+                        };
+                        pas.Add(pa);
+                        pa = new ExcParameters()
+                        {
+                            _KEY = "@MultyPriceStartFromQ",
+                            _VALUE = sender.TedadeVahedOmde
+                        };
+                        pas.Add(pa);
+                        pa = new ExcParameters()
+                        {
+                            _KEY = "@MultyPrice",
+                            _VALUE = sender.GheymatevahedOmde
+                        };
+                        pas.Add(pa);
+                        Int64 PMXQ = Convert.ToInt64(sender.TedadeVahedOmde) * Convert.ToInt64(sender.GheymatevahedOmde);
+
+                        pa = new ExcParameters()
+                        {
+                            _KEY = "@MultyPriceXQ",
+                            _VALUE = PMXQ
+                        };
+                        pas.Add(pa);
+                        pa = new ExcParameters()
+                        {
+                            _KEY = "@id_MPC",
+                            _VALUE = idmpc
+                        };
+                        pas.Add(pa);
+                        db.Connect();
+                        string res = db.Script("UPDATE [dbo].[tlb_Product_MainProductConnector]   SET [Quantity] = @Quantity ,[PriceXquantity] = @PriceXquantity ,[PricePerquantity] = @PricePerquantity ,[describtion] = @describtion ,[MultyPriceStartFromQ] = @MultyPriceStartFromQ ,[MultyPrice] = @MultyPrice ,[MultyPriceXQ] = @MultyPriceXQ  WHERE [id_MPC] = @id_MPC", pas);
+                        if (res == "1")
+                        {
+                            db.Script("DELETE FROM [tbl_Product_PicConnector] WHERE [id_MProduct] = " + sender.Idmainp);
+
+                            string[] AA = new string[0];
+                            if (!string.IsNullOrEmpty(sender.AllImagesByID))
+                            {
+                                AA = sender.AllImagesByID.Split(',');
+                            }
+
+                            for (int i = 0; i < AA.Length; i++)
+                            {
+                                db.Script("INSERT INTO [tbl_Product_PicConnector] ([id_MProduct] ,[PicID]) VALUES (" + sender.Idmainp + " ," + AA[i] + ")");
+                            }
+                            pas = new List<ExcParameters>();
+                            if (string.IsNullOrEmpty(sender.SeoKeywords))
+                            {
+                                sender.SeoKeywords = "_tshNOkey";
+                            }
+                            if (string.IsNullOrEmpty(sender.SeoDescription))
+                            {
+                                sender.SeoDescription = "_tshNOkey";
+                            }
+                            pa = new ExcParameters()
+                            {
+                                _KEY = "@id_MPC",
+                                _VALUE = sender.Idmainp
+                            };
+                            pas.Add(pa);
+                            pa = new ExcParameters()
+                            {
+                                _KEY = "@Seo_KeyWords",
+                                _VALUE = sender.SeoKeywords
+                            };
+                            pas.Add(pa);
+                            pa = new ExcParameters()
+                            {
+                                _KEY = "@Seo_Description",
+                                _VALUE = sender.SeoDescription
+                            };
+                            pas.Add(pa);
+                            pa = new ExcParameters()
+                            {
+                                _KEY = "@Title",
+                                _VALUE = sender.ProductName
+                            };
+                            pas.Add(pa);
+                            pa = new ExcParameters()
+                            {
+                                _KEY = "@Description",
+                                _VALUE = sender.Description
+                            };
+                            pas.Add(pa);
+                            string resutlt = db.Script("UPDATE [tbl_Product] SET  [Description] = @Description ,[Title] = @Title  ,[Seo_Description] = @Seo_Description  ,[Seo_KeyWords] = @Seo_KeyWords  WHERE [id_MProduct] = @id_MPC", pas);
+                            db.DC();
+                            if (resutlt == "1")
+                            {
+                                var ModelSender = new ErrorReporterModel
+                                {
+                                    ErrorID = "SX106",
+                                    Errormessage = $"این محصول با موفقیت ویرایش شد!",
+                                    Errortype = "Success"
+                                };
+                                return Json(ModelSender);
+                            }
+                            else
+                            {
+                                PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, resutlt);
+                                var ModelSender = new ErrorReporterModel
+                                {
+                                    ErrorID = "EX117485",
+                                    Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                                    Errortype = "Error"
+                                };
+                                return Json(ModelSender);
+                            }
+                        }
+                        else
+                        {
+                            db.DC();
+                            PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, res);
+                            var ModelSender = new ErrorReporterModel
+                            {
+                                ErrorID = "EX11745585",
+                                Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                                Errortype = "Error"
+                            };
+                            return Json(ModelSender);
+                        }
+
+                    }
+                    else
+                    {
+                        var ModelSender = new ErrorReporterModel
+                        {
+                            ErrorID = "EX11748765",
+                            Errormessage = $"نشان محصول یافت نشد!",
+                            Errortype = "Error"
+                        };
+                        return Json(ModelSender);
+                    }
+                }
+                else
+                {
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "EX117487653",
+                        Errormessage = $"نشان محصول یافت نشد!",
+                        Errortype = "Error"
+                    };
+                    return Json(ModelSender);
+                }
+            }
+            else
+            {
+                List<ModelErrorReporter> allErrors = new List<ModelErrorReporter>();
+                //foreach (ModelError error in ModelState.Values.)
+                var AllValues = ModelState.Values.ToList();
+                var AllKeys = ModelState.Keys.ToList();
+                int errorsCount = AllValues.Count;
+                for (int i = 0; i < errorsCount; i++)
+                {
+                    if (AllValues[i].Errors.Count > 0)
+                    {
+                        ModelErrorReporter er = new ModelErrorReporter()
+                        {
+                            IdOfProperty = AllKeys[i],
+                            ErrorMessage = AllValues[i].Errors[0].ErrorMessage
+                        };
+                        allErrors.Add(er);
+                    }
+                }
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX115082",
+                    Errormessage = $"عدم رعایت استاندارد ها!",
+                    Errortype = "ErrorWithList",
+                    AllErrors = allErrors
+                };
+                return Json(ModelSender);
+            }
+
         }
     }
 }
