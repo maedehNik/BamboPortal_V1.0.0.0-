@@ -1,2 +1,0 @@
-Exception.ToString() : The parameterized query '(@id_MPC nvarchar(1),@Seo_KeyWords nvarchar(4000),@Seo_Descripti' expects the parameter '@Seo_KeyWords', which was not supplied.
-ConnectionString : AOSXbvYgz3Rszx1UNsAhRVVUl/54it4Dw/uk0vuSyyRz1GBlSQg2K0oBZq+a49Dc5mYU5GrzRZatIS+++lvtWAz+W/EjexokwyCcp0KGIDpKuIvYLhZIQXDBYv4XhJGaTPM86K8Hvh4RMHYwpC+Kjg1jLzmnLZ9vcju8vcXvHHbDeVnQNcNYBA==

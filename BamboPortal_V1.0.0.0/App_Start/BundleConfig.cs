@@ -54,78 +54,6 @@ namespace BamboPortal_V1._0._0._0
             //Bundles {END} : Page Scripts --> AdminProfile
             bundles.Add(new ScriptBundle("~/bundles/Select2.js").Include(
     "~/AdminDesignResource/demo/default/custom/crud/forms/widgets/select2.js"));
-            //Bundles {Start} : Page Scripts --> CustomerSide
-            bundles.Add(new ScriptBundle("~/bundles/CustomerSide.js").Include(
-               "~/CustomerSide_desinerResource/third-party/jquery/jquery.min.js",
-               "~/CustomerSide_desinerResource/third-party/easing/js/jquery.easings.min.js",
-               "~/CustomerSide_desinerResource/third-party/bootstrap/js/bootstrap.min.js",
-               "~/CustomerSide_desinerResource/third-party/nivo-lightbox/js/nivo-lightbox.min.js",
-               "~/CustomerSide_desinerResource/third-party/owl/owl.carousel.js",
-               "~/CustomerSide_desinerResource/third-party/isotope/js/isotope.pkgd.min.js",
-               "~/CustomerSide_desinerResource/third-party/counter-up/js/jquery.counterup.min.js",
-               "~/CustomerSide_desinerResource/third-party/form-validation/js/formValidation.js",
-               "~/CustomerSide_desinerResource/third-party/form-validation/js/framework/bootstrap.min.js",
-               "~/CustomerSide_desinerResource/third-party/waypoint/js/waypoints.min.js",
-               "~/CustomerSide_desinerResource/third-party/wow/js/wow.min.js",
-               "~/CustomerSide_desinerResource/third-party/jquery-actual/js/jquery.actual.min.js",
-               "~/CustomerSide_desinerResource/third-party/smooth-scroll/js/smoothScroll.js",
-               "~/CustomerSide_desinerResource/third-party/jquery-parallax/js/jquery.parallax.js",
-               "~/CustomerSide_desinerResource/third-party/jquery-parallax/js/jquery.localscroll.min.js",
-               "~/CustomerSide_desinerResource/third-party/jquery-parallax/js/jquery.scrollTo.js",
-               "~/CustomerSide_desinerResource/third-party/revolution/js/jquery.themepunch.tools.min.js",
-               "~/CustomerSide_desinerResource/third-party/revolution/js/jquery.themepunch.revolution.min.js",
-               "~/CustomerSide_desinerResource/third-party/revolution/js/extensions/revolution.extension.actions.min.js",
-               "~/CustomerSide_desinerResource/third-party/revolution/js/extensions/revolution.extension.carousel.min.js",
-               "~/CustomerSide_desinerResource/third-party/revolution/js/extensions/revolution.extension.kenburn.min.js",
-               "~/CustomerSide_desinerResource/third-party/revolution/js/extensions/revolution.extension.layeranimation.min.js",
-               "~/CustomerSide_desinerResource/third-party/revolution/js/extensions/revolution.extension.migration.min.js",
-               "~/CustomerSide_desinerResource/third-party/revolution/js/extensions/revolution.extension.navigation.min.js",
-               "~/CustomerSide_desinerResource/third-party/revolution/js/extensions/revolution.extension.parallax.min.js",
-               "~/CustomerSide_desinerResource/third-party/revolution/js/extensions/revolution.extension.slideanims.min.js",
-               "~/CustomerSide_desinerResource/third-party/revolution/js/extensions/revolution.extension.video.min.js"));
-
-            bundles.Add(new StyleBundle("~/Content/CustomerSide.css").Include(
-               "~/CustomerSide_desinerResource/third-party/bootstrap/css/bootstrap.min.css",
-               "~/CustomerSide_desinerResource/third-party/font-awesome/css/font-awesome.min.css",
-               "~/CustomerSide_desinerResource/third-party/et-line/css/style.css",
-               "~/CustomerSide_desinerResource/third-party/elegant-icons/css/style.css",
-               "~/CustomerSide_desinerResource/third-party/pe-icon-7-stroke/css/pe-icon-7-stroke.css",
-               "~/CustomerSide_desinerResource/third-party/pe-icon-7-stroke/css/helper.css",
-               "~/CustomerSide_desinerResource/third-party/nivo-lightbox/css/nivo-lightbox.css",
-               "~/CustomerSide_desinerResource/third-party/nivo-lightbox/themes/default/default.css",
-               "~/CustomerSide_desinerResource/third-party/animate/css/animate.css",
-               "~/CustomerSide_desinerResource/third-party/owl/assets/owl.carousel.css",
-               "~/CustomerSide_desinerResource/third-party/owl/assets/owl.theme.default.css",
-               "~/CustomerSide_desinerResource/third-party/form-validation/css/formValidation.min.css",
-               "~/CustomerSide_desinerResource/third-party/revolution/css/settings.css",
-               "~/CustomerSide_desinerResource/third-party/revolution/css/layers.css",
-               "~/CustomerSide_desinerResource/third-party/revolution/css/navigation.css",
-               "~/CustomerSide_desinerResource/css/style.css",
-               "~/CustomerSide_desinerResource/css/custom.css",
-               "~/CustomerSide_desinerResource/css/jquery-ui.css"));
-
-            bundles.Add(new ScriptBundle("~/bundles/CustomerSide2.js").Include(
-               "~/CustomerSide_desinerResource/js/scripts.js",
-               "~/CustomerSide_desinerResource/js/custom.js"));
-            //Bundles {END} : Page Scripts --> CustomerSide
-
-            //Bundles {Start} : Page Scripts --> CustomerSide_Index
-            bundles.Add(new ScriptBundle("~/bundles/CustomerSideIndex.js").Include(
-              "~/CustomerSide_desinerResource/js/jquery-ui.min.js",
-              "~/CustomerSide_desinerResource/js/jquery.validate.js"));
-            //Bundles {END} : Page Scripts --> CustomerSide_Index
-
-            //Bundles {Start} : Page Scripts --> CustomerSide_UserProfile
-            bundles.Add(new ScriptBundle("~/bundles/CustomerSideUserProfile.js").Include(
-              "~/CustomerSide_desinerResource/js/jquery.validate.js"));
-            //Bundles {END} : Page Scripts --> CustomerSide_UserProfile
-
-
-            //Bundles {Start} : Page Scripts --> CustomerSide_UI
-            bundles.Add(new ScriptBundle("~/bundles/CustomerSideUI.js").Include(
-              "~/CustomerSide_desinerResource/js/jquery-ui.min.js"));
-            //Bundles {END} : Page Scripts --> CustomerSide_UserProfile
-
             //Bundles {Start} : Page Scripts --> UploaderModules
             bundles.Add(new ScriptBundle("~/bundles/Uploader.js").Include(
               //"~/AdminDesignResource/vendors/custom/custom-js.js",
@@ -149,6 +77,62 @@ namespace BamboPortal_V1._0._0._0
             bundles.Add(new ScriptBundle("~/bundles/AdminstratorBlog.js").Include(
               "~/AdminDesignResource/app/js/Admin_Blog.js"));
             //Bundles {END} : Page Scripts --> Adminstrator_Blog
+            //========================================================================= END OF AdminPortal
+            bundles.Add(new ScriptBundle("~/bundles/Customer1.js").Include(
+                "~/resource/third-party/jquery/jquery.min.js",
+                "~/resource/third-party/easing/js/jquery.easings.min.js",
+                "~/resource/third-party/bootstrap/js/bootstrap.min.js",
+                "~/resource/third-party/nivo-lightbox/js/nivo-lightbox.min.js",
+                "~/resource/third-party/owl/owl.carousel.js",
+                "~/resource/third-party/isotope/js/isotope.pkgd.min.js",
+                "~/resource/third-party/counter-up/js/jquery.counterup.min.js",
+                "~/resource/third-party/form-validation/js/formValidation.js",
+                "~/resource/third-party/form-validation/js/framework/bootstrap.min.js",
+                "~/resource/third-party/waypoint/js/waypoints.min.js",
+                "~/resource/third-party/wow/js/wow.min.js",
+                "~/resource/third-party/jquery-actual/js/jquery.actual.min.js",
+                "~/resource/third-party/smooth-scroll/js/smoothScroll.js",
+                "~/resource/third-party/jquery-parallax/js/jquery.parallax.js",
+                "~/resource/third-party/jquery-parallax/js/jquery.localscroll.min.js",
+                "~/resource/third-party/jquery-parallax/js/jquery.scrollTo.js",
+                "~/resource/third-party/revolution/js/jquery.themepunch.tools.min.js",
+                "~/resource/third-party/revolution/js/jquery.themepunch.revolution.min.js",
+                "~/resource/third-party/revolution/js/extensions/revolution.extension.actions.min.js",
+                "~/resource/third-party/revolution/js/extensions/revolution.extension.carousel.min.js",
+                "~/resource/third-party/revolution/js/extensions/revolution.extension.kenburn.min.js",
+                "~/resource/third-party/revolution/js/extensions/revolution.extension.layeranimation.min.js",
+                "~/resource/third-party/revolution/js/extensions/revolution.extension.migration.min.js",
+                "~/resource/third-party/revolution/js/extensions/revolution.extension.navigation.min.js",
+                "~/resource/third-party/revolution/js/extensions/revolution.extension.parallax.min.js",
+                "~/resource/third-party/revolution/js/extensions/revolution.extension.slideanims.min.js",
+                "~/resource/third-party/revolution/js/extensions/revolution.extension.video.min.js"));
+
+            bundles.Add(new StyleBundle("~/Content/Customer1.css").Include(
+                     "~/resource/third-party/bootstrap/css/bootstrap.min.css",
+                     "~/resource/third-party/font-awesome/css/font-awesome.min.css",
+                     "~/resource/third-party/et-line/css/style.css",
+                     "~/resource/third-party/elegant-icons/css/style.css",
+                     "~/resource/third-party/pe-icon-7-stroke/css/pe-icon-7-stroke.css",
+                     "~/resource/third-party/pe-icon-7-stroke/css/helper.css",
+                     "~/resource/third-party/nivo-lightbox/css/nivo-lightbox.css",
+                     "~/resource/third-party/nivo-lightbox/themes/default/default.css",
+                     "~/resource/third-party/animate/css/animate.css",
+                     "~/resource/third-party/owl/assets/owl.carousel.css",
+                     "~/resource/third-party/owl/assets/owl.theme.default.css",
+                     "~/resource/third-party/form-validation/css/formValidation.min.css",
+                     "~/resource/third-party/revolution/css/settings.css",
+                     "~/resource/third-party/revolution/css/layers.css",
+                     "~/resource/third-party/revolution/css/navigation.css",
+                     "~/resource/css/jquery-ui.css",
+                     "~/resource/css/style.css",
+                     "~/resource/css/custom.css"
+                     ));
+            bundles.Add(new ScriptBundle("~/bundles/Customer2.js").Include(
+  "~/resource/js/jquery-ui.min.js",
+  "~/resource/js/jquery.validate.js",
+  "~/resource/js/scripts.js",
+  "~/resource/js/custom.js"
+  ));
 
             BundleTable.EnableOptimizations = false;
 

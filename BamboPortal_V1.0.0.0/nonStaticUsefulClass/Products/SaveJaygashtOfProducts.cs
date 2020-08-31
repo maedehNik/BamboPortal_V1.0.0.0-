@@ -10,7 +10,7 @@ namespace BamboPortal_V1._0._0._0.nonStaticUsefulClass.Products
     public class SaveJaygashtOfProducts
     {
         public string MainProduct_Actions(string action, int id_MProduct, string Quantity, string QuantityModule, string PriceXquantity, string PricePerquantity, string PriceOff, string offTypeValue, string OffType, string id_MainStarTag, string PriceModule, string PriceShow,
-string MultyPriceXquantity, string CalculateMultyPriceFromQ,string MultyPricePerquantity, string describtion = " ")
+string MultyPriceXquantity, string CalculateMultyPriceFromQ, string MultyPricePerquantity, string describtion = " ")
         {
 
             List<ExcParameters> paramss = new List<ExcParameters>();

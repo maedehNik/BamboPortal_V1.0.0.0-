@@ -1,2 +1,0 @@
-Exception.ToString() : The parameterized query '(@ProductId nvarchar(4000),@CommentId nvarchar(1),@Message nvarc' expects the parameter '@ProductId', which was not supplied.
-ConnectionString : AOSXbvYgz3Rszx1UNsAhRVVUl/54it4Dw/uk0vuSyyRz1GBlSQg2K0oBZq+a49Dc5mYU5GrzRZYuWEIoEyC7WzQxiSojEucYLaHLiBmb66F6GYqO6VJfm3b+K4gow60i8j81KeSe+NuD/+pPU7l5NTHcPEiV6/swDxJtzQ4b7VlCo4PRHyLvNlse4P9HnyLu9aB2fwzHhXVU+2fm24cZ64zXkqh1Wf5M3x4yPX8Pqbo=

@@ -1,95 +1,79 @@
 ﻿@using BamboPortal_V1._0._0._0.ModelViews.CustomerSide
 @{
-    ViewBag.Title = "CustomerMaster";
-
-
+//ViewBag.SEOkeywords = "H1";
+//ViewBag.Title = "H12";
+//ViewBag.SEOdescription = "H13";
 }
-
 <!DOCTYPE html>
-<html itemscope="" itemtype="http://schema.org/WebPage" lang="fa-IR" dir="rtl">
-
+<html lang="fa" dir="rtl">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>@ViewBag.Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-
-
-    <!-- Favicon -->
+    <meta name="description" content="@ViewBag.SEOdescription">
+    <meta name="keywords" content="@ViewBag.SEOkeywords">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <!-- Loading Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
-
-    @Styles.Render("~/Content/CustomerSide.css")
-    @Scripts.Render("~/bundles/CustomerSide.js")
+    @Styles.Render("~/Content/Customer1.css")
+    @Scripts.Render("~/bundles/Customer1.js")
+    @RenderSection("Styles", required: false)
 </head>
-
 <body class="header-left-side rtl">
-    <div class="alert-bg col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="alert-inner col-lg-4 col-md-4 col-sm-8 col-xs-12">
-            <span><i class="fa fa-times"></i></span>
-            <div style="text-align: center; margin: auto; height: 200px; padding: 35px; max-width:300px ">
-                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                     viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve" preserveAspectRatio="xMidYMid meet" width="100%" height="100%">
-                <g>
-                <circle class="circle" cx="50" cy="49.9999657" r="47.5" />
-
-
-
-
-
-
-
-                <circle class="circle-dash" cx="50" cy="49.9999657" r="47.5" />
-
-
-
-
-
-
-
-                <polyline class="check" points="28.6469955,52.0561066 42.2152748,65.6243896 71.3530045,36.4866562 	" />
-
-
-
-
-
-
-
-                <polyline class="check-dash" points="28.6469955,52.0561066 42.2152748,65.6243896 71.3530045,36.4866562 	" />
-
-
-
-
-
-
-
-                </g>
-            </svg>
+    <div class="shopping-cart-slide">
+        <div class="title">
+            <span>سبد خرید شما</span>
+            <span>(5) کالا</span>
+        </div>
+        <div class="cart-items side-cart">
+            <div class="cart-item">
+                <div class="cart-item-remove"><a href="#" class=""><i class="fa fa-trash-o"></i></a></div>
+                <div class="cart-item-image text-center">
+                    <img alt="image" src="images/products/cart-thumbs/light-grey-jacket-transparent.png" />
+                </div>
+                <!--
+                <div class="cart-item-info">
+                    <div class="item-name" style="margin-top: 2px;"><a href="#">نام محصول</a></div>
+                    <div class="item-quantity">
+                        <form id='qtyform5' method='POST' action='#'>
+                            <input type='button' value='-' class='qtyminus btn' title='quantity5' />
+                            <input type='text' min="1" name='quantity5' value='1' class='qty' />
+                            <input type='button' value='+' class='qtyplus btn' title='quantity5' />
+                        </form>
+                    </div>
+                </div>-->
+                <div class="cart-item-price">
+                    نام محصول
+                    <span class="price" style="display: block">
+                        1,560,000
+                    </span>
+                </div>
             </div>
-            <span class="alert-text">
-            </span>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: left;margin-bottom: 15px;padding-left: 0;padding-right: 0;">
-                <button class="btn btn-primary conf-btn">تایید</button>
+        </div>
+        <div class="cart-item not-login" style="display: none">
+            <a href="login.html">
+                <button class="btn btn-info" style="width: 100%;">ابتدا وارد حساب کاربری خود شوید</button>
+            </a>
+        </div>
+        <div class="cart-item no-item" style="display: none;text-align: center!important;">
+            سبد خرید خالی است
+        </div>
+        <div class="cart-footer">
+            <div class="cart-sub grand-total">
+                <div class="cart-sub-amount price">
+                    5,000,000
+                </div>
+                <div class="text">
+                    مبلغ قابل پرداخت
+                </div>
+            </div>
+            <div class="cart-order-links">
+                <a class="btn shopping-cart-trigger">بستن</a>
+                <a href="customershoppingCart.html" class="btn btn-success">پرداخت</a>
             </div>
         </div>
     </div>
-    <div class="alert-bg2 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="alert-inner col-lg-4 col-md-4 col-sm-8 col-xs-12">
-            <span><i class="fa fa-times"></i></span>
-            <div style="text-align: center; margin: auto; height: 200px; padding: 35px; max-width:300px ">
-                <img src="~/CustomerSide_desinerResource/images/close.png" alt="">
-            </div>
-            <span class="alert-text">
-            </span>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: left;margin-bottom: 15px;padding-left: 0;padding-right: 0;">
-                <button class="btn btn-primary conf-btn">تایید</button>
-            </div>
-        </div>
-    </div>
-
     <div id="LoaderSpinner" class="loader">
         <div class="spinner"></div>
     </div>
@@ -102,11 +86,14 @@
                     <div class="container">
                         <div class="navbar-header">
                             <a class="logo" href=".">
-                                <img alt="image" src="~/CustomerSide_desinerResource/images/logo-dark.png" />
+                                <img alt="image" src="images/logo-dark.png" />
                             </a>
                         </div>
                         <div class="navbar-icons">
                             <ul class="nav navbar-nav navbar-left">
+                                <li class="nav-shop nav-shop-fullscreen">
+                                    <a href="#" class="shopping-cart-trigger"><i class="shop-icon fa fa-shopping-cart menu-basket"><span>0</span></i></a>
+                                </li>
                                 <li class="menu-icon">
                                     <a class="full-screen-menu-trigger" href="#">
                                         <ul class="bar-icon-wrapper">
@@ -116,9 +103,6 @@
                                         </ul>
                                     </a>
                                 </li>
-                                <li class="nav-shop nav-shop-fullscreen">
-                                    <a href="#" class="shopping-cart-trigger"><i class="shop-icon icon-basket"></i></a>
-                                </li>
                             </ul>
                         </div>
                     </div>
@@ -127,137 +111,124 @@
                             <div class="nav-holder">
                                 <div class="inner-content">
                                     <ul class="full-screen-nav">
-                                        <li><a href="@Url.Action("index", "CustomerSide_Pages")" style="letter-spacing: 0px;">خانه</a></li>
-                                        <li><a href="@Url.Action("AboutUs", "CustomerSide_Pages")" style="letter-spacing: 0px;">درباره ما</a></li>
+                                        <li><a href=".">خانه</a></li>
+                                        <li><a href="AboutUs.aspx">درباره ما</a></li>
                                         <li class="with-dropdown">
-                                            <a href="#" class="menu-dropdown-link" data-toggle="collapse" aria-expanded="true" style="letter-spacing: 0px;">ناحیه کاربری <span class="dropdown-icon"></span></a>
-                                            <ul class="menu-dropdown collapse">
-                                                <li><a href="@Url.Action("customerProfile", "CustomerSide_CustomerProfile")" style="letter-spacing: 0px;">ناحیه کاربری</a></li>
+                                            <a href="#" class="menu-dropdown-link account-li">ناحیه کاربری<span class="dropdown-icon tshfatrtry3 tshfamr"></span></a>
+                                            <ul class="menu-dropdown tshsubmneu">
+                                                <li><a href="#">ناحیه کاربری</a></li>
+                                                <li><a href="#">تاریخچه خرید</a></li>
+                                                <li><a href="#">سبد خرید</a></li>
+                                                <li><a href="#">خروج</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="@Url.Action("search", "CustomerSide_Product", new { Type = "همه", Id = 1 })" style="letter-spacing: 0px;">محصولات</a></li>
-                                        <li><a href="@Url.Action("Rules", "CustomerSide_Pages")" style="letter-spacing: 0px;">قوانین</a></li>
-                                        @*<li><a href="SiteMap.aspx" title="SiteMap" style="letter-spacing: 0px;">نقشه سایت</a></li>*@
+                                        <li><a href="Search.aspx" style="letter-spacing: 0px;">محصولات</a></li>
+                                        <li><a href="Rules.aspx" style="letter-spacing: 0px;">قوانین</a></li>
+                                        <li><a href="SiteMap.aspx" title="SiteMap" style="letter-spacing: 0px;">نقشه سایت</a></li>
                                     </ul>
                                 </div>
                             </div>
-                        </div>
-                        <div class="credits">
-                            <span>تمامی حقوق مادی و معنوی این سایت متعلق به <i class="fa fa-copyright"></i>گالری پارچه ولوت میباشد </span>
-                            <br />
-                            <span>طراحی شده توسط <i class="fa fa-cloud"></i>توسعه سیستم هوشمند پاندا</span>
                         </div>
                     </div>
                 </div>
             </div>
         </header>
-        <div id="ShoppingCartSlide">
 
-        @{ Html.RenderAction("ShoppingCartSlide", "CustomerSide_Product"); }
-        </div>
+
+
+
+        @*renderhere*@
 
         @RenderBody()
+
+
 
         <footer class="footer" style="margin-top: 0px !important;">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-3">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <img alt="image" class="img-responsive" src="~/CustomerSide_desinerResource/images/logo-dark-big.png">
+                    <div class="col-md-6">
+                        <div class="row" style="margin-bottom: 15px;">
+                            <div class="col-md-3" style="float: right">
+                                <img alt="image" class="img-responsive" src="images/logo-dark-big.png">
+                            </div>
+                            <div class="col-md-9">
+                                <p class="tshabout">
+                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام.
+                                </p>
                             </div>
                         </div>
-
-                        <div class="row">
-                            <h4 class="footer-title">نماد اعتماد الکترونیک :</h4>
-                            <div class="col-md-12">
-                                <img alt="image" class="img-responsive" src="~/CustomerSide_desinerResource/images/Enamad.png">
-                            </div>
+                    </div>
+                    <div class="col-md-3">
+                        <h4 class="footer-title ftr-title-2 tshcontact-h4">اطلاعات تماس</h4>
+                        <div class="col-md-12 tshcontact">
+                            <span>
+                                <i class="fa fa-phone"></i>
+                                <!--شماره تماس:-->
+                                <a class="tshbeforetel" href="tel:02122334455">22334455</a>
+                            </span>
+                            <span>
+                                <i class="fa fa-envelope"></i>
+                                <!--آدرس ایمیل:-->
+                                <a class="tshbeforetel" href="mailto:info@velvet.com">info@velvet.com</a>
+                            </span>
+                            <span style="line-height: 30px">
+                                <i class="fa fa-map-marker"></i>
+                                آدرس دفتر مرکزی:
+                                تجریش - خیابان اول - کوچه دوم - پلاک 3 - زنگ 4
+                            </span>
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <h4 class="footer-title">شعبه دوم</h4>
-                        <p class="footer-content">
-                            <i class="fa fa-map-marker"></i>
-                            آدرس : بازار بزرگ ، کوچه حمام چال ، پاساژ قائم زیرزمین اول انتهای دالان  11پلاک 226 (فروش عمده)
-                        </p>
-                        <p class="footer-content">
-                            <i class="fa fa-phone"></i>
-                            <a class="tshbeforetel" href="tel:+982155802683">22334455</a>
-                        </p>
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d808.9394280925661!2d51.43142306470913!3d35.80588097728032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x28b271f00e6177d4!2z2LTYudio2Ycg2YXYsdqp2LLbjCDZvtin2LHahtmHINmI2YTZiNiq!5e0!3m2!1sen!2sus!4v1580312708942!5m2!1sen!2sus" height="200" frameborder="0" style="width: 100%;" allowfullscreen="true"></iframe>
-                        <ul class="social-icons list-inline list-unstyled si-light circle inverse" style="text-align: center; display: flow-root;">
-                            <li><a href="#" class="Whatsapp"><i class="fa fa-whatsapp soc-icon"></i></a></li>
-                            <li><a href="#" class="pinterest"><i class="fa fa-pinterest soc-icon"></i></a></li>
-                            <li><a href="#" class="instagram"><i class="fa fa-instagram soc-icon"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-3">
-                        <h4 class="footer-title">شعبه سوم</h4>
-                        <p class="footer-content">
-                            <i class="fa fa-map-marker"></i>
-                            آدرس : خیابان گاندی نبش کوچه  ، 23گالری پارچه ولوت
-                        </p>
-                        <p class="footer-content">
-                            <i class="fa fa-phone"></i>
-                            <a class="tshbeforetel" href="tel:+982188885389">22334455</a>
-                        </p>
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d808.9394280925661!2d51.43142306470913!3d35.80588097728032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x28b271f00e6177d4!2z2LTYudio2Ycg2YXYsdqp2LLbjCDZvtin2LHahtmHINmI2YTZiNiq!5e0!3m2!1sen!2sus!4v1580312708942!5m2!1sen!2sus" height="200" frameborder="0" style="width: 100%;" allowfullscreen="true"></iframe>
-                        <ul class="social-icons list-inline list-unstyled si-light circle inverse" style="text-align: center; display: flow-root;">
-                            <li><a href="https://api.whatsapp.com/send?phone=09929496284&text=velvet" class="Whatsapp"><i class="fa fa-whatsapp soc-icon"></i></a></li>
-                            <li><a href="#" class="pinterest"><i class="fa fa-pinterest soc-icon"></i></a></li>
-                            <li><a href="https://www.instagram.com/velvet_gandi" class="instagram"><i class="fa fa-instagram soc-icon"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-3">
-                        <h4 class="footer-title">شعبه چهارم</h4>
-                        <p class="footer-content">
-                            <i class="fa fa-map-marker"></i>
-                            آدرس : کرج ، خیابان شهید بهشتی ، رو به روی پاساژ آزادی نبش پاساژ زنوزی ، گالری پارچه ولوت
-                        </p>
-                        <p class="footer-content">
-                            <i class="fa fa-phone"></i>
-                            <a class="tshbeforetel" href="tel:+98212222914">22334455</a>
-                        </p>
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d808.9394280925661!2d51.43142306470913!3d35.80588097728032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x28b271f00e6177d4!2z2LTYudio2Ycg2YXYsdqp2LLbjCDZvtin2LHahtmHINmI2YTZiNiq!5e0!3m2!1sen!2sus!4v1580312708942!5m2!1sen!2sus" height="200" frameborder="0" style="width: 100%;" allowfullscreen="true"></iframe>
-                        <ul class="social-icons list-inline list-unstyled si-light circle inverse" style="text-align: center; display: flow-root;">
-                            <li><a href="https://api.whatsapp.com/send?phone=09025012445&text=velvet" class="Whatsapp"><i class="fa fa-whatsapp soc-icon"></i></a></li>
-                            <li><a href="#" class="pinterest"><i class="fa fa-pinterest soc-icon"></i></a></li>
-                            <li><a href="https://www.instagram.com/velvet_Karaj" class="instagram"><i class="fa fa-instagram soc-icon"></i></a></li>
-                        </ul>
+                        <div class="row badges-div">
+                            <h4 class="footer-title ftr-title-2">نماد ها</h4>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 badges">
+                                <img alt="image" class="img-responsive" src="images/enamad.png">
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 badges">
+                                <img alt="image" class="img-responsive" src="images/samandehi.png">
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 badges">
+                                <img alt="image" class="img-responsive" src="images/zarinpal.png">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="footer-copyright">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-6 text-left-desktop">
-                            <p class="text-secondary letter-spacing-1">کپی رایت© تمامی حقوق مادی و معنوی  محفوظ برند <a href=".">وِلوِت</a> میباشد</p>
-                            <a href="#">
-                                <p class="text-secondary letter-spacing-1">طراحی شده توسط شرکت توسعه سیستم هوشمند پاندا</p>
-                            </a>
-
+                        <div class="col-md-8 text-left-desktop">
+                            <p class="text-secondary letter-spacing-1">
+                                کلیه حقوق مادی و معنوی این سایت متعلق به برند
+                                <a href="https://velvet.com">ولوت</a>
+                                میباشد
+                                &copy;
+                                طراحی شده توسط
+                                <a href="">شرکت توسعه سیستم هوشمند پاندا</a>
+                            </p>
                         </div>
-                        <div class="col-md-6 copyright-right">
+                        <div class="col-md-4 col-xs-12 copyright-right">
                             <ul class="list-unstyled list-inline footer-inline-links">
-                                <li><a href="@Url.Action("Rules","CustomerSide_Pages")">قوانین و مقررات</a></li>
-                                @*<li><a href="contact.html">ارتباط با ما</a></li>*@
-                                <li><a href="@Url.Action("AboutUs","CustomerSide_Pages")">درباره ما</a></li>
-                                @*<li><a href="sitemap.html">نقشه سایت</a></li>*@
+                                <li><a href="#">قوانین و مقررات</a></li>
+                                <li><a href="contact.html">ارتباط با ما</a></li>
+                                <li><a href="sitemap.html">نقشه سایت</a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </footer>
-
     </div>
-
-
-    @Scripts.Render("~/bundles/CustomerSide2.js")
-
-    @RenderSection("CS_Scripts", required: false)
+    @Scripts.Render("~/bundles/Customer2.js")
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
+
+
+
+
+
+
+
 
 

@@ -42,7 +42,7 @@ namespace BamboPortal_V1._0._0._0.nonStaticUsefulClass.Stockpile
                         }
                         else
                         {
-                            TotFactor = 0; 
+                            TotFactor = 0;
                         }
                     }
                 }

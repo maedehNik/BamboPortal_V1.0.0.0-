@@ -391,7 +391,7 @@ function ValidationOrNotValidateDatas(data, formID) {
     }
 }
 function NotValidation(messagetxt, inputID) {
-    console.log("#" + inputID + " : " + $("#" + inputID ).length)
+    console.log("#" + inputID + " : " + $("#" + inputID).length)
     $("#" + inputID).addClass('input-validation-error');
     if ($("#" + inputID + "ERR").length == 0) {
         $("#" + inputID).after('<span id="' + inputID + 'ERR" class="field-validation-error" data-valmsg-replace="true">' + messagetxt + '</span>');
@@ -420,7 +420,7 @@ function AlertToUser(FormID, data) {
             swal("درخواست با موفقیت ثبت شد!", data.Errormessage, "success").then(function (e) {
                 $("#" + FormID + "_SubmitBTN").removeClass("m-loader m-loader--light m-loader--right").prop("disabled", false);
                 try {
-                   
+
                     if ($("#" + FormID + "Redirection").val() == "NoReload") {
                     }
                     else if ($("#" + FormID + "Redirection").val().length > 0) {
