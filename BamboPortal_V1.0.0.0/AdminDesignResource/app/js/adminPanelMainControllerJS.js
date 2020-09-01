@@ -503,3 +503,7 @@ function RemoveDeactivityFromBTN(FormID) {
     $("#" + FormID + "_SubmitBTN").removeClass("m-loader m-loader--light m-loader--right").prop("disabled", false);
 
 }
+
+function redirect(url) {
+    window.location = url;
+}

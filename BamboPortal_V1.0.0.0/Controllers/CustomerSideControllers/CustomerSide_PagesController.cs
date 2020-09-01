@@ -14,18 +14,18 @@ namespace BamboPortal_V1._0._0._0.Controllers
         // GET: CustomerSide_Pages
         public ActionResult index()
         {
-            //CustomerModelFiller modelFiller = new CustomerModelFiller(4);
-            /////آدرس شعبه ها رو مدلشو ساختم تو مدل ویو هم هست فقط پرش کن
-            //var ModelView = new IndexPageModelView()
-            //{
-            //    NewProducts = modelFiller.ChosenProducts("New", 10, "Ago"),
-            //    Sale_Products = modelFiller.ChosenProducts("Sale", 4, "Ago"),
-            //    ProductsG3 = modelFiller.ChosenProducts("MainTag", 3, "Ago", 1),
-            //    SelectedProducts = modelFiller.ProductList(20, "همه", 0, 1, "", "Date")
-            //};
+            CustomerModelFiller modelFiller = new CustomerModelFiller(4);
+            ///آدرس شعبه ها رو مدلشو ساختم تو مدل ویو هم هست فقط پرش کن
+            var ModelView = new IndexPageModelView()
+            {
+                NewProducts = modelFiller.ChosenProducts("New", 10, "Ago"),
+                Sale_Products = modelFiller.ChosenProducts("Sale", 4, "Ago"),
+                ProductsG3 = modelFiller.ChosenProducts("MainTag", 3, "Ago", 1),
+                SelectedProducts = modelFiller.ProductList(20, "همه", 0, 1, "", "Date")
+            };
 
 
-            return View();
+            return View(ModelView);
         }
 
         [Route("درباره-ما")]
@@ -42,6 +42,12 @@ namespace BamboPortal_V1._0._0._0.Controllers
         }
         [Route("قوانین")]
         public ActionResult Rules()
+        {
+            return View();
+        }
+
+
+        public ActionResult Test()
         {
             return View();
         }

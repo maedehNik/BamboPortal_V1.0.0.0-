@@ -409,15 +409,15 @@ namespace BamboPortal_V1._0._0._0.ModelFiller.CustomerSide
 
             if (Type == "Sale")
             {
-                query = "SELECT distinct top " + numbers + " [id_MProduct],[OffType],[PricePerquantity],[PriceXquantity],[PriceOff],[offTypeValue],[id_MainStarTag],[IS_AVAILABEL],[Title],[DateCreated],[Description],[ISDELETE],[MoneyTypeName],[SS],[Pic],[PriceShow] FROM [v_ChosenProduct] where IS_AVAILABEL=1 AND ISDELETE=0 order by(SS)DESC";
+                query = "SELECT distinct top " + numbers + " [id_MProduct],[OffType],[PricePerquantity],[PriceXquantity],[PriceOff],[offTypeValue],[id_MainStarTag],[IS_AVAILABEL],[Title],[DateCreated],[Description],[ISDELETE],[MoneyTypeName],[Pic],[PriceShow],[MCName],[SCName] FROM [v_ChosenProduct] where IS_AVAILABEL=1 AND ISDELETE=0 order by(SS)DESC";
             }
             else if (Type == "New")
             {
-                query = "SELECT distinct top " + numbers + " [id_MProduct],[OffType],[PricePerquantity],[PriceXquantity],[PriceOff],[offTypeValue],[id_MainStarTag],[IS_AVAILABEL],[Title],[DateCreated],[Description],[ISDELETE],[MoneyTypeName],[SS],[Pic],[PriceShow] FROM [v_ChosenProduct] where IS_AVAILABEL=1 AND ISDELETE=0 order by(DateCreated)DESC ";
+                query = "SELECT distinct top " + numbers + " [id_MProduct],[OffType],[PricePerquantity],[PriceXquantity],[PriceOff],[offTypeValue],[id_MainStarTag],[IS_AVAILABEL],[Title],[DateCreated],[Description],[ISDELETE],[MoneyTypeName],[Pic],[PriceShow],[MCName],[SCName] FROM [v_ChosenProduct] where IS_AVAILABEL=1 AND ISDELETE=0 order by(DateCreated)DESC ";
             }
             else if (Type == "MainTag")
             {
-                query = "SELECT distinct top " + numbers + " [id_MProduct],[OffType],[PricePerquantity],[PriceXquantity],[PriceOff],[offTypeValue],[id_MainStarTag],[IS_AVAILABEL],[Title],[DateCreated],[Description],[ISDELETE],[MoneyTypeName],[SS],[Pic],[PriceShow] FROM [v_ChosenProduct] where IS_AVAILABEL=1 AND ISDELETE=0 AND id_MainStarTag=" + MainTagId + " order by(DateCreated)DESC ";
+                query = "SELECT distinct top " + numbers + " [id_MProduct],[OffType],[PricePerquantity],[PriceXquantity],[PriceOff],[offTypeValue],[id_MainStarTag],[IS_AVAILABEL],[Title],[DateCreated],[Description],[ISDELETE],[MoneyTypeName],[Pic],[PriceShow],[MCName],[SCName] FROM [v_ChosenProduct] where IS_AVAILABEL=1 AND ISDELETE=0 AND id_MainStarTag=" + MainTagId + " order by(DateCreated)DESC ";
             }
             db.Connect();
             DataTable dt = db.Select(query);
@@ -431,7 +431,7 @@ namespace BamboPortal_V1._0._0._0.ModelFiller.CustomerSide
                     Id = Convert.ToInt32(dt.Rows[i]["id_MProduct"]),
                     Title = dt.Rows[i]["Title"].ToString(),
                     Discription = dt.Rows[i]["Description"].ToString(),
-                    PicPath = UploaderGeneral.imageFinder(dt.Rows[i]["Pic"].ToString()),
+                    PicPath = dt.Rows[i]["Pic"].ToString(),
                     OffPrice = dt.Rows[i]["PriceOff"].ToString(),
                     date = DateReturner(dt.Rows[i]["DateCreated"].ToString(), DateType),
                     MoneyQ = dt.Rows[i]["MoneyTypeName"].ToString(),
@@ -439,7 +439,9 @@ namespace BamboPortal_V1._0._0._0.ModelFiller.CustomerSide
                     offType = Convert.ToInt32(dt.Rows[i]["OffType"]),
                     PriceShowType = Convert.ToInt32(dt.Rows[i]["PriceShow"]),
                     PriceXQ = dt.Rows[i]["PriceXquantity"].ToString(),
-                    OffValue = dt.Rows[i]["offTypeValue"].ToString()
+                    OffValue = dt.Rows[i]["offTypeValue"].ToString(),
+                    MainCatename = dt.Rows[i]["MCName"].ToString(),
+                    subCatename = dt.Rows[i]["SCName"].ToString()
                 };
 
                 if (string.IsNullOrEmpty(model.PicPath))
@@ -503,7 +505,9 @@ namespace BamboPortal_V1._0._0._0.ModelFiller.CustomerSide
                     offType = Convert.ToInt32(dt.Rows[i]["OffType"]),
                     PriceShowType = Convert.ToInt32(dt.Rows[i]["PriceShow"]),
                     PriceXQ = dt.Rows[i]["PriceXquantity"].ToString(),
-                    OffValue = dt.Rows[i]["offTypeValue"].ToString()
+                    OffValue = dt.Rows[i]["offTypeValue"].ToString(),
+                    MainCatename = dt.Rows[i]["MCName"].ToString(),
+                    subCatename = dt.Rows[i]["SCOKName"].ToString(),
                 };
 
                 if (string.IsNullOrEmpty(model.PicPath))
@@ -537,7 +541,7 @@ namespace BamboPortal_V1._0._0._0.ModelFiller.CustomerSide
             }
 
             query.Append(num);
-            query.Append(")over(order by(DateCreated)DESC)as tile,[id_MProduct],[PricePerquantity],[PriceXquantity],[OffType],[PriceOff],[offTypeValue],[IS_AVAILABEL],[Title],[DateCreated],[Description],[ISDELETE],[MoneyTypeName],[Pic],[PriceShow],[id_Type],[id_MainCategory],[id_SubCategory],[Search_Gravity]FROM [v_Products_search] where IS_AVAILABEL=1 AND ISDELETE=0 ");
+            query.Append(")over(order by(DateCreated)DESC)as tile,[id_MProduct],[PricePerquantity],[PriceXquantity],[OffType],[PriceOff],[offTypeValue],[IS_AVAILABEL],[Title],[DateCreated],[Description],[ISDELETE],[MoneyTypeName],[Pic],[PriceShow],[id_Type],[id_MainCategory],[id_SubCategory],[Search_Gravity],[MCName],[SCOKName] FROM [v_Products_search] where IS_AVAILABEL=1 AND ISDELETE=0 ");
             if (Type == "همه")
             {
                 query.Append(")b where b.tile=");
@@ -855,7 +859,7 @@ namespace BamboPortal_V1._0._0._0.ModelFiller.CustomerSide
                 res.SEO_Discription = dt.Rows[0]["Seo_Description"].ToString();
                 res.Title = dt.Rows[0]["Title"].ToString();
                 res.Discription = dt.Rows[0]["Description"].ToString();
-                res.SubCatId = Convert.ToInt32(dt.Rows[0]["id_SubCategory"]);
+                //res.SubCatId = Convert.ToInt32(dt.Rows[0]["id_SubCategory"]);
                 DataTable Pictures = db.Select("SELECT DISTINCT [orgUploadAddress],[thumUploadAddress] FROM [v_tblProduct_Image] where ISDELETE=0 AND id_MProduct=" + res.Id);
                 var TH_pic = new List<string>();
                 var ORG_pic = new List<string>();
@@ -911,19 +915,19 @@ namespace BamboPortal_V1._0._0._0.ModelFiller.CustomerSide
                         MPC_options.Add(model);
                     }
                 }
-                res.MPC_Options = MPC_options;
+                //res.MPC_Options = MPC_options;
 
                 DataTable Money = db.Select("SELECT Top 1 [id_MPC],[PricePerquantity],[PriceShow],(SELECT [PQT_Demansion] FROM [tbl_Product_ProductQuantityType] where id_PQT=[Quantity]) as Quantity,[PriceXquantity],[PriceOff],(SELECT [MoneyTypeName]FROM [tbl_Product_MoneyType]where [MoneyId]=[PriceModule])as PriceQuantity FROM [tlb_Product_MainProductConnector] where id_MProduct=" + res.Id);
 
                 if (Money.Rows.Count != 0)
                 {
-                    res.PriceXQ = Money.Rows[0]["PriceXquantity"].ToString();
-                    res.PriceOff = Money.Rows[0]["PriceOff"].ToString();
-                    res.PriceQuantity = Money.Rows[0]["PriceQuantity"].ToString();
-                    res.Quantity = Money.Rows[0]["Quantity"].ToString();
-                    res.Tags = MPC_Tags(Convert.ToInt32(Money.Rows[0]["id_MPC"]));
-                    res.PricePerQ = Money.Rows[0]["PricePerquantity"].ToString();
-                    res.PriceShowType = Convert.ToInt32(Money.Rows[0]["PriceShow"]);
+                    //res.PriceXQ = Money.Rows[0]["PriceXquantity"].ToString();
+                    //res.PriceOff = Money.Rows[0]["PriceOff"].ToString();
+                    //res.PriceQuantity = Money.Rows[0]["PriceQuantity"].ToString();
+                    //res.Quantity = Money.Rows[0]["Quantity"].ToString();
+                    //res.Tags = MPC_Tags(Convert.ToInt32(Money.Rows[0]["id_MPC"]));
+                    //res.PricePerQ = Money.Rows[0]["PricePerquantity"].ToString();
+                    //res.PriceShowType = Convert.ToInt32(Money.Rows[0]["PriceShow"]);
                 }
                 db.DC();
                 db.Connect();

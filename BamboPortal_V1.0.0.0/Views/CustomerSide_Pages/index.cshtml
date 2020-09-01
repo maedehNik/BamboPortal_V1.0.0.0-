@@ -1,4 +1,5 @@
-﻿@{
+﻿@model BamboPortal_V1._0._0._0.ModelViews.CustomerSide.IndexPageModelView
+@{
     ViewBag.SEOkeywords = "پارچه-گالری-پارچه-ولوت-پارچه-مرغوب";
     ViewBag.SEOdescription = "ولوت ارائه دهنده مرغوب ترین و باکیفیت ترین پارچه ها میباشد";
     ViewBag.Title = "ولوت - صفحه اصلی";
@@ -22,63 +23,28 @@
         </div>
     </div>
     <div class="inner-res-margin-padding-0 row col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 pad-left-40 pad-right-40 no-padding-side-mobile">
-            <div class="trailer trailer-inactive-mobile no-margin-top">
-                <figure onclick="redirect('https://google.com');" class="trailer-image">
-                    <img alt="image" src="@Url.Content("~/resource/images/shop/trailer/bag.jpg")" />
-                    <figcaption>
-                        <div class="trailer-center">
-                            <div class="trailer-heading custom-h2-title">
-                                <h2 class="content-background">Bags</h2>
+        @foreach (var item in Model.Sale_Products)
+        {
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 pad-left-40 pad-right-40 no-padding-side-mobile">
+                <div class="trailer trailer-inactive-mobile no-margin-top">
+                    <figure onclick="redirect('@Url.Action("productpage","CustomerSide_Product",new { _M=item.MainCatename.Replace(" ","-") , _S=item.subCatename.Replace(" ","-") ,  _P=item.Id,_N=item.Title.Replace(" ","-")})');" class="trailer-image">
+                        <img alt="image" src="@Url.Content("~"+item.PicPath)" />
+                        <figcaption>
+                            <div class="trailer-center">
+                                <div class="trailer-heading custom-h2-title">
+                                    <h2 class="content-background">Bags</h2>
+                                </div>
                             </div>
-                        </div>
-                    </figcaption>
-                </figure>
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="product-info">
+                    <h3 onclick="redirect('@Url.Action("productpage","CustomerSide_Product",new { _M=item.MainCatename.Replace(" ","-") , _S=item.subCatename.Replace(" ","-") ,  _P=item.Id,_N=item.Title.Replace(" ","-")})');" class="text-darker"><a href="#"><small>@item.Title</small></a></h3>
+                    <h6 class="price">@item.PriceXQ</h6>
+                </div>
             </div>
-            <div class="product-info">
-                <h3 onclick="redirect('https://google.com');" class="text-darker"><a href="#"><small>نام محصول</small></a></h3>
-                <h6 class="price tshtdlt">5,000,000</h6>
-                <h6 class="price">4,500,000</h6>
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 pad-left-40 pad-right-40 no-padding-side-mobile">
-            <div class="trailer trailer-inactive-mobile no-margin-top">
-                <figure onclick="redirect('https://google.com');" class="trailer-image">
-                    <img alt="image" src="@Url.Content("~/resource/images/shop/trailer/tshirt.jpg")" />
-                    <figcaption>
-                        <div class="trailer-center">
-                            <div class="trailer-heading custom-h2-title">
-                                <h2 class="content-background">T-shirts</h2>
-                            </div>
-                        </div>
-                    </figcaption>
-                </figure>
-            </div>
-            <div class="product-info">
-                <h3 onclick="redirect('https://google.com');" class="text-darker"><a href="#"><small>نام محصول</small></a></h3>
-                <h6 class="price tshtdlt">5,000,000</h6>
-                <h6 class="price">4,500,000</h6>
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 pad-left-40 pad-right-40 no-padding-side-mobile">
-            <div class="trailer trailer-inactive-mobile no-margin-top">
-                <figure onclick="redirect('https://google.com');" class="trailer-image">
-                    <img alt="image" src="images/shop/trailer/jeans.jpg" />
-                    <figcaption>
-                        <div class="trailer-center">
-                            <div class="trailer-heading custom-h2-title">
-                                <h2 class="content-background">Jeans</h2>
-                            </div>
-                        </div>
-                    </figcaption>
-                </figure>
-            </div>
-            <div class="product-info">
-                <h3 onclick="redirect('https://google.com');" class="text-darker"><a href="#"><small>نام محصول</small></a></h3>
-                <h6 class="price tshtdlt">5,000,000</h6>
-                <h6 class="price">4,500,000</h6>
-            </div>
-        </div>
+        }
+
     </div>
 </div>
 
@@ -95,139 +61,27 @@
                 <div class="custom-res-owl owl-carousel owl-theme owl-arrows owl-arrows-view pad-left-50-mobile pad-right-50-mobile"
                      data-items="3" data-items-desktop="3" data-items-tablet="2" data-items-mobile="1"
                      data-pagination="false" data-navigation="true">
-                    <div class="item pad-left-40 pad-right-40 no-padding-side-mobile">
-                        <div class="trailer trailer-inactive-mobile no-margin-top">
-                            <figure onclick="redirect('https://google.com');" class="trailer-image">
-                                <img alt="image" src="images/shop/trailer/bag.jpg" />
-                                <figcaption>
-                                    <div class="trailer-center">
-                                        <div class="trailer-heading custom-h2-title">
-                                            <h2 class="content-background">Bags</h2>
+                    @foreach (var item in Model.NewProducts)
+                    {
+                        <div class="item pad-left-40 pad-right-40 no-padding-side-mobile">
+                            <div class="trailer trailer-inactive-mobile no-margin-top">
+                                <figure onclick="redirect('@Url.Action("productpage","CustomerSide_Product",new { _M=item.MainCatename.Replace(" ","-") , _S=item.subCatename.Replace(" ","-") ,  _P=item.Id,_N=item.Title.Replace(" ","-")})');" class="trailer-image">
+                                    <img alt="image" src="@Url.Content("~"+item.PicPath)" />
+                                    <figcaption>
+                                        <div class="trailer-center">
+                                            <div class="trailer-heading custom-h2-title">
+                                                <h2 class="content-background">Bags</h2>
+                                            </div>
                                         </div>
-                                    </div>
-                                </figcaption>
-                            </figure>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                            <div class="product-info">
+                                <h3 onclick="redirect('@Url.Action("productpage","CustomerSide_Product",new { _M=item.MainCatename.Replace(" ","-") , _S=item.subCatename.Replace(" ","-") ,  _P=item.Id,_N=item.Title.Replace(" ","-")})');" class="text-darker"><a href="#"><small>@item.Title</small></a></h3>
+                                <h6 class="price">@item.PriceXQ</h6>
+                            </div>
                         </div>
-                        <div class="product-info">
-                            <h3 onclick="redirect('https://google.com');" class="text-darker"><a href="#"><small>نام محصول</small></a></h3>
-                            <h6 class="price tshtdlt">5,000,000</h6>
-                            <h6 class="price">4,500,000</h6>
-                        </div>
-                    </div>
-                    <div class="item pad-left-40 pad-right-40 no-padding-side-mobile">
-                        <div class="trailer trailer-inactive-mobile no-margin-top">
-                            <figure onclick="redirect('https://google.com');" class="trailer-image">
-                                <img alt="image" src="images/shop/trailer/tshirt.jpg" />
-                                <figcaption>
-                                    <div class="trailer-center">
-                                        <div class="trailer-heading custom-h2-title">
-                                            <h2 class="content-background">T-shirts</h2>
-                                        </div>
-                                    </div>
-                                </figcaption>
-                            </figure>
-                        </div>
-                        <div class="product-info">
-                            <h3 onclick="redirect('https://google.com');" class="text-darker"><a href="#"><small>نام محصول</small></a></h3>
-                            <h6 class="price tshtdlt">5,000,000</h6>
-                            <h6 class="price">4,500,000</h6>
-                        </div>
-                    </div>
-                    <div class="item pad-left-40 pad-right-40 no-padding-side-mobile">
-                        <div class="trailer trailer-inactive-mobile no-margin-top">
-                            <figure onclick="redirect('https://google.com');" class="trailer-image">
-                                <img alt="image" src="images/shop/trailer/jeans.jpg" />
-                                <figcaption>
-                                    <div class="trailer-center">
-                                        <div class="trailer-heading custom-h2-title">
-                                            <h2 class="content-background">Jeans</h2>
-                                        </div>
-                                    </div>
-                                </figcaption>
-                            </figure>
-                        </div>
-                        <div class="product-info">
-                            <h3 onclick="redirect('https://google.com');" class="text-darker"><a href="#"><small>نام محصول</small></a></h3>
-                            <h6 class="price tshtdlt">5,000,000</h6>
-                            <h6 class="price">4,500,000</h6>
-                        </div>
-                    </div>
-                    <div class="item pad-left-40 pad-right-40 no-padding-side-mobile">
-                        <div class="trailer trailer-inactive-mobile no-margin-top">
-                            <figure onclick="redirect('https://google.com');" class="trailer-image">
-                                <img alt="image" src="images/shop/trailer/jacket.jpg" />
-                                <figcaption>
-                                    <div class="trailer-center">
-                                        <div class="trailer-heading custom-h2-title">
-                                            <h2 class="content-background">Jackets</h2>
-                                        </div>
-                                    </div>
-                                </figcaption>
-                            </figure>
-                        </div>
-                        <div class="product-info">
-                            <h3 onclick="redirect('https://google.com');" class="text-darker"><a href="#"><small>نام محصول</small></a></h3>
-                            <h6 class="price tshtdlt">5,000,000</h6>
-                            <h6 class="price">4,500,000</h6>
-                        </div>
-                    </div>
-                    <div class="item pad-left-40 pad-right-40 no-padding-side-mobile">
-                        <div class="trailer trailer-inactive-mobile no-margin-top">
-                            <figure onclick="redirect('https://google.com');" class="trailer-image">
-                                <img alt="image" src="images/shop/trailer/shoes.jpg" />
-                                <figcaption>
-                                    <div class="trailer-center">
-                                        <div class="trailer-heading custom-h2-title">
-                                            <h2 class="content-background">Shoes</h2>
-                                        </div>
-                                    </div>
-                                </figcaption>
-                            </figure>
-                        </div>
-                        <div class="product-info">
-                            <h3 onclick="redirect('https://google.com');" class="text-darker"><a href="#"><small>نام محصول</small></a></h3>
-                            <h6 class="price tshtdlt">5,000,000</h6>
-                            <h6 class="price">4,500,000</h6>
-                        </div>
-                    </div>
-                    <div class="item pad-left-40 pad-right-40 no-padding-side-mobile">
-                        <div class="trailer trailer-inactive-mobile no-margin-top">
-                            <figure onclick="redirect('https://google.com');" class="trailer-image">
-                                <img alt="image" src="images/shop/trailer/hat.jpg" />
-                                <figcaption>
-                                    <div class="trailer-center">
-                                        <div class="trailer-heading custom-h2-title">
-                                            <h2 class="content-background">Hats</h2>
-                                        </div>
-                                    </div>
-                                </figcaption>
-                            </figure>
-                        </div>
-                        <div class="product-info">
-                            <h3 onclick="redirect('https://google.com');" class="text-darker"><a href="#"><small>نام محصول</small></a></h3>
-                            <h6 class="price tshtdlt">5,000,000</h6>
-                            <h6 class="price">4,500,000</h6>
-                        </div>
-                    </div>
-                    <div class="item pad-left-40 pad-right-40 no-padding-side-mobile">
-                        <div class="trailer trailer-inactive-mobile no-margin-top">
-                            <figure onclick="redirect('https://google.com');" class="trailer-image">
-                                <img alt="image" src="images/shop/trailer/blouse.jpg" />
-                                <figcaption>
-                                    <div class="trailer-center">
-                                        <div class="trailer-heading custom-h2-title">
-                                            <h2 class="content-background">Blouse</h2>
-                                        </div>
-                                    </div>
-                                </figcaption>
-                            </figure>
-                        </div>
-                        <div class="product-info">
-                            <h3 onclick="redirect('https://google.com');" class="text-darker"><a href="#"><small>نام محصول</small></a></h3>
-                            <h6 class="price tshtdlt">5,000,000</h6>
-                            <h6 class="price">4,500,000</h6>
-                        </div>
-                    </div>
+                    }
                 </div>
             </div>
         </div>
@@ -242,39 +96,20 @@
         </div>
     </div>
     <div class="row product no-margin">
-        <div class="col-sm-4 no-padding">
-            <div class="product-thumbnail no-margin">
-                <div class="product-image prd-img">
-                    <span class="label label-tags theme-background-light text-vertical-large special tshdirltr">-20 %</span>
-                    <img alt="image" class="img-responsive" src="images/fashion-2.jpg">
-                    <div class="thumbnail-btns">
-                        <a class="btn btn-lg btn-theme" href="product-single.html">مشاهده محصول</a>
+        @foreach (var item in Model.SelectedProducts)
+        {
+            <div class="col-sm-4 no-padding">
+                <div class="product-thumbnail no-margin">
+                    <div class="product-image prd-img">
+                        <img alt="image" class="img-responsive" src="@Url.Content("~"+item.PicPath)" style="width: 100%;">
+                        <div class="thumbnail-btns">
+                            <a class="btn btn-lg btn-theme" href="@Url.Action("productpage","CustomerSide_Product",new { _M=item.MainCatename.Replace(" ","-") , _S=item.subCatename.Replace(" ","-") ,  _P=item.Id,_N=item.Title.Replace(" ","-")})">مشاهده محصول</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-4 no-padding">
-            <div class="product-thumbnail no-margin">
-                <div class="product-image prd-img">
-                    <span class="label label-tags theme-background-light text-vertical-large special tshdirltr">-20 %</span>
-                    <img alt="image" class="img-responsive" src="images/fashion-2.jpg">
-                    <div class="thumbnail-btns">
-                        <a class="btn btn-lg btn-theme" href="product-single.html">مشاهده محصول</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4 no-padding">
-            <div class="product-thumbnail no-margin">
-                <div class="product-image prd-img">
-                    <span class="label label-tags theme-background-light text-vertical-large special tshdirltr">-20 %</span>
-                    <img alt="image" class="img-responsive" src="images/fashion-2.jpg">
-                    <div class="thumbnail-btns">
-                        <a class="btn btn-lg btn-theme" href="product-single.html">مشاهده محصول</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        }
+
     </div>
 </div>
 
@@ -287,10 +122,13 @@
     </div>
     <div class="row product pad-bot-50">
         <div class="inner-res-margin-padding-0 row col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            @foreach(var item in Model.ProductsG3)
+            {
+
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 pad-left-40 pad-right-40 no-padding-side-mobile">
                 <div class="trailer trailer-inactive-mobile no-margin-top">
-                    <figure onclick="redirect('https://google.com');" class="trailer-image">
-                        <img alt="image" src="images/shop/trailer/bag.jpg" />
+                    <figure onclick="redirect('@Url.Action("productpage","CustomerSide_Product",new { _M=item.MainCatename.Replace(" ","-") , _S=item.subCatename.Replace(" ","-") ,  _P=item.Id,_N=item.Title.Replace(" ","-")})');" class="trailer-image">
+                        <img alt="image" src="@Url.Content("~"+item.PicPath)" />
                         <figcaption>
                             <div class="trailer-center">
                                 <div class="trailer-heading custom-h2-title">
@@ -301,109 +139,14 @@
                     </figure>
                 </div>
                 <div class="product-info">
-                    <h3 onclick="redirect('https://google.com');" class="text-darker"><a href="#"><small>نام محصول</small></a></h3>
-                    <h6 class="price tshtdlt">5,000,000</h6>
-                    <h6 class="price">4,500,000</h6>
+                    <h3 onclick="redirect('@Url.Action("productpage","CustomerSide_Product",new { _M=item.MainCatename.Replace(" ","-") , _S=item.subCatename.Replace(" ","-") ,  _P=item.Id,_N=item.Title.Replace(" ","-")})');" class="text-darker"><a href="#"><small>@item.Title</small></a></h3>
+                    <h6 class="price">@item.PriceXQ</h6>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 pad-left-40 pad-right-40 no-padding-side-mobile">
-                <div class="trailer trailer-inactive-mobile no-margin-top">
-                    <figure onclick="redirect('https://google.com');" class="trailer-image">
-                        <img alt="image" src="images/shop/trailer/tshirt.jpg" />
-                        <figcaption>
-                            <div class="trailer-center">
-                                <div class="trailer-heading custom-h2-title">
-                                    <h2 class="content-background">T-shirts</h2>
-                                </div>
-                            </div>
-                        </figcaption>
-                    </figure>
-                </div>
-                <div class="product-info">
-                    <h3 onclick="redirect('https://google.com');" class="text-darker"><a href="#"><small>نام محصول</small></a></h3>
-                    <h6 class="price tshtdlt">5,000,000</h6>
-                    <h6 class="price">4,500,000</h6>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 pad-left-40 pad-right-40 no-padding-side-mobile">
-                <div class="trailer trailer-inactive-mobile no-margin-top">
-                    <figure onclick="redirect('https://google.com');" class="trailer-image">
-                        <img alt="image" src="images/shop/trailer/jeans.jpg" />
-                        <figcaption>
-                            <div class="trailer-center">
-                                <div class="trailer-heading custom-h2-title">
-                                    <h2 class="content-background">Jeans</h2>
-                                </div>
-                            </div>
-                        </figcaption>
-                    </figure>
-                </div>
-                <div class="product-info">
-                    <h3 onclick="redirect('https://google.com');" class="text-darker"><a href="#"><small>نام محصول</small></a></h3>
-                    <h6 class="price tshtdlt">5,000,000</h6>
-                    <h6 class="price">4,500,000</h6>
-                </div>
-            </div>
+            }
+
         </div>
-        <div class="inner-res-margin-padding-0 row col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 pad-left-40 pad-right-40 no-padding-side-mobile">
-                <div class="trailer trailer-inactive-mobile no-margin-top">
-                    <figure onclick="redirect('https://google.com');" class="trailer-image">
-                        <img alt="image" src="images/shop/trailer/bag.jpg" />
-                        <figcaption>
-                            <div class="trailer-center">
-                                <div class="trailer-heading custom-h2-title">
-                                    <h2 class="content-background">Bags</h2>
-                                </div>
-                            </div>
-                        </figcaption>
-                    </figure>
-                </div>
-                <div class="product-info">
-                    <h3 onclick="redirect('https://google.com');" class="text-darker"><a href="#"><small>نام محصول</small></a></h3>
-                    <h6 class="price tshtdlt">5,000,000</h6>
-                    <h6 class="price">4,500,000</h6>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 pad-left-40 pad-right-40 no-padding-side-mobile">
-                <div class="trailer trailer-inactive-mobile no-margin-top">
-                    <figure onclick="redirect('https://google.com');" class="trailer-image">
-                        <img alt="image" src="images/shop/trailer/tshirt.jpg" />
-                        <figcaption>
-                            <div class="trailer-center">
-                                <div class="trailer-heading custom-h2-title">
-                                    <h2 class="content-background">T-shirts</h2>
-                                </div>
-                            </div>
-                        </figcaption>
-                    </figure>
-                </div>
-                <div class="product-info">
-                    <h3 onclick="redirect('https://google.com');" class="text-darker"><a href="#"><small>نام محصول</small></a></h3>
-                    <h6 class="price tshtdlt">5,000,000</h6>
-                    <h6 class="price">4,500,000</h6>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 pad-left-40 pad-right-40 no-padding-side-mobile">
-                <div class="trailer trailer-inactive-mobile no-margin-top">
-                    <figure onclick="redirect('https://google.com');" class="trailer-image">
-                        <img alt="image" src="images/shop/trailer/jeans.jpg" />
-                        <figcaption>
-                            <div class="trailer-center">
-                                <div class="trailer-heading custom-h2-title">
-                                    <h2 class="content-background">Jeans</h2>
-                                </div>
-                            </div>
-                        </figcaption>
-                    </figure>
-                </div>
-                <div class="product-info">
-                    <h3 onclick="redirect('https://google.com');" class="text-darker"><a href="#"><small>نام محصول</small></a></h3>
-                    <h6 class="price tshtdlt">5,000,000</h6>
-                    <h6 class="price">4,500,000</h6>
-                </div>
-            </div>
-        </div>
+
     </div>
 </div>
 <div class="container">

@@ -13,6 +13,7 @@ using System.Data;
 using BamboPortal_V1._0._0._0.Models;
 using BamboPortal_V1._0._0._0.StaticClass.UploaderStaticsCalculators;
 using BamboPortal_V1._0._0._0.nonStaticUsefulClass.Stockpile;
+using MD.PersianDateTime;
 
 namespace BamboPortal_V1._0._0._0.Controllers
 {
@@ -68,42 +69,210 @@ namespace BamboPortal_V1._0._0._0.Controllers
 
             return View(modelFiller.Customers_Factors("همه", CustomerId, "Date"));
         }
-        [Route("صفحه-محصول")]
-        [Route("صفحه-محصول-{N}")]
-        [Route("صفحه-محصول-{N}-{M}")]
-        [Route("صفحه-محصول-{N}-{M}-{S}")]
-        [Route("صفحه-محصول-{N}-{M}-{S}-{P:regex(\\d{5})}")]
-        public ActionResult productpage(string M ,string S ,string N, int? P  )
+        [HttpGet]
+        [Route("انواع-پارچه/{_M}")]
+        [Route("انواع-پارچه/{_M}/{_P}")]
+        [Route("انواع-پارچه/{_M}/{_P}/{_S}")]
+        [Route("انواع-پارچه/{_M}/{_P:regex(\\d{7})}/{_S}/{_N}")]
+        public ActionResult productpage(string _N, string _M, string _S, int? _P)
         {
-            if (string.IsNullOrEmpty(M ))
+            if (string.IsNullOrEmpty(_M))
             {
                 return RedirectToAction("search", "CustomerSide_Product", new { Type = "همه" });
             }
-            if (string.IsNullOrEmpty(S))
+            if (string.IsNullOrEmpty(_S))
             {
                 return RedirectToAction("search", "CustomerSide_Product", new { Type = "همه" });
             }
-            if (string.IsNullOrEmpty(N))
+            if (string.IsNullOrEmpty(_N))
             {
                 return RedirectToAction("search", "CustomerSide_Product", new { Type = "همه" });
             }
-            if (P == null)
+            if (_P == null)
             {
                 return RedirectToAction("search", "CustomerSide_Product", new { Type = "همه" });
             }
-            //CustomerModelFiller modelFiller = new CustomerModelFiller();
-            /////این متغیرها پر بشه
+            ProductDetail_ModelView model = new ProductDetail_ModelView();
+            model.ProductModel = new Product_DesignerModel();
+            PDBC db = new PDBC();
+            db.Connect();
+            using (DataTable dt = db.Select("SELECT [Title] ,[Seo_Description] ,[Seo_KeyWords] ,[Description] ,[PTname] ,[MCName] ,[SCName] FROM [v_tblProductToMCPTSC] WHERE [id_MProduct] = " + _P))
+            {
+                db.DC();
+                if (dt.Rows.Count > 0)
+                {
+                    model.ProductModel.Id = Convert.ToInt32(_P);
+                    model.ProductModel.Title = dt.Rows[0]["Title"].ToString();
+                    model.ProductModel.SEO_Discription = dt.Rows[0]["Seo_Description"].ToString();
+                    model.ProductModel.SEO_Keyword = dt.Rows[0]["Seo_KeyWords"].ToString();
+                    model.ProductModel.Discription = dt.Rows[0]["Description"].ToString();
+                    //string 
+                    //if (_N != model.ProductModel.Title.Replace(" ", "-") || _M != dt.Rows[0]["MCName"].ToString().Replace(" ", "-") || _S != dt.Rows[0]["SCName"].ToString().Replace(" ", "-"))
+                    //{
+                    //    return RedirectToAction("search", "CustomerSide_Product", new { Type = "همه" });
+                    //}
+                }
+                else
+                {
+                    return RedirectToAction("search", "CustomerSide_Product", new { Type = "همه" });
+                }
+            }
+            model.ProductModel.Thumpnamil_Pictures = new List<string>();
+            model.ProductModel.org_Pictures = new List<string>();
 
-            //var model = new ProductDetail_ModelView()
-            //{
-            //    ProductModel = modelFiller.SingleProduct(ProId, "Ago"),
-            //    Sale_Products = modelFiller.ChosenProducts("Sale", 4, "Ago")
-            //};
+            db.Connect();
+            using (DataTable dt = db.Select("SELECT  [orgUploadAddress] ,[thumUploadAddress] FROM [v_tblProduct_Image] WHERE [id_MProduct] = " + _P))
+            {
+                db.DC();
+                if (dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        model.ProductModel.org_Pictures.Add(dt.Rows[i]["orgUploadAddress"].ToString());
+                        model.ProductModel.Thumpnamil_Pictures.Add(dt.Rows[i]["thumUploadAddress"].ToString());
+                    }
+                }
+                else
+                {
+                    model.ProductModel.org_Pictures.Add("/resource/images/Customes/imgNotFound.jpg");
+                    model.ProductModel.Thumpnamil_Pictures.Add("/resource/images/Customes/imgNotFound.jpg");
+                }
+            }
+            model.ProductModel.Options = new List<OptionModel>();
+            db.Connect();
+            using (DataTable dt = db.Select("SELECT  [KeyName] ,[Value] FROM  [tbl_Product_tblOptions] WHERE [id_MProduct] = " + _P))
+            {
+                db.DC();
+                if (dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        model.ProductModel.Options.Add(new OptionModel()
+                        {
+                            Key = dt.Rows[i]["KeyName"].ToString(),
+                            Value = dt.Rows[i]["Value"].ToString()
+                        });
+                    }
+                }
+                else
+                {
+                    model.ProductModel.Options.Add(new OptionModel()
+                    {
+                        Key = "موردی برای نمایش وجود ندارد",
+                        Value = "موردی برای نمایش وجود ندارد"
+                    });
+                }
 
+            }
+            //===================Comment 
+            model.ProductModel.Comments = new List<CommentsModel>();
+            model.ProductModel.Comments.Add(new CommentsModel()
+            {
+                Date = PersianDateTime.Now.ToString(),
+                Name = "موردی برای نمایش وجود ندارد",
+                Message = "موردی برای نمایش وجود ندارد",
+                Reply = new List<CommentsModel>()
+            });
+            //===================Comment 
+            db.Connect();
+            using (DataTable dt = db.Select("SELECT [id_SCOK] ,[SCOKName] FROM [v_tblProductSCOK] WHERE [id_MProduct] = " + _P))
+            {
+                model.ProductModel.Selectors = new List<SelectsInput>();
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    SelectsInput res = new SelectsInput();
+                    res.ID_SCOK = dt.Rows[i]["id_SCOK"].ToString();
+                    res.Name_SCOK = dt.Rows[i]["SCOKName"].ToString();
+                    res.Options = new List<OptionModel>();
+                    using (DataTable dt2 = db.Select($"SELECT [id_SCOV] FROM  [v_SCOVMPC] WHERE  [id_MProduct] = {_P} AND [id_SCOK] = {dt.Rows[i]["id_SCOK"].ToString()} Group BY [id_SCOV]"))
+                    {
+                        for (int j = 0; j < dt2.Rows.Count; j++)
+                        {
+                            using (DataTable dt3 = db.Select("SELECT [SCOVValueName] FROM [tbl_Product_SubCategoryOptionValue] WHERE [id_SCOV] = " + dt2.Rows[j]["id_SCOV"].ToString()))
+                            {
+                                res.Options.Add(new OptionModel()
+                                {
+                                    Key = dt2.Rows[j]["id_SCOV"].ToString(),
+                                    Value = dt3.Rows[0]["SCOVValueName"].ToString()
+                                });
+                            }
 
-            return View();
+                        }
+                    }
+                    model.ProductModel.Selectors.Add(res);
+                }
+            }
+            db.DC();
+            db.Connect();
+            using (DataTable dt = db.Select("SELECT [id_MPC] ,[PriceXquantity] FROM [tlb_Product_MainProductConnector] WHERE [id_MProduct] = " + _P))
+            {
+                db.DC();
+                model.ProductModel.MPCs = new List<MPCModel>();
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    model.ProductModel.MPCs.Add(new MPCModel()
+                    {
+                        Id = Convert.ToInt32(dt.Rows[i]["id_MPC"].ToString()),
+                        PriceXQ = String.Format("{0:n0}", dt.Rows[i]["PriceXquantity"].ToString())
+                    });
+                }
+                db.Connect();
+                for (int i = 0; i < model.ProductModel.MPCs.Count; i++)
+                {
+                    using (DataTable dt2 = db.Select("SELECT [id_MPC] ,[id_SCOV] FROM [v_ConnectorTheProductConnectorViewToSCOVandSCOKV_s] WHERE [id_MPC] =" + model.ProductModel.MPCs[i].Id))
+                    {
+                        model.PF = new List<ProductFinder>();
+                        string code = "";
+                        for (int j = 0; j < dt2.Rows.Count; j++)
+                        {
+                            code += dt2.Rows[j]["id_SCOV"].ToString();
+                        }
+                        model.PF.Add(new ProductFinder()
+                        {
+                            Code = code,
+                            Idmpc = dt2.Rows[0]["id_MPC"].ToString()
+                        });
+                    }
+                }
+                db.DC();
+            }
+            model.JsonSale_Products = JsonConvert.SerializeObject(model.ProductModel.MPCs);
+            model.JsonPF = JsonConvert.SerializeObject(model.PF);
+            model.Sale_Products = new List<MiniProductModel>();
+            db.Connect();
+            using (DataTable dt = db.Select("SELECT TOP(3)  [id_MProduct] ,MAX([Qsold]) FROM [V_Porforooshha1] Group by [id_MProduct]"))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        DataTable dts = db.Select("SELECT TOP(1)  [Title] ,[MCName] ,[SCName] ,[PriceXquantity] FROM [v_Connector_MainProductConnectorToProduct] WHERE [id_MProduct] = " + dt.Rows[i]["id_MProduct"].ToString());
+                        DataTable dtimg = db.Select("SELECT TOP(1) [thumUploadAddress] FROM [v_tblProduct_Image] WHERE [id_MProduct] = " + dt.Rows[i]["id_MProduct"].ToString());
+                        string imgp = "/NOIMG.jpg";
+                        if (dtimg.Rows.Count > 0)
+                        {
+                            imgp = dtimg.Rows[0]["thumUploadAddress"].ToString();
+                        }
+                        model.Sale_Products.Add(new MiniProductModel()
+                        {
+                            Id = Convert.ToInt32(dt.Rows[i]["id_MProduct"].ToString()),
+                            MainCatename = dts.Rows[0]["MCName"].ToString(),
+                            subCatename = dts.Rows[0]["SCName"].ToString(),
+                            Title = dts.Rows[0]["Title"].ToString(),
+                            PriceXQ = dts.Rows[0]["PriceXquantity"].ToString(),
+                            PicPath = imgp
+                        });
+                    }
+                }
+                else
+                {
+                    model.Sale_Products = new List<MiniProductModel>();
+                }
+            }
+            db.DC();
+            return View(model);
         }
-        [Route("جستجو-انواع-پارچه/{Type}") ]
+        [Route("جستجو-انواع-پارچه/{Type}")]
         [Route("جستجو-انواع-پارچه/{Type}/{Id}")]
         [Route("جستجو-انواع-پارچه/{Type}/{Id}/{Page}")]
         [Route("جستجو-انواع-پارچه/{Type}/{Id:regex(\\d{7})}/{Page:regex(\\d{4})}/{Search}")]
@@ -302,7 +471,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                     fpm.items.RemoveAt(i);
                 }
             }
-            if(fpm.items.Count == 0)
+            if (fpm.items.Count == 0)
             {
                 ModelSender = new ErrorReporterModel
                 {
