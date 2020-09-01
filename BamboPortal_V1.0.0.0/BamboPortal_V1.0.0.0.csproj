@@ -207,6 +207,7 @@
     <Compile Include="Models\AdministratorUploader\UploaderModelToAlertSizes.cs" />
     <Compile Include="Models\AdministratorValidation.cs" />
     <Compile Include="Models\CategotyTreeModel.cs" />
+    <Compile Include="Models\CustomerSide\AllowDisallow.cs" />
     <Compile Include="Models\CustomerSide\PersonalDataModels\ActivationModel.cs" />
     <Compile Include="Models\CustomerSide\PersonalDataModels\AddressModel.cs" />
     <Compile Include="Models\CustomerSide\BlogModels\blogclass.cs" />
@@ -2311,6 +2312,9 @@
     <Content Include="DatabaseCenter\SQL Scripts\1399\Mordad\16 BakFile\EmptyDatabasePandaPortal.bak" />
     <Content Include="resource\.idea\Velvet.iml" />
     <Content Include="resource\css\IRANSansWeb.ttf" />
+    <Content Include="resource\images\Customes\imgNotFound.jpg" />
+    <Content Include="resource\images\velvetslide1.jpg" />
+    <Content Include="resource\images\velvetslide2.jpg" />
     <Content Include="resource\third-party\bootstrap\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="resource\third-party\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="resource\third-party\bootstrap\fonts\glyphicons-halflings-regular.woff" />

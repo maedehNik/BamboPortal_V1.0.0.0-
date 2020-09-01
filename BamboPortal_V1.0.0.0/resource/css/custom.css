@@ -168,7 +168,7 @@
     background-color: black;
 }
 .price::after {
-    content: 'تومان';
+    content: 'ریال';
     margin-right: 3px;
 }
 .tshbb {

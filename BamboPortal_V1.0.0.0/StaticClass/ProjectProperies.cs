@@ -14,6 +14,8 @@ namespace BamboPortal_V1._0._0._0.StaticClass
         public static string CustomerBasketShoppingCode = "B139DD";
         public static string CustomerFactorShoppingCode = "F29DD";
         public static string imageSavePath = "پارچه-گالری-ولوت-";
+        public static string RoutePath = "پارچه-گالری-ولوت";
+
         public static string AuthCoockieCode()
         {
             return $"{PortalCustomerModelCode}_{AdminLoginAuthCode}";

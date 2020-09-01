@@ -13,8 +13,10 @@ using System.Web.Mvc;
 
 namespace BamboPortal_V1._0._0._0.Controllers
 {
+    [RoutePrefix("گالری-پارچه-ولوت")]
     public class CustomerSide_RegisterController : CustomerSide_CustomerRuleController
     {
+        [Route("ورود-ثبت-نام-کاربر")]
         public ActionResult loginandregister()
         {
             return View();

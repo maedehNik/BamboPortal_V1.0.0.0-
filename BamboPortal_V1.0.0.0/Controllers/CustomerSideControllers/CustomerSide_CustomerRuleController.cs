@@ -1,4 +1,5 @@
-﻿using BamboPortal_V1._0._0._0.ModelViews.CustomerSide;
+﻿using BamboPortal_V1._0._0._0.Models.CustomerSide;
+using BamboPortal_V1._0._0._0.ModelViews.CustomerSide;
 using BamboPortal_V1._0._0._0.StaticClass;
 using Newtonsoft.Json;
 using System;
@@ -15,12 +16,40 @@ namespace BamboPortal_V1._0._0._0.Controllers
         {
             string actionName = filterContext.RouteData.Values["action"].ToString();
             string controllerName = filterContext.RouteData.Values["controller"].ToString();
+            tbl_Customer_Main tcm = new tbl_Customer_Main();
+            var coockie = HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerCode());
+            AllowDisallow AA = new AllowDisallow()
+            {
+                BasketItemsCount = 0,
+                ShoppingBasket = new ShoppingBasket()
+                {
+                    Items = new List<ShoppingBasketItems>()
+                }
+            };
+            ViewBag.IsUserLogin = true;
+            ViewBag.AllAllowDisallow = AA;
+            if (coockie != null)
+            {
+                tcm = CoockieController.SayWhoIsHE(coockie.Value);
+                var Id = tcm.id_Customer;
+                int dd = 0;
+                if (Int32.TryParse(Id, out dd))
+                {
 
-            
+                }
+                else
+                {
 
+                }
+            }
+            else
+            {
+
+            }
 
 
             base.OnActionExecuting(filterContext);
+
         }
     }
 }

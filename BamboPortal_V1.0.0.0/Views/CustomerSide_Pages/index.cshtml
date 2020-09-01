@@ -1,14 +1,16 @@
 ﻿@{
-    ViewBag.SEOkeywords = "H1";
-    ViewBag.Title = "H12";
-    ViewBag.SEOdescription = "H13";
+    ViewBag.SEOkeywords = "پارچه-گالری-پارچه-ولوت-پارچه-مرغوب";
+    ViewBag.SEOdescription = "ولوت ارائه دهنده مرغوب ترین و باکیفیت ترین پارچه ها میباشد";
+    ViewBag.Title = "ولوت - صفحه اصلی";
+    Layout = "~/Views/SharedViewPages/CustomerSide/CustomerMaster.cshtml";
+
 }
 <div id="home" class="one-page-section owl-carousel owl-theme owl-slider owl-arrows full-width no-padding-side full-height" data-offset-container="" style="overflow: hidden;" data-items="1" data-items-desktop="1" data-items-tablet="1" data-items-mobile="1" data-pagination-speed="2000" data-slide-speed="2000" data-navigation="true" data-auto-play="true" data-stop-on-hover="true">
     <div class="item">
-        <div class="slider-item" style="background-image: url('images/ntc/bag.jpg'); background-position: center center;background-size: cover;"></div>
+        <div class="slider-item" style="background-image: url('@Url.Content("~/resource/images/velvetslide1.jpg")'); background-position: center center;background-size: cover;"></div>
     </div>
     <div class="item">
-        <div class="slider-item" style="background-image: url('images/ntc/chair-brown.jpg'); background-position: center center;background-size: cover;"></div>
+        <div class="slider-item" style="background-image: url('@Url.Content("~/resource/images/velvetslide2.jpg")'); background-position: center center;background-size: cover;"></div>
     </div>
 </div>
 
@@ -23,7 +25,7 @@
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 pad-left-40 pad-right-40 no-padding-side-mobile">
             <div class="trailer trailer-inactive-mobile no-margin-top">
                 <figure onclick="redirect('https://google.com');" class="trailer-image">
-                    <img alt="image" src="images/shop/trailer/bag.jpg" />
+                    <img alt="image" src="@Url.Content("~/resource/images/shop/trailer/bag.jpg")" />
                     <figcaption>
                         <div class="trailer-center">
                             <div class="trailer-heading custom-h2-title">
@@ -42,7 +44,7 @@
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 pad-left-40 pad-right-40 no-padding-side-mobile">
             <div class="trailer trailer-inactive-mobile no-margin-top">
                 <figure onclick="redirect('https://google.com');" class="trailer-image">
-                    <img alt="image" src="images/shop/trailer/tshirt.jpg" />
+                    <img alt="image" src="@Url.Content("~/resource/images/shop/trailer/tshirt.jpg")" />
                     <figcaption>
                         <div class="trailer-center">
                             <div class="trailer-heading custom-h2-title">
@@ -413,14 +415,32 @@
     </div>
     <div class="row product pad-bot-50 markets">
         <div class="col-md-3">
-            <h4 class="footer-title">شعبه تجریش</h4>
+            <h4 class="footer-title">شعبه مرکزی</h4>
             <p class="footer-content">
                 <i class="fa fa-map-marker"></i>
-                تجریش - خیابان اول - کوچه دوم - پلاک 3 - زنگ 4
+                آدرس : میدان تجریش ، رو به روی بیمارستان شهدا ، پاساژ میری طبقه سه پلاک  108و  ، 56گالری
+                پارچه ولوت
             </p>
             <p class="footer-content">
                 <i class="fa fa-phone"></i>
-                <a class="tshbeforetel" href="tel:02122334455">22334455</a>
+                <a class="tshbeforetel" href="tel:982122717656021">22334455</a>
+            </p>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d808.9394280925661!2d51.43142306470913!3d35.80588097728032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x28b271f00e6177d4!2z2LTYudio2Ycg2YXYsdqp2LLbjCDZvtin2LHahtmHINmI2YTZiNiq!5e0!3m2!1sen!2sus!4v1580312708942!5m2!1sen!2sus" height="200" frameborder="0" style="width: 100%;" allowfullscreen="true"></iframe>
+            <ul class="social-icons list-inline list-unstyled si-light circle inverse" style="text-align: center; display: flow-root;">
+                <li><a href="#" class="Whatsapp"><i class="fa fa-whatsapp soc-icon"></i></a></li>
+                <li><a href="#" class="pinterest"><i class="fa fa-pinterest soc-icon"></i></a></li>
+                <li><a href="https://www.instagram.com/velvet_textile" class="instagram"><i class="fa fa-instagram soc-icon"></i></a></li>
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h4 class="footer-title">شعبه دوم</h4>
+            <p class="footer-content">
+                <i class="fa fa-map-marker"></i>
+                آدرس : بازار بزرگ ، کوچه حمام چال ، پاساژ قائم زیرزمین اول انتهای دالان  11پلاک 226 (فروش عمده)
+            </p>
+            <p class="footer-content">
+                <i class="fa fa-phone"></i>
+                <a class="tshbeforetel" href="tel:+982155802683">22334455</a>
             </p>
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d808.9394280925661!2d51.43142306470913!3d35.80588097728032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x28b271f00e6177d4!2z2LTYudio2Ycg2YXYsdqp2LLbjCDZvtin2LHahtmHINmI2YTZiNiq!5e0!3m2!1sen!2sus!4v1580312708942!5m2!1sen!2sus" height="200" frameborder="0" style="width: 100%;" allowfullscreen="true"></iframe>
             <ul class="social-icons list-inline list-unstyled si-light circle inverse" style="text-align: center; display: flow-root;">
@@ -430,54 +450,38 @@
             </ul>
         </div>
         <div class="col-md-3">
-            <h4 class="footer-title">شعبه تجریش</h4>
+            <h4 class="footer-title">شعبه سوم</h4>
             <p class="footer-content">
                 <i class="fa fa-map-marker"></i>
-                تجریش - خیابان اول - کوچه دوم - پلاک 3 - زنگ 4
-            </p>
+                آدرس : خیابان گاندی نبش کوچه  ، 23گالری پارچه ولوت
+            </p>            <br />
+
             <p class="footer-content">
                 <i class="fa fa-phone"></i>
-                <a class="tshbeforetel" href="tel:02122334455">22334455</a>
+                <a class="tshbeforetel" href="tel:+982188885389">22334455</a>
             </p>
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d808.9394280925661!2d51.43142306470913!3d35.80588097728032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x28b271f00e6177d4!2z2LTYudio2Ycg2YXYsdqp2LLbjCDZvtin2LHahtmHINmI2YTZiNiq!5e0!3m2!1sen!2sus!4v1580312708942!5m2!1sen!2sus" height="200" frameborder="0" style="width: 100%;" allowfullscreen="true"></iframe>
             <ul class="social-icons list-inline list-unstyled si-light circle inverse" style="text-align: center; display: flow-root;">
-                <li><a href="#" class="Whatsapp"><i class="fa fa-whatsapp soc-icon"></i></a></li>
+                <li><a href="https://api.whatsapp.com/send?phone=09929496284&text=velvet" class="Whatsapp"><i class="fa fa-whatsapp soc-icon"></i></a></li>
                 <li><a href="#" class="pinterest"><i class="fa fa-pinterest soc-icon"></i></a></li>
-                <li><a href="#" class="instagram"><i class="fa fa-instagram soc-icon"></i></a></li>
+                <li><a href="https://www.instagram.com/velvet_gandi" class="instagram"><i class="fa fa-instagram soc-icon"></i></a></li>
             </ul>
         </div>
         <div class="col-md-3">
-            <h4 class="footer-title">شعبه تجریش</h4>
+            <h4 class="footer-title">شعبه چهارم</h4>
             <p class="footer-content">
                 <i class="fa fa-map-marker"></i>
-                تجریش - خیابان اول - کوچه دوم - پلاک 3 - زنگ 4
+                آدرس : کرج ، خیابان شهید بهشتی ، رو به روی پاساژ آزادی نبش پاساژ زنوزی ، گالری پارچه ولوت
             </p>
             <p class="footer-content">
                 <i class="fa fa-phone"></i>
-                <a class="tshbeforetel" href="tel:02122334455">22334455</a>
+                <a class="tshbeforetel" href="tel:+98212222914">22334455</a>
             </p>
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d808.9394280925661!2d51.43142306470913!3d35.80588097728032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x28b271f00e6177d4!2z2LTYudio2Ycg2YXYsdqp2LLbjCDZvtin2LHahtmHINmI2YTZiNiq!5e0!3m2!1sen!2sus!4v1580312708942!5m2!1sen!2sus" height="200" frameborder="0" style="width: 100%;" allowfullscreen="true"></iframe>
             <ul class="social-icons list-inline list-unstyled si-light circle inverse" style="text-align: center; display: flow-root;">
-                <li><a href="#" class="Whatsapp"><i class="fa fa-whatsapp soc-icon"></i></a></li>
+                <li><a href="https://api.whatsapp.com/send?phone=09025012445&text=velvet" class="Whatsapp"><i class="fa fa-whatsapp soc-icon"></i></a></li>
                 <li><a href="#" class="pinterest"><i class="fa fa-pinterest soc-icon"></i></a></li>
-                <li><a href="#" class="instagram"><i class="fa fa-instagram soc-icon"></i></a></li>
-            </ul>
-        </div>
-        <div class="col-md-3">
-            <h4 class="footer-title">شعبه تجریش</h4>
-            <p class="footer-content">
-                <i class="fa fa-map-marker"></i>
-                تجریش - خیابان اول - کوچه دوم - پلاک 3 - زنگ 4
-            </p>
-            <p class="footer-content">
-                <i class="fa fa-phone"></i>
-                <a class="tshbeforetel" href="tel:02122334455">22334455</a>
-            </p>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d808.9394280925661!2d51.43142306470913!3d35.80588097728032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x28b271f00e6177d4!2z2LTYudio2Ycg2YXYsdqp2LLbjCDZvtin2LHahtmHINmI2YTZiNiq!5e0!3m2!1sen!2sus!4v1580312708942!5m2!1sen!2sus" height="200" frameborder="0" style="width: 100%;" allowfullscreen="true"></iframe>
-            <ul class="social-icons list-inline list-unstyled si-light circle inverse" style="text-align: center; display: flow-root;">
-                <li><a href="#" class="Whatsapp"><i class="fa fa-whatsapp soc-icon"></i></a></li>
-                <li><a href="#" class="pinterest"><i class="fa fa-pinterest soc-icon"></i></a></li>
-                <li><a href="#" class="instagram"><i class="fa fa-instagram soc-icon"></i></a></li>
+                <li><a href="https://www.instagram.com/velvet_Karaj" class="instagram"><i class="fa fa-instagram soc-icon"></i></a></li>
             </ul>
         </div>
     </div>

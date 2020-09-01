@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace BamboPortal_V1._0._0._0.Controllers
 {
-    public class CustomerSide_CustomerProfileRuleController : Controller
+    public class CustomerSide_CustomerProfileRuleController : CustomerSide_CustomerRuleController
     {
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {

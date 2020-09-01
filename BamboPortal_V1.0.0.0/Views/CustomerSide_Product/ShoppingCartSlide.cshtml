@@ -1,103 +1,75 @@
-﻿@model BamboPortal_V1._0._0._0.ModelViews.CustomerSide.ShoppingBasket
+﻿@using BamboPortal_V1._0._0._0.Models.CustomerSide
 @{
-    ViewBag.Title = "ShoppingCartSlide";
-
-    Int64 total = 0;
-    for(int i = 0; i < Model.Items.Count; i++)
+    Int64 TotalBasketPrice = 0;
+    AllowDisallow AllAllowDisallowItems = (AllowDisallow)ViewBag.AllAllowDisallow;
+    AllAllowDisallowItems.BasketItemsCount = AllAllowDisallowItems.ShoppingBasket.Items.Count;
+    for (int i = 0; i < AllAllowDisallowItems.BasketItemsCount; i++)
     {
-        total += Model.Items[i].Totals;
+        TotalBasketPrice += AllAllowDisallowItems.ShoppingBasket.Items[i].PriceXQ;
     }
 }
-@if (Model.islogin)
+
+@if (ViewBag.IsUserLogin)
 {
-
-
-    <div class="shopping-cart-slide">
-
+    <div class="shopping-cart-slide VLSCS">
         <div class="title">
-            سبد خرید شما
-            <br />
-            (@Model.Items.Count) کالا
+            <span>سبد خرید شما</span>
+            <span>(@String.Format("{0:n0}", AllAllowDisallowItems.BasketItemsCount)) کالا</span>
         </div>
-        @foreach (var item in Model.Items)
+        @if (AllAllowDisallowItems.BasketItemsCount > 0)
         {
-            <div class="cart-items">
-                <div class="cart-item">
-                    <div class="cart-item-remove" id="R-@item.idmpc" ><a href="#"><i class="fa fa-trash-o"></i></a></div>
-                    <div class="cart-item-image">
-                        <img alt="image" src="@item.ImagePath" onerror="this.onerror=null;this.src='/CustomerSide_desinerResource/images/shop/imgNotFount.jpg'" />
-                    </div>
-                    <div class="cart-item-info">
-                        <div class="item-name"><a href="#">@item.Title</a></div>
-                        <div class="item-quantity">
-                            <span class='qtyminus '>تعداد</span>
-                            <input type='text' name='quantity5' value='@item.CountOf' class='qty' />
+            foreach (var item in AllAllowDisallowItems.ShoppingBasket.Items)
+            {
+
+                <div class="cart-items side-cart">
+                    <div class="cart-item">
+                        <div class="cart-item-remove" id="RemoverItemBasket-@item.idmpc"><a href="#" class=""><i class="fa fa-trash-o"></i></a></div>
+                        <div class="cart-item-image text-center">
+                            <img alt="image" src="@Url.Content("~"+item.ImagePath)" onerror="this.onerror=null;this.src='/resource/images/Customes/imgNotFound.jpg'" />
+                        </div>
+                        <div class="cart-item-price">
+                            @item.Title
+                            <span class="price" style="display: block">
+                                @String.Format("{0:n0}", @item.PriceXQ)
+                            </span>
                         </div>
                     </div>
-                    <br />
-                    <div class="cart-item-price">@item.Totals</div>
                 </div>
-
-
-                @*<div class="cart-item">
-                    <button class="btn btn-info" style="width: 100%;">ابتدا وارد حساب کاربری خود شوید</button>
-                </div>*@
-
-                <!--=============================================================CART ITEMS END-->
-
-            </div>
-        }
-        <div class="cart-footer">
-            <div class="cart-sub grand-total">
-                <div class="cart-sub-amount">
-                    @String.Format("{0:n0}", total.ToString()) ريال
-                </div>
-                <div class="text">
-                    مبلغ قابل پرداخت
-                </div>
-
-            </div>
-            <div class="cart-order-links">
-                <a class="btn shopping-cart-trigger">بستن</a>
-                <a class="btn btn-success" href="@Url.Action("customershoppingCart","CustomerSide_Product")">پرداخت</a>
-            </div>
-        </div>
-    </div>
-}
-else
-{ 
-    <div class="shopping-cart-slide">
-        <div class="title">
-            سبد خرید شما
-            <br />
-            (0) کالا
-        </div>
-        <div class="cart-items">
-            <div class="cart-item">
-                <a href="@Url.Action("loginandregister","CustomerSide_Register")" class="btn btn-info" style="width: 100%;">ابتدا وارد حساب کاربری خود شوید</a>
+            }
+            <div class="cart-item no-item" style="display:none; text-align: center!important;">
+                سبد خرید خالی است
             </div>
 
-            <!--=============================================================CART ITEMS END-->
-
-        </div>
-        <div class="cart-footer">
-
-
-
-            @*<div class="cart-sub grand-total">
-                    <div class="cart-sub-amount">
-                        1000 ريال
+            <div class="cart-footer">
+                <div class="cart-sub grand-total">
+                    <div class="cart-sub-amount price">
+                        @String.Format("{0:n0}", TotalBasketPrice)
                     </div>
                     <div class="text">
                         مبلغ قابل پرداخت
                     </div>
-
                 </div>
                 <div class="cart-order-links">
                     <a class="btn shopping-cart-trigger">بستن</a>
-                    <a class="btn btn-success">پرداخت</a>
-                </div>*@
-        </div>
+                    <a href="@Url.Action("","")" class="btn btn-success">پرداخت</a>
+                </div>
+            </div>
+
+        }
+        else
+        {
+            <div class="cart-item no-item" style="text-align: center!important;">
+                سبد خرید خالی است
+            </div>
+            <div class="cart-footer">
+                <div class="cart-order-links">
+                    <a class="btn shopping-cart-trigger">بستن</a>
+                </div>
+            </div>
+            <div>lowfhlshfkljshfklsdhfj</div>
+
+        }
+
+
     </div>
 }
-

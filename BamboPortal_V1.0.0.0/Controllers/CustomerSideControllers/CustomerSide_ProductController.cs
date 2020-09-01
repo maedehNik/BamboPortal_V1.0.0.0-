@@ -16,45 +16,47 @@ using BamboPortal_V1._0._0._0.nonStaticUsefulClass.Stockpile;
 
 namespace BamboPortal_V1._0._0._0.Controllers
 {
+    [RoutePrefix("گالری-پارچه-ولوت")]
     public class CustomerSide_ProductController : CustomerSide_CustomerRuleController
     {
         public ActionResult customershoppingCart()
         {
-            CustomerModelFiller modelFiller = new CustomerModelFiller();
-            tbl_Customer_Main tcm = new tbl_Customer_Main();
-            if (HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerCode()) != null)
-            {
-                var coockie = HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerCode());
-                tcm = CoockieController.SayWhoIsHE(coockie.Value);
-            }
-            else
-            {
-                return RedirectToAction("loginandregister", "CustomerSide_Register");
-            }
-            int CustomerId = Convert.ToInt32(tcm.id_Customer);
+            return View();
+            //CustomerModelFiller modelFiller = new CustomerModelFiller();
+            //tbl_Customer_Main tcm = new tbl_Customer_Main();
+            //if (HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerCode()) != null)
+            //{
+            //    var coockie = HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerCode());
+            //    tcm = CoockieController.SayWhoIsHE(coockie.Value);
+            //}
+            //else
+            //{
+            //    return RedirectToAction("loginandregister", "CustomerSide_Register");
+            //}
+            //int CustomerId = Convert.ToInt32(tcm.id_Customer);
 
-            if (HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerShoppingBasket()) != null)
-            {
-                var coockie = JsonConvert.DeserializeObject<ShoppingBasket>(HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerShoppingBasket()).Value);
-                var model = new ShoppingCartModelView()
-                {
-                    FactorModel = modelFiller.shoppingCart(coockie),
-                    Ostan = modelFiller.Ostanha(),
-                    Adresses = modelFiller.CustomerAddresses(CustomerId),
-                    Customer = modelFiller.customerDetail(CustomerId)
-                };
+            //if (HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerShoppingBasket()) != null)
+            //{
+            //    var coockie = JsonConvert.DeserializeObject<ShoppingBasket>(HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerShoppingBasket()).Value);
+            //    var model = new ShoppingCartModelView()
+            //    {
+            //        FactorModel = modelFiller.shoppingCart(coockie),
+            //        Ostan = modelFiller.Ostanha(),
+            //        Adresses = modelFiller.CustomerAddresses(CustomerId),
+            //        Customer = modelFiller.customerDetail(CustomerId)
+            //    };
 
-                FactorPopUpModel fpm = model.FactorModel;
-                var userCookieIDV = new HttpCookie(ProjectProperies.CustomerShoppingFactor());
-                userCookieIDV.Value = CoockieController.SetCustomerShopFactorCookie(fpm);
-                userCookieIDV.Expires = DateTime.Now.AddDays(2);
-                Response.SetCookie(userCookieIDV);
-                return View(model);
-            }
-            else
-            {
-                return RedirectToAction("index", "CustomerSide_Pages");
-            }
+            //    FactorPopUpModel fpm = model.FactorModel;
+            //    var userCookieIDV = new HttpCookie(ProjectProperies.CustomerShoppingFactor());
+            //    userCookieIDV.Value = CoockieController.SetCustomerShopFactorCookie(fpm);
+            //    userCookieIDV.Expires = DateTime.Now.AddDays(2);
+            //    Response.SetCookie(userCookieIDV);
+            //    return View(model);
+            //}
+            //else
+            //{
+            //    return RedirectToAction("index", "CustomerSide_Pages");
+            //}
         }
 
         public ActionResult factor()
@@ -66,22 +68,45 @@ namespace BamboPortal_V1._0._0._0.Controllers
 
             return View(modelFiller.Customers_Factors("همه", CustomerId, "Date"));
         }
-
-        public ActionResult productpage(int ProId)
+        [Route("صفحه-محصول")]
+        [Route("صفحه-محصول-{N}")]
+        [Route("صفحه-محصول-{N}-{M}")]
+        [Route("صفحه-محصول-{N}-{M}-{S}")]
+        [Route("صفحه-محصول-{N}-{M}-{S}-{P:regex(\\d{5})}")]
+        public ActionResult productpage(string M ,string S ,string N, int? P  )
         {
-            CustomerModelFiller modelFiller = new CustomerModelFiller();
-            ///این متغیرها پر بشه
-
-            var model = new ProductDetail_ModelView()
+            if (string.IsNullOrEmpty(M ))
             {
-                ProductModel = modelFiller.SingleProduct(ProId, "Ago"),
-                Sale_Products = modelFiller.ChosenProducts("Sale", 4, "Ago")
-            };
+                return RedirectToAction("search", "CustomerSide_Product", new { Type = "همه" });
+            }
+            if (string.IsNullOrEmpty(S))
+            {
+                return RedirectToAction("search", "CustomerSide_Product", new { Type = "همه" });
+            }
+            if (string.IsNullOrEmpty(N))
+            {
+                return RedirectToAction("search", "CustomerSide_Product", new { Type = "همه" });
+            }
+            if (P == null)
+            {
+                return RedirectToAction("search", "CustomerSide_Product", new { Type = "همه" });
+            }
+            //CustomerModelFiller modelFiller = new CustomerModelFiller();
+            /////این متغیرها پر بشه
+
+            //var model = new ProductDetail_ModelView()
+            //{
+            //    ProductModel = modelFiller.SingleProduct(ProId, "Ago"),
+            //    Sale_Products = modelFiller.ChosenProducts("Sale", 4, "Ago")
+            //};
 
 
-            return View(model);
+            return View();
         }
-
+        [Route("جستجو-انواع-پارچه/{Type}") ]
+        [Route("جستجو-انواع-پارچه/{Type}/{Id}")]
+        [Route("جستجو-انواع-پارچه/{Type}/{Id}/{Page}")]
+        [Route("جستجو-انواع-پارچه/{Type}/{Id:regex(\\d{7})}/{Page:regex(\\d{4})}/{Search}")]
         public ActionResult search(string Type, int Id = 0, int Page = 1, string Search = "")
         {
             CustomerModelFiller modelFiller = new CustomerModelFiller();

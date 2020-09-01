@@ -1,12 +1,15 @@
 ﻿
 @{
-    ViewBag.Title = "Rules";
+    ViewBag.Title = "ولوت - صفحه قوانین";
+    ViewBag.SEOkeywords = "پارچه-گالری-پارچه-ولوت-پارچه-مرغوب";
+    ViewBag.SEOdescription = "شرایط و قوانین استفاده از خدمات ولوت";
     Layout = "~/Views/SharedViewPages/CustomerSide/CustomerMaster.cshtml";
 }
 
 
-<section class="section-img with-overlay page-custom-header page-top-light tshmbcust" style="background-image:url('../../CustomerSide_desinerResource/images/mess.jpg');">
-    <div class="section-overlay-light" style="background-color: rgba(255, 255, 255, 0.8);">
+<section class="section-img with-overlay page-custom-header page-top-light tshmbcust" style="background-image:url('@Url.Content("~/resource/images/mess.jpg")');">
+    <div class="section-overlay-light" style="        background-color: rgba(255, 255, 255, 0.8);
+">
         <div class="container" style="margin-top: 80px;">
             <div class="row">
                 <div class="col-md-12 header-inline">
@@ -15,7 +18,7 @@
                     </div>
                     <div class="header-inline-content header-inline-breadcrumb custom-nav">
                         <ul class="breadcrumb">
-                            <li><a href=".">ولوت</a></li>
+                            <li><a href="@Url.Action("index","CustomerSide_Pages")">ولوت</a></li>
                             <li class="active">قوانین</li>
                         </ul>
                     </div>
@@ -218,74 +221,3 @@
     </div>
 </section>
 
-@section CS_Scripts {
-    <script>
-        var revapi;
-        jQuery(document).ready(function () {
-            setInterval(function () {
-                $('.owl-prev').trigger('click');
-            }, 3000);
-
-
-            revapi = jQuery("#rev_slider_1").revolution({
-                sliderType: "standard",
-                sliderLayout: "fullscreen",
-                fullScreenOffsetContainer: ".navigation",
-                delay: 9000,
-                navigation: {
-                    keyboardNavigation: "off",
-                    mouseScrollNavigation: "on",
-                    onHoverStop: "off",
-                    touch: {
-                        touchenabled: "on",
-                        swipe_threshold: 75,
-                        swipe_min_touches: 1,
-                        swipe_direction: "horizontal",
-                        drag_block_vertical: false
-                    },
-                    bullets: {
-                        enable: true,
-                        rtl: true,
-                        hide_onmobile: false,
-                        style: "hebe",
-                        hide_onleave: false,
-                        direction: "horizontal",
-                        h_align: "center",
-                        v_align: "bottom",
-                        h_offset: 0,
-                        v_offset: 10,
-                        space: 5,
-                        tmp: '<span class="tp-bullet-inner"></span>'
-                    }
-                },
-                responsiveLevels: [4096, 1024, 767, 480],
-                gridwidth: 1230,
-                gridheight: 720
-            });
-
-            $("#LoaderSpinner").hide(0);
-        });
-    </script>
-    <script>
-        $(document).ready(function () {
-            $(".faq-inner li h4").on("click", function () {
-                $(".faq-inner li h4 i").removeClass("fa-minus");
-                $(".faq-inner li h4 i").addClass("fa-plus");
-                $(".faq-inner li h4").next().slideUp(500);
-                if (!$(this).hasClass("faq-active")) {
-                    $(this).next().slideDown(500);
-                    $(".faq-inner li h4").removeClass("faq-active");
-                    $(this).toggleClass("faq-active");
-                } else {
-                    $(".faq-inner li h4").removeClass("faq-active");
-                    $(this).find("i").toggleClass("fa-plus");
-                    $(this).find("i").toggleClass("fa-minus");
-                }
-                $(this).find("i").toggleClass("fa-plus");
-                $(this).find("i").toggleClass("fa-minus");
-            });
-        })
-    </script>
-
-
-}
