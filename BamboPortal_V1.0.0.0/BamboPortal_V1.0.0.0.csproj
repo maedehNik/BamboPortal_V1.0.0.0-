@@ -2304,6 +2304,7 @@
     <Content Include="DatabaseCenter\SQL Scripts\1399\Mordad\18\Note.txt" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Mordad\first1.sql" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Shahrivar\10\CommentEdits.txt" />
+    <Content Include="DatabaseCenter\SQL Scripts\1399\Shahrivar\CommentTableChanges.txt" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Tir\16\desktop - Copy.sql" />
     <Content Include="DatabaseCenter\SQL Scripts\1399\Tir\16\desktop.sql" />
     <Content Include="Docs\usefulguides\Webpages.txt" />
@@ -3285,6 +3286,7 @@
     <Content Include="Views\AdministratorProducts\ProductComments.cshtml" />
     <Content Include="Views\AdministratorProducts\DeletedProductsList.cshtml" />
     <Content Include="Views\AdministratorProducts\Product_ShowCatTree.cshtml" />
+    <Content Include="Views\AdministratorProducts\CommentsPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

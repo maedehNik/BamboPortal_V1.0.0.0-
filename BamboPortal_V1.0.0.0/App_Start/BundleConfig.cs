@@ -73,6 +73,11 @@ namespace BamboPortal_V1._0._0._0
               "~/AdminDesignResource/vendors/custom/custom-js.js"));
             //Bundles {END} : Page Scripts --> Adminstrator_Customers_Profile
 
+            //Bundles {Start} : Page Scripts --> Adminstrator_CommentsPage
+            bundles.Add(new ScriptBundle("~/bundles/AdminCommentsPage.js").Include(
+              "~/AdminDesignResource/demo/default/custom/header/actions.js"));
+            //Bundles {END} : Page Scripts --> Adminstrator_CommentsPage
+
             //Bundles {Start} : Page Scripts --> Adminstrator_Blog
             bundles.Add(new ScriptBundle("~/bundles/AdminstratorBlog.js").Include(
               "~/AdminDesignResource/app/js/Admin_Blog.js"));

@@ -9,5 +9,7 @@ namespace BamboPortal_V1._0._0._0.ModelViews.AdministratorProducts
     public class ProductListTableModelView
     {
         public List<ProductListTable> Allrows { get; set; }
+        public int thisPageNum { get; set; }
+        public int AllPages { get; set; }
     }
 }
