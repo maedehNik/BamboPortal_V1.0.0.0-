@@ -2236,13 +2236,10 @@
     <Content Include="AdminDesignResource\demo\default\custom\crud\metronic-datatable\scrolling\vertical.js" />
     <Content Include="AdminDesignResource\demo\default\custom\crud\wizard\wizard.js" />
     <Content Include="AdminDesignResource\demo\default\custom\header\actions.js" />
-    <Content Include="AdminDesignResource\demo\default\media\img\items\svg\doc.svg" />
-    <Content Include="AdminDesignResource\demo\default\media\img\items\svg\pdf.svg" />
     <Content Include="AdminDesignResource\demo\default\media\img\logo\favicon.ico" />
     <Content Include="AdminDesignResource\demo\default\media\img\logo\logo.png" />
     <Content Include="AdminDesignResource\demo\default\media\img\misc\notification_bg.jpg" />
     <Content Include="AdminDesignResource\demo\default\media\img\misc\preservation-copy.jpg" />
-    <Content Include="AdminDesignResource\demo\default\media\img\misc\ProfileDefault.JPG" />
     <Content Include="AdminDesignResource\demo\default\media\img\misc\quick_actions_bg.jpg" />
     <Content Include="AdminDesignResource\demo\default\media\img\misc\slider-main.m4v" />
     <Content Include="AdminDesignResource\demo\default\media\img\misc\user_profile_bg.jpg" />
@@ -3286,8 +3283,10 @@
     <Content Include="Views\AdministratorProducts\DeletedProductsList.cshtml" />
     <Content Include="Views\AdministratorProducts\Product_ShowCatTree.cshtml" />
     <Content Include="Views\CustomerSide_Pages\Test.cshtml" />
+    <Content Include="Views\AdministratorProducts\CommentsPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="AdminDesignResource\demo\default\media\img\items\svg\" />
     <Folder Include="App_Data\" />
     <Folder Include="BamboPortalSecurity\LoginAuth\" />
     <Folder Include="ConvertedImages\" />

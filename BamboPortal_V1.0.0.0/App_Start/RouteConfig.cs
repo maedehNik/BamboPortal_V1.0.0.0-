@@ -18,11 +18,16 @@ namespace BamboPortal_V1._0._0._0
                 url: "{controller}/{action}/",
                 defaults: new { controller = "CustomerSide_Pages", action = "Index" }
             );
-     //       routes.MapRoute(
-     //    name: "products",
-     //    url: "محصولات/{action}/",
-     //    defaults: new { controller = "CustomerSide_Product", action = "productpage", new { P =  } }
-     //);
+            routes.MapRoute(
+    name: "Admin",
+    url: "{controller}/{action}/",
+    defaults: new { controller = "AdminLoginAuth", action = "LoginAuth" }
+);
+            //       routes.MapRoute(
+            //    name: "products",
+            //    url: "محصولات/{action}/",
+            //    defaults: new { controller = "CustomerSide_Product", action = "productpage", new { P =  } }
+            //);
         }
     }
 }
