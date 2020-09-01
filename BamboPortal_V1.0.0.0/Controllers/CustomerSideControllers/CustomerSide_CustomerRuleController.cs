@@ -58,7 +58,6 @@ namespace BamboPortal_V1._0._0._0.Controllers
             else
             {
                 ViewBag.IsUserLogin = false;
-
             }
 
 
