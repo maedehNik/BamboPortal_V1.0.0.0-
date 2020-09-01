@@ -295,18 +295,19 @@
 
 
 
-
+<input style="display:none" id="AddBasketURl" value="@Url.Action("AddproductToBasket","CustomerSide_Product")" />
 
 @section CS_Scripts {
     <script>
         var SenderRequest = {};
         var Qtbuys = "";
         var idmp = "";
+        var QtbuysM = "";
+        var QtbuysCM = ""
         var searchObject;
         var Sale_Products;
         $(document).ready(function () {
-            Qtbuys = $("#QTM").val() + "." + $("#QTCM").val();
-            Qtbuys = Qtbuys.replace(".", "");
+            Qtbuys = $("#QTM").val() + "" + $("#QTCM").val();
             searchObject = JSON.parse($("#JsonPF").val());
             Sale_Products = JSON.parse($("#Sale_Products").val());
             $(".pccm1").on("click", function () {
@@ -316,6 +317,9 @@
                     ThisNext.val(1)
                 } else {
                     mettDig--;
+                    QtbuysM = mettDig;
+                    QTcalculator();
+
                     ThisNext.val(mettDig)
                 }
             })
@@ -323,6 +327,8 @@
                 var ThisPrev = $(this).prev();
                 var mettDig = parseInt(ThisPrev.val());
                 mettDig++;
+                QtbuysM = mettDig;
+                QTcalculator();
                 ThisPrev.val(mettDig)
             })
             $(".pccm2").on("click", function () {
@@ -332,6 +338,8 @@
                     return false;
                 } else {
                     var lastMett = mettDig - 25;
+                    QtbuysCM = lastMett;
+                    QTcalculator();
                     ThisNext.val(lastMett);
                 }
             })
@@ -343,6 +351,8 @@
                 } else {
                     var lastMett = mettDig + 25;
                     ThisPrev.val(lastMett);
+                    QtbuysCM = lastMett;
+                    QTcalculator();
                 }
             })
             $(".mmmm").on("keyup", function () {
@@ -387,7 +397,7 @@
                         if (s.options[i].innerHTML == this.innerHTML) {
                             s.selectedIndex = i;
                             //================================== SelectedIndex
-
+                            ProductCalculator();
 
 
 
@@ -437,14 +447,21 @@
         function ProductCalculator() {
             var Code = "";
             $("select").each(function () {
-                Code = Code + " " + $(this).val();
+                Code = Code + "" + $(this).val();
             });
+
             console.log(Code);
-            Code = Code.replace(" ", "");
+            console.log("===============A============");
+            console.log(searchObject);
+            console.log("================/A===========");
+            console.log("===============B============");
+            console.log(Sale_Products);
+            console.log("================/B===========");
+            var res = Code.replace('.', '');
 
             var idMPC = "";
             for (var _Xi = 0; _Xi < searchObject.length; _Xi++) {
-                if (searchObject[_Xi].Code == Code) {
+                if (searchObject[_Xi].Code == res) {
                     idMPC = searchObject[_Xi].Idmpc;
                     idmp = idMPC;
                 }
@@ -454,28 +471,35 @@
                     $("#PriceVitrin").innerHTML = Sale_Products[_Xi].PriceXQ;
                 }
             }
+            console.log("idMPC : " + idMPC + " Code : " + res);
         }
 
         function QTcalculator() {
-            Qtbuys = $("#QTM").val() + "." + $("#QTCM").val();
-            Qtbuys = Qtbuys.replace(".", "");
+            Qtbuys = QtbuysM + "" + QtbuysCM;
+            console.log("QTM = " + Qtbuys);
         }
 
 
         function SendToBasket() {
             SenderRequest = {
-                "Qtbuys": Qtbuys,
-                "idmp": idmp
+                "Number_inp": QtbuysM,
+                "QtbuysCM": QtbuysCM,
+                "idp": idmp
             };
             $.ajax({
-                url: "",
+                url: $("#AddBasketURl").val(),
                 data: JSON.stringify(SenderRequest),
                 type: "post",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-
-
+                    if (data.Errortype == "Success") {
+                        shoppingCartBasket();
+                        success("با موفقیت به سبد خرید اضافه شد!")ک
+                    } else {
+                        danger(data.Errormessage);
+                    }
                 }, error: function () {
+                        danger("عدم ارتباطه با سرور!");
 
                 }
             });

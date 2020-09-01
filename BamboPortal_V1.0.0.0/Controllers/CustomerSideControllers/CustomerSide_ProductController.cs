@@ -217,11 +217,12 @@ namespace BamboPortal_V1._0._0._0.Controllers
                     });
                 }
                 db.Connect();
+                model.PF = new List<ProductFinder>();
                 for (int i = 0; i < model.ProductModel.MPCs.Count; i++)
                 {
                     using (DataTable dt2 = db.Select("SELECT [id_MPC] ,[id_SCOV] FROM [v_ConnectorTheProductConnectorViewToSCOVandSCOKV_s] WHERE [id_MPC] =" + model.ProductModel.MPCs[i].Id))
                     {
-                        model.PF = new List<ProductFinder>();
+
                         string code = "";
                         for (int j = 0; j < dt2.Rows.Count; j++)
                         {
@@ -324,9 +325,6 @@ namespace BamboPortal_V1._0._0._0.Controllers
         public ActionResult ShoppingCartSlide()
         {
             ShoppingBasket model = new ShoppingBasket();
-
-
-
             if (HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerShoppingBasket()) != null)
             {
                 model = JsonConvert.DeserializeObject<ShoppingBasket>(HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerShoppingBasket()).Value);
@@ -617,10 +615,10 @@ namespace BamboPortal_V1._0._0._0.Controllers
         }
 
         [HttpPost]
-        public JsonResult AddproductToBasket(string idp, string Number_inp)
+        public JsonResult AddproductToBasket(string idp, string Number_inp, string QtbuysCM)
         {
             var ModelSender = new ErrorReporterModel();
-            if (string.IsNullOrEmpty(Number_inp) || Convert.ToInt32(Number_inp) < 1)
+            if (string.IsNullOrEmpty(Number_inp) || Convert.ToInt32(Number_inp) < 1 || Convert.ToInt32(QtbuysCM) < 0)
             {
                 ModelSender = new ErrorReporterModel
                 {
@@ -631,7 +629,11 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 return Json(ModelSender);
             }
             PDBC db = new PDBC();
-
+            if (QtbuysCM.Length < 2)
+            {
+                QtbuysCM += "0";
+            }
+            Number_inp = Number_inp + QtbuysCM;
             tbl_Customer_Main tcm = new tbl_Customer_Main();
             var coockie = HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerCode());
             if (coockie != null)
@@ -687,6 +689,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
                             ssd.PriceXQ = Convert.ToInt64(dt.Rows[0]["PriceXquantity"].ToString());
                         }
                         ssd.Totals = ssd.PriceXQ * ssd.CountOf;
+                        ssd.Totals = ssd.Totals / 100;
                         coockie3.Items.Add(ssd);
                     }
                     else

@@ -26,7 +26,20 @@ namespace BamboPortal_V1._0._0._0.Controllers
                     Items = new List<ShoppingBasketItems>()
                 }
             };
-            ViewBag.IsUserLogin = true;
+            ShoppingBasket model = new ShoppingBasket();
+            if (HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerShoppingBasket()) != null)
+            {
+                model = JsonConvert.DeserializeObject<ShoppingBasket>(HttpContext.Request.Cookies.Get(ProjectProperies.AuthCustomerShoppingBasket()).Value);
+            }
+            else
+            {
+                model = new ShoppingBasket()
+                {
+                    Items = new List<ShoppingBasketItems>()
+                };
+            }
+            AA.ShoppingBasket = model;
+            AA.BasketItemsCount = model.Items.Count;
             ViewBag.AllAllowDisallow = AA;
             if (coockie != null)
             {
@@ -35,15 +48,16 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 int dd = 0;
                 if (Int32.TryParse(Id, out dd))
                 {
-
+                    ViewBag.IsUserLogin = true;
                 }
                 else
                 {
-
+                    ViewBag.IsUserLogin = false;
                 }
             }
             else
             {
+                ViewBag.IsUserLogin = false;
 
             }
 
