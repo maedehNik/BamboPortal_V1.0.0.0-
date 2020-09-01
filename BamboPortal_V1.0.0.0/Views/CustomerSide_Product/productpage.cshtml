@@ -1,31 +1,39 @@
-﻿@*@model BamboPortal_V1._0._0._0.ModelViews.CustomerSide.ProductDetail_ModelView*@
+﻿@model BamboPortal_V1._0._0._0.ModelViews.CustomerSide.ProductDetail_ModelView
 @{
     Layout = "~/Views/SharedViewPages/CustomerSide/CustomerMaster.cshtml";
-    ViewBag.IsUserLogin = false;
-
+    ViewBag.Title = Model.ProductModel.Title;
+    ViewBag.SEOdescription = Model.ProductModel.SEO_Discription;
+    ViewBag.SEOkeywords = Model.ProductModel.SEO_Keyword;
 }
 
 <div class="container ppres" style="padding-top: 80px;">
-
+    <input id="JsonPF" style="display:none" value="@Model.JsonPF" />
+    <input id="Sale_Products" style="display:none" value="@Model.JsonSale_Products" />
     <div class="row vertical-center-box">
         <div class="col-md-12 no-padding">
             <div id="shop-carousel" class="carousel slide no-margin col-md-6" data-ride="carousel" style="float: right">
                 <div class="carousel-inner text-light">
-                    <div class="item active">
-                        <a href="images/shop/products/shoe-1.png" data-lightbox-gallery="gallery-shop">
-                            <img alt="image" class="img-responsive center-block" src="images/shop/products/shoe-1.png" onerror="this.onerror=null;this.src='/resource/images/Customes/imgNotFound.jpg'">
-                        </a>
-                    </div>
-                    <div class="item">
-                        <a href="images/shop/products/shoe-2.png" data-lightbox-gallery="gallery-shop">
-                            <img alt="image" class="img-responsive center-block" src="images/shop/products/shoe-2.png" onerror="this.onerror=null;this.src='/resource/images/Customes/imgNotFound.jpg'">
-                        </a>
-                    </div>
-                    <div class="item">
-                        <a href="images/shop/products/shoe-3.png" data-lightbox-gallery="gallery-shop">
-                            <img alt="image" class="img-responsive center-block" src="images/shop/products/shoe-3.png" onerror="this.onerror=null;this.src='/resource/images/Customes/imgNotFound.jpg'">
-                        </a>
-                    </div>
+                    @for (int i = 0; i < Model.ProductModel.org_Pictures.Count; i++)
+                    {
+                        if (i == 0)
+                        {
+                            <div class="item active">
+                                <a href="@Url.Content("~"+Model.ProductModel.org_Pictures[i])" data-lightbox-gallery="gallery-shop">
+                                    <img alt="image" class="img-responsive center-block" src="@Url.Content("~"+Model.ProductModel.org_Pictures[i])" onerror="this.onerror=null;this.src='/resource/images/Customes/imgNotFound.jpg'">
+                                </a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="item">
+                                <a href="@Url.Content("~"+Model.ProductModel.org_Pictures[i])" data-lightbox-gallery="gallery-shop">
+                                    <img alt="image" class="img-responsive center-block" src="@Url.Content("~"+Model.ProductModel.org_Pictures[i])" onerror="this.onerror=null;this.src='/resource/images/Customes/imgNotFound.jpg'">
+                                </a>
+                            </div>
+                        }
+                    }
+
+
                     <!--<a class="left carousel-control single-prd-btn" href="#shop-carousel" role="button" data-slide="next">
                         <i class="fa fa-angle-left"></i>
                     </a>
@@ -34,27 +42,31 @@
                     </a>-->
                 </div>
                 <ul class="shop-thumbnails mar-bot-30">
-                    <li>
-                        <div data-target="#shop-carousel" data-slide-to="0">
-                            <a href="#" class="thumb thumb-active">
-                                <img alt="image" class="img-responsive" src="images/shop/products/shoe-1.png" onerror="this.onerror=null;this.src='/resource/images/Customes/imgNotFound.jpg'">
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div data-target="#shop-carousel" data-slide-to="1">
-                            <a href="#" class="thumb">
-                                <img alt="image" class="img-responsive" src="images/shop/products/shoe-2.png" onerror="this.onerror=null;this.src='/resource/images/Customes/imgNotFound.jpg'">
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <div data-target="#shop-carousel" data-slide-to="2">
-                            <a href="#" class="thumb">
-                                <img alt="image" class="img-responsive" src="images/shop/products/shoe-3.png" onerror="this.onerror=null;this.src='/resource/images/Customes/imgNotFound.jpg'">
-                            </a>
-                        </div>
-                    </li>
+
+                    @for (int i = 0; i < Model.ProductModel.Thumpnamil_Pictures.Count; i++)
+                    {
+                        if (i == 0)
+                        {
+                            <li>
+                                <div data-target="#shop-carousel" data-slide-to="0">
+                                    <a href="#" class="thumb thumb-active">
+                                        <img alt="image" class="img-responsive" src="@Url.Content("~"+Model.ProductModel.Thumpnamil_Pictures[i])" onerror="this.onerror=null;this.src='/resource/images/Customes/imgNotFound.jpg'">
+                                    </a>
+                                </div>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <div data-target="#shop-carousel" data-slide-to="0">
+                                    <a href="#" class="thumb">
+                                        <img alt="image" class="img-responsive" src="@Url.Content("~"+Model.ProductModel.Thumpnamil_Pictures[i])" onerror="this.onerror=null;this.src='/resource/images/Customes/imgNotFound.jpg'">
+                                    </a>
+                                </div>
+                            </li>
+                        }
+                    }
+
                 </ul>
             </div>
             <section class="section-colored theme-background-light clearfix no-margin col-md-6" style="padding-bottom: 0px; padding-top: 40px;float: left;">
@@ -63,8 +75,7 @@
                         <div class="col-md-12">
                             <h4 class="text-uppercase no-margin pad-bot-30 letter-spacing-1">
                                 <strong>
-                                    -
-                                    نام محصول
+                                    @Model.ProductModel.Title
                                 </strong>
                             </h4>
                             <span class="desc-title pad-right-15 pad-left-15">
@@ -76,42 +87,30 @@
                                     <div id="tab1" class="tab-pane active no-padding-bottom prd-dtl-p0">
                                         <p class="pad-right-15 pad-left-15 mar-bot-30 text-justify">
                                             <small>
-                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+                                                @Model.ProductModel.Discription
                                             </small>
                                         </p>
+
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">
-                                            <div class="select-option col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                <span class="desc-title title-no-border">
-                                                    <i class="fa fa-chevron-left tshfatrtry3"></i>
-                                                    رنگ
-                                                </span>
-                                                <div class="custom-select" style="width:200px;">
-                                                    <select>
-                                                        <option value="0">انتخاب رنگ</option>
-                                                        <option value="1">رنگ 1</option>
-                                                        <option value="2">رنگ 2</option>
-                                                        <option value="3">رنگ 3</option>
-                                                        <option value="4">رنگ 4</option>
-                                                        <option value="5">رنگ 5</option>
-                                                    </select>
+                                            @foreach (var item in Model.ProductModel.Selectors)
+                                            {
+                                                <div class="select-option col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <span class="desc-title title-no-border">
+                                                        <i class="fa fa-chevron-left tshfatrtry3"></i>
+                                                        @item.Name_SCOK
+                                                    </span>
+                                                    <div class="custom-select" style="width:200px;">
+                                                        <select id="SCOK-@item.ID_SCOK">
+                                                            <option value="0">انتخاب @item.Name_SCOK</option>
+                                                            @foreach (var ziritem in item.Options)
+                                                            {
+                                                                <option value="@ziritem.Key">@ziritem.Value</option>
+                                                            }
+
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="select-option col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                <span class="desc-title title-no-border">
-                                                    <i class="fa fa-chevron-left tshfatrtry3"></i>
-                                                    طرح
-                                                </span>
-                                                <div class="custom-select" style="width:200px;">
-                                                    <select>
-                                                        <option value="0">انتخاب طرح</option>
-                                                        <option value="1">طرح 1</option>
-                                                        <option value="2">طرح 2</option>
-                                                        <option value="3">طرح 3</option>
-                                                        <option value="4">طرح 4</option>
-                                                        <option value="5">طرح 5</option>
-                                                    </select>
-                                                </div>
-                                            </div>
+                                            }
                                         </div>
 
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -123,13 +122,13 @@
                                                 <div>
                                                     <div class="mar-bot-30 met-input">
                                                         <input type='button' value='-' class='qtyminus btn pccm1' title='quantity1' />
-                                                        <input type='text' value='1' class='qty mmmm' style="width:100px;" />
+                                                        <input id="QTM" type='text' value='1' class='qty mmmm' style="width:100px;" onchange="QTcalculator()" readonly />
                                                         <input type='button' value='+' class='qtyplus btn mccm1' title='quantity1' />
                                                         <p>متر</p>
                                                     </div>
                                                     <div class="mar-bot-30 met-input">
                                                         <input type='button' value='-' class='qtyminus btn pccm2' title='quantity1' />
-                                                        <input type='text' value='25' class='qty cmmm' style="width:100px;" />
+                                                        <input id="QTCM" type='text' value='25' class='qty cmmm' style="width:100px;" onchange="QTcalculator()" readonly />
                                                         <input type='button' value='+' class='qtyplus btn mccm2' title='quantity1' />
                                                         <p>سانتی متر</p>
                                                     </div>
@@ -138,11 +137,11 @@
                                         </div>
                                         <div class="col-lg-12 col-md-2 col-sm-12 col-xs-12">
                                             <div class="text-left tshspbb col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                <div class="tshspbb-right col-lg-6 col-md-6 col-sm-12 col-xs-12" style="display: none!important;">
-                                                    <span class="price price-title" style="margin-top: 6px!important;">4,500,000</span>
-                                                </div>
-                                                <div class="tshspbb-right tshspbb-right-off col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                    <span class="price price-title" style="margin: 0!important;">4,500,000</span>
+                                                <div class="tshspbb-right col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                    <span class="price price-title" style="margin-top: 6px!important;" id="PriceVitrin">
+                                                        @*String.Format("{0:n0}", )*@
+                                                        @Model.ProductModel.MPCs[0].PriceXQ
+                                                    </span>
                                                 </div>
                                                 <div class="tshspbb-left add-cart-btn col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                     <a href="#" class="btn btn-success btn-lg">
@@ -171,22 +170,13 @@
                 </strong>
             </h4>
             <table class="table prd-det-border table-hover prod-det shop-table text-uppercase letter-spacing-1 mar-top-30 mar-bot-30 weight-400">
-                <tr class="shop-first-row">
-                    <td><small>Round Neck Tshirts</small></td>
-                    <td><small>Round Neck Tshirts</small></td>
-                </tr>
-                <tr>
-                    <td><small>Fabric</small></td>
-                    <td><small>Cotton</small></td>
-                </tr>
-                <tr>
-                    <td><small>Color</small></td>
-                    <td><small>Black</small></td>
-                </tr>
-                <tr>
-                    <td><small>SKU</small></td>
-                    <td><small>SA234189MO01U</small></td>
-                </tr>
+                @foreach (var item in Model.ProductModel.Options)
+                {
+                    <tr>
+                        <td><small>@item.Key</small></td>
+                        <td><small>@item.Value</small></td>
+                    </tr>
+                }
             </table>
         </div>
     </div>
@@ -202,45 +192,42 @@
 
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <ul class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mar-top-30 mar-bot-30 comments">
-                    <li class="col-lg-12 col-mg-12 col-sm-12 col-xs-12">
-                        <h5>
-                            <i class="fa fa-user"></i>
-                            امیرحسین عرب
-                            <date>
-                                22:35 1399/8/20
-                                <i class="fa fa-calendar"></i>
-                            </date>
-                        </h5>
-                        <p>
-                            توجه داشته باشید کلیه اصول و رویه‏‌های انتشارات جنگل منطبق با قوانین جمهوری اسلامی ایران، قانون تجارت الکترونیک و قانون حمایت از حقوق مه را کسب کرده اند.
-                        </p>
-                        <div class="reply">
+                    @foreach (var item in Model.ProductModel.Comments)
+                    {
+                        <li class="col-lg-12 col-mg-12 col-sm-12 col-xs-12">
+
                             <h5>
                                 <i class="fa fa-user"></i>
-                                ولوت
+                                @item.Name
                                 <date>
+                                    @item.Date
                                     <i class="fa fa-calendar"></i>
-                                    21:15 1399/8/20
                                 </date>
                             </h5>
                             <p>
-                                با تشکر از همراهی شما
+                                @item.Message
                             </p>
-                        </div>
-                    </li>
-                    <li class="col-lg-12 col-mg-12 col-sm-12 col-xs-12">
-                        <h5>
-                            <i class="fa fa-user"></i>
-                            امیرحسین عرب
-                            <date>
-                                22:35 1399/8/20
-                                <i class="fa fa-calendar"></i>
-                            </date>
-                        </h5>
-                        <p>
-                            توجه داشته باشید کلیه اصول و رویه‏‌های انتشارات جنگل منطبق با قوانین جمهوری اسلامی ایران، قانون تجارت الکترونیک و قانون حمایت از حقوق مصرف کننده است و متعاقبا کاربر نیز موظف به رعایت قوانین مربوطه است. در صورتی که در قوانین مندرج، رویه‏‌ها و سرویس‏‌ها تغییری ایجاد شود، در همین صفحه منتشر و به روز رسانی می شود و شما توافق می‏‌کنید که استفاده مستمر شما از سایت به معنی پذیرش هرگونه تغییر است. تعریف مشتری یا کاربر مشتری یا کاربر به شخصی گفته می‌شود که با اطلاعات کاربری خود که در فرم ثبت نام درج کرده است کسب کرده اند.
-                        </p>
-                    </li>
+                            @foreach (var reps in item.Reply)
+                            {
+
+
+                                <div class="reply">
+                                    <h5>
+                                        <i class="fa fa-user"></i>
+                                        @reps.Name
+                                        <date>
+                                            <i class="fa fa-calendar"></i>
+                                            @reps.Date
+                                        </date>
+                                    </h5>
+                                    <p>
+                                        @reps.Message
+                                    </p>
+                                </div>
+                            }
+                        </li>
+
+                    }
                 </ul>
             </div>
             @if (ViewBag.IsUserLogin)
@@ -275,63 +262,30 @@
             </div>
         </div>
         <div class="inner-res-margin-padding-0 row col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 pad-left-40 pad-right-40 no-padding-side-mobile">
-                <div class="trailer trailer-inactive-mobile no-margin-top">
-                    <figure onclick="redirect('https://google.com');" class="trailer-image">
-                        <img alt="image" src="images/shop/trailer/bag.jpg" />
-                        <figcaption>
-                            <div class="trailer-center">
-                                <div class="trailer-heading custom-h2-title">
-                                    <h2 class="content-background">Bags</h2>
+            @foreach (var item in Model.Sale_Products)
+            {
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 pad-left-40 pad-right-40 no-padding-side-mobile">
+                    <div class="trailer trailer-inactive-mobile no-margin-top">
+                        <figure onclick="redirect('@Url.Action("productpage","CustomerSide_Product",new { M=item.MainCatename.Replace(" ","-") , S=item.subCatename.Replace(" ","-") ,  P=item.Id,N=item.Title.Replace(" ","-")})');" class="trailer-image">
+                            <img alt="image" src="@Url.Content("~"+item.PicPath)" onerror="this.onerror=null;this.src='/resource/images/Customes/imgNotFound.jpg'" />
+                            <figcaption>
+                                <div class="trailer-center">
+                                    <div class="trailer-heading custom-h2-title">
+                                        <h2 class="content-background">Bags</h2>
+                                    </div>
                                 </div>
-                            </div>
-                        </figcaption>
-                    </figure>
+                            </figcaption>
+                        </figure>
+                    </div>
+                    <div class="product-info">
+                        <h3 onclick="redirect('@Url.Action("productpage","CustomerSide_Product",new { M=item.MainCatename.Replace(" ","-") , S=item.subCatename.Replace(" ","-") ,  P=item.Id,N=item.Title.Replace(" ","-")})');" class="text-darker"><a href="#"><small>@item.Title</small></a></h3>
+                        <h6 class="price">
+                            @String.Format("{0:n0}", item.PriceXQ)
+                        </h6>
+                    </div>
                 </div>
-                <div class="product-info">
-                    <h3 onclick="redirect('https://google.com');" class="text-darker"><a href="#"><small>نام محصول</small></a></h3>
-                    <h6 class="price tshtdlt">5,000,000</h6>
-                    <h6 class="price">4,500,000</h6>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 pad-left-40 pad-right-40 no-padding-side-mobile">
-                <div class="trailer trailer-inactive-mobile no-margin-top">
-                    <figure onclick="redirect('https://google.com');" class="trailer-image">
-                        <img alt="image" src="images/shop/trailer/tshirt.jpg" />
-                        <figcaption>
-                            <div class="trailer-center">
-                                <div class="trailer-heading custom-h2-title">
-                                    <h2 class="content-background">T-shirts</h2>
-                                </div>
-                            </div>
-                        </figcaption>
-                    </figure>
-                </div>
-                <div class="product-info">
-                    <h3 onclick="redirect('https://google.com');" class="text-darker"><a href="#"><small>نام محصول</small></a></h3>
-                    <h6 class="price tshtdlt">5,000,000</h6>
-                    <h6 class="price">4,500,000</h6>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 pad-left-40 pad-right-40 no-padding-side-mobile">
-                <div class="trailer trailer-inactive-mobile no-margin-top">
-                    <figure onclick="redirect('https://google.com');" class="trailer-image">
-                        <img alt="image" src="images/shop/trailer/jeans.jpg" />
-                        <figcaption>
-                            <div class="trailer-center">
-                                <div class="trailer-heading custom-h2-title">
-                                    <h2 class="content-background">Jeans</h2>
-                                </div>
-                            </div>
-                        </figcaption>
-                    </figure>
-                </div>
-                <div class="product-info">
-                    <h3 onclick="redirect('https://google.com');" class="text-darker"><a href="#"><small>نام محصول</small></a></h3>
-                    <h6 class="price tshtdlt">5,000,000</h6>
-                    <h6 class="price">4,500,000</h6>
-                </div>
-            </div>
+            }
+
         </div>
     </div>
 
@@ -345,7 +299,16 @@
 
 @section CS_Scripts {
     <script>
+        var SenderRequest = {};
+        var Qtbuys = "";
+        var idmp = "";
+        var searchObject;
+        var Sale_Products;
         $(document).ready(function () {
+            Qtbuys = $("#QTM").val() + "." + $("#QTCM").val();
+            Qtbuys = Qtbuys.replace(".", "");
+            searchObject = JSON.parse($("#JsonPF").val());
+            Sale_Products = JSON.parse($("#Sale_Products").val());
             $(".pccm1").on("click", function () {
                 var ThisNext = $(this).next();
                 var mettDig = parseInt(ThisNext.val());
@@ -365,7 +328,7 @@
             $(".pccm2").on("click", function () {
                 var ThisNext = $(this).next();
                 var mettDig = parseInt(ThisNext.val());
-                if (mettDig == 25) {
+                if (mettDig == 0) {
                     return false;
                 } else {
                     var lastMett = mettDig - 25;
@@ -394,67 +357,15 @@
             })
             $(".cmmm").on("change", function () {
                 if ($(this).val() > 75) {
-                    $(this).val(75)
-                } else if ($(this).val() < 25) {
-                    $(this).val(25)
-                } else {
-                    var ThisVal = $(this).val();
-                    var lastVal = Math.ceil(ThisVal / 25) * 25;
-                    $(this).val(lastVal);
+                    $(this).val(0)
+                } else if ($(this).val() < 0) {
+                    $(this).val(0)
                 }
             })
         })
-    </script>
-    <script>
-        var revapi;
-        jQuery(document).ready(function () {
-            setInterval(function () {
-                $('.owl-prev').trigger('click');
-            }, 3000);
 
 
-            revapi = jQuery("#rev_slider_1").revolution({
-                sliderType: "standard",
-                sliderLayout: "fullscreen",
-                fullScreenOffsetContainer: ".navigation",
-                delay: 9000,
-                navigation: {
-                    keyboardNavigation: "off",
-                    mouseScrollNavigation: "on",
-                    onHoverStop: "off",
-                    touch: {
-                        touchenabled: "on",
-                        swipe_threshold: 75,
-                        swipe_min_touches: 1,
-                        swipe_direction: "horizontal",
-                        drag_block_vertical: false
-                    },
-                    bullets: {
-                        enable: true,
-                        rtl: true,
-                        hide_onmobile: false,
-                        style: "hebe",
-                        hide_onleave: false,
-                        direction: "horizontal",
-                        h_align: "center",
-                        v_align: "bottom",
-                        h_offset: 0,
-                        v_offset: 10,
-                        space: 5,
-                        tmp: '<span class="tp-bullet-inner"></span>'
-                    }
-                },
-                responsiveLevels: [4096, 1024, 767, 480],
-                gridwidth: 1230,
-                gridheight: 720
-            });
 
-            $("#LoaderSpinner").hide(0);
-        }); /*ready*/
-    </script>
-    <script src="js/scripts.js"></script>
-    <script src="js/custom.js"></script>
-    <script>
         var x, i, j, selElmnt, a, b, c;
         x = document.getElementsByClassName("custom-select");
         for (i = 0; i < x.length; i++) {
@@ -475,6 +386,13 @@
                     for (i = 0; i < s.length; i++) {
                         if (s.options[i].innerHTML == this.innerHTML) {
                             s.selectedIndex = i;
+                            //================================== SelectedIndex
+
+
+
+
+                            //==================================
+
                             h.innerHTML = this.innerHTML;
                             y = this.parentNode.getElementsByClassName("same-as-selected");
                             for (k = 0; k < y.length; k++) {
@@ -514,170 +432,59 @@
             }
         }
         document.addEventListener("click", closeAllSelect);
+
+
+        function ProductCalculator() {
+            var Code = "";
+            $("select").each(function () {
+                Code = Code + " " + $(this).val();
+            });
+            console.log(Code);
+            Code = Code.replace(" ", "");
+
+            var idMPC = "";
+            for (var _Xi = 0; _Xi < searchObject.length; _Xi++) {
+                if (searchObject[_Xi].Code == Code) {
+                    idMPC = searchObject[_Xi].Idmpc;
+                    idmp = idMPC;
+                }
+            }
+            for (var _Xi = 0; _Xi < Sale_Products.length; _Xi++) {
+                if (Sale_Products[_Xi].Id == idmp) {
+                    $("#PriceVitrin").innerHTML = Sale_Products[_Xi].PriceXQ;
+                }
+            }
+        }
+
+        function QTcalculator() {
+            Qtbuys = $("#QTM").val() + "." + $("#QTCM").val();
+            Qtbuys = Qtbuys.replace(".", "");
+        }
+
+
+        function SendToBasket() {
+            SenderRequest = {
+                "Qtbuys": Qtbuys,
+                "idmp": idmp
+            };
+            $.ajax({
+                url: "",
+                data: JSON.stringify(SenderRequest),
+                type: "post",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+
+                }, error: function () {
+
+                }
+            });
+        }
+
     </script>
 
 
 
-    @*<script>
 
-            var MPCs;
-            $(document).ready(function () {
-                 PostJson = {
-                    'id': @Model.ProductModel.Id
-                };
-                $.ajax({
-                    url: '/CustomerSide_Product/GetMPCs',
-                    type: "post",
-                    data: JSON.stringify(PostJson),
-                    contentType: "application/json; charset=utf-8",
-                    success: function (response) {
-                        MPCs = response;
-                        console.log(MPCs);
-                        CheckChanges();
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        alert(textStatus);
-                    }
-                });
-            });
-
-            function Changeee() {
-                alert("Helloooooo");
-                return false;
-            }
-
-            function CheckChangesSS() {
-                alert("change");
-                return false;
-            }
-
-
-            //H love programming
-
-
-
-            function CheckChanges() {
-                console.log("hellow");
-            var json = '{';
-            var otArr = [];
-            $('.PandaSelect123').each(function (e, obj) {
-                var idSelected = obj.id.replace("exampleSelect2-", "");
-                var ids = $('#exampleSelect2-' + idSelected+' option:selected').val();
-                if (idSelected != "") {
-                    otArr.push('"' + idSelected + '":' + ids);
-                }
-            });
-            json += otArr.join(",") + '}';
-
-            $(MPCs).each(function (e, obj) {
-                if (obj.JsonProperty == json) {
-
-                    //if (obj.PriceXQ != obj.PriceOff) {
-                    //    $('#off_price_div').text(obj.PriceXQ);
-                    //} else {
-                    //    $('#off_price_div').text("");
-                    //}
-
-
-                    if ($('#Number_inp').val() >= obj.MultyPriceStartFromQ && obj.HAsMultiPrice == 1) {
-                        $("#idp").val(obj.Id);
-                        $('OffVal').show();
-                        $('OffVal').text("قیمت عمده");
-                        if (obj.PriceShowType == 1) {
-                            $('#PriceShow1').text(obj.MultyPrice);
-                            $('#PriceShow2').text(obj.MultyPrice);
-                        } else {
-                            $('#PriceShow1').text(obj.MultyPriceXQ);
-                            $('#PriceShow2').text(obj.MultyPriceXQ);
-                        }
-
-                    } else {
-                        $("#idp").val(obj.Id);
-                        $('OffVal').hide();
-                         if (obj.PriceShowType == 1) {
-                            $('#PriceShow1').text(obj.PricePerQ);
-                            $('#PriceShow2').text(obj.PricePerQ);
-                        } else {
-                            $('#PriceShow1').text(obj.PriceXQ);
-                            $('#PriceShow2').text(obj.PriceXQ);
-                        }
-                    }
-                }
-
-            });
-
-
-        }
-
-                ///////////////////////////
-
-
-
-                setInterval(function () {
-                    $('.owl-prev').trigger('click');
-                }, 3000);
-
-
-            var x, i, j, selElmnt, a, b, c;
-            x = document.getElementsByClassName("custom-select");
-            for (i = 0; i < x.length; i++) {
-                selElmnt = x[i].getElementsByTagName("select")[0];
-                a = document.createElement("DIV");
-                a.setAttribute("class", "select-selected");
-                a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
-                x[i].appendChild(a);
-                b = document.createElement("DIV");
-                b.setAttribute("class", "select-items select-hide");
-                for (j = 1; j < selElmnt.length; j++) {
-                    c = document.createElement("DIV");
-                    c.innerHTML = selElmnt.options[j].innerHTML;
-                    c.addEventListener("click", function (e) {
-                        var y, i, k, s, h;
-                        s = this.parentNode.parentNode.getElementsByTagName("select")[0];
-                        h = this.parentNode.previousSibling;
-                        for (i = 0; i < s.length; i++) {
-                            if (s.options[i].innerHTML == this.innerHTML) {
-                                s.selectedIndex = i;
-                                h.innerHTML = this.innerHTML;
-                                y = this.parentNode.getElementsByClassName("same-as-selected");
-                                for (k = 0; k < y.length; k++) {
-                                    y[k].removeAttribute("class");
-                                }
-                                this.setAttribute("class", "same-as-selected");
-                                break;
-                            }
-                        }
-                        h.click();
-                        CheckChanges();
-                    });
-                    b.appendChild(c);
-                }
-                x[i].appendChild(b);
-                a.addEventListener("click", function (e) {
-                    e.stopPropagation();
-                    closeAllSelect(this);
-                    this.nextSibling.classList.toggle("select-hide");
-                    this.classList.toggle("select-arrow-active");
-                });
-            }
-            function closeAllSelect(elmnt) {
-                var x, y, i, arrNo = [];
-                x = document.getElementsByClassName("select-items");
-                y = document.getElementsByClassName("select-selected");
-                for (i = 0; i < y.length; i++) {
-                    if (elmnt == y[i]) {
-                        arrNo.push(i)
-                    } else {
-                        y[i].classList.remove("select-arrow-active");
-                    }
-                }
-                for (i = 0; i < x.length; i++) {
-                    if (arrNo.indexOf(i)) {
-                        x[i].classList.add("select-hide");
-                    }
-                }
-            }
-            document.addEventListener("click", closeAllSelect);
-        </script>*@
 
 }

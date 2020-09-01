@@ -412,10 +412,14 @@
     });
 
     function SelectSelectedImgs() {
-        var ImgsforSlider = JSON.parse($("#DataSelectedFromGallery").val());
-        for (var t = 0; t < ImgsforSlider[0].Allimgs.length; t++) {
-            $("#" + ImgsforSlider[0].Allimgs[t].idOfImg).click();
+        if ($("#DataSelectedFromGallery").val().length > 0) {
+
+            var ImgsforSlider = JSON.parse($("#DataSelectedFromGallery").val());
+            for (var t = 0; t < ImgsforSlider[0].Allimgs.length; t++) {
+                $("#" + ImgsforSlider[0].Allimgs[t].idOfImg).click();
+            }
         }
+
     }
     //=================================================== SetSlider
     function generateSliderItem(objsenderss, k) {
