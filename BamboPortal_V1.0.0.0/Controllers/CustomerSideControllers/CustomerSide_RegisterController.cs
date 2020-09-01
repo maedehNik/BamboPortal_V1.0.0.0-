@@ -67,7 +67,7 @@ namespace BamboPortal_V1._0._0._0.Controllers
             };
             pars.Add(par);
             db.Connect();
-            DataTable dt = db.Select("SELECT [id_Customer] ,[C_Mobile] ,[C_FirstName] ,[C_LastNAme] FROM [tbl_Customer_Main] WHERE [C_Mobile] LIKE @Mobile AND [C_Password] LIKE @PASS AND [C_ISActivate] = 1" , pars);
+            DataTable dt = db.Select("SELECT [id_Customer] ,[C_Mobile] ,[C_FirstName] ,[C_LastNAme] FROM [tbl_Customer_Main] WHERE [C_Mobile] = @Mobile AND [C_Password] LIKE @PASS AND [C_ISActivate] = 1" , pars);
             db.DC();
             if (dt.Rows.Count == 1)
             {

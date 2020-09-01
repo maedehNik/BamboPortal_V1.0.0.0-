@@ -9,13 +9,18 @@
         <h4>منو</h4>
         <ul>
             <li class="active">
-                <a href=".">
+                <a href="@Url.Action("customerProfile","CustomerSide_CustomerProfile")">
                     اطلاعات حساب
                 </a>
             </li>
             <li>
+                <a href="@Url.Action("customerChangePassword","CustomerSide_CustomerProfile")">
+                    تغییر رمز عبور
+                </a>
+            </li>
+            <li>
                 <a href="@Url.Action("customerProfileAddress","CustomerSide_CustomerProfile")">
-                    آدرس
+                    آدرس ها
                 </a>
             </li>
             <li>
@@ -23,16 +28,21 @@
                     تاریخچه خرید
                 </a>
             </li>
-            @*<li>
+            <li>
                 <a href="@Url.Action("customerProfileReturn","CustomerSide_CustomerProfile")">
                     درخواست های مرجوعی
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("customerProfileComments","CustomerSide_CustomerProfile")">
+                    نظرات
                 </a>
             </li>
             <li>
                 <a href="@Url.Action("customerProfileSettings","CustomerSide_CustomerProfile")">
                     تنظیمات
                 </a>
-            </li>*@
+            </li>
         </ul>
     </div>
     <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12 profile-content" style="float: left">

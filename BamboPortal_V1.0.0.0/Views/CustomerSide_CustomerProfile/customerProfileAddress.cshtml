@@ -8,14 +8,19 @@
     <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 profile-menu" style="float: right">
         <h4>منو</h4>
         <ul>
-            <li>
+            <li class="active">
                 <a href="@Url.Action("customerProfile","CustomerSide_CustomerProfile")">
                     اطلاعات حساب
                 </a>
             </li>
-            <li class="active">
-                <a href=".">
-                    آدرس
+            <li>
+                <a href="@Url.Action("customerChangePassword","CustomerSide_CustomerProfile")">
+                    تغییر رمز عبور
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("customerProfileAddress","CustomerSide_CustomerProfile")">
+                    آدرس ها
                 </a>
             </li>
             <li>
@@ -23,16 +28,21 @@
                     تاریخچه خرید
                 </a>
             </li>
-            @*<li>
+            <li>
                 <a href="@Url.Action("customerProfileReturn","CustomerSide_CustomerProfile")">
                     درخواست های مرجوعی
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("customerProfileComments","CustomerSide_CustomerProfile")">
+                    نظرات
                 </a>
             </li>
             <li>
                 <a href="@Url.Action("customerProfileSettings","CustomerSide_CustomerProfile")">
                     تنظیمات
                 </a>
-            </li>*@
+            </li>
         </ul>
     </div>
     <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12 profile-content" style="float: left">
@@ -41,22 +51,44 @@
             <i class="fa fa-chevron-left tshfatrtry3"></i>
             آدرس ها
         </h5>
-
-        @foreach (var item in Model.Addresses)
-        {
-            <div class="form-theme form-grey">
-                <div class="form-group pad-bot-15 col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <label for="pcode" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">کد پستی</label>
-                    <label type="number" class="form-control" name="pcode" id="pcode">@item.HintAddress</label>
-                </div>
-                <div class="form-group pad-bot-15 col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                    <label for="address" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">آدرس کامل</label>
-                    <label class="form-control"><font size="-20" class="text-muted">@item.City - </font> @item.FullAddress </label>
-                </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="table-responsive cart-responsive">
+                <table class="table table-condensed table-cart">
+                    <tr>
+                        <th>استان</th>
+                        <th>شهر</th>
+                        <th>منطقه</th>
+                        <th>کد پستی</th>
+                        <th>ادرس</th>
+                        <th>عملیات</th>
+                    </tr>
+                    <tbody class="tbdy">
+                        <tr>
+                            <td class="tableGray">
+                                تهران
+                            </td>
+                            <td class="tblWhite">
+                                تهران
+                            </td>
+                            <td class="tableGray">
+                                ولنجک
+                            </td>
+                            <td class="tblWhite">
+                                1988819888
+                            </td>
+                            <td class="tableGray">
+                                تهران - ولنجک - خیابان 25 ام - کوچه هفتم - پلاک 3 - واحد 26
+                            </td>
+                            <td class="text-warning-custom tblWhite">
+                                <button class="btn btn-primary">ویرایش</button>
+                                <button class="btn btn-danger remove-address-btn" data-toggle="modal" data-target="#remove-address" data-address="ادرس ادرس ادرس">حذف</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-        }
-
-        <h5 class="col-lg-12 col-md-12 col-sm-12 col-xs-12 title-h5">
+        </div>
+        <h5 class="col-lg-12 col-md-12 col-sm-12 col-xs-12 title-h5 mar-top-40">
             <i class="fa fa-chevron-left tshfatrtry3"></i>
             افزودن آدرس
         </h5>
@@ -64,18 +96,7 @@
             <form action="" method="post" autocomplete="off" id="account-form3">
                 <div class="form-group pad-bot-15 col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <label for="province" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">استان</label>
-                    <select class="custom-select-profile" name="province" id="province" onchange="return CityChange()">
-                        <option value="">انتخاب کنید</option>
-                        @foreach (var item in Model.City)
-                        {
-                            <option value="@item.Id">@item.Value</option>
-                        }
-
-                    </select>
-                </div>
-                <div class="form-group pad-bot-15 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <label for="city" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">شهر</label>
-                    <select disabled class="custom-select-profile" name="city" id="city">
+                    <select class="custom-select-profile" name="province" id="province">
                         <option value="">انتخاب کنید</option>
                         <option value="1">تهران</option>
                         <option value="2">تهران</option>
@@ -83,17 +104,30 @@
                         <option value="4">تهران</option>
                     </select>
                 </div>
-
+                <div class="form-group pad-bot-15 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <label for="city" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">شهر</label>
+                    <select class="custom-select-profile" name="city" id="city">
+                        <option value="">انتخاب کنید</option>
+                        <option value="1">تهران</option>
+                        <option value="2">تهران</option>
+                        <option value="3">تهران</option>
+                        <option value="4">تهران</option>
+                    </select>
+                </div>
+                <div class="form-group pad-bot-15 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <label for="area" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">منطقه</label>
+                    <input type="text" class="form-control" name="area" id="area" maxlength="40">
+                </div>
                 <div class="form-group pad-bot-15 col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <label for="pcode" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">کد پستی</label>
-                    <input type="number" class="form-control" name="pcode" id="CodePosti">
+                    <input type="number" class="form-control" name="pcode" id="pcode" maxlength="10">
                 </div>
                 <div class="form-group pad-bot-15 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <label for="address" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">آدرس کامل</label>
-                    <textarea class="form-control" name="address" id="address"></textarea>
+                    <label for="address" class="control-label text-uppercase letter-spacing-3 pad-bot-5" style="width: 100%;letter-spacing: 0px !important;">آدرس</label>
+                    <textarea class="form-control" name="address" id="address" maxlength="180"></textarea>
                 </div>
                 <div class="form-group pad-bot-15 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <input type="button" class="btn btn-success form-submit reg-submit" value="ذخیره" onclick="return SaveData_CustomerAddress()">
+                    <input type="submit" class="btn btn-success form-submit reg-submit" value="افزودن">
                 </div>
             </form>
         </div>
@@ -101,12 +135,13 @@
 </div>
 
 
+
 @section CS_Scripts {
     <script>
 
 
         function CityChange() {
-           // console.log("dasdsad");
+            // console.log("dasdsad");
             var Id = $('#province').val();
             //alert(Id);
             $('#city').prop("disabled", false);
@@ -120,7 +155,7 @@
                 data: JSON.stringify(PostJson),
                 contentType: "application/json; charset=utf-8",
                 success: function (response) {
-                   // alert("done");
+                    // alert("done");
                     var token = response;
                     var s = "<option value=0 selected >انتخاب کنید</option>";
                     for (var i = 0; i < token.length; i++) {
@@ -146,8 +181,7 @@
             console.log(FullAddress);
             var CodePosti = $('#CodePosti').val();
             console.log(CodePosti);
-            if (FullAddress != '' && CodePosti !='')
-            {
+            if (FullAddress != '' && CodePosti != '') {
                 const PostJson = {
                     'CityId': CityId,
                     'FullAddress': FullAddress,
@@ -160,7 +194,7 @@
                     data: JSON.stringify(PostJson),
                     contentType: "application/json; charset=utf-8",
                     success: function (response) {
-                       // alert("done");
+                        // alert("done");
                         location.reload(true);
 
                     },

@@ -8,14 +8,19 @@
     <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 profile-menu" style="float: right">
         <h4>منو</h4>
         <ul>
-            <li>
+            <li class="active">
                 <a href="@Url.Action("customerProfile","CustomerSide_CustomerProfile")">
                     اطلاعات حساب
                 </a>
             </li>
             <li>
+                <a href="@Url.Action("customerChangePassword","CustomerSide_CustomerProfile")">
+                    تغییر رمز عبور
+                </a>
+            </li>
+            <li>
                 <a href="@Url.Action("customerProfileAddress","CustomerSide_CustomerProfile")">
-                    آدرس
+                    آدرس ها
                 </a>
             </li>
             <li>
@@ -28,8 +33,13 @@
                     درخواست های مرجوعی
                 </a>
             </li>
-            <li class="active">
-                <a href=".">
+            <li>
+                <a href="@Url.Action("customerProfileComments","CustomerSide_CustomerProfile")">
+                    نظرات
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("customerProfileSettings","CustomerSide_CustomerProfile")">
                     تنظیمات
                 </a>
             </li>
