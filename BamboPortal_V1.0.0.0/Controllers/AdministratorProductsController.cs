@@ -2842,10 +2842,11 @@ namespace BamboPortal_V1._0._0._0.Controllers
 
 
 
-        [HttpPost]
+
 
         //{END}For Product  AddProduct
         //=================================================================================================================
+        [HttpPost]
         public ActionResult ReturnInputsOfSubCategorykeyValues(string[] ListOfKeyIDs)
         {
             PDBC db = new PDBC();

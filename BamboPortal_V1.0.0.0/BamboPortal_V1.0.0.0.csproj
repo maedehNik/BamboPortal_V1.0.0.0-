@@ -3286,6 +3286,8 @@
     <Content Include="Views\AdministratorProducts\DeletedProductsList.cshtml" />
     <Content Include="Views\AdministratorProducts\Product_ShowCatTree.cshtml" />
     <Content Include="Views\CustomerSide_Pages\Test.cshtml" />
+    <Content Include="Views\CustomerSide_CustomerProfile\customerProfileComments.cshtml" />
+    <Content Include="Views\CustomerSide_CustomerProfile\customerChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

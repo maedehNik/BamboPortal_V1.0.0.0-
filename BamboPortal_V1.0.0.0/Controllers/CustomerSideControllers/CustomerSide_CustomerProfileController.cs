@@ -1,6 +1,7 @@
 ﻿using BamboPortal_V1._0._0._0.BamboPortalSecurity.EncDec;
 using BamboPortal_V1._0._0._0.DatabaseCenter.Class;
 using BamboPortal_V1._0._0._0.ModelFiller.CustomerSide;
+using BamboPortal_V1._0._0._0.Models.AdministratorProductsModels;
 using BamboPortal_V1._0._0._0.Models.CustomerSide;
 using BamboPortal_V1._0._0._0.ModelViews.CustomerSide;
 using BamboPortal_V1._0._0._0.ModelViews.CustomerSide.CustomerHistory;
@@ -159,6 +160,69 @@ namespace BamboPortal_V1._0._0._0.Controllers
             return View();
         }
 
+        public ActionResult customerChangePassword()
+        {
+            return View();
+        }
+
+        public ActionResult customerProfileComments()
+        {
+            int CustomerId = 1009;
+            string Query;
+
+            Query = "SELECT [C_FirstName]+' '+[C_LastNAme] as name,[id_Customer],[CommentId],[Message],[date],[Title],[C_regDate],[id_MProduct],[VerifyType] FROM [v_CommentsList] WHERE id_Customer=@CustomerId ORDER BY([date])DESC";
+
+            var Comments = new List<CommentModel>();
+            PDBC db = new PDBC();
+            ExcParameters par = new ExcParameters()
+            {
+                _KEY = "@CustomerId",
+                _VALUE = CustomerId
+            };
+            List<ExcParameters> pars = new List<ExcParameters>();
+            pars.Add(par);
+            db.Connect();
+            using (DataTable dt = db.Select(Query, pars))
+            {
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    CommentModel Comment = new CommentModel()
+                    {
+                        ProId = Convert.ToInt32(dt.Rows[i]["id_MProduct"]),
+                        CusromerId = Convert.ToInt32(dt.Rows[i]["id_Customer"]),
+                        ProTitle = dt.Rows[i]["Title"].ToString(),
+                        CustomerName = dt.Rows[i]["name"].ToString(),
+                        ProductCode = "",
+                        C_RegisterDate = DateConvert.DateReturner(dt.Rows[i]["C_regDate"].ToString(), "ShortDate"),
+                        CommentDate = DateConvert.DateReturner(dt.Rows[i]["date"].ToString(), "ShortDate"),
+                        Message = dt.Rows[i]["Message"].ToString(),
+                        CommentId = Convert.ToInt32(dt.Rows[i]["CommentId"]),
+                        VerifyType = dt.Rows[i]["VerifyType"].ToString(),
+                    };
+                    Comment.Reply = new List<ReplyModel>();
+                    using (DataTable dtJ = db.Select("SELECT [AdminId],[ad_avatarprofile],[ad_firstname]+' '+[ad_lastname] as AdName,[CommentId],[Message],[RepId],[date] FROM [v_ReplyList] WHERE [CommentId]=" + Comment.CommentId + " order by([date])DESC"))
+
+                    {
+                        for (int j = 0; j < dtJ.Rows.Count; j++)
+                        {
+                            Comment.Reply.Add(new ReplyModel()
+                            {
+                                //= dtJ.Rows[j][""].ToString(),
+                                AdminId = Convert.ToInt32(dtJ.Rows[j]["AdminId"]),
+                                Message = dtJ.Rows[j]["Message"].ToString(),
+                                RepDate = DateConvert.DateReturner(dtJ.Rows[j]["date"].ToString(), "DateTime"),
+                                AdminName = dtJ.Rows[j]["AdName"].ToString(),
+                                AdminPic = dtJ.Rows[j]["ad_avatarprofile"].ToString(),
+                                RepId = Convert.ToInt32(dtJ.Rows[j]["RepId"]),
+                            });
+                        }
+                    }
+                }
+                db.DC();
+                return View(Comments);
+            }
+        }
         [HttpPost]
         public ActionResult AddCustomerAddress(string CityId, string FullAddress, string CodePosti)
         {

@@ -1,0 +1,198 @@
+﻿@using BamboPortal_V1._0._0._0.Models.AdministratorProductsModels
+@model List<CommentModel>
+@{
+    ViewBag.Title = "customerProfileComments";
+    Layout = "~/Views/SharedViewPages/CustomerSide/CustomerMaster.cshtml";
+    int Count = 0;
+    string Message = "";
+}
+
+
+<div class="modal fade" style="background-color: rgba(0,0,0,.4);" id="show-reply" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" style="float: right">پاسخ</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float: left">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="reply-msg">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" style="float: left">تایید</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container profile-bg" style="padding-top: 100px; margin-bottom: 100px;">
+    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 profile-menu" style="float: right">
+        <h4>منو</h4>
+        <ul>
+            <li>
+                <a href="@Url.Action("customerProfile","CustomerSide_CustomerProfile")">
+                    اطلاعات حساب @Count
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("customerChangePassword","CustomerSide_CustomerProfile")">
+                    تغییر رمز عبور
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("customerProfileAddress","CustomerSide_CustomerProfile")">
+                    آدرس ها
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("customerProfileHistory","CustomerSide_CustomerProfile")">
+                    تاریخچه خرید
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("customerProfileReturn","CustomerSide_CustomerProfile")">
+                    درخواست های مرجوعی
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("customerProfileComments","CustomerSide_CustomerProfile")">
+                    نظرات
+                </a>
+            </li>
+            <li class="active">
+                <a href="#">
+                    تنظیمات
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12 profile-content" style="float: left">
+        <h4>نظرات</h4>
+        <h5 class="col-lg-12 col-md-12 col-sm-12 col-xs-12 title-h5">
+            <i class="fa fa-chevron-left tshfatrtry3"></i>
+            نظرات ارسال شده
+        </h5>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="table-responsive cart-responsive">
+                <table class="table table-condensed table-cart">
+                    <tr>
+                        <th style="text-align: center">#</th>
+                        <th>نظر ارسال شده</th>
+                        <th>محصول</th>
+                        <th>وضعیت</th>
+                        <th>عملیات</th>
+                    </tr>
+                    <tbody class="tbdy">
+                        @foreach (var item in Model)
+                        {
+
+                            if (item.Reply.Count == 0)
+                            {
+                                Message = "پاسخی وجود ندارد.";
+                            }
+                            else
+                            {
+                                Message = item.Reply[0].Message;
+                            }
+                            if (item.VerifyType == "1")
+                            {
+                                <tr>
+                                    <td class="tableGray">
+                                        @(Count + 1)
+                                    </td>
+                                    <td class="tblWhite">
+                                        @item.Message
+                                    </td>
+                                    <td class="tableGray">
+                                        <a href="">
+                                            @item.ProTitle
+                                        </a>
+                                    </td>
+                                    <td class="tblWhite">
+                                        <span class="custom-success">
+                                            ثبت شده
+                                        </span>
+                                    </td>
+                                    <td class="tableGray">
+
+                                        <button class="btn btn-primary show-reply-msg" data-toggle="modal" data-target="#show-reply" data-msg="@Message">
+                                            نمایش پاسخ
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                            else if (item.VerifyType == "2")
+                            {
+                                <tr>
+                                    <td class="tableGray">
+                                        @(Count + 1)
+                                    </td>
+                                    <td class="tblWhite">
+                                        @item.Message
+                                    </td>
+                                    <td class="tableGray">
+                                        <a href="">
+                                            @item.ProTitle
+                                        </a>
+                                    </td>
+                                    <td class="tblWhite">
+                                        <span class="custom-danger">
+                                            رد شده
+                                        </span>
+                                    </td>
+                                    <td class="tableGray">
+                                        <button class="btn btn-primary show-reply-msg" data-toggle="modal" data-target="#show-reply" data-msg="@Message">
+                                            نمایش پاسخ
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td class="tableGray">
+                                        @(Count + 1)
+                                    </td>
+                                    <td class="tblWhite">
+                                        @item.Message
+                                    </td>
+                                    <td class="tableGray">
+                                        <a href="">
+                                            @item.ProTitle
+                                        </a>
+                                    </td>
+                                    <td class="tblWhite">
+                                        <span class="custom-warning">
+                                            در حال بررسی
+                                        </span>
+                                    </td>
+                                    <td class="tableGray">
+                                        <button class="btn btn-primary disabled">
+                                            نمایش پاسخ
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+
+                            {Count++; }
+
+
+                        }
+
+
+
+
+
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
