@@ -52,7 +52,7 @@ namespace BamboPortal_V1._0._0._0.nonStaticUsefulClass.Stockpile
                 }
             }
 
-            TotStock = TotStock - TotFactor;
+            TotStock = TotStock - TotFactor - HowMuchTobuy;
 
             return TotStock;
         }
