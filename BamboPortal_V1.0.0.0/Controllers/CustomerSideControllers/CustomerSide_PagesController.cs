@@ -15,7 +15,6 @@ namespace BamboPortal_V1._0._0._0.Controllers
         public ActionResult index()
         {
             CustomerModelFiller modelFiller = new CustomerModelFiller(4);
-            ///آدرس شعبه ها رو مدلشو ساختم تو مدل ویو هم هست فقط پرش کن
             var ModelView = new IndexPageModelView()
             {
                 NewProducts = modelFiller.ChosenProducts("New", 10, "Ago"),
