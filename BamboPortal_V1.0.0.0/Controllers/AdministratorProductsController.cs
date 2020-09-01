@@ -3194,14 +3194,34 @@ namespace BamboPortal_V1._0._0._0.Controllers
             return Json(ModelSender);
         }
 
-        public ActionResult ProductList()
+        public ActionResult ProductList(int Page = 1)
         {
 
             ProductListTableModelView modelView = new ProductListTableModelView();
             modelView.Allrows = new List<ProductListTable>();
             PDBC db = new PDBC();
             db.Connect();
-            using (DataTable dt = db.Select("SELECT [id_MProduct],(SELECT TOP 1 [id_MPC] FROM [tlb_Product_MainProductConnector] WHERE [tlb_Product_MainProductConnector].[id_MProduct] =[tbl_Product].[id_MProduct] ) as idMPC,[IS_AVAILABEL],[Description],[DateCreated],[Title],[id_SubCategory],[ISDELETE],(SELECT top 1 [thumUploadAddress] FROM [v_tblProduct_Image] where [v_tblProduct_Image].[id_MProduct]=[tbl_Product].[id_MProduct]) as [pic],(SELECT[PricePerquantity] FROM [tlb_Product_MainProductConnector] WHERE id_MPC=idMPC_WhichTomainPrice) AS price,(SELECT[ad_firstname]+' '+[ad_lastname] FROM [tbl_ADMIN_main]where id_Admin=[id_CreatedByAdmin])as AddBy,(SELECT [PTname]FROM [tbl_Product_Type]where[id_PT]=[id_Type])as [type],(SELECT[SCName]FROM [tbl_Product_SubCategory]where[id_SC]=[id_SubCategory])as SubCat,(SELECT[MCName]FROM [tbl_Product_MainCategory]where[id_MC]=[id_MainCategory])as MainCat FROM [tbl_Product] WHERE [ISDELETE] = 0  ORDER BY (DateCreated) DESC"))
+
+            int num = Convert.ToInt32(db.Select("SELECT Count(*) FROM [tbl_Product] WHERE [ISDELETE] = 0 ").Rows[0][0]);
+
+            if (num % 50 == 0)
+            {
+                num = (num / 50);
+            }
+            else
+            {
+                num = (num / 50) + 1;
+            }
+            StringBuilder query = new StringBuilder();
+            query.Append("select distinct * from(SELECT NTILE(");
+            query.Append(num);
+            query.Append(")over(order by(DateCreated) DESC)as tile,[id_MProduct],(SELECT TOP 1 [id_MPC] FROM [tlb_Product_MainProductConnector] WHERE [tlb_Product_MainProductConnector].[id_MProduct] =[tbl_Product].[id_MProduct] ) as idMPC,[IS_AVAILABEL],[Description],[DateCreated],[Title],[id_SubCategory],[ISDELETE],(SELECT top 1 [thumUploadAddress] FROM [v_tblProduct_Image] where [v_tblProduct_Image].[id_MProduct]=[tbl_Product].[id_MProduct]) as [pic],(SELECT[PricePerquantity] FROM [tlb_Product_MainProductConnector] WHERE id_MPC=idMPC_WhichTomainPrice) AS price,(SELECT[ad_firstname]+' '+[ad_lastname] FROM [tbl_ADMIN_main]where id_Admin=[id_CreatedByAdmin])as AddBy,(SELECT [PTname]FROM [tbl_Product_Type]where[id_PT]=[id_Type])as [type],(SELECT[SCName]FROM [tbl_Product_SubCategory]where[id_SC]=[id_SubCategory])as SubCat,(SELECT[MCName]FROM [tbl_Product_MainCategory]where[id_MC]=[id_MainCategory])as MainCat FROM [tbl_Product] WHERE [ISDELETE] = 0");
+            query.Append(")b where b.tile=");
+            query.Append(Page);
+
+
+
+            using (DataTable dt = db.Select(query.ToString()))
             {
                 db.DC();
                 int dtrows = dt.Rows.Count;
@@ -3262,6 +3282,8 @@ namespace BamboPortal_V1._0._0._0.Controllers
                     modelView.Allrows.Add(model);
                 }
             }
+            modelView.thisPageNum = Page;
+            modelView.AllPages = num;
             return View(modelView);
         }
 
@@ -4140,6 +4162,319 @@ namespace BamboPortal_V1._0._0._0.Controllers
                 return Json(ModelSender);
             }
 
+        }
+
+        //========================================================
+        public ActionResult AddReply(ReplySubmiterModel submiterModel)
+        {
+            string id_CreatedByAdmin = "0";
+            if (Session["AdministratorRegistery"] != null)
+            {
+                id_CreatedByAdmin = ((Administrator)Session["AdministratorRegistery"]).id_Admin;
+            }
+            else
+            {
+                var coockie = HttpContext.Request.Cookies.Get(ProjectProperies.AuthCoockieCode());
+                Administrator administratorobj = CoockieController.SayMyName(coockie.Value);
+                id_CreatedByAdmin = administratorobj.id_Admin;
+            }
+
+            PDBC db = new PDBC();
+            uint id = 0;
+            if (UInt32.TryParse(submiterModel.CommentId, out id))
+            {
+                List<ExcParameters> parss = new List<ExcParameters>();
+                ExcParameters par = new ExcParameters()
+                {
+                    _KEY = "@CommentId",
+                    _VALUE = submiterModel.CommentId
+                };
+                parss.Add(par);
+
+                par = new ExcParameters()
+                {
+                    _KEY = "@Message",
+                    _VALUE = submiterModel.Message
+                };
+                parss.Add(par);
+
+                par = new ExcParameters()
+                {
+                    _KEY = "@AdminId",
+                    _VALUE = id_CreatedByAdmin
+                };
+                parss.Add(par);
+
+                db.Connect();
+                string result = db.Script("INSERT INTO [tbl_Product_Reply]([Message],[CommentId],[date],[AdminId])VALUES(@Message,@CommentId, GETDATE(),@AdminId)", parss);
+
+
+                if (submiterModel.Page == "CommentList")
+                {
+                    parss = new List<ExcParameters>();
+                    par = new ExcParameters()
+                    {
+                        _KEY = "@CommentId",
+                        _VALUE = submiterModel.CommentId
+                    };
+                    parss.Add(par);
+
+                    par = new ExcParameters()
+                    {
+                        _KEY = "@VerifyType",
+                        _VALUE = submiterModel.VerifyId
+                    };
+                    parss.Add(par);
+                    result += db.Script("UPDATE [tbl_Product_Comment] SET [VerifyType] = @VerifyType WHERE CommentId=@CommentId", parss);
+                }
+                db.DC();
+                if (result == "11"||result=="1")
+                {
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "SX106",
+                        Errormessage = $"پاسخ به نظر مشتری با موفقیت ثبت شد!",
+                        Errortype = "Success"
+                    };
+                    return Json(ModelSender);
+                }
+                else
+                {
+                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "EX115",
+                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                        Errortype = "Error"
+                    };
+                    return Json(ModelSender);
+                }
+            }
+            else
+            {
+                List<ModelErrorReporter> allErrors = new List<ModelErrorReporter>();
+                //foreach (ModelError error in ModelState.Values.)
+                var AllValues = ModelState.Values.ToList();
+                var AllKeys = ModelState.Keys.ToList();
+                int errorsCount = AllValues.Count;
+                for (int i = 0; i < errorsCount; i++)
+                {
+                    if (AllValues[i].Errors.Count > 0)
+                    {
+                        ModelErrorReporter er = new ModelErrorReporter()
+                        {
+                            IdOfProperty = AllKeys[i].Replace("SubmiterStructure.", "SubmiterStructure_"),
+                            ErrorMessage = AllValues[i].Errors[0].ErrorMessage
+                        };
+                        allErrors.Add(er);
+                    }
+                }
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX0012",
+                    Errormessage = $"عدم رعایت استاندارد ها!",
+                    Errortype = "ErrorWithList",
+                    AllErrors = allErrors
+                };
+                return Json(ModelSender);
+            }
+        }
+
+        public ActionResult UpdateReply(ReplySubmiterModel submiterModel)
+        {
+            PDBC db = new PDBC();
+            uint id = 0;
+            if (UInt32.TryParse(submiterModel.CommentId, out id))
+            {
+                List<ExcParameters> parss = new List<ExcParameters>();
+                ExcParameters par = new ExcParameters()
+                {
+                    _KEY = "@RepId",
+                    _VALUE = submiterModel.CommentId
+                };
+                parss.Add(par);
+
+                par = new ExcParameters()
+                {
+                    _KEY = "@Message",
+                    _VALUE = submiterModel.Message
+                };
+                parss.Add(par);
+
+                db.Connect();
+                string result = db.Script("UPDATE [tbl_Product_Reply] SET [Message] = @Message WHERE RepId=@RepId", parss);
+                db.DC();
+                if (UInt32.TryParse(result, out id))
+                {
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "SX106",
+                        Errormessage = $"پاسخ به نظر مشتری با موفقیت ثبت شد!",
+                        Errortype = "Success"
+                    };
+                    return Json(ModelSender);
+                }
+                else
+                {
+                    PPBugReporter rep = new PPBugReporter(BugTypeFrom.SQL, result);
+                    var ModelSender = new ErrorReporterModel
+                    {
+                        ErrorID = "EX115",
+                        Errormessage = $"عدم توانایی در ثبت اطلاعات!",
+                        Errortype = "Error"
+                    };
+                    return Json(ModelSender);
+                }
+            }
+            else
+            {
+                List<ModelErrorReporter> allErrors = new List<ModelErrorReporter>();
+                //foreach (ModelError error in ModelState.Values.)
+                var AllValues = ModelState.Values.ToList();
+                var AllKeys = ModelState.Keys.ToList();
+                int errorsCount = AllValues.Count;
+                for (int i = 0; i < errorsCount; i++)
+                {
+                    if (AllValues[i].Errors.Count > 0)
+                    {
+                        ModelErrorReporter er = new ModelErrorReporter()
+                        {
+                            IdOfProperty = AllKeys[i].Replace("SubmiterStructure.", "SubmiterStructure_"),
+                            ErrorMessage = AllValues[i].Errors[0].ErrorMessage
+                        };
+                        allErrors.Add(er);
+                    }
+                }
+                var ModelSender = new ErrorReporterModel
+                {
+                    ErrorID = "EX0012",
+                    Errormessage = $"عدم رعایت استاندارد ها!",
+                    Errortype = "ErrorWithList",
+                    AllErrors = allErrors
+                };
+                return Json(ModelSender);
+            }
+        }
+
+        public ActionResult ProductComments(string CustomerId = "0")
+        {
+            string Query;
+            if (CustomerId == "0")
+            {
+                Query = "SELECT [C_FirstName]+' '+[C_LastNAme] as name,[id_Customer],[CommentId],[Message],[date],[Title],[C_regDate],[id_MProduct],[VerifyType] FROM [v_CommentsList] where VerifyType='1' OR VerifyType='2' ORDER BY([date])DESC";
+            }
+            else
+            {
+                Query = "SELECT [C_FirstName]+' '+[C_LastNAme] as name,[id_Customer],[CommentId],[Message],[date],[Title],[C_regDate],[id_MProduct],[VerifyType] FROM [v_CommentsList] WHERE id_Customer=@CustomerId AND VerifyType='1' OR VerifyType='2' ORDER BY([date])DESC";
+            }
+            var Comments = new List<CommentModel>();
+            PDBC db = new PDBC();
+            ExcParameters par = new ExcParameters()
+            {
+                _KEY = "@CustomerId",
+                _VALUE = CustomerId
+            };
+            List<ExcParameters> pars = new List<ExcParameters>();
+            pars.Add(par);
+            db.Connect();
+            using (DataTable dt = db.Select(Query, pars))
+            {
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    CommentModel Comment = new CommentModel()
+                    {
+                        ProId = Convert.ToInt32(dt.Rows[i]["id_MProduct"]),
+                        CusromerId = Convert.ToInt32(dt.Rows[i]["id_Customer"]),
+                        ProTitle = dt.Rows[i]["Title"].ToString(),
+                        CustomerName = dt.Rows[i]["name"].ToString(),
+                        ProductCode = "",
+                        C_RegisterDate = DateConvert.DateReturner(dt.Rows[i]["C_regDate"].ToString(), "ShortDate"),
+                        CommentDate = DateConvert.DateReturner(dt.Rows[i]["date"].ToString(), "DateTime"),
+                        Message = dt.Rows[i]["Message"].ToString(),
+                        CommentId = Convert.ToInt32(dt.Rows[i]["CommentId"]),
+                        VerifyType = dt.Rows[i]["VerifyType"].ToString(),
+                    };
+                    Comment.Reply = new List<ReplyModel>();
+                    using (DataTable dtJ = db.Select("SELECT [AdminId],[ad_avatarprofile],[ad_firstname]+' '+[ad_lastname] as AdName,[CommentId],[Message],[RepId],[date] FROM [v_ReplyList] WHERE [CommentId]=" + Comment.CommentId + " order by([date])DESC"))
+
+                    {
+                        for (int j = 0; j < dtJ.Rows.Count; j++)
+                        {
+                            Comment.Reply.Add(new ReplyModel()
+                            {
+                                //= dtJ.Rows[j][""].ToString(),
+                                AdminId = Convert.ToInt32(dtJ.Rows[j]["AdminId"]),
+                                Message = dtJ.Rows[j]["Message"].ToString(),
+                                RepDate = DateConvert.DateReturner(dtJ.Rows[j]["date"].ToString(), "DateTime"),
+                                AdminName = dtJ.Rows[j]["AdName"].ToString(),
+                                AdminPic = dtJ.Rows[j]["ad_avatarprofile"].ToString(),
+                                RepId = Convert.ToInt32(dtJ.Rows[j]["RepId"]),
+                            });
+                        }
+                    }
+                    Comments.Add(Comment);
+                }
+                db.DC();
+
+                var Model = new CommentsListModelView()
+                {
+                    Comments = Comments,
+                    submiterModel = new ReplySubmiterModel()
+                    {
+                        CommentId = "0",
+                        Message = ""
+                    }
+                };
+
+                return View(Model);
+            }
+        }
+
+        public ActionResult CommentsPage()
+        {
+            string Query;
+            
+                Query = "SELECT [C_FirstName]+' '+[C_LastNAme] as name,[id_Customer],[CommentId],[Message],[date],[Title],[C_regDate],[id_MProduct],[VerifyType] FROM [v_CommentsList] ORDER BY([date])DESC";
+            
+            var Comments = new List<CommentModel>();
+            PDBC db = new PDBC();
+            
+            db.Connect();
+            using (DataTable dt = db.Select(Query))
+            {
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    CommentModel Comment = new CommentModel()
+                    {
+                        ProId = Convert.ToInt32(dt.Rows[i]["id_MProduct"]),
+                        CusromerId = Convert.ToInt32(dt.Rows[i]["id_Customer"]),
+                        ProTitle = dt.Rows[i]["Title"].ToString(),
+                        CustomerName = dt.Rows[i]["name"].ToString(),
+                        ProductCode = "",
+                        C_RegisterDate = DateConvert.DateReturner(dt.Rows[i]["C_regDate"].ToString(), "ShortDate"),
+                        CommentDate = DateConvert.DateReturner(dt.Rows[i]["date"].ToString(), "ShortDate"),
+                        Message = dt.Rows[i]["Message"].ToString(),
+                        CommentId = Convert.ToInt32(dt.Rows[i]["CommentId"]),
+                        VerifyType = dt.Rows[i]["VerifyType"].ToString(),
+                    };
+                    Comments.Add(Comment);
+                }
+                db.DC();
+
+                var Model = new CommentsListModelView()
+                {
+                    Comments = Comments,
+                    submiterModel = new ReplySubmiterModel()
+                    {
+                        CommentId = "0",
+                        Message = ""
+                    }
+                };
+
+                return View(Model);
+            }
         }
     }
 }

@@ -9,8 +9,9 @@ namespace BamboPortal_V1._0._0._0.Models.AdministratorProductsModels
 {
     public class ReplySubmiterModel
     {
-        
-        public string ProId { get; set; }
+
+        public string Page { get; set; }
+        public string VerifyId { get; set; }
         [MyMaxLengthAttribute(10)]
         [Required(ErrorMessage = "شناسه نظر مورد نیاز میباشد")]
         public string CommentId { get; set; }

@@ -20,15 +20,18 @@
 
                 <div class="modal-body">
                     <div class="form-group m-form__group row">
-                        @Html.LabelFor(m => m.submiterModel.Message, " پیام :", new { @class = "col-form-label col-lg-12 col-sm-12" })
+                        @*@Html.LabelFor(m => m.submiterModel.Message, " پیام :", new { @class = "col-form-label col-lg-12 col-sm-12" })*@
+                        <label class="col-form-label col-lg-12 col-sm-12">پیام:</label>
                         <div class="col-lg-12 col-md-12 col-sm-12">
 
                             @Html.TextAreaFor(m => m.submiterModel.Message, new { @class = "form-control m-input", @Value = Model.submiterModel.Message, @placeholder = "پیام", @style = "height: 100px; direction: rtl;", @id = "submiterModel_Message-1", @name = "submiterModel.Message" })
                             @Html.ValidationMessageFor(m => m.submiterModel.Message)
                             <span class="m-form__help"></span>
-                            @Html.TextBoxFor(m => m.submiterModel.ProId, new { @class = "form-control m-input", @style = "display:none;", @Value = Model.submiterModel.ProId, @id = "submiterModel_ProId-1", @name = "submiterModel.ProId" })
-
                             @Html.TextBoxFor(m => m.submiterModel.CommentId, new { @class = "form-control m-input", @style = "display:none;", @Value = Model.submiterModel.CommentId, @id = "submiterModel_CommentId-1", @name = "submiterModel.CommentId" })
+
+                            @Html.TextBoxFor(m => m.submiterModel.Page, new { @class = "form-control m-input", @style = "display:none;", @Value = "Comments", @id = "submiterModel_Page", @name = "submiterModel.Page" })
+
+                            @Html.TextBoxFor(m => m.submiterModel.VerifyId, new { @class = "form-control m-input", @style = "display:none;", @Value = "0", @id = "submiterModel_VerifyId", @name = "submiterModel.VerifyId" })
 
                         </div>
 
@@ -58,15 +61,19 @@
                 <div class="modal-body">
                     <div class="form-group m-form__group row">
 
-                        @Html.LabelFor(m => m.submiterModel.Message, " پیام :", new { @class = "col-form-label col-lg-12 col-sm-12" })
+                        @*@Html.LabelFor(m => m.submiterModel.Message, " پیام :", new { @class = "col-form-label col-lg-12 col-sm-12" })*@
+                        <label class="col-form-label col-lg-12 col-sm-12">پیام:</label>
                         <div class="col-lg-12 col-md-12 col-sm-12">
 
                             @Html.TextAreaFor(m => m.submiterModel.Message, new { @class = "form-control m-input", @placeholder = "پیام", @style = "height: 100px; direction: rtl;", @id = "submiterModel_Message-2", @name = "submiterModel.Message" })
                             @Html.ValidationMessageFor(m => m.submiterModel.Message)
                             <span class="m-form__help"></span>
-                            @Html.TextBoxFor(m => m.submiterModel.ProId, new { @class = "form-control m-input", @style = "display:none;", @Value = Model.submiterModel.ProId, @id = "submiterModel_ProId-2", @name = "submiterModel.ProId" })
 
                             @Html.TextBoxFor(m => m.submiterModel.CommentId, new { @class = "form-control m-input", @style = "display:none;", @Value = Model.submiterModel.CommentId, @id = "submiterModel_CommentId-2", @name = "submiterModel.CommentId" })
+
+                            @Html.TextBoxFor(m => m.submiterModel.Page, new { @class = "form-control m-input", @style = "display:none;", @Value = "Comments", @id = "submiterModel_Page-1", @name = "submiterModel.Page" })
+
+                            @Html.TextBoxFor(m => m.submiterModel.VerifyId, new { @class = "form-control m-input", @style = "display:none;", @Value = "0", @id = "submiterModel_VerifyId-2", @name = "submiterModel.VerifyId" })
 
                         </div>
 
@@ -164,6 +171,8 @@
 
                         @foreach (var Com in Model.Comments)
                         {
+
+
                             <table class="custresttable col-12 text-center table table-striped table-hover m-table m-table--head-separator-primary">
                                 <tr>
                                     <td>
@@ -174,7 +183,7 @@
                                     </td>
                                     <td>
                                         <i class="fa fa-calendar-alt"></i>
-                                        تاریخ ثبت: @Com.C_RegisterDate
+                                        تاریخ ثبت نام: @Com.C_RegisterDate
                                     </td>
                                     <td>
                                         <a href="@Url.Action("ViewDetails","AdministratorProducts")?idMPC=@Com.ProId">
@@ -182,19 +191,36 @@
                                             نام محصول: @Com.ProTitle
                                         </a>
                                     </td>
-                                    <td>
-                                        <i class="fa fa-hashtag"></i>
-                                        کد محصول: @Com.ProductCode
-                                    </td>
+
+
+
+                                    @if (Com.VerifyType == "1")
+                                    {
+                                        <td>
+                                            <i class="fa fa-hashtag"></i>
+                                            کد محصول: @Com.ProductCode
+                                        </td>
+                                    }
+                                    else if (Com.VerifyType == "2")
+                                    {
+                                        <td>
+                                            <button class="btn btn-danger btn-sm">
+                                                <i class="fa fa-trash"></i>
+                                                 تائید نشده
+                                            </button>
+
+                                        </td>
+
+                                    }
                                 </tr>
                             </table>
-                            <div class="col-12 pb-4">
+                            <div class="col-12 pb-4 bg-border border-danger">
                                 <div class="m-card-profile__pic col-12" style="margin: 15px auto;padding: 0;">
                                     <div class="row custom-shev-right chat-right">
                                         @*<div class="m-card-profile__pic-wrapper" style="border-radius: 0!important;margin: 0;padding: 3px;height: 70px;width: 70px;">
                                                 <img class="col-12" src="./assets/app/media/img/users/user4.jpg" alt="" style="border-radius: 0!important;padding: 0;">
                                             </div>*@
-                                        <div style="text-align: right;padding-left: 0;" class="col-lg-11 respr0">
+                                        <div style="text-align: right;padding-left: 0;" class="col-lg-11 respr0 ">
                                             <span class="nmp" style="margin-right: 15px;">
                                                 <i class="fa fa-user"></i>
                                                 @Com.CustomerName
@@ -251,6 +277,9 @@
                                     </div>
                                 }
                             </div>
+
+
+
 
 
                         }
@@ -350,8 +379,8 @@
                 });
             });
         }
-        //{END}For administrator AddReply
-        //=================================================================================================
+            //{END}For administrator AddReply
+            //=================================================================================================
 
     </script>
 }

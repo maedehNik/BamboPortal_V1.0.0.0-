@@ -17,5 +17,6 @@ namespace BamboPortal_V1._0._0._0.Models.AdministratorProductsModels
         public string C_RegisterDate { get; set; }
         public string ProductCode { get; set; }
         public List<ReplyModel> Reply { get; set; }
+        public string VerifyType { get; set; }
     }
 }
